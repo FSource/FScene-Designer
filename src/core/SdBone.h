@@ -5,6 +5,24 @@
 #include <vector>
 
 #include "math/FsMatrix4.h"
+class SdBoneAttribute
+{
+	public:
+		SdBoneAttribute()
+			:name(""),tx(0.0f),ty(0.0f),
+			angle(0.0f),sx(1.0f),sy(1.0f),
+			flipX(false),flipY(false)
+	{
+	}
+
+	public:
+		std::string name;
+		float tx,ty;
+		float angle;
+		float sx,sy;
+		bool flipX,flipY;
+
+};
 
 class SdBone 
 {
@@ -37,17 +55,11 @@ class SdBone
 		void insertFrame(int pos);
 		void removeFrame(int pos);
 
-
 	private:
-		std::string m_name;
-
+		SdAnimation* m_animation;
 		SdBone* m_parent;
 		std::vector<SdBone*> m_children;
 
-		float m_tx,m_ty;
-		float m_angle;
-		float m_sx,sy;
-		bool m_flipX,m_flipY;
 
 		Matrix4 m_localMatrix;
 		Matrix4 m_worldMatrix;
