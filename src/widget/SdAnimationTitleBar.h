@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include "ui_AnimationTitleBar.h"
 
 class SdAnimationTitleBar:public QWidget 
 {
@@ -13,16 +14,20 @@ class SdAnimationTitleBar:public QWidget
 		~SdAnimationTitleBar();
 
 	public slots:
-		void onToggle();
+        void onToggle();
+
 
 	protected:
 		void initWidget();
-		void initLayout();
+        void connectSignal();
 
 	private:
-		bool m_toggle;
-		QPushButton* m_expand;
-		QLabel* m_lable;
+
+		int m_preHeight;
+        bool m_toggle;
+        Ui_AnimationTitleBar* m_ui;
+
+
 };
 
 

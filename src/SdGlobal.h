@@ -3,6 +3,7 @@
 
 class SdProject;
 class SdMsgCenter;
+class SdMainWindow;
 
 class SdGlobal 
 {
@@ -17,9 +18,13 @@ class SdGlobal
 		static SdMsgCenter* getMsgCenter();
 		static void setMsgCenter(SdMsgCenter* msg_center);
 
+		static void setMainWindow(SdMainWindow* win);
+		static SdMainWindow* getMainWindow();
+
 	private:
 		static SdProject* m_project;
 		static SdMsgCenter* m_msgCenter;
+		static SdMainWindow* m_mainWindow;
 };
 
 #endif /*_SD_GLOBAL_H_*/

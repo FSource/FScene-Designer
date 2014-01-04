@@ -22,7 +22,8 @@ SOURCES += \
     src/widget/SdEditViewWidget.cc \
     src/widget/SdProjectExploreWidget.cc \
     src/widget/SdResourceExploreWidget.cc \
-    src/widget/SdAnimationTitleBar.cc
+    src/widget/SdAnimationTitleBar.cc \
+    src/widget/SdAnimationWidget.cc
 
 HEADERS  += \
     src/SdMsgCenter.h \
@@ -30,7 +31,7 @@ HEADERS  += \
     src/widget/SdPropertyWidget.h \
     src/widget/SdMainWindow.h \
     src/widget/SdEditViewWidget.h \
-    src/widget/SdAnimaionWidget.h \
+    src/widget/SdAnimationWidget.h \
     src/widget/SdProjectExploreWidget.h \
     src/widget/SdResourceExploreWidget.h \
     src/SdMacros.h \
@@ -56,9 +57,11 @@ win32 {
 
 FORMS += \
     resource/ui/input_text.ui \
-    resource/ui/ResourcePreView.ui
+    resource/ui/ResourcePreView.ui \
+    resource/ui/ResourcePreView.ui \
+    resource/ui/AnimationTitleBar.ui
 
 RESOURCES += \
-    resource/qrc/image.qrc
+    resource/qrc/image.qrc \
 
 

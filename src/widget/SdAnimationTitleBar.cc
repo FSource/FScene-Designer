@@ -1,48 +1,95 @@
+#include <QtGlobal>
+#include <QPropertyAnimation>
 #include <QHBoxLayout>
 #include <QPixmap>
+#include <QDockWidget>
+#include "widget/SdMainWindow.h"
 #include "widget/SdAnimationTitleBar.h"
+#include "SdGlobal.h"
+
 
 SdAnimationTitleBar::SdAnimationTitleBar()
 {
 
-	m_toggle=false;
+    m_preHeight=-1;
+	m_toggle=true;
 	initWidget();
-	initLayout();
+    connectSignal();
 }
-
-
-void SdAnimationTitleBar::initWidget()
-{
-	/* expand button */
-	m_expand=new QPushButton();
-	m_expand->setIcon(QIcon(":images/icon/IDI_EXPAND"));
-	m_expand->setFlat(true);
-	m_expand->setFixedSize(QSize(16,16));
-
-	/* Animation Label */
-    m_lable=new QLabel("Animation");
-}
-
-
-
-void SdAnimationTitleBar::initLayout()
-{
-
-	QHBoxLayout* h_layout=new QHBoxLayout;
-	h_layout->setContentsMargins(0,0,0,0);
-
-	h_layout->addSpacing(10);
-	h_layout->addWidget(m_expand,0,Qt::AlignLeft);
-    h_layout->addWidget(m_lable,0,Qt::AlignLeft);
-
-	setLayout(h_layout);
-}
-
-
-
 
 
 SdAnimationTitleBar::~SdAnimationTitleBar()
 {
 
 }
+
+
+void SdAnimationTitleBar::initWidget()
+{
+    QWidget* widget=new QWidget();
+    m_ui=new Ui_AnimationTitleBar;
+    m_ui->setupUi(widget);
+
+    QHBoxLayout* h_layout=new QHBoxLayout();
+    h_layout->addWidget(widget,1,Qt::AlignLeft );
+    h_layout->setContentsMargins(10,0,0,5);
+    setLayout(h_layout);
+
+}
+
+
+
+
+void SdAnimationTitleBar::connectSignal()
+{
+    connect(m_ui->m_expand,SIGNAL(clicked()),this,SLOT(onToggle()));
+}
+
+
+void SdAnimationTitleBar::onToggle()
+{
+
+	QDockWidget* dock=SdGlobal::getMainWindow()->getAnimationDockWidget();
+	if(!m_toggle)
+	{
+        dock->setFixedHeight(QWIDGETSIZE_MAX);
+		if(m_preHeight!=-1)
+		{
+			dock->resize(dock->size().width(),m_preHeight);
+		}
+        m_ui->m_expand->setIcon(QIcon(":images/icon/down.png"));
+
+
+	}
+	else 
+	{
+        m_preHeight=dock->size().height();
+        //qDebug("m_preHeight=%d",m_preHeight);
+
+		QSize rect=size();
+
+        /*
+        QPropertyAnimation*  animation=new QPropertyAnimation(dock,"maximumHeight");
+        animation->setDuration(250);
+		animation->setStartValue(m_preHeight);
+		animation->setEndValue(rect.height());
+        animation->start();
+        */
+
+        dock->setFixedHeight(rect.height());
+
+        m_ui->m_expand->setIcon(QIcon(":images/icon/up.png"));
+	}
+	m_toggle=!m_toggle;
+}
+
+
+
+
+
+
+
+
+
+
+

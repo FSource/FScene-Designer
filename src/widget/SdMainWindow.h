@@ -25,10 +25,19 @@ class SdMainWindow:public QMainWindow
 
 	public:
 		SdEditViewWidget* getEditViewWidget()  {return m_editViewWidget;}
+
 		SdAnimationWidget* getAnimationWidget(){return m_animationWidget;}
+		QDockWidget* getAnimationDockWidget(){return m_animationDockWidget;}
+
 		SdPropertyWidget* getPropertyWidget()  {return m_propertyWidget;}
+
 		SdProjectExploreWidget* getProjectExploreWidget(){return m_projectExploreWidget;}
+		QDockWidget* getProjectExploreDockWidget(){return m_projectExploreDockWidget;}
+
 		SdResourceExploreWidget* getResourceExploreWidget(){return m_resourceExploreWidget;}
+		QDockWidget* getResourceExploreDockWidget(){return m_resourceExploreDockWidget;}
+
+
 
 	protected:
 		void initWidget();
@@ -72,7 +81,6 @@ class SdMainWindow:public QMainWindow
 		QMenu* mn_animation;
 		QMenu* mn_setting;
 		QMenu* mn_help;
-
 };
 
 

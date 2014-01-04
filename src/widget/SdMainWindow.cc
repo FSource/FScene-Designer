@@ -103,11 +103,11 @@ void SdMainWindow::initLayout()
 	setCentralWidget(m_editViewWidget);
 
 	/* Animation */
-	m_animationDockWidget->setWidget(m_animationWidget);
+    m_animationDockWidget->setTitleBarWidget(new SdAnimationTitleBar());
+    m_animationDockWidget->setWidget(m_animationWidget);
+
     m_animationDockWidget->setAllowedAreas(Qt::BottomDockWidgetArea);
     m_animationDockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);
-    m_animationDockWidget->setTitleBarWidget(new SdAnimationTitleBar());
-	m_animationDockWidget->setFixedHeight(20);
     addDockWidget(Qt::BottomDockWidgetArea,m_animationDockWidget);
 
 
@@ -125,7 +125,6 @@ void SdMainWindow::initLayout()
 
 	/* tabifyDockWidget */
 	tabifyDockWidget(m_projectExploreDockWidget,m_resourceExploreDockWidget);
-
 
 }
 
