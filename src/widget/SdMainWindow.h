@@ -5,195 +5,78 @@
 #include <QMainWindow>
 #include <QDockWidget>
 #include <QToolBar>
+#include <QMenu>
+#include <QMenuBar>
+#include <QAction>
 
-class SdViewEditWidget;
+class SdEditViewWidget;
+class SdAnimationWidget;
+class SdPropertyWidget;
+
 class SdProjectExploreWidget;
+class SdResourceExploreWidget;
 
-class SdMainWindow :public QMainWindow
+class SdMainWindow:public QMainWindow
 {
-	Q_OBJECT 
+	Q_OBJECT
 	public:
-		static SdMainWindow* create();
+		SdMainWindow();
+		~SdMainWindow();
 
-    public:
-        SdMainWindow();
-        ~SdMainWindow();
+	public:
+		SdEditViewWidget* getEditViewWidget()  {return m_editViewWidget;}
+		SdAnimationWidget* getAnimationWidget(){return m_animationWidget;}
+		SdPropertyWidget* getPropertyWidget()  {return m_propertyWidget;}
+		SdProjectExploreWidget* getProjectExploreWidget(){return m_projectExploreWidget;}
+		SdResourceExploreWidget* getResourceExploreWidget(){return m_resourceExploreWidget;}
 
-    public:
-        void initWidget();
-        void initMenuBar();
-
-    public slots:
-		/* ----- file ---- */
-        void onOpenProject(){};
-        void onCreatePoject(){};
-        void onSaveProject(){};
-        void onSaveProjectAs(){};
-        void onCloseProject(){};
-
-        void onExportFst(){};
-        void onExportFsk(){};
-        void onExportAll(){};
-        void onQuit(){};
-
-		/* ---- Edit ----- */
-		void onUndo();
-		void onRedo();
-        void onCopy(){};
-        void onPaste(){};
-        void onCut(){};
-        void onDelete(){};
-
-
-		/* ---- view ---- */
-        void onZoomIn(){};
-        void onZoomOut(){};
-        void onResetView(){};
-
-        void onSetBackgroundColor(){};
-        void onShowGrid(){};
-        void onShowCoordnate(){};
-        void onShowBone(){};
-        void onShowBoneText(){};
-        void onShowImage(){};
-
-
-		/* ---- sprite ---- */
-        void onNewSprite(){};
-        void onRenameSprite(){};
-        void onDeleteSprite(){};
-
-        void onNewAnimation(){};
-        void onRenameAnimation(){};
-        void onDeleteAnimation(){};
-
-        void onInsertKeyFrame(){};
-        void onDeleteKeyFrame(){};
-        void onSetFps(){};
-
-        void onNewBone(){};
-        void onRenameBone(){};
-        void onDeleteBone(){};
-
-
-		/* --- widget --- */
-        void onShowWidget(){};
-        void onShowToolBar(){};
-        void onShowResourceWidget(){};
-        void onShowAnimationEditWidget(){};
-        void onShowPropertyEditWidget(){};
-
-		/* --- setting --- */
-        void onProjectSetting(){};
-
-
-		/* ---- about ----*/
-        void onAboutAuthor(){};
-        void onOnlineTutorial(){};
-
-
-
+	protected:
+		void initWidget();
+        void initLayout();
+        void initToolBar();
+		void initMenuBar();
     private:
-        SdViewEditWidget* m_viewEditWidget;
 
+        /* Edit View */
+        SdEditViewWidget*  m_editViewWidget;
+
+        /* Animation */
+        SdAnimationWidget* m_animationWidget;
+        QDockWidget* m_animationDockWidget;
+
+
+        /* Property */
+        SdPropertyWidget*  m_propertyWidget;
+
+        /* ProjectExplore */
+        SdProjectExploreWidget* m_projectExploreWidget;
 		QDockWidget* m_projectExploreDockWidget;
-		SdProjectExploreWidget* m_projectExploreWidget;
 
-        /* menu filed */
-	private:
-		QMenuBar* m_menuBar;
 
-		/* file */ 
+        /* ResourceExplore  */
+		SdResourceExploreWidget* m_resourceExploreWidget;
+		QDockWidget* m_resourceExploreDockWidget;
+
+		/* ToolBar */
+		QToolBar* m_toolbar;
+		QAction* mt_undo;
+		QAction* mt_redo;
+		QAction* mt_zoomIn;
+		QAction* mt_zoomOut;
+
+		/* MenuBar*/
+		QMenuBar* m_menubar;
 		QMenu* mn_file;
-		QAction* ms_openProject;
-		QAction* ms_createProject;
-		QAction* ms_saveProject;
-		QAction* ms_closeProject;
-		QAction* ms_exportFst;
-		QAction* ms_exportFsk;
-		QAction* ms_exportAll;
-		QAction* ms_quit;
-
-		/* edit */
 		QMenu* mn_edit;
-		QAction* ms_undo;
-		QAction* ms_redo;
-		QAction* ms_copy;
-		QAction* ms_paste;
-		QAction* ms_cut;
-		QAction* ms_delete;
-
-		/* view */
 		QMenu* mn_view;
-		QAction* ms_zoomIn;
-		QAction* ms_zoomOut;
-		QAction* ms_resetView;
-		QAction* ms_setBackgroundColor;
-		QAction* ms_showGrid;
-		QAction* ms_showCoordnate;
-		QAction* ms_showBone;
-		QAction* ms_showBoneText;
-		QAction* ms_showImage;
-
-
-		/* Sprite */
-		QMenu* mn_sprite;
-		QAction* ms_newSprite;
-		QAction* ms_renameSprite;
-		QAction* ms_deleteSprite;
-		QAction* ms_newAnimation;
-		QAction* ms_renameAnimation;
-		QAction* ms_deleteAnimation;
-		QAction* ms_insertKeyFrame;
-		QAction* ms_deleteKeyFrame;
-		QAction* ms_setFps;
-		QAction* ms_newBone;
-		QAction* ms_renameBone;
-		QAction* ms_deleteBone;
-
-		/* widget */
-		QMenu* mn_widget;
-		QAction* ms_toolBar;
-		QAction* ms_resourceWidget;
-		QAction* ms_animationEditWidget;
-		QAction* ms_propertyEditWidget;
-
-
-		/* setting */
+		QMenu* mn_animation;
 		QMenu* mn_setting;
-		QAction* ms_projectSetting;
+		QMenu* mn_help;
 
-
-		/* about */
-		QMenu* mn_about;
-		QAction* ms_aboutAuthor;
-		QAction* ms_onlineTutorial;
 };
+
+
+
 #endif /*_SD_MAIN_WINDOW_H_*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

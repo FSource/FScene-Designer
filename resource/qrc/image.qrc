@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>icon/IDI_REDO.png</file>
+        <file>icon/IDI_UNDO.png</file>
+        <file>icon/IDI_ZOOM_IN.png</file>
+        <file>icon/IDI_ZOOM_OUT.png</file>
+        <file>icon/IDI_EXPAND.png</file>
+    </qresource>
+</RCC>
