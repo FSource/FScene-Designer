@@ -1,111 +1,59 @@
-#include <assert.h>
 #include "SdGlobal.h"
 #include "SdMsgCenter.h"
 
-
-#include "core/SdProject.h"
-#include "core/SdSprite.h"
-#include "core/SdAnimation.h"
-
-
+SdProject* SdGlobal::m_project=NULL;
 SdMsgCenter* SdGlobal::m_msgCenter=NULL;
-SdProject* SdGlobal::m_curProject=NULL;
+SdMainWindow* SdGlobal::m_mainWindow=NULL;
+
+void SdGlobal::moduleInit()
+{
+	m_project=NULL;
+	m_msgCenter=new SdMsgCenter;
+	m_mainWindow=NULL;
+}
+
+
+void SdGlobal::moduleExit()
+{
+}
+
+
+
+SdProject* SdGlobal::getProject()
+{
+	return m_project;
+}
+
+void SdGlobal::setProject(SdProject* proj)
+{
+	m_project=proj;
+}
+
 
 SdMsgCenter* SdGlobal::getMsgCenter()
 {
 	return m_msgCenter;
 }
 
-
-SdProject* SdGlobal::getCurProject()
+void SdGlobal::setMsgCenter(SdMsgCenter* center)
 {
-	return m_curProject;
+	m_msgCenter=center;
 }
 
-
-
-void SdGlobal::setCurProject(SdProject* p)
+void SdGlobal::setMainWindow(SdMainWindow* win)
 {
-	if(m_curProject)
-	{
-		delete m_curProject;
-	}
-	m_curProject=p;
+	m_mainWindow=win;
 }
 
-SdSprite* SdGlobal::getCurSprite()
+SdMainWindow* SdGlobal::getMainWindow()
 {
-	SdProject* proj=SdGlobal::getCurProject();
-	assert(proj);
-	return proj->getCurSprite();
-}
-
-
-void SdGlobal::setCurSprite(SdSprite* sprite)
-{
-	SdProject* proj=SdGlobal::getCurProject();
-	assert(proj);
-    proj->setCurSprite(sprite);
-}
-
-SdAnimation* SdGlobal::getCurAnimation()
-{
-	SdSprite* sprite=SdGlobal::getCurSprite();
-	assert(sprite);
-	return sprite->getCurAnimation();
-}
-
-void SdGlobal::setCurAnimation(SdAnimation* anim)
-{
-	SdSprite* sprite=SdGlobal::getCurSprite();
-	assert(anim->getSprite()==sprite);
-
-	sprite->setCurAnimation(anim);
-}
-
-
-bool SdGlobal::canUndo()
-{
-	SdProject* proj=SdGlobal::getCurProject();
-	if(proj)
-	{
-		return proj->canUndo();
-	}
-	return false;
-
-}
-
-bool SdGlobal::canRedo()
-{
-	SdProject* proj=SdGlobal::getCurProject();
-	if(proj)
-	{
-		return proj->canRedo();
-	}
-	return false;
+	return m_mainWindow;
 }
 
 
 
 
 
-void SdGlobal::moduleInit()
-{
-    m_msgCenter=new SdMsgCenter();
-	m_curProject=NULL;
-}
-
-void SdGlobal::moduleExit()
-{
-	delete m_msgCenter;
-	if(m_curProject)
-	{
-		delete m_curProject;
-	}
-
-	m_msgCenter=NULL;
-	m_curProject=NULL;
-}
 
 
 

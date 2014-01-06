@@ -21,10 +21,12 @@ const char* SdAnimation::className()
 	return "SdAnimation";
 }
 
+
 void SdAnimation::setName(const char* name)
 {
 	m_attr.name=std::string(name);
 }
+
 
 std::string SdAnimation::getName()
 {

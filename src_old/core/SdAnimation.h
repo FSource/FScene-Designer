@@ -50,8 +50,17 @@ class SdAnimation :public SdIdentify
 
 	private:
 		std::vector<SdBone*> m_bones;
+
 		SdBone* m_root;
-		SdSprite* m_sprite;
+        SdBone* m_curBone;
+        SdSprite* m_sprite;
+
+
+
+
+
+
+
 
 		/* attribute */
 		SdAnimationAttribute m_attr;
