@@ -1,7 +1,11 @@
 <RCC>
     <qresource prefix="/images">
         <file>icon/add.png</file>
+        <file>icon/collapse.png</file>
         <file>icon/down.png</file>
+        <file>icon/expand.png</file>
+        <file>icon/eye_hide.png</file>
+        <file>icon/eye_show.png</file>
         <file>icon/IDI_REDO.png</file>
         <file>icon/IDI_UNDO.png</file>
         <file>icon/IDI_ZOOM_IN.png</file>
@@ -12,6 +16,8 @@
         <file>icon/pre_frame.png</file>
         <file>icon/remove.png</file>
         <file>icon/right_play.png</file>
+        <file>icon/rotate.png</file>
+        <file>icon/scale.png</file>
         <file>icon/stop.png</file>
         <file>icon/toback.png</file>
         <file>icon/toend.png</file>
@@ -20,5 +26,6 @@
         <file>icon/tofront.png</file>
         <file>icon/toup.png</file>
         <file>icon/up.png</file>
+        <file>icon/translate.png</file>
     </qresource>
 </RCC>

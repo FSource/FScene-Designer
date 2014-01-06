@@ -36,14 +36,12 @@ class SdUiTimeLineHeader
 
 		int m_rulerStartValue;
 
-
 		SdUiButton* m_new;
 		SdUiButton* m_delete;
 		SdUiButton* m_toFront;
 		SdUiButton* m_forward;
 		SdUiButton* m_backward;
 		SdUiButton* m_toEnd;
-
 };
 
 

@@ -6,6 +6,8 @@
 
 class SdUiTimeLineHeader;
 class SdTimeLineBodyUi;
+class SdPainterTimeLine;
+class SdAnimation;
 
 class SdAnimationWidget:public QWidget
 {
@@ -19,10 +21,17 @@ class SdAnimationWidget:public QWidget
 		void initWidget();
 		void initLayout();
 
+		void initTest();
+
 	private:
         SdUiTimeLineHeader* m_header;
 		SdTimeLineBodyUi* m_body;
+		SdPainterTimeLine* m_painterTimeLine;
+
+		/* used for test */
+		SdAnimation* m_animation;
 };
+
 
 
 #endif /*_SD_ANIMATION_WIDGET_H_*/

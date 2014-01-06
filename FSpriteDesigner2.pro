@@ -28,7 +28,8 @@ SOURCES += \
     src/timeline/SdSubTimeLineSet.cc \
     src/core/SdAnimation.cc \
     src/widget/SdUiTimeLineHeader.cc \
-    src/widget/SdUiButton.cc
+    src/widget/SdUiButton.cc \
+    src/widget/SdPainterTimeLine.cc
 
 HEADERS  += \
     src/SdMsgCenter.h \
@@ -48,7 +49,9 @@ HEADERS  += \
     src/core/SdAnimation.h \
     src/widget/SdUiTimeLineHeader.h \
     src/widget/SdUiButton.h \
-    src/SdConfig.h
+    src/SdConfig.h \
+    src/widget/SdUiTimeLineHeader.h \
+    src/widget/SdPainterTimeLine.h
 
 
 INCLUDEPATH +=faeris/lib/libfaeris/src \

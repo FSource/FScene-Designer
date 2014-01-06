@@ -1,4 +1,5 @@
 #include "core/SdAnimation.h"
+#include "timeline/SdTimeLine.h"
 
 SdAnimation::SdAnimation()
 {
@@ -31,6 +32,24 @@ SdTimeLine* SdAnimation::getTimeLine(int index)
 {
 	return m_timelines[index];
 }
+
+SdTimeLine* SdAnimation::createTimeLine()
+{
+	return createTimeLine("timeline1");
+}
+
+SdTimeLine* SdAnimation::createTimeLine(const char* name)
+{
+	SdTimeLine* timeline=new SdTimeLine;
+	timeline->setName(name);
+	m_timelines.push_back(timeline);
+	return timeline;
+}
+
+
+
+
+
 
 
 

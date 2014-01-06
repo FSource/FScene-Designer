@@ -19,6 +19,9 @@ class SdAnimation
 		int getTimeLineNu();
 		SdTimeLine* getTimeLine(int index);
 
+		SdTimeLine* createTimeLine();
+		SdTimeLine* createTimeLine(const char* name);
+
 	private:
 		std::string m_name;
 		std::vector<SdTimeLine*> m_timelines;

@@ -19,6 +19,7 @@ void SdGlobal::moduleExit()
 
 
 
+
 SdProject* SdGlobal::getProject()
 {
 	return m_project;
