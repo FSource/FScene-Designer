@@ -23,7 +23,12 @@ SOURCES += \
     src/widget/SdProjectExploreWidget.cc \
     src/widget/SdResourceExploreWidget.cc \
     src/widget/SdAnimationTitleBar.cc \
-    src/widget/SdAnimationWidget.cc
+    src/widget/SdAnimationWidget.cc \
+    src/timeline/SdTimeLine.cc \
+    src/timeline/SdSubTimeLineSet.cc \
+    src/core/SdAnimation.cc \
+    src/widget/SdUiTimeLineHeader.cc \
+    src/widget/SdUiButton.cc
 
 HEADERS  += \
     src/SdMsgCenter.h \
@@ -35,7 +40,15 @@ HEADERS  += \
     src/widget/SdProjectExploreWidget.h \
     src/widget/SdResourceExploreWidget.h \
     src/SdMacros.h \
-    src/widget/SdAnimationTitleBar.h
+    src/widget/SdAnimationTitleBar.h \
+    src/timeline/SdTimeLine.h \
+    src/timeline/SdSubTimeLineSet.h \
+    src/timeline/SdSubTimeLine.h \
+    src/timeline/SdKeyFrame.h \
+    src/core/SdAnimation.h \
+    src/widget/SdUiTimeLineHeader.h \
+    src/widget/SdUiButton.h \
+    src/SdConfig.h
 
 
 INCLUDEPATH +=faeris/lib/libfaeris/src \
@@ -59,7 +72,8 @@ FORMS += \
     resource/ui/input_text.ui \
     resource/ui/ResourcePreView.ui \
     resource/ui/ResourcePreView.ui \
-    resource/ui/AnimationTitleBar.ui
+    resource/ui/AnimationTitleBar.ui \
+    resource/ui/AnimationControl.ui
 
 RESOURCES += \
     resource/qrc/image.qrc \

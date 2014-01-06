@@ -1,19 +1,24 @@
 <RCC>
     <qresource prefix="/images">
+        <file>icon/add.png</file>
+        <file>icon/down.png</file>
         <file>icon/IDI_REDO.png</file>
         <file>icon/IDI_UNDO.png</file>
         <file>icon/IDI_ZOOM_IN.png</file>
         <file>icon/IDI_ZOOM_OUT.png</file>
-        <file>icon/IDI_EXPAND.png</file>
-        <file>icon/IDI_COLLOPE.png</file>
-        <file>icon/down.png</file>
         <file>icon/left_play.png</file>
+        <file>icon/new.png</file>
         <file>icon/next_frame.png</file>
         <file>icon/pre_frame.png</file>
+        <file>icon/remove.png</file>
         <file>icon/right_play.png</file>
         <file>icon/stop.png</file>
+        <file>icon/toback.png</file>
+        <file>icon/toend.png</file>
         <file>icon/toend_frame.png</file>
         <file>icon/tofirst_frame.png</file>
+        <file>icon/tofront.png</file>
+        <file>icon/toup.png</file>
         <file>icon/up.png</file>
     </qresource>
 </RCC>

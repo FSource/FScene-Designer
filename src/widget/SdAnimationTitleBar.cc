@@ -26,13 +26,20 @@ SdAnimationTitleBar::~SdAnimationTitleBar()
 
 void SdAnimationTitleBar::initWidget()
 {
+	/* tile bar */
     QWidget* widget=new QWidget();
     m_ui=new Ui_AnimationTitleBar;
     m_ui->setupUi(widget);
 
+
+	/* layout */
+
     QHBoxLayout* h_layout=new QHBoxLayout();
     h_layout->addWidget(widget,1,Qt::AlignLeft );
+
     h_layout->setContentsMargins(10,0,0,5);
+
+
     setLayout(h_layout);
 
 }
