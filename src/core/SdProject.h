@@ -10,39 +10,47 @@ class SdIconMgr;
 class SdProject 
 {
 	public:
-		static SdProject* create(const std::string& dir,const std::string& name);
+		static SdProject* create(const std::string& filename);
 
 	public:
-		SdProject(const std::string& dir,const std::string& name);
+		SdProject(const std::string& filename);
 		~SdProject();
 
 	public:
 		std::string getName();
 
-		SdSprite* createSprite(const char* name);
+		SdSprite* createSprite(const std::string& name);
 		void removeSprite(SdSprite* sprite);
+		void addSprite(int pos,SdSprite* sprite);
 
 		int getSpriteNu();
-		bool hasSpriteWithName(const char* name);
+		SdSprite* getSprite(int index);
+
+		bool hasSpriteWithName(const std::string& name);
 		bool hasSprite(SdSprite* sprite);
 
-		int spritePos(SdSprite* sprite);
+		int getSpritePos(SdSprite* sprite);
 
 		SdSprite* getCurSprite();
 		void setCurSprite(SdSprite* sprite);
 
+		/* resource dir */
+		void setResourceDir(const std::string& dir);
+
 
 	public:
-
 		bool canRedo();
 		bool canUndo();
+		bool Redo();
+		bool Undo();
+
+	protected:
+		void init(const std::string& name);
 
 	private:
 		std::vector<SdSprite*> m_sprites;
 
-		std::string m_projectName;
-		std::string m_projectDir;
-
+		std::string m_projectName
 		std::string m_resourceDir;
 
 		SdHistoryStates* m_historyStates;

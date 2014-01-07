@@ -1,32 +1,35 @@
 #ifndef _SD_TIME_LINE_H_
 #define _SD_TIME_LINE_H_
 
+#include <string>
 #include "SdSubTimeLine.h"
 
 class SdTimeLineUiData;
+
 class SdSubTimeLineSet;
 
+class SdAnimation;
 class SdTimeLine 
 {
 	public:
-		SdTimeLine();
+		SdTimeLine(const std::string& name);
 		~SdTimeLine();
 
 	public:
-		bool getVisible(){return m_visible;}
-		void setVisible(bool v){m_visible=v;}
+		void setName(const std::string& name);
+		std::string getName();
 
-		bool getSelect(){return m_select;}
-		void setSelect(bool v){m_select=v;}
+		bool getVisible();
+		void setVisible(bool v);
 
-		bool getExpand(){return m_expand;}
-		void setExpand(bool expand){m_expand=expand;}
+		bool getSelect();
+		void setSelect(bool v);
+
+		bool getExpand();
+		void setExpand(bool expand);
 
 
-		void setName(const char* name){m_name=name;}
-		std::string getName(){return m_name;}
 
-		SdTimeLineUiData* getUiData(){return m_uiData;}
 
 	private:
 		bool m_visible;
@@ -38,12 +41,9 @@ class SdTimeLine
 		/* Sub Time Line */
 		SdSubTimeLineSet* m_subTimeSet;
 
-		/* Ui Data */
-		SdTimeLineUiData* m_uiData;
-
-
+		/* Animation */
+		SdAnimation* m_animation;
 };
-
 
 
 #endif /*_SD_TIME_LINE_H_*/

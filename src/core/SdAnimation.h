@@ -5,25 +5,44 @@
 #include <vector>
 
 class SdTimeLine;
+class SdSprite;
+
+class SdAnimationAttribute
+{
+	public:
+		std::string name;
+		int playSpeed;
+};
 
 class SdAnimation 
 {
 	public:
-		SdAnimation();
+		SdAnimation(const std::string& name);
 		~SdAnimation();
 
 	public:
-		void setName(std::string name);
+		void setName(const std::string& name);
 		std::string getName();
+
+		SdSprite* getSprite();
+		void setSprite(SdSprite* sprite);
+
+		SdTimeLine* createTimeLine(const std::string& name);
+		void removeTimeLine(SdTimeLine* line);
+		void addTimeLine(int pos,SdTimeLine* line);
+
 
 		int getTimeLineNu();
 		SdTimeLine* getTimeLine(int index);
 
-		SdTimeLine* createTimeLine();
-		SdTimeLine* createTimeLine(const char* name);
+		bool hasTimeLineWithName(const std::string& name);
+		bool hasTimeLine(SdTimeLine* line);
+
+		int getTimeLinePos(SdTimeLine* line);
 
 	private:
-		std::string m_name;
+		SdSprite* m_sprite;
+		SdAnimationAttribute m_attr;
 		std::vector<SdTimeLine*> m_timelines;
 };
 
