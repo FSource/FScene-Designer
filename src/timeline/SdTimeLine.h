@@ -30,6 +30,12 @@ class SdTimeLine
 
 
 
+		SdScaleTimeLine* getScaleTimeLine();
+		SdRotateTimeLine* getRotateTimeLine();
+		SdTranslateTimeLine* getTranslateTimeLine();
+		SdColorTimeLine* getColorTimeLine();
+		SdOtherTimeLine* getOtherTimeLine();
+
 
 	private:
 		bool m_visible;
