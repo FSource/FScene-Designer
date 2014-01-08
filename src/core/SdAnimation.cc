@@ -1,5 +1,7 @@
+#include <assert.h>
 #include "core/SdAnimation.h"
-#include "timeline/SdTimeLine.h"
+#include "core/SdTimeLine.h"
+#include "SdConfig.h"
 
 SdAnimation::SdAnimation(const std::string& name)
 {
@@ -22,14 +24,14 @@ SdAnimation::~SdAnimation()
 
 
 
-void SdAnimation::setName(std::string name)
+void SdAnimation::setName(const std::string& name)
 {
-	m_attr.m_name=name;
+    m_attr.name=name;
 }
 
 std::string SdAnimation::getName()
 {
-	return return m_attr.m_name;
+    return m_attr.name;
 }
 
 SdSprite* SdAnimation::getSprite()
@@ -39,7 +41,7 @@ SdSprite* SdAnimation::getSprite()
 
 void SdAnimation::setSprite(SdSprite* sprite)
 {
-	return m_sprite=sprite;
+    m_sprite=sprite;
 }
 
 SdTimeLine* SdAnimation::createTimeLine(const std::string& name)
@@ -62,6 +64,11 @@ void SdAnimation::addTimeLine(int pos,SdTimeLine* line)
 	m_timelines.insert(m_timelines.begin()+pos,line);
 }
 
+void SdAnimation::addTimeLine(SdTimeLine* line)
+{
+	m_timelines.push_back(line);
+}
+
 int SdAnimation::getTimeLineNu()
 {
 	return m_timelines.size();
@@ -73,7 +80,7 @@ SdTimeLine* SdAnimation::getTimeLine(int index)
 }
 
 
-bool SdTimeLine::hasTimeLineWithName(const std::string& name)
+bool SdAnimation::hasTimeLineWithName(const std::string& name)
 {
 	int size=m_timelines.size();
 	for(int i=0;i<size;i++)
@@ -86,7 +93,7 @@ bool SdTimeLine::hasTimeLineWithName(const std::string& name)
 	return false;
 }
 
-bool SdTimeLine::hasTimeLine(SdTimeLine* line)
+bool SdAnimation::hasTimeLine(SdTimeLine* line)
 {
 	int pos=getTimeLinePos(line);
 	if(pos==-1)
@@ -96,7 +103,7 @@ bool SdTimeLine::hasTimeLine(SdTimeLine* line)
 	return true;
 }
 
-int SdTimeLine::getTimeLinePos(SdTimeLine* line)
+int SdAnimation::getTimeLinePos(SdTimeLine* line)
 {
 	int size=m_timelines.size();
 	for(int i=0;i<size;i++)
@@ -107,6 +114,16 @@ int SdTimeLine::getTimeLinePos(SdTimeLine* line)
 		}
 	}
 	return -1;
+}
+
+void SdAnimation::setPlaySpeed(int fps)
+{
+	m_attr.playSpeed=fps;
+}
+
+int SdAnimation::getPlaySpeed()
+{
+	return m_attr.playSpeed;
 }
 
 

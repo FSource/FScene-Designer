@@ -24,12 +24,17 @@ SOURCES += \
     src/widget/SdResourceExploreWidget.cc \
     src/widget/SdAnimationTitleBar.cc \
     src/widget/SdAnimationWidget.cc \
-    src/timeline/SdTimeLine.cc \
-    src/timeline/SdSubTimeLineSet.cc \
     src/core/SdAnimation.cc \
     src/widget/SdUiTimeLineHeader.cc \
     src/widget/SdUiButton.cc \
-    src/widget/SdPainterTimeLine.cc
+    src/widget/SdPainterTimeLine.cc \
+    src/io/SdProjectWriter.cc \
+    src/io/SdProjectLoader.cc \
+    src/core/SdTimeLine.cc \
+    src/core/SdSubTimeLineSet.cc \
+    src/core/SdSprite.cc \
+    src/core/SdProject.cc \
+    src/util/SdPathUtil.cc
 
 HEADERS  += \
     src/SdMsgCenter.h \
@@ -42,16 +47,20 @@ HEADERS  += \
     src/widget/SdResourceExploreWidget.h \
     src/SdMacros.h \
     src/widget/SdAnimationTitleBar.h \
-    src/timeline/SdTimeLine.h \
-    src/timeline/SdSubTimeLineSet.h \
-    src/timeline/SdSubTimeLine.h \
-    src/timeline/SdKeyFrame.h \
     src/core/SdAnimation.h \
     src/widget/SdUiTimeLineHeader.h \
     src/widget/SdUiButton.h \
     src/SdConfig.h \
     src/widget/SdUiTimeLineHeader.h \
-    src/widget/SdPainterTimeLine.h
+    src/widget/SdPainterTimeLine.h \
+    src/io/SdProjectWriter.h \
+    src/io/SdProjectLoader.h \
+    src/io/SdFstExport.h \
+    src/io/SdFsbExporter.h \
+    src/core/SdTimeLine.h \
+    src/core/SdSubTimeLineSet.h \
+    src/core/SdSubTimeLine.h \
+    src/util/SdPathUtil.h
 
 
 INCLUDEPATH +=faeris/lib/libfaeris/src \

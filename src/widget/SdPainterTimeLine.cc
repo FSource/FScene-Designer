@@ -1,5 +1,5 @@
 #include <QRect>
-#include "timeline/SdTimeline.h"
+#include "core/SdTimeline.h"
 
 #include "widget/SdPainterTimeLine.h"
 #include "SdConfig.h"

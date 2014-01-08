@@ -1,5 +1,6 @@
 #include <assert.h>
 #include "core/SdSprite.h"
+#include "core/SdAnimation.h"
 
 SdSprite::SdSprite(const std::string& name)
 {
@@ -77,6 +78,13 @@ void SdSprite::addAnimation(int pos,SdAnimation* anim)
 	m_animations.insert(m_animations.begin()+pos,anim);
 	anim->setSprite(this);
 }
+
+void SdSprite::addAnimation(SdAnimation* anim)
+{
+	m_animations.push_back(anim);
+	anim->setSprite(this);
+}
+
 
 
 

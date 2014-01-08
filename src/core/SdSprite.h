@@ -7,6 +7,8 @@
 class SdProject;
 
 
+class SdAnimation;
+class SdProject;
 
 class SdSpriteAttribute 
 {
@@ -34,6 +36,7 @@ class SdSprite
 		SdAnimation* createAnimation(const std::string& name);
 		void removeAnimation(SdAnimation* anim);
 		void addAnimation(int pos,SdAnimation* anim);
+		void addAnimation(SdAnimation* anim);
 
 
 		int getAnimationNu();
@@ -50,7 +53,7 @@ class SdSprite
 	private:
 		SdSpriteAttribute m_attr;
 
-		std::vector<SdAnimation* anim> m_animations;
+        std::vector<SdAnimation*> m_animations;
 
 		SdAnimation* m_curAnimation;
 		SdProject* m_project;

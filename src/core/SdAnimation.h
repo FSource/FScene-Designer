@@ -30,6 +30,7 @@ class SdAnimation
 		SdTimeLine* createTimeLine(const std::string& name);
 		void removeTimeLine(SdTimeLine* line);
 		void addTimeLine(int pos,SdTimeLine* line);
+		void addTimeLine(SdTimeLine* line);
 
 
 		int getTimeLineNu();
@@ -39,6 +40,10 @@ class SdAnimation
 		bool hasTimeLine(SdTimeLine* line);
 
 		int getTimeLinePos(SdTimeLine* line);
+
+		void setPlaySpeed(int fps);
+		int getPlaySpeed();
+
 
 	private:
 		SdSprite* m_sprite;

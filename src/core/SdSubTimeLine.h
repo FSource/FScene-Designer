@@ -2,7 +2,7 @@
 #define _SD_SUB_TIME_LINE_H_
 
 #include <vector>
-#include "timeline/SdKeyFrame.h"
+#include "core/SdKeyFrame.h"
 
 class SdSubTimeLineUiData;
 template < typename TKeyFrame > 
@@ -24,7 +24,7 @@ class SdSubTimeLine
 
         TKeyFrame getKeyFrame(int index)
         {
-            return m_keyframe[index];
+            return m_keyframes[index];
         }
 
 		/* frame */

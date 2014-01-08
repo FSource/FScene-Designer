@@ -1,6 +1,9 @@
 #ifndef _SD_PROJECT_H_
 #define _SD_PROJECT_H_
 
+#include <string>
+#include <vector>
+
 class SdSprite;
 
 class SdHistoryStates;
@@ -22,6 +25,8 @@ class SdProject
 		SdSprite* createSprite(const std::string& name);
 		void removeSprite(SdSprite* sprite);
 		void addSprite(int pos,SdSprite* sprite);
+		void addSprite(SdSprite* sprite);
+
 
 		int getSpriteNu();
 		SdSprite* getSprite(int index);
@@ -36,6 +41,11 @@ class SdProject
 
 		/* resource dir */
 		void setResourceDir(const std::string& dir);
+		std::string getResourceDir();
+
+		SdImageMgr* getImageMgr();
+		SdIconMgr* getIconMgr();
+
 
 
 	public:
@@ -47,11 +57,15 @@ class SdProject
 	protected:
 		void init(const std::string& name);
 
-	private:
-		std::vector<SdSprite*> m_sprites;
+    private:
 
-		std::string m_projectName
-		std::string m_resourceDir;
+        std::vector<SdSprite*> m_sprites;
+
+        SdSprite* m_curSprite;
+
+        std::string m_projectName;
+        std::string m_projectDir;
+        std::string m_resourceDir;
 
 		SdHistoryStates* m_historyStates;
 		SdImageMgr* m_imageMgr;

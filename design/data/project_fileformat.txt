@@ -13,55 +13,58 @@ project:{
 				{
 					name:"run"
 					playSpeed:"20"
-					timeline:{
+					timelines:[
+						{
+						name:"head"
 						scale:{
 							keyFrames:[
-								{ frame:20,value:{ x:1.0 ,y:1.0 } },
-								{ frame:21, value:{ x:2.0 ,y:1.0 } }
+								{ index:20,x:1.0,y:2.0}
+								{ index:21,x:2.0,y:1.0}
 							]
 						},
 
 						translate:{
 							keyFrames:[
-								{ frame:1 ,value:{ x:20 ,y:10 } }
-								{ frame:17, value:{ x:14 ,y:10 } }
+								{ index:1,x:20,y:10  }
+								{ index:17,x:14,y:10}
 							]
 						},
 
 						rotate:{
 							keyFrames:[
-								{ frame:2 ,value:{ angle:20 } }, 
-								{ frame:24, value:{ angle:90 } },
-								{ frame:34, value:{ angle:90 } }
+								{ index:2 angle:20  }, 
+								{ index:24,angle:90 },
+								{ index:34,angle:90 }
 							],
 						}
 						color:{
 							keyFrames:[
-								{ frame:3 ,value:{ red:20 ,green:255 ,blue:255, alpha:255 } },
-								{ frame:23 ,value:{ red:20, green:255 ,blue:255, alpha:255 }
-								}
+								{ index:3 ,red:20 ,green:255 ,blue:255, alpha:255  },
+								{ index:23 ,red:20, green:255 ,blue:255, alpha:255 }
 							]
 						}
 
 						other:{
 							keyFrames:[
-								{ frame:0 ,value:{ anchor:{ x:0.5, y:0.5 }, visible:true, texcoord:{ x0:0 y0:0 x1:1 y1:1 }, image:"animation/boy/run/run01.png" } }
+								{ index:0 ,anchorX:0.5, anchorY:0.5 , visible:true, texCoordX0:0 texCoordY0:0 texCoordX1:1 texCoordY1:1, image:"animation/boy/run/run01.png" } 
 							]
 						},
 					}	
 				}
+					}
+				]
 				{
 					name:"jump"
-					timeline:{
+					timeline:[
 						.....
-					}
+					]
 
 				},
 				{
 					name:"dead"
-					timeline:{
+					timeline:[
 						.....
-					}
+					]
 				}
 			]
 

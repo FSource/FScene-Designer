@@ -6,7 +6,7 @@
 #include "widget/SdUiTimeLineHeader.h"
 #include "widget/SdPainterTimeLine.h"
 #include "core/SdAnimation.h"
-#include "timeline/SdTimeLine.h"
+#include "core/SdTimeLine.h"
 #include "SdConfig.h"
 
 
@@ -32,7 +32,7 @@ void SdAnimationWidget::initWidget()
 void SdAnimationWidget::initTest()
 {
 
-	m_animation=new SdAnimation();
+    m_animation=new SdAnimation("ss");
 
 	m_animation->createTimeLine("Head")->setExpand(true);
 	m_animation->createTimeLine("Body");

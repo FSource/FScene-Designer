@@ -1,7 +1,7 @@
 #ifndef _SD_SUB_TIME_LINE_SET_H_
 #define _SD_SUB_TIME_LINE_SET_H_ 
 
-#include "timeline/SdSubTimeLine.h"
+#include "core/SdSubTimeLine.h"
 
 class SdSubTimeLineSet 
 {

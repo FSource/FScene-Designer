@@ -67,18 +67,18 @@ class SdColorKeyFrame
 		SdColorKeyFrame()
 		{
 			m_index=0;
-			m_colorR=255;
-			m_colorG=255;
-			m_colorB=255;
-			m_colorA=255;
+			m_red=255;
+			m_blue=255;
+			m_green=255;
+			m_alpha=255;
 		}
 	public:
 		int m_index;
 
-		int m_colorR;
-		int m_colorG;
-		int m_colorB;
-		int m_colorA;
+		int m_red;
+		int m_blue;
+		int m_green;
+		int m_alpha;
 };
 
 class SdOtherKeyFrame

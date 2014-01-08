@@ -2,16 +2,17 @@
 #define _SD_PROJECT_LOADER_H_
 
 #include <string>
+#include "support/util/FsDict.h"
+NS_FS_USE
+
+#include "core/SdSubTimeLine.h"
+
 
 class SdProject;
 class SdSprite;
-class SdAnmation;
+class SdAnimation;
+
 class SdTimeLine;
-class SdScaleTimeLine;
-class SdTranslateTimeLine;
-class SdRotateTimeLine;
-class SdOtherTimeLine;
-class SdColorTimeLine;
 
 class SdProjectLoader 
 {
@@ -26,7 +27,7 @@ class SdProjectLoader
 		/*  parse  data */
 		SdProject* parseProject(FsDict* dict);
 		SdSprite* parseSprite(FsDict* dict);
-		SdAnmation* parseAnimation(FsDict* dict);
+        SdAnimation* parseAnimation(FsDict* dict);
 		SdTimeLine* parseTimeLine(FsDict* dict);
 		SdScaleTimeLine* parseScaleTimeLine(FsDict* dict);
 		SdTranslateTimeLine* parseTranslateTimeLine(FsDict* dict);

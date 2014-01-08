@@ -28,13 +28,25 @@ class SdTimeLine
 		bool getExpand();
 		void setExpand(bool expand);
 
+		void setAnimation(SdAnimation* anim);
+		SdAnimation* getAnimation();
+
 
 
 		SdScaleTimeLine* getScaleTimeLine();
+		void setScaleTimeLine(SdScaleTimeLine* line);
+
 		SdRotateTimeLine* getRotateTimeLine();
+		void setRotateTimeLine(SdRotateTimeLine* line);
+
 		SdTranslateTimeLine* getTranslateTimeLine();
+		void setTranslateTimeLine(SdTranslateTimeLine* line);
+
 		SdColorTimeLine* getColorTimeLine();
+		void setColorTimeLine(SdColorTimeLine* line);
+
 		SdOtherTimeLine* getOtherTimeLine();
+		void setOtherTimeLine(SdOtherTimeLine* line);
 
 
 	private:
