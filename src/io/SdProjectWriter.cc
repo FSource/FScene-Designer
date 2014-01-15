@@ -27,7 +27,7 @@ SdProjectWriter::~SdProjectWriter()
 
 bool SdProjectWriter::saveProject(const std::string& filename,SdProject* proj)
 {
-    FsFile* file=SysFile::open(filename.c_str(),FsFile::FS_IO_WRONLY|FsFile::FS_IO_TRUNC);
+    FsFile* file=SysFile::create(filename.c_str(),FsFile::FS_IO_WRONLY|FsFile::FS_IO_TRUNC);
 
 	if(file==NULL)
 	{
