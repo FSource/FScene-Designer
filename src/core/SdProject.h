@@ -4,13 +4,16 @@
 #include <string>
 #include <vector>
 
+#include "core/SdIdentify.h"
+#include "command/SdHistoryStates.h"
+
+
 class SdSprite;
 
-class SdHistoryStates;
 class SdImageMgr;
 class SdIconMgr;
 
-class SdProject 
+class SdProject:public SdIdentify 
 {
 	public:
 		static SdProject* create(const std::string& filename);
@@ -18,6 +21,10 @@ class SdProject
 	public:
 		SdProject(const std::string& filename);
 		~SdProject();
+
+	public:
+		int getClassType();
+		const char* className();
 
 	public:
 		std::string getName();
@@ -51,8 +58,9 @@ class SdProject
 	public:
 		bool canRedo();
 		bool canUndo();
-		bool Redo();
-		bool Undo();
+		SdCommand* redo();
+		SdCommand* undo();
+		void pushCommand(SdCommand* cmd);
 
 	protected:
 		void init(const std::string& name);
@@ -67,10 +75,10 @@ class SdProject
         std::string m_projectDir;
         std::string m_resourceDir;
 
-		SdHistoryStates* m_historyStates;
 		SdImageMgr* m_imageMgr;
 		SdIconMgr* m_iconMgr;
 
+		SdHistoryStates m_historyStates;
 };
 
 #endif /*_SD_PROJECT_H_*/

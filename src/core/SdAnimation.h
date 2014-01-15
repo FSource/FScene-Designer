@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "core/SdIdentify.h"
+
 class SdTimeLine;
 class SdSprite;
 
@@ -14,11 +16,15 @@ class SdAnimationAttribute
 		int playSpeed;
 };
 
-class SdAnimation 
+class SdAnimation :public SdIdentify
 {
 	public:
 		SdAnimation(const std::string& name);
 		~SdAnimation();
+
+	public:
+		int getClassType();
+		const char* className();
 
 	public:
 		void setName(const std::string& name);

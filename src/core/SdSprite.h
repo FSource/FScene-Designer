@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#include "core/SdIdentify.h"
+
 class SdProject;
 
 
@@ -16,11 +18,15 @@ class SdSpriteAttribute
 		std::string name;
 };
 
-class SdSprite 
+class SdSprite :public SdIdentify
 {
 	public:
 		SdSprite(const std::string& name);
 		~SdSprite();
+
+	public:
+		int getClassType();
+		const char* className();
 
 	public:
 		void setAttribute(const SdSpriteAttribute& attr);

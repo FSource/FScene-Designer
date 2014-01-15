@@ -2,6 +2,17 @@
 #include "core/SdSprite.h"
 #include "core/SdAnimation.h"
 
+int SdSprite::getClassType()
+{
+	return  SD_CLASS_SPRITE;
+}
+
+const char* SdSprite::className()
+{
+	return "SdSprite";
+}
+
+
 SdSprite::SdSprite(const std::string& name)
 {
 	m_attr.name=name;

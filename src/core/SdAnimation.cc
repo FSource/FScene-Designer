@@ -3,6 +3,18 @@
 #include "core/SdTimeLine.h"
 #include "SdConfig.h"
 
+
+
+int SdAnimation::getClassType()
+{
+	return SD_CLASS_ANIMATION;
+}
+
+const char* SdAnimation::className()
+{
+	return "SdAnimation";
+}
+
 SdAnimation::SdAnimation(const std::string& name)
 {
 	m_attr.name=name;

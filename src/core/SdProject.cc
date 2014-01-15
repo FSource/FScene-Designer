@@ -7,6 +7,18 @@
 
 
 
+int SdProject::getClassType()
+{
+	return SD_CLASS_PROJECT;
+}
+const char* SdProject::className()
+{
+	return "SdProject";
+}
+
+
+
+
 SdProject::SdProject(const std::string& name)
 {
 	init(name);
@@ -180,15 +192,33 @@ SdIconMgr* SdProject::getIconMgr()
 }
 
 
+bool SdProject::canRedo()
+{
+	return m_historyStates.canRedo();
+}
 
 
+bool SdProject::canUndo()
+{
+	return m_historyStates.canUndo();
+}
 
 
+SdCommand* SdProject::redo()
+{
+	return m_historyStates.redo();
+}
 
 
+SdCommand* SdProject::undo()
+{
+	return m_historyStates.undo();
+}
 
-
-
+void SdProject::pushCommand(SdCommand*  cmd)
+{
+	m_historyStates.pushCommand(cmd);
+}
 
 
 
