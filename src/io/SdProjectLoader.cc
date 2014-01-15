@@ -30,7 +30,7 @@ SdProjectLoader::~SdProjectLoader()
 
 SdProject* SdProjectLoader::loadProject(const std::string& filename)
 {
-    FsFile* file=SysFile::open(filename.c_str());
+    FsFile* file=SysFile::create(filename.c_str());
 	if(file==NULL)
 	{
 		return NULL;
