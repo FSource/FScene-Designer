@@ -13,8 +13,55 @@ class SdSubTimeLine
         ~SdSubTimeLine(){}
 
 	public:
-		void insertKeyFrame(TKeyFrame keyframe);
-		void interpolatedKeyFrame(int frame);
+		void insertKeyFrame(TKeyFrame keyframe)
+		{
+			int size=m_keyframes.size();
+			int insert_pos=0;
+			for(int i=0;i<size;i++)
+			{
+				if(keyframe.m_index==m_keyframes[i].m_index)
+				{
+					m_keyframes[i]=keyframe;
+					return;
+				}
+
+			if(keyframe.m_index<m_keyframes[i].m_index)
+			{
+					insert_pos=i;
+				}
+			}
+			m_keyframes.insert(m_keyframes.begin()+insert_pos,keyframe);
+		}
+
+
+		int frameToKeyFramePos(int index)
+		{
+			int size=m_keyframes.size();
+			for(int i=0;i<size;i++)
+			{
+				if(keyframe.m_index==index)
+				{
+					return i;
+				}
+
+			}
+			return -1;
+		}
+		int frameToNearestPreKeyFramePos(int index)
+		{
+			int size=m_keyframes.size();
+			int pos=-1;
+			for(int i=0;i<size;i++)
+			{
+				if(index<=m_keyframes[i].m_index)
+				{
+					pos=i;
+				}
+
+			}
+			return pos;
+		}
+
 
 		/* key fame */
         int getKeyFrameNu()
@@ -28,9 +75,30 @@ class SdSubTimeLine
         }
 
 		/* frame */
-		int getFrameNu();
-		TKeyFrame getFrame(int index);
-        TKeyFrame getInterpolateFrame(float index);
+		int getFrameNu()
+		{
+			int size=m_keyframes.size();
+			if(size==0)
+			{
+				return 0;
+			}
+
+			return m_keyframes[size-1].m_index;
+		}
+
+		TKeyFrame getNearestPreFrame(int index)
+		{
+			int size=m_keyframes.size();
+			if(size==0)
+			{
+				return TKeyFrame;
+			}
+		}
+
+        TKeyFrame getInterpolateFrame(float index)
+		{
+			return interpolatedKeyFrame(index);
+		}
 
         SdSubTimeLine<TKeyFrame>* clone()
         {
