@@ -7,17 +7,31 @@ SdHistoryStates::SdHistoryStates()
 }
 SdHistoryStates::~SdHistoryStates()
 {
+	for(int i=0;i<m_historyStates.size();i++)
+	{
+		SdCommand* command=m_historyStates.getItem(i);
+		command->backDiscard();
+	}
+	m_historyStates.clear();
 }
 
 void SdHistoryStates::pushCommand(SdCommand* cmd)
 {
 	if(m_curStateIndex<m_historyStates.size()-1)
 	{
+		for(int i=m_curStateIndex+1;i<m_historyStates.size();i++)
+		{
+			SdCommand* command=m_historyStates.getItem(i);
+			command->forwardDiscard();
+		}
 		m_historyStates.dropTail(m_historyStates.size()-1-m_curStateIndex);
 	}
 
 	if(m_historyStates.full())
 	{
+		SdCommand* command=m_historyStates.getItem(0);
+		command->backDiscard();
+
 		m_historyStates.push(cmd);
 	}
 	else 
