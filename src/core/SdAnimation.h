@@ -50,6 +50,11 @@ class SdAnimation :public SdIdentify
 		void setPlaySpeed(int fps);
 		int getPlaySpeed();
 
+		void setAttribute(const SdAnimationAttribute& attr);
+
+		SdAnimationAttribute getAttribute();
+
+
 
 	private:
 		SdSprite* m_sprite;

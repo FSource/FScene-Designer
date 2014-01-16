@@ -138,10 +138,15 @@ int SdAnimation::getPlaySpeed()
 	return m_attr.playSpeed;
 }
 
+void SdAnimation::setAttribute(const SdAnimationAttribute& attr)
+{
+	m_attr=attr;
+}
 
-
-
-
+SdAnimationAttribute SdAnimation::getAttribute()
+{
+	return m_attr;
+}
 
 
 

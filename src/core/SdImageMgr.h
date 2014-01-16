@@ -1,6 +1,8 @@
 #ifndef _SD_IMAGE_MGR_H_
 #define _SD_IMAGE_MGR_H_ 
 
+#include <string>
+
 class SdImage;
 
 class SdImageMgr 

@@ -1,7 +1,7 @@
 #include <string>
 #include "operator/SdOperator.h"
 #include "operator/SdDataOperator.h"
-//#include "operator/SdUiOperator.h"
+#include "operator/SdUiOperator.h"
 
 
 SdDataOperator* SdOperator::m_data=NULL;
@@ -17,7 +17,6 @@ SdDataOperator* SdOperator::data()
 	return SdOperator::m_data;
 }
 
-/*
 SdUiOperator* SdOperator::ui()
 {
 	if(SdOperator::m_ui==NULL)
@@ -26,7 +25,6 @@ SdUiOperator* SdOperator::ui()
 	}
 	return SdOperator::m_ui;
 }
-*/
 
 
 

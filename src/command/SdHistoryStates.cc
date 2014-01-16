@@ -1,4 +1,13 @@
+#include <assert.h>
 #include "command/SdHistoryStates.h"
+
+SdHistoryStates::SdHistoryStates()
+{
+	m_curStateIndex=-1;
+}
+SdHistoryStates::~SdHistoryStates()
+{
+}
 
 void SdHistoryStates::pushCommand(SdCommand* cmd)
 {
@@ -34,7 +43,7 @@ SdCommand* SdHistoryStates::redo()
 	SdCommand* command=m_historyStates.getItem(m_curStateIndex+1);
 	m_curStateIndex++;
 	command->redo();
-	return command;
+    return command;
 }
 
 bool SdHistoryStates::canRedo()
