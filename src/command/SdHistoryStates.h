@@ -15,7 +15,7 @@ class SdHistoryStates
 
 	private:
         SdCircleQueue<SdCommand> m_historyStates;
-        int m_curStateIndex
+        int m_curStateIndex;
 
 };
 
