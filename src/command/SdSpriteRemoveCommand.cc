@@ -9,12 +9,12 @@ SdSpriteRemoveCommand::SdSpriteRemoveCommand(SdProject* proj,SdSprite* sprite)
 {
 	m_proj=proj;
 	m_sprite=sprite;
-    m_pos=m_proj->spritePos(m_sprite);
+	m_pos=m_proj->getSpritePos(m_sprite);
 }
 
 void SdSpriteRemoveCommand::redo()
 {
-    m_proj->removeSprite(m_sprite);
+	m_proj->removeSprite(m_sprite);
 	if(m_proj->getCurSprite()==m_sprite)
 	{
 		m_proj->setCurSprite(NULL);

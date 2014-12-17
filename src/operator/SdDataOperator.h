@@ -1,5 +1,7 @@
 #ifndef _SD_DATA_OPERATOR_H_
 #define _SD_DATA_OPERATOR_H_
+#include <string>
+#include <vector>
 
 class SdProject;
 class SdSprite;

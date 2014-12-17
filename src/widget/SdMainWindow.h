@@ -37,6 +37,11 @@ class SdMainWindow:public QMainWindow
 		SdResourceExploreWidget* getResourceExploreWidget(){return m_resourceExploreWidget;}
 		QDockWidget* getResourceExploreDockWidget(){return m_resourceExploreDockWidget;}
 
+	public slots:
+		void onUndo();
+		void onRedo();
+		void onZoomIn();
+		void onZoomOut();
 
 
 	protected:

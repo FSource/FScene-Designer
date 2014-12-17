@@ -34,7 +34,23 @@ SOURCES += \
     src/core/SdSubTimeLineSet.cc \
     src/core/SdSprite.cc \
     src/core/SdProject.cc \
-    src/util/SdPathUtil.cc
+    src/util/SdPathUtil.cc \
+    src/command/SdSpriteRemoveCommand.cc \
+    src/command/SdSpriteAttrChangeCommand.cc \
+    src/command/SdSpriteAddCommand.cc \
+    src/command/SdHistoryStates.cc \
+    src/command/SdCommand.cc \
+    src/command/SdAnimationRemoveCommand.cc \
+    src/command/SdAnimationAttrChangeCommand.cc \
+    src/command/SdAnimationAddCommand.cc \
+    src/operator/SdUiOperator.cc \
+    src/operator/SdOperator.cc \
+    src/operator/SdDataOperator.cc \
+    src/core/SdIdentify.cc \
+    src/widget/SdInputDialog.cc \
+    src/widget/SdProjectExploreModel.cc \
+    src/core/SdImageMgr.cc \
+    src/core/SdImage.cc
 
 HEADERS  += \
     src/SdMsgCenter.h \
@@ -60,7 +76,23 @@ HEADERS  += \
     src/core/SdTimeLine.h \
     src/core/SdSubTimeLineSet.h \
     src/core/SdSubTimeLine.h \
-    src/util/SdPathUtil.h
+    src/util/SdPathUtil.h \
+    src/command/SdSpriteRemoveCommand.h \
+    src/command/SdSpriteAttrChangeCommand.h \
+    src/command/SdSpriteAddCommand.h \
+    src/command/SdHistoryStates.h \
+    src/command/SdCommand.h \
+    src/command/SdAnimationRemoveCommand.h \
+    src/command/SdAnimationAttrChangeCommand.h \
+    src/command/SdAnimationAddCommand.h \
+    src/operator/SdUiOperator.h \
+    src/operator/SdOperator.h \
+    src/operator/SdIoOperator.h \
+    src/operator/SdDataOperator.h \
+    src/util/SdCircleQueue.h \
+    src/core/SdIdentify.h \
+    src/widget/SdInputDialog.h \
+    src/widget/SdProjectExploreModel.h
 
 
 INCLUDEPATH +=faeris/lib/libfaeris/src \

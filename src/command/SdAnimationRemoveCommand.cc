@@ -4,11 +4,12 @@
 #include "SdMsgCenter.h"
 #include "core/SdProject.h"
 #include "core/SdSprite.h"
+#include "core/SdAnimation.h"
 
 
 SdAnimationRemoveCommand::SdAnimationRemoveCommand(SdSprite* sprite,SdAnimation* anim)
 {
-	m_pos=sprite->animationPos(anim);
+        m_pos=sprite->getAnimationPos(anim);
 	m_sprite=sprite;
 	m_anim=anim;
 }

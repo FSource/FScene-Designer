@@ -5,12 +5,21 @@
 #include "core/SdKeyFrame.h"
 
 class SdSubTimeLineUiData;
+
+
 template < typename TKeyFrame > 
 class SdSubTimeLine 
 {
 	public:
-        SdSubTimeLine(){}
-        ~SdSubTimeLine(){}
+		enum
+		{
+			STATE_FLOAT=0,
+			STATE_NORMAL,
+		};
+
+	public:
+		SdSubTimeLine(){}
+		~SdSubTimeLine(){}
 
 	public:
 		void insertKeyFrame(TKeyFrame keyframe)
@@ -25,8 +34,8 @@ class SdSubTimeLine
 					return;
 				}
 
-			if(keyframe.m_index<m_keyframes[i].m_index)
-			{
+				if(keyframe.m_index<m_keyframes[i].m_index)
+				{
 					insert_pos=i;
 				}
 			}
@@ -47,6 +56,7 @@ class SdSubTimeLine
 			}
 			return -1;
 		}
+
 		int frameToNearestPreKeyFramePos(int index)
 		{
 			int size=m_keyframes.size();
@@ -64,15 +74,15 @@ class SdSubTimeLine
 
 
 		/* key fame */
-        int getKeyFrameNu()
-        {
-            return m_keyframes.size();
-        }
+		int getKeyFrameNu()
+		{
+			return m_keyframes.size();
+		}
 
-        TKeyFrame getKeyFrame(int index)
-        {
-            return m_keyframes[index];
-        }
+		TKeyFrame getKeyFrame(int index)
+		{
+			return m_keyframes[index];
+		}
 
 		/* frame */
 		int getFrameNu()
@@ -95,24 +105,67 @@ class SdSubTimeLine
 			}
 		}
 
-        TKeyFrame getInterpolateFrame(float index)
+		TKeyFrame getInterpolateFrame(float index)
 		{
 			return interpolatedKeyFrame(index);
 		}
 
-        SdSubTimeLine<TKeyFrame>* clone()
-        {
-            SdSubTimeLine<TKeyFrame>*  ret=new SdSubTimeLine<TKeyFrame>;
-            ret->m_keyframes=this->m_keyframes;
-            return ret;
+		SdSubTimeLine<TKeyFrame>* clone()
+		{
+			SdSubTimeLine<TKeyFrame>*  ret=new SdSubTimeLine<TKeyFrame>;
+			ret->m_keyframes=this->m_keyframes;
+			return ret;
+		}
 
-        }
+		void beginFloatKeyFrames(int bframe,int eframe)
+		{
+			m_state=STATE_FLOAT;
+			m_floatKeyframes.clear();
+			m_floatOffset=0;
 
+			std::vector<TKeyFrame> not_float;
+			int size=m_keyframes.size();
+			for(int i=0;i<size;i++)
+			{
+				if (m_keyframes[i].m_index>=bframe && m_keyframes[i].m_index< eframe)
+				{
+					m_floatKeyframes.push_back(m_keyframes[i]);
+				}
+				else 
+				{
+					not_float.push_back(m_keyframes[i]);
+				}
+			}
+			m_keyframes=not_float;
+		}
 
+		void setFloatOffset(int offset)
+		{
+			m_floatOffset=offset;
+		}
+
+		void endFloatKeyFrames()
+		{
+			m_state=STATE_NORMAL;
+			int float_nu=m_floatKeyframes.size();
+			for(int i=0;i<float_nu;i++)
+			{
+				TKeyFrame frame=m_floatKeyframes[i];
+				frame.m_index+=m_floatOffset;
+				insertKeyFrame(frame);
+			}
+			m_floatKeyframes.clear();
+			m_floatOffset=0;
+		}
 
 	private:
+		int m_state;
+
 		std::vector<TKeyFrame> m_keyframes;
+		std::vector<TKeyFrame> m_floatKeyframes;
+		int m_floatOffset;
 };
+
 
 typedef SdSubTimeLine<SdRotateKeyFrame> SdRotateTimeLine;
 typedef SdSubTimeLine<SdTranslateKeyFrame> SdTranslateTimeLine;
@@ -122,6 +175,16 @@ typedef SdSubTimeLine<SdOtherKeyFrame> SdOtherTimeLine;
 
 
 #endif /*_SD_SUB_TIME_LINE_H_*/
+
+
+
+
+
+
+
+
+
+
 
 
 

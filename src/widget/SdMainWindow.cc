@@ -1,4 +1,5 @@
 #include <QLabel>
+#include <QtGlobal>
 #include "SdMacros.h"
 #include "widget/SdMainWindow.h"
 
@@ -7,6 +8,8 @@
 #include "widget/SdProjectExploreWidget.h"
 #include "widget/SdResourceExploreWidget.h"
 #include "widget/SdAnimationTitleBar.h"
+#include "operator/SdOperator.h"
+#include "operator/SdDataOperator.h"
 
 /*
 #include "widget/SdPropertyWidget.h"
@@ -130,6 +133,38 @@ void SdMainWindow::initLayout()
 
 
 
+
+/* slots */
+
+void SdMainWindow::onUndo()
+{
+	if(SdOperator::data()->canUndo())
+    {
+        qDebug("undo");
+		SdOperator::data()->undo();
+	}
+
+}
+
+void SdMainWindow::onRedo()
+{
+	if(SdOperator::data()->canRedo())
+    {
+        qDebug("redo");
+		SdOperator::data()->redo();
+	}
+
+}
+
+void SdMainWindow::onZoomIn()
+{
+
+}
+
+void SdMainWindow::onZoomOut()
+{
+
+}
 
 
 

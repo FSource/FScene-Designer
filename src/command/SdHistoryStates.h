@@ -1,11 +1,14 @@
 #ifndef _SD_HISTORY_STATES_H_
 #define _SD_HISTORY_STATES_H_
 
-#include "command/command.h"
+#include "command/SdCommand.h"
 #include "util/SdCircleQueue.h"
 
 class SdHistoryStates 
 {
+	public:
+		SdHistoryStates();
+		~SdHistoryStates();
 	public:
 		bool canRedo();
 		bool canUndo();
