@@ -1,89 +1,87 @@
 #ifndef _SD_PROJECT_H_
 #define _SD_PROJECT_H_
 
-
-#include <vector>
 #include <string>
+#include <vector>
+
 #include "core/SdIdentify.h"
-#include "util/SdCircleQueue.h"
+#include "command/SdHistoryStates.h"
+
 
 class SdSprite;
-class SdTextureMgr;
-class SdTexture; 
-class SdCommand;
 
-class SdProject:public SdIdentify
+class SdImageMgr;
+class SdIconMgr;
+
+class SdProject:public SdIdentify 
 {
 	public:
-		static SdProject* create(const std::string& dir,const std::string& name);
-	public:
-		SdProject(const std::string& dir,const std::string& name);
-		virtual ~SdProject();
-	public:
-		virtual int getClassType();
-		virtual const char* className();
-
+		static SdProject* create(const std::string& filename);
 
 	public:
-        std::string getName();
+		SdProject(const std::string& filename);
+		~SdProject();
 
+	public:
+		int getClassType();
+		const char* className();
 
-		/* sprite */
-        void addSprite(SdSprite* sprite);
+	public:
+		std::string getName();
+
+		SdSprite* createSprite(const std::string& name);
+		void removeSprite(SdSprite* sprite);
 		void addSprite(int pos,SdSprite* sprite);
+		void addSprite(SdSprite* sprite);
 
-		SdSprite* getSprite(const char* name);
-		SdSprite* getSprite(int index);
+
 		int getSpriteNu();
-		bool hasSpriteWithName(const char* name);
+		SdSprite* getSprite(int index);
+
+		bool hasSpriteWithName(const std::string& name);
 		bool hasSprite(SdSprite* sprite);
 
-		void removeSprite(SdSprite* sprite); /* sprite not delete */
-		void removeSprite(int index); /* sprite will delete */
-
-		int spritePos(SdSprite* sprite);
+		int getSpritePos(SdSprite* sprite);
 
 		SdSprite* getCurSprite();
 		void setCurSprite(SdSprite* sprite);
 
+		/* resource dir */
+		void setResourceDir(const std::string& dir);
+		std::string getResourceDir();
+
+		SdImageMgr* getImageMgr();
+		SdIconMgr* getIconMgr();
 
 
-		/* undo/redo support */
+
 	public:
 		bool canRedo();
 		bool canUndo();
-
 		SdCommand* redo();
 		SdCommand* undo();
-
 		void pushCommand(SdCommand* cmd);
 
+	protected:
+		void init(const std::string& name);
 
-	private:
-		std::vector<SdSprite*> m_sprites;
-		SdSprite* m_curSprite;
+    private:
 
-		SdTextureMgr* m_textureMgr;
-		std::string m_projectName;
-		std::string m_projectDir;
+        std::vector<SdSprite*> m_sprites;
 
+        SdSprite* m_curSprite;
 
-		/* undo/redo  */
-        SdCircleQueue<SdCommand> m_historyStates;
-        int m_curStateIndex;
+        std::string m_projectName;
+        std::string m_projectDir;
+        std::string m_resourceDir;
+
+		SdImageMgr* m_imageMgr;
+		SdIconMgr* m_iconMgr;
+
+		SdHistoryStates m_historyStates;
 };
 
-
 #endif /*_SD_PROJECT_H_*/
-
-
-
-
-
-
-
-
-
 
 
 

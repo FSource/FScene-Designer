@@ -43,6 +43,7 @@ void SdProjectExploreWidget::initWidget()
 
 	QVBoxLayout* vlayout=new QVBoxLayout();
 	vlayout->addWidget(m_projectExploreView);
+	vlayout->setContentsMargins(0,0,0,0);
 	setLayout(vlayout);
 }
 

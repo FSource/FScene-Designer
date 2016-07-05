@@ -5,7 +5,7 @@
 #include "core/SdAnimation.h"
 static inline SdProject* createProject()
 {
-	SdProject* proj=new SdProject("proj/fsdf/","proj-01");
+    SdProject* proj=new SdProject("proj/fsdf/proj-01");
 
 
     for(int i=0;i<10;i++)
@@ -13,15 +13,13 @@ static inline SdProject* createProject()
 		char buf[100];
 		sprintf(buf,"sprite-0%d",i);
 
-		SdSprite* sprite=new SdSprite;
-        sprite->setName(buf);
+        SdSprite* sprite=new SdSprite(buf);
         proj->addSprite(sprite);
 
         for(int j=0;j<20;j++)
         {
             sprintf(buf,"animation-%d-%d",i,j);
-            SdAnimation* anim=new SdAnimation;
-            anim->setName(buf);
+            SdAnimation* anim=new SdAnimation(buf);
             sprite->addAnimation(anim);
         }
 

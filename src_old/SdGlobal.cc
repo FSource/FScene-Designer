@@ -1,111 +1,122 @@
 #include <assert.h>
 #include "SdGlobal.h"
 #include "SdMsgCenter.h"
-
-
 #include "core/SdProject.h"
 #include "core/SdSprite.h"
 #include "core/SdAnimation.h"
 
-
+SdProject* SdGlobal::m_project=NULL;
 SdMsgCenter* SdGlobal::m_msgCenter=NULL;
-SdProject* SdGlobal::m_curProject=NULL;
+SdMainWindow* SdGlobal::m_mainWindow=NULL;
 
-SdMsgCenter* SdGlobal::getMsgCenter()
+void SdGlobal::moduleInit()
 {
-	return m_msgCenter;
+    m_project=NULL;
+    m_msgCenter=new SdMsgCenter;
+    m_mainWindow=NULL;
 }
 
 
-SdProject* SdGlobal::getCurProject()
+void SdGlobal::moduleExit()
 {
-	return m_curProject;
 }
 
 
 
-void SdGlobal::setCurProject(SdProject* p)
+
+SdProject* SdGlobal::getProject()
 {
-	if(m_curProject)
-	{
-		delete m_curProject;
-	}
-	m_curProject=p;
+    return m_project;
+}
+
+void SdGlobal::setProject(SdProject* proj)
+{
+    if(m_project)
+    {
+        delete m_project;
+    }
+    m_project=proj;
+
 }
 
 SdSprite* SdGlobal::getCurSprite()
 {
-	SdProject* proj=SdGlobal::getCurProject();
-	assert(proj);
-	return proj->getCurSprite();
+    SdProject* proj=SdGlobal::getProject();
+    assert(proj);
+    return proj->getCurSprite();
 }
 
 
 void SdGlobal::setCurSprite(SdSprite* sprite)
 {
-	SdProject* proj=SdGlobal::getCurProject();
-	assert(proj);
+    SdProject* proj=SdGlobal::getProject();
+    assert(proj);
     proj->setCurSprite(sprite);
 }
 
 SdAnimation* SdGlobal::getCurAnimation()
 {
-	SdSprite* sprite=SdGlobal::getCurSprite();
-	assert(sprite);
-	return sprite->getCurAnimation();
+    SdSprite* sprite=SdGlobal::getCurSprite();
+    assert(sprite);
+    return sprite->getCurAnimation();
 }
 
 void SdGlobal::setCurAnimation(SdAnimation* anim)
 {
-	SdSprite* sprite=SdGlobal::getCurSprite();
-	assert(anim->getSprite()==sprite);
+    SdSprite* sprite=SdGlobal::getCurSprite();
 
-	sprite->setCurAnimation(anim);
+
+    sprite->setCurAnimation(anim);
 }
 
 
 bool SdGlobal::canUndo()
 {
-	SdProject* proj=SdGlobal::getCurProject();
-	if(proj)
-	{
-		return proj->canUndo();
-	}
-	return false;
+    SdProject* proj=SdGlobal::getProject();
+    if(proj)
+    {
+        return proj->canUndo();
+    }
+    return false;
 
 }
 
 bool SdGlobal::canRedo()
 {
-	SdProject* proj=SdGlobal::getCurProject();
-	if(proj)
-	{
-		return proj->canRedo();
-	}
-	return false;
+    SdProject* proj=SdGlobal::getProject();
+    if(proj)
+    {
+        return proj->canRedo();
+    }
+    return false;
 }
 
 
 
-
-
-void SdGlobal::moduleInit()
+SdMsgCenter* SdGlobal::getMsgCenter()
 {
-    m_msgCenter=new SdMsgCenter();
-	m_curProject=NULL;
+    return m_msgCenter;
 }
 
-void SdGlobal::moduleExit()
+void SdGlobal::setMsgCenter(SdMsgCenter* center)
 {
-	delete m_msgCenter;
-	if(m_curProject)
-	{
-		delete m_curProject;
-	}
-
-	m_msgCenter=NULL;
-	m_curProject=NULL;
+    m_msgCenter=center;
 }
+
+void SdGlobal::setMainWindow(SdMainWindow* win)
+{
+    m_mainWindow=win;
+}
+
+SdMainWindow* SdGlobal::getMainWindow()
+{
+    return m_mainWindow;
+}
+
+
+
+
+
 
 
 

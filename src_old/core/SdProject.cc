@@ -1,45 +1,62 @@
-#include <QtGlobal>
 #include <assert.h>
+
+#include "util/SdPathUtil.h"
 #include "core/SdProject.h"
-#include "core/SdTextureMgr.h"
+#include "core/SdImageMgr.h"
 #include "core/SdSprite.h"
-#include "command/SdCommand.h"
 
 
-
-SdProject* SdProject::create(const std::string& dir,const std::string& name )
-{
-	return new SdProject(dir,name);
-}
-
-SdProject::SdProject(const std::string& dir,const std::string& name)
-{
-	m_curSprite=NULL;
-	m_textureMgr=new SdTextureMgr();
-	m_textureMgr->setTextureLoadPath(dir.c_str());
-	m_projectName=name;
-	m_projectDir=dir;
-	m_curStateIndex=-1;
-}
-
-
-SdProject::~SdProject()
-{
-	if(m_textureMgr)
-	{
-		delete m_textureMgr;
-	}
-}
 
 int SdProject::getClassType()
 {
 	return SD_CLASS_PROJECT;
 }
-
 const char* SdProject::className()
 {
 	return "SdProject";
 }
+
+
+
+
+SdProject::SdProject(const std::string& name)
+{
+	init(name);
+}
+
+void SdProject::init(const std::string& name)
+{
+    m_projectDir=SdPathUtil::getDirName(name);
+    m_projectName=SdPathUtil::getFileName(name);
+
+	m_resourceDir=m_projectDir;
+
+//	m_historyStates=new SdHistoryStates;
+
+	m_imageMgr=new SdImageMgr(m_resourceDir);
+//	m_iconMgr=new SdIconMgr(m_resourceDir);
+}
+
+SdProject::~SdProject()
+{
+	delete m_imageMgr;
+//	delete m_iconMgr;
+    //delete m_historyStates;
+
+	int size=m_sprites.size();
+
+	for(int i=0;i<size;i++)
+	{
+		delete m_sprites[i];
+	}
+	m_sprites.clear();
+}
+
+SdProject* SdProject::create(const std::string& name)
+{
+	return new SdProject(name);
+}
+
 
 std::string SdProject::getName()
 {
@@ -47,6 +64,30 @@ std::string SdProject::getName()
 }
 
 
+SdSprite* SdProject::createSprite(const std::string& name)
+{
+	SdSprite* ret=new SdSprite(name);
+	ret->setProject(this);
+    m_sprites.push_back(ret);
+	return ret;
+}
+
+
+void SdProject::removeSprite(SdSprite* sprite)
+{
+	int pos=getSpritePos(sprite);
+	assert(pos!=-1);
+	m_sprites.erase(m_sprites.begin()+pos);
+    if(sprite==m_curSprite)
+	{
+        m_curSprite=NULL;
+	}
+}
+void SdProject::addSprite(int pos,SdSprite* sprite)
+{
+	m_sprites.insert(m_sprites.begin()+pos,sprite);
+	sprite->setProject(this);
+}
 
 void SdProject::addSprite(SdSprite* sprite)
 {
@@ -54,34 +95,36 @@ void SdProject::addSprite(SdSprite* sprite)
 	sprite->setProject(this);
 }
 
-void SdProject::addSprite(int pos,SdSprite* sprite)
+
+int SdProject::getSpriteNu()
 {
-	qDebug("addSprite,pos=%d",pos);
-	m_sprites.insert(m_sprites.begin()+pos,sprite);
-	sprite->setProject(this);
+	return m_sprites.size();
+}
+
+SdSprite* SdProject::getSprite(int index)
+{
+	return m_sprites[index];
 }
 
 
 
 
-SdSprite* SdProject::getSprite(const char* name)
+
+
+
+bool SdProject::hasSpriteWithName(const std::string& name)
 {
-	std::string s_name(name);
 	int size=m_sprites.size();
 	for(int i=0;i<size;i++)
 	{
-        if(m_sprites[i]->getName()==s_name)
+		if (m_sprites[i]->getName()==name)
 		{
-			return m_sprites[i];
+			return true;
 		}
 	}
-	return NULL;
+	return false;
 }
 
-bool SdProject::hasSpriteWithName(const char* name)
-{
-	return getSprite(name)!=NULL;
-}
 
 bool SdProject::hasSprite(SdSprite* sprite)
 {
@@ -97,41 +140,7 @@ bool SdProject::hasSprite(SdSprite* sprite)
 }
 
 
-
-SdSprite* SdProject::getSprite(int index)
-{
-	return m_sprites[index];
-}
-
-int SdProject::getSpriteNu()
-{
-	return m_sprites.size();
-}
-
-
-void SdProject::removeSprite(SdSprite* sprite)
-{
-	std::vector<SdSprite*>::iterator iter;
-	for(iter=m_sprites.begin();iter!=m_sprites.end();++iter)
-	{
-		if(*iter==sprite)
-		{
-			m_sprites.erase(iter);
-			return;
-		}
-	}
-	assert(0); /* sprite not find */
-}
-
-
-void SdProject::removeSprite(int index)
-{
-	std::vector<SdSprite*>::iterator iter=m_sprites.begin()+index;
-	delete *iter;
-	m_sprites.erase(iter);
-}
-
-int SdProject::spritePos(SdSprite* sprite)
+int SdProject::getSpritePos(SdSprite* sprite)
 {
 	int size=m_sprites.size();
 	for(int i=0;i<size;i++)
@@ -140,12 +149,9 @@ int SdProject::spritePos(SdSprite* sprite)
 		{
 			return i;
 		}
-
 	}
-	assert(0);
 	return -1;
 }
-
 
 
 SdSprite* SdProject::getCurSprite()
@@ -153,67 +159,68 @@ SdSprite* SdProject::getCurSprite()
 	return m_curSprite;
 }
 
-
-
 void SdProject::setCurSprite(SdSprite* sprite)
 {
-	m_curSprite=sprite;
+    m_curSprite=sprite;
 }
 
 
-void SdProject::pushCommand(SdCommand* cmd)
+void SdProject::setResourceDir(const std::string& dir)
 {
-	if(m_curStateIndex<m_historyStates.size()-1)
-	{
-		m_historyStates.dropTail(m_historyStates.size()-1-m_curStateIndex);
-	}
+	m_resourceDir=dir;
+	m_imageMgr->setResourceDir(dir);
+	m_imageMgr->refresh();
 
-	if(m_historyStates.full())
-	{
-		m_historyStates.push(cmd);
-	}
-	else 
-	{
-		m_historyStates.push(cmd);
-		m_curStateIndex++;
-	}
+    //m_iconMgr->setResourceDir(dir);
+    //m_iconMgr->refresh();
 }
 
-SdCommand* SdProject::undo()
+std::string SdProject::getResourceDir()
 {
-	assert(canUndo());
-	SdCommand* command=m_historyStates.getItem(m_curStateIndex);
-	m_curStateIndex--;
-	command->undo();
-	return command;
-
+	return m_resourceDir;
 }
 
-SdCommand* SdProject::redo()
+
+SdImageMgr* SdProject::getImageMgr()
 {
-	assert(canRedo());
-	SdCommand* command=m_historyStates.getItem(m_curStateIndex+1);
-	m_curStateIndex++;
-	command->redo();
-	return command;
+	return m_imageMgr;
 }
+
+SdIconMgr* SdProject::getIconMgr()
+{
+	return m_iconMgr;
+}
+
 
 bool SdProject::canRedo()
 {
-	if(m_curStateIndex<m_historyStates.size()-1)
-	{
-		return true;
-	}
-	return false;
+	return m_historyStates.canRedo();
 }
+
 
 bool SdProject::canUndo()
 {
-	if(m_curStateIndex>=0)
-	{
-		return true;
-	}
-    return false;
-
+	return m_historyStates.canUndo();
 }
+
+
+SdCommand* SdProject::redo()
+{
+	return m_historyStates.redo();
+}
+
+
+SdCommand* SdProject::undo()
+{
+	return m_historyStates.undo();
+}
+
+void SdProject::pushCommand(SdCommand*  cmd)
+{
+	m_historyStates.pushCommand(cmd);
+}
+
+
+
+
 

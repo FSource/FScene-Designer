@@ -1,18 +1,24 @@
 #ifndef _SD_RENDER_UTIL_H_
-#define _SD_RENDER_UTIL_H_ 
+#define _SD_RENDER_UTIL_H_
 
-#include "FsMacros.h"
-#include "math/FsVector2.h"
-#include "graphics/FsColor.h"
-
-
-NS_FS_USE
-namespace SdRenderUtil
+#include "graphics/FsRender.h"
+class SdGLRender:public Faeris::Render 
 {
-	void drawLine(Vector2 start,Vector2 end,float width,Color c);
-	void drawRectangle(Vector2 start,Vector2 end,Color c);
-	void setProjectionMatrix(Matrix4* mat);
+	public:
+		static SdGLRender* create();
+
+	public:
+		void setPenColor(Color c);
+
+		void drawPoint();
+		void drawText(const char* text,Color c,)
+
 };
 
+
+
 #endif /*_SD_RENDER_UTIL_H_*/
+
+
+
 

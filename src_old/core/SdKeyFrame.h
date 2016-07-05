@@ -1,80 +1,123 @@
 #ifndef _SD_KEY_FRAME_H_
-#define _SD_KEY_FRAME_H_ 
+#define _SD_KEY_FRAME_H_
 
-class SdKeyFrame 
+#include <string>
+class SdImage;
+class SdRotateKeyFrame 
 {
 	public:
-		static SdKeyFrame* tween(SdKeyFrame* l,SdKeyFrame* r,float percent);
-
-	public:
-		SdKeyFrame();
-		~SdKeyFrame();
-		SdKeyFrame* clone();
-
-	public:
-		void setPos(int pos){m_pos=pos;}
-		int getPos(){return m_pos;}
-
-		void setAlpha(float alpha){m_alpha=alpha;}
-		float getAlpha(){return m_alpha;}
-
-		void  setAngle(float angle){m_angle=angle;}
-		void getAngle(){return m_angle;}
-
-		void setTranslate(float tx,float ty) { m_tx=x; m_ty=y; }
-		void getTranslate(float* tx,float* ty) { *tx=m_tx; *ty=m_ty; }
-
-		void setSize(float width,float height){m_width=width;m_height=height;}
-		void getSize(float* width,float* height){*width=m_width;*height=m_height;}
-
-		void setTextureCoord(float cx0,float cy0,float cx1,float cy1)
+		SdRotateKeyFrame()
 		{
-			m_cx0=cx0;
-			m_cy0=cy0;
-			m_cx1=cx1;
-			m_cy1=cy1;
+			m_index=0;
+			m_angle=0;
 		}
+	public:
+		int m_index;
 
-		void getTextureCoord(float* cx0,float* cy0,float* cx1,float* cy1)
-		{
-			*cx0=m_cx0; 
-			*cy0=m_cy0; 
-			*cx1=m_cx1; 
-			*cy1=m_cy1;
-		}
-
-
-		void setTexture(SdTexture* texture) { m_texture=texture; }
-		SdTexture* getTexture() { return m_texture;}
-
-	private:
-		int m_pos;
-
-		/* attribute */
-		float m_alpha;
 		float m_angle;
-		float m_tx,m_ty;
-		float m_cx0,m_cy0,m_cx1,m_cy1;
-		float m_width,m_height;
-		SdTexture* m_texture;
 };
 
+class SdScaleKeyFrame 
+{
+	public:
+		/*
+		static SdScaleKeyFrame interpolate(SdScaleKeyFrame l,SdScaleKeyFrame r,float value)
+		{
+		
+
+		}
+		*/
+
+	public:
+		SdScaleKeyFrame()
+		{
+			m_index=0;
+			m_scaleX=1;
+			m_scaleY=1;
+		}
+
+
+	public:
+		int m_index;
+
+		float m_scaleX;
+		float m_scaleY;
+};
+
+
+class SdTranslateKeyFrame 
+{
+	public:
+		SdTranslateKeyFrame()
+		{
+			m_index=0;
+			m_translateX=0;
+			m_translateY=0;
+		}
+	public:
+		int m_index;
+
+		float m_translateX;
+		float m_translateY;
+};
+
+class SdColorKeyFrame
+{
+	public:
+		SdColorKeyFrame()
+		{
+			m_index=0;
+			m_red=255;
+			m_blue=255;
+			m_green=255;
+			m_alpha=255;
+		}
+	public:
+		int m_index;
+
+		int m_red;
+		int m_blue;
+		int m_green;
+		int m_alpha;
+};
+
+class SdOtherKeyFrame
+{
+	public:
+		SdOtherKeyFrame()
+		{
+			m_index=0;
+			m_image=NULL;
+			m_anchorX=0.5;
+			m_anchorY=0.5;
+			m_texCoordX0=0;
+			m_texCoordY0=0;
+			m_texCoordX1=1;
+			m_texCoordY1=1;
+		}
+
+	public:
+		int m_index;
+
+		SdImage* m_image;
+
+		bool m_visible;
+
+		float m_anchorX;
+		float m_anchorY;
+
+		float m_texCoordX0;
+		float m_texCoordY0;
+		float m_texCoordX1;
+		float m_texCoordY1;
+};
+
+
+
+
+
+
+
+
 #endif /*_SD_KEY_FRAME_H_*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

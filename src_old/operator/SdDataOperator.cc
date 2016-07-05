@@ -13,59 +13,62 @@
 #include "command/SdAnimationAddCommand.h"
 #include "command/SdAnimationRemoveCommand.h"
 
-
-
 SdDataOperator::SdDataOperator()
 {
 }
 
-
 SdDataOperator::~SdDataOperator()
 {
-
 }
+
 
 SdProject* SdDataOperator::getCurProject()
 {
-	return SdGlobal::getCurProject();
+    return SdGlobal::getProject();
 }
+
 
 void SdDataOperator::setCurProject(SdProject* proj)
 {
-	SdGlobal::setCurProject(proj);
+    SdGlobal::setProject(proj);
     SdGlobal::getMsgCenter()->emitCurProjectChange();
 }
 
-/* cur sprite */
 SdSprite* SdDataOperator::getCurSprite()
 {
-	return SdGlobal::getCurSprite();
+    SdProject* proj=getCurProject();
+    if(proj)
+    {
+        return proj->getCurSprite();
+    }
+    return NULL;
+
 }
+
 
 void SdDataOperator::setCurSprite(SdSprite* sprite)
 {
-	SdGlobal::setCurSprite(sprite);
-	SdGlobal::getMsgCenter()->emitCurSpriteChange();
+    SdProject* proj=getCurProject();
+    assert(proj);
+    if(proj)
+    {
+        proj->setCurSprite(sprite);
+    }
+    SdGlobal::getMsgCenter()->emitCurSpriteChange();
 }
 
 
-void SdDataOperator::addSprite(SdProject* proj,SdSprite* sprite)
+SdSprite* SdDataOperator::createSprite(SdProject* proj,const std::string& name)
 {
-	addSprite(proj,sprite,proj->getSpriteNu());
+    SdSprite* sprite=new SdSprite(name);
+    addSprite(proj,sprite,proj->getSpriteNu());
+    return sprite;
 }
 
 
 void SdDataOperator::addSprite(SdProject* proj,SdSprite* sprite,int pos)
 {
-	SdSpriteAddCommand* cmd=new SdSpriteAddCommand(proj,sprite,pos);
-	proj->pushCommand(cmd);
-	cmd->redo();
-	cmd->emitRedoSignal();
-}
-
-void SdDataOperator::removeSprite(SdProject* proj,SdSprite* sprite)
-{
-    SdSpriteRemoveCommand* cmd=new SdSpriteRemoveCommand(proj,sprite);
+    SdSpriteAddCommand* cmd=new SdSpriteAddCommand(proj,sprite,pos);
     proj->pushCommand(cmd);
     cmd->redo();
     cmd->emitRedoSignal();
@@ -73,60 +76,88 @@ void SdDataOperator::removeSprite(SdProject* proj,SdSprite* sprite)
 
 
 
-void SdDataOperator::setSpriteName(const char* name)
+void SdDataOperator::removeSprite(SdProject* proj,SdSprite* sprite)
 {
-    SdSprite* sprite=getCurSprite();
-	assert(sprite);
-	setSpriteName(sprite,name);
+    SdSpriteRemoveCommand* cmd=new SdSpriteRemoveCommand(proj,sprite);
+    proj->pushCommand(cmd);
+    cmd->redo();
+    cmd->emitRedoSignal();
+
 }
-void SdDataOperator::setSpriteName(SdSprite* sprite,const char* name)
+
+void SdDataOperator::setSpriteName(SdSprite* sprite,const std::string& name)
 {
 
-	SdProject* proj=getCurProject();
+    SdProject* proj=getCurProject();
 
     SdSpriteAttribute attr_old=sprite->getAttribute();
     SdSpriteAttribute attr_new=sprite->getAttribute();
 
     attr_new.name=std::string(name);
 
-	SdSpriteAttrChangeCommand* cmd=new SdSpriteAttrChangeCommand(sprite,attr_old,attr_new);
+    SdSpriteAttrChangeCommand* cmd=new SdSpriteAttrChangeCommand(sprite,attr_old,attr_new);
 
-	proj->pushCommand(cmd);
-	cmd->redo();
-	cmd->emitRedoSignal();
+    proj->pushCommand(cmd);
+    cmd->redo();
+    cmd->emitRedoSignal();
 }
 
-
-
-/* cur animation */
 SdAnimation* SdDataOperator::getCurAnimation()
 {
-	return SdGlobal::getCurAnimation();
+    SdSprite* sprite=getCurSprite();
+    if(sprite)
+    {
+        return sprite->getCurAnimation();
+    }
+    return NULL;
 }
 
 
 void SdDataOperator::setCurAnimation(SdAnimation* anim)
 {
-	SdSprite* sprite=anim->getSprite();
+    SdSprite* sprite=anim->getSprite();
 
-	if(sprite!=getCurSprite())
-	{
-		SdGlobal::setCurSprite(sprite);
-		SdGlobal::setCurAnimation(anim);
-		SdGlobal::getMsgCenter()->emitCurSpriteChange();
-		SdGlobal::getMsgCenter()->emitCurAnimationChange();
-	}
-	else 
-	{
-		SdGlobal::setCurAnimation(anim);
-		SdGlobal::getMsgCenter()->emitCurAnimationChange();
-	}
+    if(sprite!=getCurSprite())
+    {
+        SdGlobal::setCurSprite(sprite);
+        SdGlobal::setCurAnimation(anim);
+        SdGlobal::getMsgCenter()->emitCurSpriteChange();
+        SdGlobal::getMsgCenter()->emitCurAnimationChange();
+    }
+    else
+    {
+        SdGlobal::setCurAnimation(anim);
+        SdGlobal::getMsgCenter()->emitCurAnimationChange();
+    }
 }
 
+SdAnimation* SdDataOperator::createAnimation(SdSprite* sprite,const std::string& name)
+{
+    SdAnimation* anim=new SdAnimation(name);
+    int anim_nu=sprite->getAnimationNu();
+    addAnimation(sprite,anim,anim_nu);
+    return anim;
+}
 
+void SdDataOperator::addAnimation(SdSprite* sprite,SdAnimation* anim,int pos)
+{
+    SdProject* proj=getCurProject();
+    SdAnimationAddCommand* cmd=new SdAnimationAddCommand(sprite,anim,pos);
+    proj->pushCommand(cmd);
+    cmd->redo();
+    cmd->emitRedoSignal();
+}
 
+void SdDataOperator::removeAnimation(SdSprite* sprite,SdAnimation* anim)
+{
+    SdProject* proj=getCurProject();
+    SdAnimationRemoveCommand* cmd=new SdAnimationRemoveCommand(sprite,anim);
+    proj->pushCommand(cmd);
+    cmd->redo();
+    cmd->emitRedoSignal();
+}
 
-void SdDataOperator::setAnimationName(SdAnimation* anim,const char* name)
+void SdDataOperator::setAnimationName(SdAnimation* anim,const std::string& name)
 {
 	SdProject* proj=getCurProject();
 	SdAnimationAttribute attr_old=anim->getAttribute();
@@ -140,63 +171,67 @@ void SdDataOperator::setAnimationName(SdAnimation* anim,const char* name)
 }
 
 
-void SdDataOperator::addAnimation(SdSprite* sprite,SdAnimation* anim)
-{
-	int anim_nu=sprite->getAnimationNu();
-	addAnimation(sprite,anim,anim_nu);
-}
-
-void SdDataOperator::addAnimation(SdSprite* sprite,SdAnimation* anim,int pos)
-{
-    SdProject* proj=getCurProject();
-    SdAnimationAddCommand* cmd=new SdAnimationAddCommand(sprite,anim,pos);
-	proj->pushCommand(cmd);
-	cmd->redo();
-	cmd->emitRedoSignal();
-}
-
-void SdDataOperator::removeAnimation(SdSprite* sprite,SdAnimation* anim)
-{
-	SdProject* proj=getCurProject();
-	SdAnimationRemoveCommand* cmd=new SdAnimationRemoveCommand(sprite,anim);
-	proj->pushCommand(cmd);
-	cmd->redo();
-	cmd->emitRedoSignal();
-}
-
-
-
-
 
 /* redo/undo */
-
-
 bool SdDataOperator::canRedo()
 {
-	return SdGlobal::canRedo();
+    return SdGlobal::canRedo();
 }
 
 bool SdDataOperator::canUndo()
 {
-	return SdGlobal::canUndo();
+    return SdGlobal::canUndo();
 }
 
 void SdDataOperator::redo()
 {
-	assert(canRedo());
+    assert(canRedo());
 
-	SdProject* proj=getCurProject();
-	SdCommand* command=proj->redo();
-	command->emitRedoSignal();
+    SdProject* proj=getCurProject();
+    SdCommand* command=proj->redo();
+    command->emitRedoSignal();
 }
 
 void SdDataOperator::undo()
 {
-	assert(canUndo());
-	SdProject* proj=getCurProject();
-	SdCommand* command=proj->undo();
-	command->emitUndoSignal();
+    assert(canUndo());
+    SdProject* proj=getCurProject();
+    SdCommand* command=proj->undo();
+    command->emitUndoSignal();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

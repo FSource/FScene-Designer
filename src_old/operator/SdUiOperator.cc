@@ -7,6 +7,7 @@
 #include "core/SdProject.h"
 #include "core/SdSprite.h"
 #include "core/SdAnimation.h"
+#include "core/SdAnimation.h"
 #include "SdGlobal.h"
 
 
@@ -99,9 +100,7 @@ void SdUiOperator::addSprite()
 			}
 			else 
 			{
-				SdSprite* sprite=new SdSprite;
-				sprite->setName(name.c_str());
-				SdOperator::data()->addSprite(proj,sprite);
+                SdOperator::data()->createSprite(proj,name);
 			}
 		}
 	}
@@ -209,9 +208,7 @@ void SdUiOperator::addAnimation()
 			}
 			else 
 			{
-				SdAnimation* anim=new SdAnimation;
-				anim->setName(name.c_str());
-				SdOperator::data()->addAnimation(sprite,anim);
+                SdOperator::data()->createAnimation(sprite,name);
 			}
 		}
 	}

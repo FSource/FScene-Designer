@@ -1,10 +1,13 @@
 #ifndef _SD_MSG_CENTER_H_
 #define _SD_MSG_CENTER_H_
 
+
 #include <QObject>
+
 class SdSprite;
 class SdProject;
 class SdAnimation;
+
 
 class SdMsgCenter:public QObject 
 {
@@ -31,8 +34,6 @@ class SdMsgCenter:public QObject
 		void signalAnimationAttributeChange(SdAnimation* anim);
 		void signalAnimationAdd(SdSprite* sprite,SdAnimation* anim);
 		void signalAnimationRemove(SdSprite* sprite,SdAnimation* anim);
-
-
 
 
 	public:

@@ -1,6 +1,5 @@
 #include "SdMsgCenter.h"
 
-
 SdMsgCenter::SdMsgCenter()
 {
 }

@@ -3,6 +3,7 @@
 
 class SdDataOperator;
 class SdUiOperator;
+
 class SdOperator
 {
 	public:

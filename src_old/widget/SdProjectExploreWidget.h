@@ -1,5 +1,5 @@
-#ifndef _SD_PROJECT_EXPLORE_H_
-#define _SD_PROJECT_EXPLORE_H_
+#ifndef _SD_PROJECT_EXPLORE_WIDGET_H_
+#define _SD_PROJECT_EXPLORE_WIDGET_H_ 
 
 #include <QWidget>
 #include <QTreeView>
@@ -11,11 +11,10 @@ class SdAnimation;
 
 class SdProjectExploreWidget:public QWidget
 {
-	Q_OBJECT 
+	Q_OBJECT
 	public:
 		SdProjectExploreWidget();
 		~SdProjectExploreWidget();
-
 
 	public slots:
 		void mousePress(const QModelIndex& index);
@@ -30,14 +29,13 @@ class SdProjectExploreWidget:public QWidget
 		void slotAnimationAdd(SdSprite* sprite,SdAnimation* anim);
 		void slotAnimationRemove(SdSprite* sprite,SdAnimation* anim);
 
-
 	protected:
 		void initWidget();
 		void initMenu();
 		void destory();
 		void connectSignal();
 
-    public:
+    private:
         QTreeView* m_projectExploreView;
 		SdProjectExploreModel* m_projectExploreModel;
 
@@ -67,8 +65,14 @@ class SdProjectExploreWidget:public QWidget
         QAction* ma_renameAnimation;
         QAction* ma_cloneAnimation;
 		QAction* ma_deleteAnimation;
+
+
 };
 
-#endif /*_SD_PROJECT_EXPLORE_H_*/
+
+#endif /*_SD_PROJECT_EXPLORE_WIDGET_H_*/
+
+
+
 
 
