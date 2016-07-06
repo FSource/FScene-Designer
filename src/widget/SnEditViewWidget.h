@@ -54,6 +54,10 @@ class SnEditViewWidget:public QGLWidget
 		Color getBackgroundColor();
 
 
+	public slots:
+		void onZoomIn();
+		void onZoomOut();
+		
 	private:
 		Vector2 m_translate;
 		float m_zoom;

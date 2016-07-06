@@ -64,6 +64,41 @@ void SnMainWindow::initMenuBar()
 
     /*File*/
     mn_file=m_menubar->addMenu("&File");
+	{
+		/* new */
+		QAction* new_project=new QAction(QPixmap(SN_MT_NEW_PORJECT),"&New",this);
+		mn_file->addAction(new_project);
+
+		/* open */
+		QAction* open_project=new QAction(QPixmap(SN_MT_OPEN_PORJECT),"&Open",this);
+		mn_file->addAction(open_project);
+
+			/* close */
+		QAction* close=new QAction(QPixmap(SN_MT_CLOSE_PORJECT),"&Close",this);
+		mn_file->addAction(close);
+
+		mn_file->addSeparator();
+
+			/* save */
+		QAction* save_project=new QAction(QPixmap(SN_MT_SAVE_PORJECT),"&Save",this);
+		mn_file->addAction(save_project);
+
+					/* save */
+		QAction* save_as =new QAction(QPixmap(SN_MT_SAVE_AS_PORJECT),"&Save As",this);
+		mn_file->addAction(save_as);
+		
+					/* save */
+		QAction* export_project =new QAction(QPixmap(SN_MT_SAVE_AS_PORJECT),"&Export",this);
+		mn_file->addAction(export_project);
+
+			
+		mn_file->addSeparator();
+
+						/* exit */
+		QAction* exit =new QAction(QPixmap(SN_MT_EXIT_PORJECT),"&Exit",this);
+		mn_file->addAction(exit);
+
+	}
     mn_edit=m_menubar->addMenu("&Edit");
     mn_view=m_menubar->addMenu("&View");
     mn_animation=m_menubar->addMenu("&Animation");
@@ -165,19 +200,19 @@ void SnMainWindow::onRedo()
 
 void SnMainWindow::onZoomIn()
 {
-
+	m_editViewWidget->onZoomIn();
 }
 
 void SnMainWindow::onZoomOut()
 {
-
+	m_editViewWidget->onZoomOut();
 }
 
 
 
 void SnMainWindow::onHelp()
 {
-  QDesktopServices::openUrl(QUrl("http://www.fsouce.cn"));
+  QDesktopServices::openUrl(QUrl("http://www.fsource.cn"));
 }
 
 

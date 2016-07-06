@@ -184,7 +184,7 @@
     <ClCompile Include="Release\moc_SnResourceExploreWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\util\SdRenderUtil.cc" />
+    <ClCompile Include="src\util\SnRenderUtil.cc" />
     <ClCompile Include="src\util\SdUtil.cc" />
     <ClCompile Include="src\widget\SnEditViewWidget.cc" />
     <ClCompile Include="src\SnGlobal.cc" />
@@ -256,7 +256,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="src\util\SdCircleQueue.h" />
-    <ClInclude Include="src\util\SdRenderUtil.h" />
+    <ClInclude Include="src\util\SnRenderUtil.h" />
     <ClInclude Include="src\util\SdUtil.h" />
     <ClInclude Include="src\widget\SnPropertyWidget.h" />
     <CustomBuild Include="src\widget\SnResourceExploreWidget.h">

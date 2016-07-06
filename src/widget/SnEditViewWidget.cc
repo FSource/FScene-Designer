@@ -17,7 +17,7 @@
 #include "support/util/FsArray.h"
 #include "support/util/FsScriptUtil.h"
 
-#include "util/SdRenderUtil.h"
+#include "util/SnRenderUtil.h"
 
 
 SnEditViewWidget::SnEditViewWidget()
@@ -80,8 +80,9 @@ void SnEditViewWidget::resizeGL(int width,int height)
 {
 	Matrix4 mat;
 	mat.makeOrthographic(-width/2,width/2,-height/2,height/2,-100,100);
-    Global::renderDevice()->setProjectionMatrix(&mat);
-	Global::renderDevice()->setViewMatrix(&Matrix4::IDENTITY);
+    SnRenderUtil::setProjectionMatrix(&mat);
+	
+	//Global::renderDevice()->setViewMatrix(&Matrix4::IDENTITY);
     Global::renderDevice()->setViewport(0,0,width,height);
 }
 
@@ -96,11 +97,7 @@ void  SnEditViewWidget::paintGL()
                     Vector3(0,0,0),E_EulerOrientType::XYZ,
 					Vector3(m_zoom,m_zoom,1));
 
-	printf("zoom:%f,%f\n",m_zoom,m_zoom);
-
-    Global::renderDevice()->pushWorldMatrix();
-	Global::renderDevice()->loadWorldMatrixIdentity();
-    Global::renderDevice()->setWorldMatrix(&mat);
+	SnRenderUtil::setWorldMatrix(&mat);
 
 	if(m_showGrid)
 	{
@@ -111,7 +108,6 @@ void  SnEditViewWidget::paintGL()
         drawAxis();
 	}
 
-    Global::renderDevice()->popWorldMatrix();
 }
 
 
@@ -245,6 +241,10 @@ void SnEditViewWidget::wheelEvent(QWheelEvent* event)
 
     detal=event->delta()>0?1.1f:0.9f;
     m_zoom*=detal;
+	if(m_zoom<0.10f)
+	{
+		m_zoom=0.10f;
+	}
 
     float tx=x-rx*m_zoom;
     float ty=y-ry*m_zoom;
@@ -315,4 +315,21 @@ void SnEditViewWidget::keyReleaseEvent(QKeyEvent* event)
         update();
 		return ;
 	}
+}
+
+
+void SnEditViewWidget::onZoomIn()
+{
+	 m_zoom*=1.1f;
+	 update();
+}
+void SnEditViewWidget::onZoomOut()
+{
+	m_zoom*=0.9f;
+	if(m_zoom<0.1f)
+	{
+		m_zoom=0.1f;
+	}
+
+	update();
 }

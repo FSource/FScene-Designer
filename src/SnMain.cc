@@ -30,7 +30,10 @@ int main(int argc,char** argv)
 	SnGlobal::setMainWindow(win);
 
 
+
+	win->setMinimumSize(QSize(1280	,800));
 	win->show();
+
     win->setWindowTitle("FScene Designer v1.0");
 	win->showMaximized();
 

@@ -138,10 +138,10 @@
     <ClCompile Include="GeneratedFiles\qrc_image.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\util\SdRenderUtil.cc">
+    <ClCompile Include="src\util\SdUtil.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\util\SdUtil.cc">
+    <ClCompile Include="src\util\SnRenderUtil.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -281,10 +281,10 @@
     <ClInclude Include="src\util\SdCircleQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\SdRenderUtil.h">
+    <ClInclude Include="src\util\SdUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\SdUtil.h">
+    <ClInclude Include="src\util\SnRenderUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
