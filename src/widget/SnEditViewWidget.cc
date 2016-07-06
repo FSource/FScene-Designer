@@ -72,6 +72,31 @@ void SnEditViewWidget::initializeGL()
     FontTTFMgr* font_mgr=FontTTFMgr::create();
     Global::setFontTTFMgr(font_mgr);
 
+	FontBitmapMgr* font_bmp_mgr=FontBitmapMgr::create();
+	FS_NO_REF_DESTROY(font_bmp_mgr);
+	Global::setFontBitmapMgr(font_bmp_mgr);
+
+
+	Sprite2DDataMgr* sprite_mgr=Sprite2DDataMgr::create();
+	FS_NO_REF_DESTROY(sprite_mgr);
+	Global::setSprite2DDataMgr(sprite_mgr);
+
+
+	ProgramSourceMgr* prog_s_mgr=ProgramSourceMgr::create();
+	FS_NO_REF_DESTROY(prog_s_mgr);
+	prog_s_mgr->loadPreDefineShader();
+	Global::setProgramSourceMgr(prog_s_mgr);
+
+	FelisScriptMgr* flis_mgr=FelisScriptMgr::create();
+	FS_NO_REF_DESTROY(flis_mgr);
+	Global::setFelisScriptMgr(flis_mgr);
+
+
+	ClassMgr* cls_mgr=ClassMgr::create();
+	FS_NO_REF_DESTROY(cls_mgr);
+	Global::setClassMgr(cls_mgr);
+	cls_mgr->preRegisterClass();
+
 
 }
 

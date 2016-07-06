@@ -14,8 +14,8 @@ enum
 class SnIdentify
 {
 	public:
-		virtual int getClassType()=0;
-		virtual const char* className()=0;
+		virtual int identifyType()=0;
+		virtual const char* identifyName()=0;
 		virtual ~SnIdentify();
 };
 

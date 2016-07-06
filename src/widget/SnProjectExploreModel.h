@@ -10,16 +10,16 @@ class SnProjectExploreModel:public QAbstractItemModel
 		~SnProjectExploreModel();
 
 	public:
-		virtual QModelIndex index(int row,int column,
-								const QModelIndex& parent=QModelIndex())const;
+		virtual QModelIndex index(int row,int column, const QModelIndex& parent=QModelIndex())const;
 		virtual QModelIndex parent(const QModelIndex& child)const;
 		virtual int rowCount(const QModelIndex& parent=QModelIndex())const;
 		virtual int columnCount(const QModelIndex& parent=QModelIndex())const;
-        virtual QVariant data(const  QModelIndex& index,
-                              int role=Qt::DisplayRole) const;
+        virtual QVariant data(const  QModelIndex& index, int role=Qt::DisplayRole) const;
+
     public:
         void refresh();
 };
+
 #endif /*_SD_PROJECT_EXPLORE_MODEL_H_*/
 
 

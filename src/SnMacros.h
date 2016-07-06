@@ -14,7 +14,6 @@
 #define SN_MT_SAVE_AS_PORJECT ":/images/icon/file_open.png"
 
 #define SN_MT_EXPORT_PORJECT ":/images/icon/file_open.png"
-
 #define SN_MT_EXIT_PORJECT ":/images/icon/file_open.png"
 
 

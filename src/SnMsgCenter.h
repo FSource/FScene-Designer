@@ -20,6 +20,7 @@ class SnMsgCenter:public QObject
     signals:
 		/* project */
 		void signalCurProjectChange();
+		void signalCurSceneChange();
 
 
 
@@ -28,6 +29,7 @@ class SnMsgCenter:public QObject
 
 		/* project */
 		void emitCurProjectChange();
+		void emitCurSceneChange();
 
 };
 

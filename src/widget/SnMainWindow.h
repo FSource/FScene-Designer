@@ -37,10 +37,17 @@ public:
         void createAboutDialog();
 
 	public slots:
+		/* file */
+		void onNewProject();
+
+
+		/* edit */
+
 		void onUndo();
 		void onRedo();
 		void onZoomIn();
 		void onZoomOut();
+
 
 		void onHelp();
 		void onAbout();

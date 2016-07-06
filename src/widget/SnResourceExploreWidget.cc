@@ -4,6 +4,8 @@
 #include <QStringList>
 
 #include "widget/SnResourceExploreWidget.h"
+#include "core/SnProject.h"
+#include "SnGlobal.h"
 
 SnResourceExploreWidget::SnResourceExploreWidget()
 {
@@ -23,7 +25,14 @@ void SnResourceExploreWidget::setNameFilters(const QStringList& list)
 
 void SnResourceExploreWidget::slotCurProjectChange()
 {
-	QModelIndex root=m_fileModel->setRootPath("E:/");
+	SnProject* proj=SnGlobal::getProject();
+	if(!proj)
+	{
+		m_resourceView->setModel(NULL);
+		return;
+	}
+	
+	QModelIndex root=m_fileModel->setRootPath(proj->getDirName().c_str());
 	m_resourceView->setModel(m_fileModel);
 	m_resourceView->setRootIndex(root);
 	m_resourceView->setColumnHidden(1,true);
@@ -57,10 +66,6 @@ void SnResourceExploreWidget::init()
 	m_resourceView=new QTreeView(this);
 	m_resourceView->setHeaderHidden(true);
 
-	/*
-	connect(MdData::shareData(),SIGNAL(signalCurProjectChange()),this,SLOT(slotCurProjectChange()));
-	connect(m_resourceView,SIGNAL(clicked(const QModelIndex&)),this,SLOT(slotFileSelect(const QModelIndex&)));
-	*/
 }
 void SnResourceExploreWidget::layout()
 {

@@ -144,6 +144,21 @@
     <ClCompile Include="src\util\SnRenderUtil.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\operator\SnDataOperator.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\operator\SnUiOperator.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\SnScene.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_SnUiOperator.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_SnUiOperator.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\widget\SnEditViewWidget.h">
@@ -181,6 +196,12 @@
     </CustomBuild>
     <CustomBuild Include="resource\ui\aboutdialog.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="resource\ui\input_text.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\operator\SnUiOperator.h">
+      <Filter>Source Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +307,15 @@
     </ClInclude>
     <ClInclude Include="src\util\SnRenderUtil.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\operator\SnDataOperator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnScene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_input_text.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

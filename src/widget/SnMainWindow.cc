@@ -8,10 +8,13 @@
 #include "widget/SnEditViewWidget.h"
 #include "widget/SnProjectExploreWidget.h"
 #include "widget/SnResourceExploreWidget.h"
-//#include "operator/SnOperator.h"
+#include "operator/SnUiOperator.h"
 //#include "operator/SnDataOperator.h"
 
 #include "widget/SnPropertyWidget.h"
+#include "SnGlobal.h"
+#include "SnMsgCenter.h"
+
 
 SnMainWindow::SnMainWindow()
 {
@@ -68,6 +71,8 @@ void SnMainWindow::initMenuBar()
 		/* new */
 		QAction* new_project=new QAction(QPixmap(SN_MT_NEW_PORJECT),"&New",this);
 		mn_file->addAction(new_project);
+		connect(new_project,SIGNAL(triggered()),this,SLOT(onNewProject()));
+
 
 		/* open */
 		QAction* open_project=new QAction(QPixmap(SN_MT_OPEN_PORJECT),"&Open",this);
@@ -129,10 +134,13 @@ void SnMainWindow::initWidget()
 
 	m_projectExploreWidget=new SnProjectExploreWidget;
 	m_projectExploreDockWidget= new QDockWidget("ProjectExplore");
+	connect(SnGlobal::msgCenter(),SIGNAL(signalCurProjectChange()),m_projectExploreWidget,SLOT(onProjectChange()));
+
 
 
 	m_resourceExploreWidget=new SnResourceExploreWidget;
 	m_resourceExploreDockWidget=new QDockWidget("ResourceExplore");
+	connect(SnGlobal::msgCenter(),SIGNAL(signalCurProjectChange()),m_resourceExploreWidget,SLOT(slotCurProjectChange()));
 
 
    //m_propertyWidget= new SnPropertyWidget;
@@ -173,6 +181,13 @@ void SnMainWindow::initLayout()
 
 
 /* slots */
+
+/* file */
+void SnMainWindow::onNewProject()
+{
+	SnGlobal::uiOperator()->newProject();
+}
+
 
 void SnMainWindow::onUndo()
 {

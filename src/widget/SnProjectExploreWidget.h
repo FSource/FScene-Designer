@@ -18,16 +18,9 @@ class SnProjectExploreWidget:public QWidget
 
 	public slots:
 		void mousePress(const QModelIndex& index);
+		void onProjectChange();
 
-		/* sprite */
-		void slotSpriteAttributeChange(SnSprite* sprite);
-		void slotSpriteAdd(SnProject* proj,SnSprite* sprite);
-		void slotSpriteRemove(SnProject* proj,SnSprite* sprite);
 
-		/* animation */
-		void slotAnimationAttributeChange(SnAnimation* anim);
-		void slotAnimationAdd(SnSprite* sprite,SnAnimation* anim);
-		void slotAnimationRemove(SnSprite* sprite,SnAnimation* anim);
 
 	protected:
 		void initWidget();
@@ -41,30 +34,21 @@ class SnProjectExploreWidget:public QWidget
 
 		/* pop up menu */
 
-		/*  ---  project ---*/
-		QMenu* m_menuProject;
-		QAction* ma_newSprite;
-		QAction* ma_renameProject;
-		QAction* ma_save;
-		QAction* ma_exportAllFst;
-		QAction* ma_exportAllFsk;
-		QAction* ma_close;
+		/*  ---  scene---*/
+		QMenu* m_menuScene;
+		QAction* ma_newLayer2D;
+		QAction* ma_renameScene;
+		QAction* ma_exportSceneFst;
 
-		/*  ---- sprite ---- */
-		QMenu* m_menuSprite;
-		QAction* ma_newAnimation;
-		QAction* ma_renameSprite;
-		QAction* ma_cloneSprite;
+		/*  ---- layer2d---- */
+		QMenu* m_menuLayer2D;
+		QAction* ma_newEntity;
+		QAction* ma_renameLayer2D;
+		QAction* ma_cloneLayer2D;
 
-		QAction* ma_exportSpriteFst;
-		QAction* ma_exportSpriteFsk;
-		QAction* ma_deleteSprite;
+		QAction* ma_exportLayer2DFst;
+		QAction* ma_deleteLayer2D;
 
-		/* --- animation --- */
-		QMenu* m_menuAnimation;
-        QAction* ma_renameAnimation;
-        QAction* ma_cloneAnimation;
-		QAction* ma_deleteAnimation;
 
 
 };
