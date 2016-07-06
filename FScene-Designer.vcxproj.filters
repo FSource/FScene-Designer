@@ -23,10 +23,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
@@ -36,10 +32,6 @@
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
@@ -55,43 +47,38 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{134e4c6a-4215-46b9-812c-3ec5f99bcea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\widget">
+      <UniqueIdentifier>{3cfccd0c-a668-40c6-9d6f-5bb93c2bba37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\operator">
+      <UniqueIdentifier>{40a5b14c-9af3-4670-b22c-820f6725496e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{bbfe6917-e34b-4ec6-a6b4-f50231884d8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\widget\SnEditViewWidget.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SnGlobal.cc">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GeneratedFiles\qrc_image.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\SnIdentify.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SnMain.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widget\SnMainWindow.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SnMsgCenter.cc">
-      <Filter>Source Files</Filter>
+      <Filter>src\core</Filter>
     </ClCompile>
     <ClCompile Include="src\core\SnProject.cc">
-      <Filter>Source Files</Filter>
+      <Filter>src\core</Filter>
     </ClCompile>
-    <ClCompile Include="src\widget\SnProjectExploreModel.cc">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\core\SnScene.cc">
+      <Filter>src\core</Filter>
     </ClCompile>
-    <ClCompile Include="src\widget\SnProjectExploreWidget.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widget\SnPropertyWidget.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widget\SnResourceExploreWidget.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\ui\aboutdialog.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\widget\SnEditViewWidget.cc">
+      <Filter>src\widget</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_SnEditViewWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -99,17 +86,20 @@
     <ClCompile Include="Release\moc_SnEditViewWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="src\widget\SnInputDialog.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widget\SnMainWindow.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_SnMainWindow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_SnMainWindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_SnMsgCenter.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_SnMsgCenter.cpp">
-      <Filter>Generated Files\Release</Filter>
+    <ClCompile Include="src\widget\SnProjectExploreModel.cc">
+      <Filter>src\widget</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_SnProjectExploreModel.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -117,11 +107,20 @@
     <ClCompile Include="Release\moc_SnProjectExploreModel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="src\widget\SnProjectExploreWidget.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_SnProjectExploreWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_SnProjectExploreWidget.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widget\SnPropertyWidget.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widget\SnResourceExploreWidget.cc">
+      <Filter>src\widget</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_SnResourceExploreWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -129,29 +128,11 @@
     <ClCompile Include="Release\moc_SnResourceExploreWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_aboutdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_aboutdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_image.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\util\SdUtil.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\util\SnRenderUtil.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\operator\SnDataOperator.cc">
-      <Filter>Source Files</Filter>
+      <Filter>src\operator</Filter>
     </ClCompile>
     <ClCompile Include="src\operator\SnUiOperator.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\SnScene.cc">
-      <Filter>Source Files</Filter>
+      <Filter>src\operator</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_SnUiOperator.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -159,49 +140,52 @@
     <ClCompile Include="Release\moc_SnUiOperator.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="src\util\SdUtil.cc">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\SnRenderUtil.cc">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SnGlobal.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SnMain.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SnMsgCenter.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_SnMsgCenter.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_SnMsgCenter.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="src\widget\SnEditViewWidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <ClInclude Include="src\SnGlobal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\SnIdentify.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SnMacros.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <CustomBuild Include="src\widget\SnMainWindow.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\SnMsgCenter.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <ClInclude Include="src\core\SnProject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <CustomBuild Include="src\widget\SnProjectExploreModel.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\widget\SnProjectExploreWidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <ClInclude Include="src\widget\SnPropertyWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <CustomBuild Include="src\widget\SnResourceExploreWidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="resource\ui\aboutdialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="resource\ui\input_text.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="src\widget\SnEditViewWidget.h">
+      <Filter>src\widget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnMainWindow.h">
+      <Filter>src\widget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnProjectExploreModel.h">
+      <Filter>src\widget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnProjectExploreWidget.h">
+      <Filter>src\widget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnResourceExploreWidget.h">
+      <Filter>src\widget</Filter>
+    </CustomBuild>
     <CustomBuild Include="src\operator\SnUiOperator.h">
-      <Filter>Source Files</Filter>
+      <Filter>src\operator</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\SnMsgCenter.h">
+      <Filter>src</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -299,23 +283,41 @@
     <ClInclude Include="GeneratedFiles\ui_aboutdialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\SdCircleQueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\SdUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\SnRenderUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\operator\SnDataOperator.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\SnScene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_input_text.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnIdentify.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnProject.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnScene.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\widget\SnInputDialog.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\widget\SnPropertyWidget.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\operator\SnDataOperator.h">
+      <Filter>src\operator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\SdCircleQueue.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\SdUtil.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\SnRenderUtil.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SnGlobal.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SnMacros.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

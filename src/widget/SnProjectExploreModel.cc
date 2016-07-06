@@ -5,6 +5,7 @@
 #include "SnGlobal.h"
 #include "core/SnIdentify.h"
 #include "core/SnScene.h"
+#include "core/SnLayer2D.h"
 
 
 SnProjectExploreModel::SnProjectExploreModel()
@@ -33,22 +34,46 @@ QModelIndex SnProjectExploreModel::index(int row,
 		return createIndex(row,column,scene);
 	}
 
-	SnIdentify* idfier=(SnIdentify*) parent.internalPointer();
 
-    switch(idfier->identifyType())
+	FsObject* idfier=(FsObject*) parent.internalPointer();
+	if(dynamic_cast<SnScene*>(idfier))
 	{
-		case SN_CLASS_SCENE:
-			{
-				return QModelIndex();
-			}
+		SnScene* sn=(SnScene*)idfier;
+		int layer_nu=sn->layerNu();
+		if(row>=layer_nu)
+		{
+			return QModelIndex();
+		}
+
+		SnLayer2D* layer=(SnLayer2D*)sn->getLayer(row);
+
+		return createIndex(row,column,layer);
 	}
+
 	return QModelIndex();
 
 }
 
 QModelIndex SnProjectExploreModel::parent(const QModelIndex& child) const 
 {
+	if(!child.isValid())
+	{
+		return QModelIndex();
+	}
+
+	FsObject* idfier=(FsObject*)child.internalPointer();
+	if(dynamic_cast<SnScene*>(idfier))
+	{
+		return QModelIndex();
+	}
+	else if(dynamic_cast<SnLayer2D*>(idfier))
+	{
+		SnLayer2D* layer=(SnLayer2D*)idfier;
+		return createIndex(0,0,layer->getScene());
+	}
+
 	return QModelIndex();
+
 }
 
 int SnProjectExploreModel::rowCount(const QModelIndex& parent)const 
@@ -61,6 +86,16 @@ int SnProjectExploreModel::rowCount(const QModelIndex& parent)const
 	if(!parent.isValid())
 	{
 		return 1;
+	}
+
+
+	FsObject* idfier=(FsObject*)parent.internalPointer();
+
+	if(dynamic_cast<SnScene*>(idfier))
+	{
+		SnScene* sn=(SnScene*)idfier;
+		int layer_nu=sn->layerNu();
+		return layer_nu;
 	}
 
 	return 0;
@@ -87,8 +122,13 @@ QVariant SnProjectExploreModel::data(const QModelIndex& index,int role)const
 			{
 				if(dynamic_cast<SnScene*>(idfier))
 				{
-						return QString(((SnScene*)idfier)->getName().c_str());
+					return QString(((SnScene*)idfier)->getName().c_str());
 				}
+				else if(dynamic_cast<SnLayer2D*>(idfier))
+				{
+					return QString(((SnLayer2D*)idfier)->getName().c_str());
+				}
+
 			}
 	}
 	return QVariant();

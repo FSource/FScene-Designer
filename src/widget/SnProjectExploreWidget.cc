@@ -71,7 +71,9 @@ void SnProjectExploreWidget::connectSignal()
 	connect(m_projectExploreView,SIGNAL(pressed(const QModelIndex&)),this,SLOT(mousePress(const QModelIndex&)));
 
 	//connect(ma_newLayer2D,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(addLayer2D));
-	connect(ma_renameScene,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(renameScene));
+	connect(ma_renameScene,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(renameScene()));
+	connect(ma_newLayer2D,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(addLayer2D()));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalLayer2DAdd(SnLayer2D*)),this,SLOT(slotLayer2DAdd(SnLayer2D*)));
 
 }
 
@@ -108,11 +110,7 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 		{
 		}
 		*/
-
 	}
-
-
-
 
 }
 
@@ -121,6 +119,12 @@ void SnProjectExploreWidget::onProjectChange()
 {
 	m_projectExploreModel->refresh();
 }
+
+void SnProjectExploreWidget::slotLayer2DAdd(SnLayer2D* ly)
+{
+	m_projectExploreModel->refresh();
+}
+
 
 void SnProjectExploreWidget::destory()
 {

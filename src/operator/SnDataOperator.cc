@@ -5,6 +5,7 @@
 #include "SnGlobal.h"
 #include "SnMsgCenter.h"
 #include "core/SnScene.h"
+#include "core/SnLayer2D.h"
 
 SnDataOperator::SnDataOperator()
 {
@@ -44,6 +45,13 @@ void SnDataOperator::setSceneName(SnScene* sn,std::string name)
 	sn->setName(name);
 }
 
+void SnDataOperator::addLayer2D(SnLayer2D* ly)
+{
+	getCurScene()->push(ly);
+
+	SnGlobal::msgCenter()->emitLayer2DAdd(ly);
+}
+
 
 /* redo/undo */
 bool SnDataOperator::canRedo()
@@ -60,69 +68,13 @@ bool SnDataOperator::canUndo()
 
 void SnDataOperator::redo()
 {
+
 }
 
 void SnDataOperator::undo()
 {
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

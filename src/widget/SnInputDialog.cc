@@ -23,7 +23,7 @@ void SnInputDialog::setTextField(const char* value)
 
 std::string SnInputDialog::getTextField()
 {
-    return m_ui->m_editText->text().toStdString();
+    return m_ui->m_editText->text().toUtf8().constData();
 }
 
 void SnInputDialog::init(const std::string& title,const std::string& value)

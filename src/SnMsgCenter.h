@@ -5,6 +5,7 @@
 #include <QObject>
 
 class SnProject;
+class SnLayer2D;
 
 
 class SnMsgCenter:public QObject 
@@ -21,6 +22,7 @@ class SnMsgCenter:public QObject
 		/* project */
 		void signalCurProjectChange();
 		void signalCurSceneChange();
+		void signalLayer2DAdd(SnLayer2D* ly);
 
 
 
@@ -30,6 +32,8 @@ class SnMsgCenter:public QObject
 		/* project */
 		void emitCurProjectChange();
 		void emitCurSceneChange();
+
+		void emitLayer2DAdd(SnLayer2D* ly);
 
 };
 

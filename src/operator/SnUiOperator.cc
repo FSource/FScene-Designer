@@ -10,6 +10,7 @@
 #include "core/SnProject.h"
 #include "widget/SnInputDialog.h"
 #include "core/SnScene.h"
+#include "core/SnLayer2D.h"
 
 SnUiOperator::SnUiOperator()
 {
@@ -64,6 +65,7 @@ void SnUiOperator::renameScene()
 	SnScene* scene=SnGlobal::dataOperator()->getCurScene();
 
 	SnInputDialog dialog("Rename Scene",scene->getName().c_str());
+
     if(dialog.exec()==QDialog::Accepted)
 	{
 		std::string name=dialog.getTextField();
@@ -71,7 +73,6 @@ void SnUiOperator::renameScene()
 		{
 			QMessageBox msg(QMessageBox::Warning, "Rename Scene","Name Can't Be Empty String");
 			msg.exec();
-
 		}
 		else 
 		{
@@ -79,10 +80,30 @@ void SnUiOperator::renameScene()
 			{
 				return;
 			}
-
 			SnGlobal::dataOperator()->setSceneName(scene,name.c_str());
 		}
 	} 
+}
+void SnUiOperator::addLayer2D()
+{
+	SnInputDialog dialog("Create Layer2D");
+
+    if(dialog.exec()==QDialog::Accepted)
+	{
+		std::string name=dialog.getTextField();
+		if(name=="")
+		{
+			QMessageBox msg(QMessageBox::Warning, "Create Layer","Name Can't Be Empty String");
+			msg.exec();
+		}
+		else 
+		{
+			SnLayer2D* layer=new SnLayer2D();
+			layer->setName(name);
+			SnGlobal::dataOperator()->addLayer2D(layer);
+		}
+	} 
+
 }
 
 

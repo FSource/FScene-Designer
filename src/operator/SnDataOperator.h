@@ -5,7 +5,7 @@
 
 class SnProject;
 class SnScene;
-
+class SnLayer2D;
 class SnDataOperator
 {
 	public:
@@ -20,6 +20,7 @@ class SnDataOperator
 		SnScene* getCurScene();
 		void setSceneName(SnScene*,std::string name);
 
+		void addLayer2D(SnLayer2D* layer);
 
 		/* redo/undo */ 
 		bool canRedo();

@@ -20,6 +20,11 @@ void SnMsgCenter::emitCurSceneChange()
 	emit signalCurSceneChange();
 }
 
+void SnMsgCenter::emitLayer2DAdd(SnLayer2D* ly)
+{
+	emit signalLayer2DAdd(ly);
+}
+
 
 
 

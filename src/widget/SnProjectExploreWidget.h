@@ -5,9 +5,8 @@
 #include <QTreeView>
 
 class SnProjectExploreModel;
-class SnSprite;
 class SnProject;
-class SnAnimation;
+class SnLayer2D;
 
 class SnProjectExploreWidget:public QWidget
 {
@@ -19,6 +18,7 @@ class SnProjectExploreWidget:public QWidget
 	public slots:
 		void mousePress(const QModelIndex& index);
 		void onProjectChange();
+		void slotLayer2DAdd(SnLayer2D* ly);
 
 
 
