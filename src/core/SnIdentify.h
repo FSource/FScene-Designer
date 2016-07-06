@@ -8,7 +8,7 @@ enum
 	SN_CLASS_PROJECT,
 	SN_CLASS_SCENE,
 	SN_CLASS_LAYER2D,
-
+	SN_CLASS_ENTITY2D,
 };
 
 class SnIdentify

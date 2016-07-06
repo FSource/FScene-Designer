@@ -23,7 +23,6 @@ class SnEditViewWidget:public QGLWidget
 		virtual void resizeGL(int width,int height);
 		virtual void paintGL();
 
-		/*
 	public:
 
         void setTranslate(Vector2  t);
@@ -82,7 +81,6 @@ class SnEditViewWidget:public QGLWidget
 		virtual void mouseReleaseEvent(QMouseEvent* event);
 		virtual void keyPressEvent(QKeyEvent* event);
 		virtual void keyReleaseEvent(QKeyEvent* event);
-		*/
 
 };
 
