@@ -17,6 +17,13 @@
 #define SN_MT_EXIT_PORJECT ":/images/icon/file_open.png"
 
 
+#define SN_DT_SCENE ":/images/icon/new.png"
+#define SN_DT_LAYER2D ":/images/icon/toup.png"
+
+#define SN_SHOW ":images/icon/eye_show.png"
+#define SN_HIDE ":images/icon/eye_hide.png"
+
+
 
 #endif /*_SN_MACROS_H_*/
 

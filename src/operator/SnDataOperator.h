@@ -2,7 +2,7 @@
 #define _SD_DATA_OPERATOR_H_
 #include <string>
 #include <vector>
-
+#include "stage/entity/FsEntity2D.h"
 class SnProject;
 class SnScene;
 class SnLayer2D;
@@ -21,6 +21,12 @@ class SnDataOperator
 		void setSceneName(SnScene*,std::string name);
 
 		void addLayer2D(SnLayer2D* layer);
+
+		void reindexLayer2D(SnLayer2D* layer,int index);
+		void moveEntityToLayer(Faeris::Entity2D* en,SnLayer2D* layer);
+			
+		void	moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p);
+
 
 		/* redo/undo */ 
 		bool canRedo();

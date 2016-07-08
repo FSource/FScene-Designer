@@ -32,6 +32,7 @@
 #include "support/util/FsDict.h"
 #include "support/util/FsArray.h"
 #include "support/util/FsScriptUtil.h"
+#include "SnTest.h"  
 
 NS_FS_BEGIN
 void _FsScriptExtends_Finalize(FsObject* ob){}
@@ -53,13 +54,13 @@ int main(int argc,char** argv)
 	SnGlobal::setMainWindow(win);
 
 
-	SnGlobal::setProject(NULL);
 
 	win->setMinimumSize(QSize(1280	,800));
 	win->show();
 
     win->setWindowTitle("FScene Designer v1.0");
 	win->showMaximized();
+	SnGlobal::setProject(SnTest_CreateProject());
 
 	int ret= app.exec();
 

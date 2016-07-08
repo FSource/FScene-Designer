@@ -4,9 +4,9 @@
 #include "SnIdentify.h"
 #include "stage/FsScene.h"
 
-NS_FS_USE
 
-class SnScene:public Scene 
+
+class SnScene:public Faeris::Scene 
 {
 	public:
 		void setName(std::string name){m_name=name;}

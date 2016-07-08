@@ -86,20 +86,11 @@
     <ClCompile Include="Release\moc_SnEditViewWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="src\widget\SnInputDialog.cc">
-      <Filter>src\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widget\SnMainWindow.cc">
-      <Filter>src\widget</Filter>
-    </ClCompile>
     <ClCompile Include="Debug\moc_SnMainWindow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_SnMainWindow.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widget\SnProjectExploreModel.cc">
-      <Filter>src\widget</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_SnProjectExploreModel.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -161,16 +152,25 @@
     <ClCompile Include="Release\moc_SnMsgCenter.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="src\widget\SnProjectExploreModel.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widget\SnInputDialog.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widget\SnMainWindow.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\SnEntity2D.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Snlayer2D.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\input_text.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\widget\SnEditViewWidget.h">
-      <Filter>src\widget</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\widget\SnMainWindow.h">
-      <Filter>src\widget</Filter>
     </CustomBuild>
     <CustomBuild Include="src\widget\SnProjectExploreModel.h">
       <Filter>src\widget</Filter>
@@ -186,6 +186,12 @@
     </CustomBuild>
     <CustomBuild Include="src\SnMsgCenter.h">
       <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnEditViewWidget.h">
+      <Filter>src\widget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnMainWindow.h">
+      <Filter>src\widget</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -295,9 +301,6 @@
     <ClInclude Include="src\core\SnScene.h">
       <Filter>src\core</Filter>
     </ClInclude>
-    <ClInclude Include="src\widget\SnInputDialog.h">
-      <Filter>src\widget</Filter>
-    </ClInclude>
     <ClInclude Include="src\widget\SnPropertyWidget.h">
       <Filter>src\widget</Filter>
     </ClInclude>
@@ -318,6 +321,18 @@
     </ClInclude>
     <ClInclude Include="src\SnMacros.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SnTest.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\widget\SnInputDialog.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnEntity2D.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnLayer2D.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

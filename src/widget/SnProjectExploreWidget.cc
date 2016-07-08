@@ -12,6 +12,9 @@
 #include "operator/SnDataOperator.h"
 #include "operator/SnUiOperator.h"
 
+
+NS_FS_USE
+
 SnProjectExploreWidget::SnProjectExploreWidget()
 {
 	m_projectExploreView=NULL;
@@ -34,10 +37,22 @@ SnProjectExploreWidget::~SnProjectExploreWidget()
 void SnProjectExploreWidget::initWidget()
 {
 	m_projectExploreView=new QTreeView(this);
-	m_projectExploreView->setHeaderHidden(true);
-    m_projectExploreView->setIndentation(12);
+	
 	m_projectExploreModel=new SnProjectExploreModel;
+	
 	m_projectExploreView->setModel(m_projectExploreModel);
+
+
+	m_projectExploreView->setIconSize(QSize(20,20));
+	//m_projectExploreView->setHeaderHidden(true);
+	m_projectExploreView->setIndentation(12);
+	m_projectExploreView->setColumnWidth(1,60);
+	m_projectExploreView->setColumnWidth(0,180);
+	m_projectExploreView->setDragEnabled(true);
+	m_projectExploreView->setAcceptDrops(true);
+	m_projectExploreView->setDragDropMode(QAbstractItemView::InternalMove);
+
+
 
 	QVBoxLayout* vlayout=new QVBoxLayout();
 	vlayout->addWidget(m_projectExploreView);
