@@ -63,19 +63,28 @@
     <Filter Include="src\util">
       <UniqueIdentifier>{bbfe6917-e34b-4ec6-a6b4-f50231884d8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\3rd">
+      <UniqueIdentifier>{21242ac2-503b-4a42-8a13-14cbf91a612d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\3rd\QPropertyBrowser">
+      <UniqueIdentifier>{e30fd7db-1044-4b96-9963-e0319798800b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_image.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\SnIdentify.cc">
-      <Filter>src\core</Filter>
+    <ClCompile Include="src\operator\SnDataOperator.cc">
+      <Filter>src\operator</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\SnProject.cc">
-      <Filter>src\core</Filter>
+    <ClCompile Include="src\operator\SnUiOperator.cc">
+      <Filter>src\operator</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\SnScene.cc">
-      <Filter>src\core</Filter>
+    <ClCompile Include="src\util\SdUtil.cc">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\SnRenderUtil.cc">
+      <Filter>src\util</Filter>
     </ClCompile>
     <ClCompile Include="src\widget\SnEditViewWidget.cc">
       <Filter>src\widget</Filter>
@@ -86,11 +95,20 @@
     <ClCompile Include="Release\moc_SnEditViewWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="src\widget\SnInputDialog.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widget\SnMainWindow.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_SnMainWindow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_SnMainWindow.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widget\SnProjectExploreModel.cc">
+      <Filter>src\widget</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_SnProjectExploreModel.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -119,23 +137,23 @@
     <ClCompile Include="Release\moc_SnResourceExploreWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="src\operator\SnDataOperator.cc">
-      <Filter>src\operator</Filter>
+    <ClCompile Include="src\core\SnEntity2D.cc">
+      <Filter>src\core</Filter>
     </ClCompile>
-    <ClCompile Include="src\operator\SnUiOperator.cc">
-      <Filter>src\operator</Filter>
+    <ClCompile Include="src\core\SnIdentify.cc">
+      <Filter>src\core</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_SnUiOperator.cpp">
-      <Filter>Generated Files\Debug</Filter>
+    <ClCompile Include="src\core\Snlayer2D.cc">
+      <Filter>src\core</Filter>
     </ClCompile>
-    <ClCompile Include="Release\moc_SnUiOperator.cpp">
-      <Filter>Generated Files\Release</Filter>
+    <ClCompile Include="src\core\SnProject.cc">
+      <Filter>src\core</Filter>
     </ClCompile>
-    <ClCompile Include="src\util\SdUtil.cc">
-      <Filter>src\util</Filter>
+    <ClCompile Include="src\core\SnQuad2D.cc">
+      <Filter>src\core</Filter>
     </ClCompile>
-    <ClCompile Include="src\util\SnRenderUtil.cc">
-      <Filter>src\util</Filter>
+    <ClCompile Include="src\core\SnScene.cc">
+      <Filter>src\core</Filter>
     </ClCompile>
     <ClCompile Include="src\SnGlobal.cc">
       <Filter>src</Filter>
@@ -152,25 +170,19 @@
     <ClCompile Include="Release\moc_SnMsgCenter.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="src\widget\SnProjectExploreModel.cc">
-      <Filter>src\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widget\SnInputDialog.cc">
-      <Filter>src\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widget\SnMainWindow.cc">
-      <Filter>src\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\SnEntity2D.cc">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Snlayer2D.cc">
-      <Filter>src\core</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\input_text.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\operator\SnUiOperator.h">
+      <Filter>src\operator</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnEditViewWidget.h">
+      <Filter>src\widget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnMainWindow.h">
+      <Filter>src\widget</Filter>
     </CustomBuild>
     <CustomBuild Include="src\widget\SnProjectExploreModel.h">
       <Filter>src\widget</Filter>
@@ -181,17 +193,8 @@
     <CustomBuild Include="src\widget\SnResourceExploreWidget.h">
       <Filter>src\widget</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\operator\SnUiOperator.h">
-      <Filter>src\operator</Filter>
-    </CustomBuild>
     <CustomBuild Include="src\SnMsgCenter.h">
       <Filter>src</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\widget\SnEditViewWidget.h">
-      <Filter>src\widget</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\widget\SnMainWindow.h">
-      <Filter>src\widget</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -292,18 +295,6 @@
     <ClInclude Include="GeneratedFiles\ui_input_text.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\SnIdentify.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\SnProject.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\SnScene.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\widget\SnPropertyWidget.h">
-      <Filter>src\widget</Filter>
-    </ClInclude>
     <ClInclude Include="src\operator\SnDataOperator.h">
       <Filter>src\operator</Filter>
     </ClInclude>
@@ -316,6 +307,30 @@
     <ClInclude Include="src\util\SnRenderUtil.h">
       <Filter>src\util</Filter>
     </ClInclude>
+    <ClInclude Include="src\widget\SnInputDialog.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\widget\SnPropertyWidget.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnEntity2D.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnIdentify.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnLayer2D.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnProject.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnQuad2D.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnScene.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
     <ClInclude Include="src\SnGlobal.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -325,14 +340,61 @@
     <ClInclude Include="src\SnTest.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\widget\SnInputDialog.h">
-      <Filter>src\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\SnEntity2D.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\SnLayer2D.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-busy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-closedhand.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-cross.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-forbidden.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-hand.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-hsplit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-ibeam.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-openhand.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-sizeall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-sizeb.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-sizef.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-sizeh.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-sizev.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-uparrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-vsplit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-wait.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\3rd\QPropertyBrowser\images\cursor-whatsthis.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

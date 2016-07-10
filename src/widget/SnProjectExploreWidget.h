@@ -19,6 +19,7 @@ class SnProjectExploreWidget:public QWidget
 		void mousePress(const QModelIndex& index);
 		void onProjectChange();
 		void slotLayer2DAdd(SnLayer2D* ly);
+		void slotCurLayerChange(SnLayer2D* ly);
 
 
 

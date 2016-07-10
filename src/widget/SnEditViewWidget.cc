@@ -1,12 +1,15 @@
 #include <QWheelEvent>
 #include "widget/SnEditViewWidget.h"
-
+#include "core/SnScene.h"
+#include "SnGlobal.h"
+#include "operator/SnDataOperator.h"
 
 #include "FsGlobal.h"
 #include "FsFaerisModule.h"
 #include "FsGlobal.h"
 #include "graphics/FsRenderDevice.h"
 
+#include "stage/layer/FsLayer2D.h"
 #include "sys/FsWindow.h"
 #include "extends/FsScriptEngine.h"
 #include "mgr/FsTextureMgr.h"
@@ -133,6 +136,8 @@ void  SnEditViewWidget::paintGL()
         drawAxis();
 	}
 
+
+	drawScene();
 }
 
 
@@ -176,20 +181,47 @@ void SnEditViewWidget::drawGrid()
 	}
 }
 
+void SnEditViewWidget::drawScene()
+{
+	RenderDevice* render=Global::renderDevice();
+	SnScene* scene=SnGlobal::dataOperator()->getCurScene();
+	if(scene==NULL)
+	{
+		return;
+	}
+
+	int layer_nu=scene->layerNu();
+	for(int i=0;i<layer_nu;i++)
+	{
+		Faeris::Layer2D* l=dynamic_cast<Faeris::Layer2D*>(scene->getLayer(i));
+		Vector2 a,b;
+		getEditArea(&a,&b);
+		float x=a.x;
+		float y=a.y;
+		float width=b.x-a.x;
+		float height=b.y-a.y;
+
+		l->setViewArea(x,y,width,height);
+	}
+
+	scene->draw(render);
+}
+
+
 
 Vector2 SnEditViewWidget::toWidgetCoord(Vector2 v)
 {
-    float rx=v.x;
-    float ry=v.y;
-    QSize  wsize=size();
-    rx=rx*m_zoom+m_translate.x;
-    ry=ry*m_zoom+m_translate.y;
-    rx=rx+wsize.width()/2;
-    ry=wsize.height()/2-ry;
+	float rx=v.x;
+	float ry=v.y;
+	QSize  wsize=size();
+	rx=rx*m_zoom+m_translate.x;
+	ry=ry*m_zoom+m_translate.y;
+	rx=rx+wsize.width()/2;
+	ry=wsize.height()/2-ry;
 
 	Vector2 ret;
-    ret.x=rx;
-    ret.y=ry;
+	ret.x=rx;
+	ret.y=ry;
 	return ret;
 }
 
@@ -212,8 +244,8 @@ Vector2 SnEditViewWidget::toEditCoord(Vector2 v)
 void SnEditViewWidget::getEditArea(Vector2* a,Vector2* b)
 {
 	QSize wsize=size();
-    Vector2 start=toEditCoord(Vector2(0,wsize.height()));
-    Vector2 end=toEditCoord(Vector2(wsize.width(),0));
+	Vector2 start=toEditCoord(Vector2(0,wsize.height()));
+	Vector2 end=toEditCoord(Vector2(wsize.width(),0));
 
 	a->x=start.x;
 	a->y=start.y;
@@ -251,31 +283,31 @@ void SnEditViewWidget::resetZoomTranslate()
 
 void SnEditViewWidget::wheelEvent(QWheelEvent* event)
 {
-    float detal;
+	float detal;
 
-    float zoom=m_zoom;
-    float x=event->x();
-    float y=event->y();
+	float zoom=m_zoom;
+	float x=event->x();
+	float y=event->y();
 
-    QSize wsize=size();
-    x=x-wsize.width()/2;
-    y=wsize.height()/2-y;
+	QSize wsize=size();
+	x=x-wsize.width()/2;
+	y=wsize.height()/2-y;
 
-    float rx=(x-m_translate.x)/zoom;
-    float ry=(y-m_translate.y)/zoom;
+	float rx=(x-m_translate.x)/zoom;
+	float ry=(y-m_translate.y)/zoom;
 
-    detal=event->delta()>0?1.1f:0.9f;
-    m_zoom*=detal;
+	detal=event->delta()>0?1.1f:0.9f;
+	m_zoom*=detal;
 	if(m_zoom<0.10f)
 	{
 		m_zoom=0.10f;
 	}
 
-    float tx=x-rx*m_zoom;
-    float ty=y-ry*m_zoom;
-    m_translate=Vector2(tx,ty);
+	float tx=x-rx*m_zoom;
+	float ty=y-ry*m_zoom;
+	m_translate=Vector2(tx,ty);
 
-    update();
+	update();
 }
 
 void SnEditViewWidget::mouseMoveEvent(QMouseEvent* event)
@@ -305,7 +337,7 @@ void SnEditViewWidget::mousePressEvent(QMouseEvent* event)
 		return;
 	}
 	m_lastpos=event->pos();
-	
+
 }
 
 void SnEditViewWidget::mouseReleaseEvent(QMouseEvent* event)
@@ -324,8 +356,8 @@ void SnEditViewWidget::keyPressEvent(QKeyEvent* event)
 	{
 		m_spaceDown=true;
 		m_prevCursor=cursor();
-        setCursor(Qt::ClosedHandCursor);
-        update();
+		setCursor(Qt::ClosedHandCursor);
+		update();
 		return ;
 	}
 
@@ -336,8 +368,8 @@ void SnEditViewWidget::keyReleaseEvent(QKeyEvent* event)
 	{
 		m_spaceDown=false;
 		setCursor(m_prevCursor);
-        m_prevCursor=Qt::ArrowCursor;
-        update();
+		m_prevCursor=Qt::ArrowCursor;
+		update();
 		return ;
 	}
 }
@@ -345,8 +377,8 @@ void SnEditViewWidget::keyReleaseEvent(QKeyEvent* event)
 
 void SnEditViewWidget::onZoomIn()
 {
-	 m_zoom*=1.1f;
-	 update();
+	m_zoom*=1.1f;
+	update();
 }
 void SnEditViewWidget::onZoomOut()
 {

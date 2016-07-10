@@ -42,10 +42,74 @@ SnScene* SnDataOperator::getCurScene()
 }
 
 
+void SnDataOperator::setCurLayer(SnLayer2D* layer)
+{
+	if(getCurLayer()==layer)
+	{
+		return;
+	}
+
+	getCurProject()->setCurLayer(layer);
+
+	SnGlobal::msgCenter()->emitCurLayerChange(layer);
+}
+
+SnLayer2D* SnDataOperator::getCurLayer()
+{
+    SnProject* proj=getCurProject();
+    if(proj)
+    {
+		return proj->getCurLayer();
+	}
+	return NULL;
+}
+
+
+void SnDataOperator::setCurEntity(Entity2D* en)
+{
+
+	SnLayer2D* cur_layer=getCurLayer();
+	if(getCurLayer()==en->getLayer())
+	{
+		if(getCurEntity()==en)
+		{
+			return;
+		}
+		else 
+		{
+			getCurProject()->setCurEntity(en);
+			SnGlobal::msgCenter()->emitCurEntityChange();
+		}
+	}
+	else 
+	{
+		getCurProject()->setCurLayer((SnLayer2D*)en->getLayer());
+		getCurProject()->  setCurEntity(en);
+		SnGlobal::msgCenter()->emitCurLayerChange((SnLayer2D*)en->getLayer());
+	}
+}
+
+Entity2D* SnDataOperator::getCurEntity()
+{
+
+    SnProject* proj=getCurProject();
+    if(proj)
+    {
+		proj->getCurEntity();
+	}
+	return NULL;
+}
+
+
+
+
+
+
+
 
 void SnDataOperator::setSceneName(SnScene* sn,std::string name)
 {
-	sn->setName(name);
+	sn->setIdentifyName(name.c_str());
 }
 
 void SnDataOperator::addLayer2D(SnLayer2D* ly)

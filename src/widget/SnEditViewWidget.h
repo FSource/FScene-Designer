@@ -38,6 +38,7 @@ class SnEditViewWidget:public QGLWidget
 	public:
 		void drawAxis();
 		void drawGrid();
+		void drawScene();
 
 	public:
 		void setShowAxis(bool enable);

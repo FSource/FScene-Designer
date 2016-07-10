@@ -21,7 +21,6 @@
 
 #define SN_SCENE_MIME_TYPE  "SnSceneMimeType"
 
-NS_FS_USE
 
 
 SnProjectExploreModel::SnProjectExploreModel()
@@ -44,54 +43,21 @@ QModelIndex SnProjectExploreModel::index(int row,
 	}
 
 	SnScene* scene=proj->getCurScene();
-
 	if(!parent.isValid())
 	{
 		return createIndex(row,column,scene);
 	}
 
+	SnIdentify* id=static_cast <SnIdentify*>(parent.internalPointer());
 
-	FsObject* idfier=(FsObject*) parent.internalPointer();
-	if(dynamic_cast<SnScene*>(idfier))
+	int children_nu= id->getIdentifyChildNu();
+	if(row>=children_nu)
 	{
-		SnScene* sn=(SnScene*)idfier;
-		int layer_nu=sn->layerNu();
-		if(row>=layer_nu)
-		{
-			return QModelIndex();
-		}
-
-		SnLayer2D* layer=(SnLayer2D*)sn->getLayer(layer_nu-1-row);
-
-		return createIndex(row,column,layer);
+		return QModelIndex();
 	}
-	else if(dynamic_cast<SnLayer2D*>(idfier))
-	{
-		SnLayer2D* sn=(SnLayer2D*)idfier;
-		int entity_nu=sn->getEntityNu();
-		if(row>=entity_nu)
-		{
-			return QModelIndex();
-		}
+	SnIdentify* ch=id->getIdentifyChild(row);
 
-		Entity2D* en=(Entity2D*)sn->getEntity(row);
-		return createIndex(row,column,en);
-	}
-	else if(dynamic_cast<Entity2D*>(idfier))
-	{
-		Entity2D* en=(Entity2D*) idfier;
-		int child_nu=en->getChildNu();
-		if(row>=child_nu)
-		{
-			return QModelIndex();
-		}
-
-		Entity2D* ch=(Entity2D*) en->getChild(row);
-		return createIndex(row,column,ch);
-	}
-
-
-	return QModelIndex();
+	return createIndex(row,column,ch);
 
 }
 
@@ -102,31 +68,19 @@ QModelIndex SnProjectExploreModel::parent(const QModelIndex& child) const
 		return QModelIndex();
 	}
 
-	FsObject* idfier=(FsObject*)child.internalPointer();
-	if(dynamic_cast<SnScene*>(idfier))
+	SnIdentify* idfier=(SnIdentify*)child.internalPointer();
+
+	SnIdentify* parent=idfier->getIdentifyParent();
+
+	if(parent==NULL)
 	{
 		return QModelIndex();
 	}
-	else if(dynamic_cast<SnLayer2D*>(idfier))
+	else 
 	{
-		SnLayer2D* layer=(SnLayer2D*)idfier;
-		return createIndex(0,0,layer->getScene());
+		return createIndex(0,0,parent);
 	}
-	else if(dynamic_cast<Entity2D*>(idfier))
-	{
-		Entity2D* en=(Entity2D*)idfier;
-		if(en->getParent()==NULL)
-		{
-			return createIndex(0,0,en->getLayer());
-		}
-		else 
-		{
-			return createIndex(0,0,en->getParent());
-		}
-	}
-
 	return QModelIndex();
-
 }
 
 int SnProjectExploreModel::rowCount(const QModelIndex& parent)const 
@@ -141,30 +95,11 @@ int SnProjectExploreModel::rowCount(const QModelIndex& parent)const
 		return 1;
 	}
 
+	
 
-	FsObject* idfier=(FsObject*)parent.internalPointer();
+	SnIdentify* idfier=(SnIdentify*)parent.internalPointer();
 
-	if(dynamic_cast<SnScene*>(idfier))
-	{
-		SnScene* sn=(SnScene*)idfier;
-		int layer_nu=sn->layerNu();
-		return layer_nu;
-	}
-	else if(dynamic_cast<SnLayer2D*>(idfier))
-	{
-		SnLayer2D* layer=(SnLayer2D*) idfier;
-		int entity_nu=layer->getEntityNu();
-		return entity_nu;
-
-	}
-	else if(dynamic_cast<Entity2D*>(idfier))
-	{
-		Entity2D* en=(Entity2D*) idfier;
-		int child_nu=en->getChildNu();
-		return child_nu;
-	}
-
-	return 0;
+	return idfier->getIdentifyChildNu();
 }
 
 int SnProjectExploreModel::columnCount(const QModelIndex& /*parent*/)const
@@ -200,63 +135,31 @@ QVariant SnProjectExploreModel::data(const QModelIndex& index,int role)const
 
 	if(index.column()==0)
 	{
-		FsObject* idfier=(FsObject*)index.internalPointer();
+		SnIdentify* idfier=(SnIdentify*)index.internalPointer();
 		switch(role)
-		{
+		{ 
 			case Qt::DisplayRole:
 				{
-					if(dynamic_cast<SnScene*>(idfier))
-					{
-						return QString(((SnScene*)idfier)->getName().c_str());
-					}
-					else if(dynamic_cast<SnLayer2D*>(idfier))
-					{
-						return QString(((SnLayer2D*)idfier)->getName().c_str());
-					}
-
-					else if(dynamic_cast<SnEntity2D*>(idfier))
-					{
-						return QString(((SnEntity2D*)idfier)->getName().c_str());
-					}
+					return QString(idfier->getIdentifyName());
 					break;
 				}
 			case Qt::DecorationRole:
 				{
-					if(dynamic_cast<SnScene*>(idfier))
-					{
-						return QIcon(SN_DT_SCENE);
-					}
-					else if(dynamic_cast<SnLayer2D*>(idfier))
-					{
-						return QIcon(SN_DT_LAYER2D);
-					}
-					else if(dynamic_cast<Entity2D*>(idfier))
-					{
-						return QIcon(SN_DT_LAYER2D);
-					}
+		
+					return QIcon(SN_DT_LAYER2D);
 					break;
 				}
 		}
 	}
 	else if(index.column()==1)
 	{
-		FsObject* idfier=(FsObject*)index.internalPointer();
+		SnIdentify* idfier=(SnIdentify*)index.internalPointer();
+
 		switch(role)
 		{
 			case Qt::DecorationRole:
 				{
-					if(dynamic_cast<SnScene*>(idfier))
-					{
-						//return QIcon(SN_SHOW);
-					}
-					else if(dynamic_cast<SnLayer2D*>(idfier))
-					{
-						return QIcon(SN_SHOW);
-					}
-					else if(dynamic_cast<Entity2D*>(idfier))
-					{
-						return QIcon(SN_SHOW);
-					}
+					return QIcon(SN_SHOW);
 					break;
 				}
 		}
@@ -281,20 +184,18 @@ QVariant SnProjectExploreModel::data(const QModelIndex& index,int role)const
 
 	Qt::ItemFlags flags=QAbstractItemModel::flags(index);
 
-	FsObject* idfier=(FsObject*)index.internalPointer();
-	if(dynamic_cast<SnScene*>(idfier))
+	SnIdentify* idfier=(SnIdentify*)index.internalPointer();
+	int type=idfier->identifyType();
+
+	if(idfier->isDragEnabled())
 	{
-		return flags;
-	}
-	else if(dynamic_cast<SnLayer2D*>(idfier))
-	{
-		return flags|Qt::ItemIsDropEnabled|Qt::ItemIsDragEnabled;
-	}
-	else if(dynamic_cast<Entity2D*>(idfier))
-	{
-		return flags|Qt::ItemIsDropEnabled|Qt::ItemIsDragEnabled;
+		flags|=Qt::ItemIsDragEnabled;
 	}
 
+	if(idfier->isDropEnabled())
+	{
+		flags|=Qt::ItemIsDropEnabled;
+	}
 
 	return flags;
 }
@@ -347,7 +248,7 @@ bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction a
 
 	// get the encoded data of our Node pointer
 	QByteArray encodedData = data->data(SN_SCENE_MIME_TYPE);
-	FsObject* node = (FsObject*)encodedData.toULongLong();
+	SnIdentify* node = (SnIdentify*)encodedData.toULongLong();
 	if(!node) 
 	{
 		return false;
@@ -356,7 +257,7 @@ bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction a
 	// get the parent node
 	QModelIndex destinationParentIndex;
 
-	FsObject* parentNode = static_cast<FsObject*>(parent.internalPointer());
+	SnIdentify* parentNode = static_cast<SnIdentify*>(parent.internalPointer());
 
 	if(parentNode==NULL)
 	{
@@ -370,11 +271,11 @@ bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction a
 			if(dynamic_cast<SnLayer2D*>(parentNode))
 			{
 				
-				SnLayer2D* l_to=(SnLayer2D*) parentNode;
+				SnLayer2D* l_to=dynamic_cast<SnLayer2D*>(parentNode);
 
-				SnLayer2D* l_from=(SnLayer2D*) node;
+				SnLayer2D* l_from=dynamic_cast<SnLayer2D*>( node);
 				
-				Scene* sn=l_to->getScene();
+				Faeris::Scene* sn=l_to->getScene();
 				int l_index=sn->getLayerIndex(l_to);
 
 				SnGlobal::dataOperator()->reindexLayer2D(l_from,l_index);
@@ -382,14 +283,14 @@ bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction a
 			}
 		}
 	}
-	else if(dynamic_cast<Entity2D*>(node))
+	else if(dynamic_cast<Faeris::Entity2D*>(node))
 	{
 		if(row==-1)
 		{
 			if(dynamic_cast<SnLayer2D*>(parentNode)) 
 			{
-				Entity2D* en=(Entity2D*) node;
-				SnLayer2D* layer=(SnLayer2D*) parentNode;
+				Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>( node);
+				SnLayer2D* layer=dynamic_cast<SnLayer2D*>(parentNode);
 
 				if(en->getLayer()==layer&&en->getParent()==NULL)
 				{
@@ -397,10 +298,10 @@ bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction a
 				}
 				SnGlobal::dataOperator()->moveEntityToLayer(en,layer);
 			}
-			else if(dynamic_cast<Entity2D*>(parentNode))
+			else if(dynamic_cast<Faeris::Entity2D*>(parentNode))
 			{
-				Entity2D* en=(Entity2D*) node;
-				Entity2D* en2=(Entity2D*) parentNode;
+				Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>( node);
+				Faeris::Entity2D* en2=dynamic_cast<Faeris::Entity2D*>( parentNode);
 				if(en->getParent()==en2)
 				{
 					return false;
@@ -420,4 +321,4 @@ bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction a
 
 
 
-
+   

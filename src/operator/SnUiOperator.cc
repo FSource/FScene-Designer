@@ -64,7 +64,7 @@ void SnUiOperator::renameScene()
 {
 	SnScene* scene=SnGlobal::dataOperator()->getCurScene();
 
-	SnInputDialog dialog("Rename Scene",scene->getName().c_str());
+	SnInputDialog dialog("Rename Scene",scene->getIdentifyName());
 
     if(dialog.exec()==QDialog::Accepted)
 	{
@@ -76,7 +76,7 @@ void SnUiOperator::renameScene()
 		}
 		else 
 		{
-			if(scene->getName()==name)
+			if(std::string(scene->getIdentifyName())==name)
 			{
 				return;
 			}
@@ -99,7 +99,7 @@ void SnUiOperator::addLayer2D()
 		else 
 		{
 			SnLayer2D* layer=new SnLayer2D();
-			layer->setName(name);
+			layer->setIdentifyName(name.c_str());
 			SnGlobal::dataOperator()->addLayer2D(layer);
 		}
 	} 

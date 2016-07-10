@@ -117,7 +117,6 @@ void SdProjectExploreWidget::connectSignal()
 }
 
 
-
 void SdProjectExploreWidget::mousePress(const QModelIndex& index)
 {
 	if(!index.isValid())

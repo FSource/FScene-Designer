@@ -9,6 +9,8 @@
 #include "SnGlobal.h"
 #include "SnMsgCenter.h"
 #include "core/SnScene.h"
+#include "core/SnLayer2D.h"
+#include "core/SnEntity2D.h"
 #include "operator/SnDataOperator.h"
 #include "operator/SnUiOperator.h"
 
@@ -41,6 +43,8 @@ void SnProjectExploreWidget::initWidget()
 	m_projectExploreModel=new SnProjectExploreModel;
 	
 	m_projectExploreView->setModel(m_projectExploreModel);
+	m_projectExploreView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
 
 
 	m_projectExploreView->setIconSize(QSize(20,20));
@@ -89,6 +93,7 @@ void SnProjectExploreWidget::connectSignal()
 	connect(ma_renameScene,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(renameScene()));
 	connect(ma_newLayer2D,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(addLayer2D()));
 	connect(SnGlobal::msgCenter(),SIGNAL(signalLayer2DAdd(SnLayer2D*)),this,SLOT(slotLayer2DAdd(SnLayer2D*)));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalCurLayerChange(SnLayer2D*)),this,SLOT(slotCurLayerChange(SnLayer2D*)));
 
 }
 
@@ -101,13 +106,21 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 		return ;
 	}
 
-	FsObject* idfier=(FsObject*)index.internalPointer();
+	SnIdentify* idfier=(SnIdentify*)index.internalPointer();
 
 	if(dynamic_cast<SnScene*>(idfier))
 	{
-
 		/*TODO(set current)*/
 	}
+	else if(dynamic_cast<SnLayer2D*>(idfier))
+	{
+		SnGlobal::dataOperator()->setCurLayer(dynamic_cast<SnLayer2D*>(idfier));
+	}
+	else if(dynamic_cast<Entity2D*>(idfier))
+	{
+		SnGlobal::dataOperator()->setCurEntity(dynamic_cast<Entity2D*>(idfier));
+	}
+
 
 
 	if((QApplication::mouseButtons()&Qt::RightButton))
@@ -116,15 +129,15 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 		{
 			m_menuScene->popup(QCursor::pos());
 		}
-		/*
-		else if(dynamic_cast<Layer2D*>(idfier))
+		
+		else if(dynamic_cast<SnLayer2D*>(idfier))
 		{
 			m_menuLayer2D->popup(QCursor::pos());
 		}
 		else if(dynamic_cast<Entity2D*>(idfier))
 		{
+
 		}
-		*/
 	}
 
 }
@@ -140,6 +153,10 @@ void SnProjectExploreWidget::slotLayer2DAdd(SnLayer2D* ly)
 	m_projectExploreModel->refresh();
 }
 
+void SnProjectExploreWidget::slotCurLayerChange(SnLayer2D* ly)
+{
+	//m_projectExploreView->selectionModel()->reset();
+}
 
 void SnProjectExploreWidget::destory()
 {

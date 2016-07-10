@@ -23,17 +23,17 @@ class SnMsgCenter:public QObject
 		void signalCurProjectChange();
 		void signalCurSceneChange();
 		void signalLayer2DAdd(SnLayer2D* ly);
-
+		void signalCurLayerChange(SnLayer2D* ly);
 
 
 	public:
-
-
 		/* project */
 		void emitCurProjectChange();
 		void emitCurSceneChange();
 
 		void emitLayer2DAdd(SnLayer2D* ly);
+		void emitCurLayerChange(SnLayer2D* ly);
+		void emitCurEntityChange();
 
 };
 

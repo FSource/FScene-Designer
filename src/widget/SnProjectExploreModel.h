@@ -2,6 +2,8 @@
 #define _SD_PROJECT_EXPLORE_MODEL_H_
 
 #include <QAbstractItemModel>
+#include "FsObject.h"
+
 class SnProjectExploreModel:public QAbstractItemModel 
 {
 	Q_OBJECT
@@ -21,6 +23,8 @@ class SnProjectExploreModel:public QAbstractItemModel
 		virtual QMimeData* mimeData(const QModelIndexList& indexes)const;
 		virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int, const QModelIndex &parent);
  		virtual Qt::DropActions supportedDropActions() const;
+
+
 
 	public:
 		void refresh();

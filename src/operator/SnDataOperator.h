@@ -20,12 +20,19 @@ class SnDataOperator
 		SnScene* getCurScene();
 		void setSceneName(SnScene*,std::string name);
 
+		void setCurLayer(SnLayer2D* layer);
+		SnLayer2D* getCurLayer();
+		void setCurEntity(Faeris::Entity2D* en);
+		Faeris::Entity2D* getCurEntity();
+
+
+
 		void addLayer2D(SnLayer2D* layer);
 
 		void reindexLayer2D(SnLayer2D* layer,int index);
 		void moveEntityToLayer(Faeris::Entity2D* en,SnLayer2D* layer);
 			
-		void	moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p);
+		void moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p);
 
 
 		/* redo/undo */ 

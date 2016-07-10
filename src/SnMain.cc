@@ -43,8 +43,13 @@ NS_FS_USE;
 
 
 
+
+
 int main(int argc,char** argv)
 {
+
+	
+
     QApplication app(argc,argv);
 
 	SnGlobal::moduleInit();

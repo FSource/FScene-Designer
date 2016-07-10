@@ -25,6 +25,14 @@ void SnMsgCenter::emitLayer2DAdd(SnLayer2D* ly)
 	emit signalLayer2DAdd(ly);
 }
 
+void SnMsgCenter::emitCurLayerChange(SnLayer2D* ly)
+{
+	emit signalCurLayerChange(ly);
+}
+void SnMsgCenter::emitCurEntityChange()
+{
+}
+
 
 
 

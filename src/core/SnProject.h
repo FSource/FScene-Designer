@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include "core/SnIdentify.h"
+#include "core/SnEntity2D.h"
+#include "core/SnLayer2D.h"
 
 class SnScene;
 
@@ -29,7 +31,15 @@ class SnProject:public SnIdentify
 		void setName(std::string name);
 		std::string getName(){return m_name;}
 
+
+	public:
 		SnScene* getCurScene();
+		void setCurLayer(SnLayer2D* layer);
+		SnLayer2D* getCurLayer();
+
+		void setCurEntity(Faeris::Entity2D* en);
+		Faeris::Entity2D* getCurEntity();
+
 
 	private:
 		std::string m_fileName;
@@ -37,6 +47,11 @@ class SnProject:public SnIdentify
 		std::string m_name;
 
 		SnScene* m_scene;
+
+		SnLayer2D* m_curlayer;
+
+		Faeris::Entity2D* m_curEntity;
+		Faeris::FsArray* m_selectEntity;
 
 };
 
