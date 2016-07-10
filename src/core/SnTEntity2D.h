@@ -22,8 +22,8 @@ public:
 		
 		virtual SnIdentify* getIdentifyParent()
 		{
-			Faeris::Entity* ep=getParent();
-			Faeris::Layer* ly=getLayer();
+                        Faeris::Entity* ep=T::getParent();
+                        Faeris::Layer* ly=T::getLayer();
 			if(ep==NULL)
 			{
 				return dynamic_cast<SnIdentify*>(ly);
@@ -35,12 +35,12 @@ public:
 
 		virtual int getIdentifyChildNu()
 		{
-			return getChildNu();
+                        return T::getChildNu();
 		}
 
 		virtual SnIdentify* getIdentifyChild(int index)
 		{
-			Faeris::Entity* en=getChild(index);
+                        Faeris::Entity* en=T::getChild(index);
 			return dynamic_cast<SnIdentify*>(en);
 		}
 		virtual int getIdentifyChildIndex(SnIdentify* /*id*/)

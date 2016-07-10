@@ -60,8 +60,8 @@ FORMS += \
 
 win32 {
 
-        LIBS += -L$$PWD/faeris/lib/library/win32  -llibfaerisd   \
-                -L$$PWD/faeris/lib/library/win32/3rdparty -llibcurld -lglew32 -llibpngd -lfreetype
+        LIBS += -L$$PWD/faeris/lib/library/win32/3rdparty -llibcurld -lglew32 -llibpngd -lfreetype -llibjpeg -llibtgad -lminizipd -lzlibd -lglut32 -lglfw3 \
+                -L$$PWD/faeris/lib/library/win32   -llibfaerisd
 
-                CONFIG +=console
+        CONFIG +=console
 }

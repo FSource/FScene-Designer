@@ -65,7 +65,7 @@ int main(int argc,char** argv)
 
     win->setWindowTitle("FScene Designer v1.0");
 	win->showMaximized();
-	SnGlobal::setProject(SnTest_CreateProject());
+
 
 	int ret= app.exec();
 

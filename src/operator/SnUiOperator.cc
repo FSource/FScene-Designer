@@ -11,6 +11,7 @@
 #include "widget/SnInputDialog.h"
 #include "core/SnScene.h"
 #include "core/SnLayer2D.h"
+#include "SnTest.h"
 
 SnUiOperator::SnUiOperator()
 {
@@ -55,8 +56,8 @@ void SnUiOperator::newProject()
 	proj->setDirName(t_dir);
     proj->setFileName(t_file);
 	proj->setName(t_basename);
-
-	SnGlobal::setProject(proj);
+	SnGlobal::setProject(SnTest_CreateProject());
+	//SnGlobal::setProject(proj);
 
 }
 

@@ -11,7 +11,7 @@
 #include "operator/SnUiOperator.h"
 //#include "operator/SnDataOperator.h"
 
-#include "widget/SnPropertyWidget.h"
+#include "widget/SnPropertyBrowserWidget.h"
 #include "SnGlobal.h"
 #include "SnMsgCenter.h"
 
@@ -143,7 +143,8 @@ void SnMainWindow::initWidget()
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurProjectChange()),m_resourceExploreWidget,SLOT(slotCurProjectChange()));
 
 
-   //m_propertyWidget= new SnPropertyWidget;
+	m_propertyWidget= new SnPropertyBrowserWidget;
+	m_propertyDockWidget=new QDockWidget("PropertyBrowserExplore");
 }
 
 void SnMainWindow::initLayout()
@@ -158,7 +159,11 @@ void SnMainWindow::initLayout()
 	setCentralWidget(m_editViewWidget);
 
 
+	/* property Editor*/
+	m_propertyDockWidget->setWidget(m_propertyWidget);
+	m_propertyDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
 
+	 addDockWidget(Qt::LeftDockWidgetArea,m_propertyDockWidget);
 
 	/* ProjectExplore*/
 	m_projectExploreDockWidget->setWidget(m_projectExploreWidget);

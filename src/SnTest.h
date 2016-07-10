@@ -7,7 +7,7 @@
 #include "core/SnEntity2D.h"
 #include "core/SnQuad2D.h"
 
-SnProject* SnTest_CreateProject()
+static SnProject* SnTest_CreateProject()
 {
 
 	SnProject* proj=new SnProject();

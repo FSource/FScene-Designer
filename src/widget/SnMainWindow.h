@@ -11,7 +11,7 @@
 #include <QDialog>
 
 class SnEditViewWidget;
-class SnPropertyWidget;
+class SnPropertyBrowserWidget;
 
 class SnProjectExploreWidget;
 class SnResourceExploreWidget;
@@ -25,7 +25,7 @@ class SnMainWindow:public QMainWindow
 
 	public:
 		SnEditViewWidget* getEditViewWidget()  {return m_editViewWidget;}
-		SnPropertyWidget* getPropertyWidget()  {return m_propertyWidget;}
+		SnPropertyBrowserWidget* getPropertyWidget()  {return m_propertyWidget;}
 
 		SnProjectExploreWidget* getProjectExploreWidget(){return m_projectExploreWidget;}
 		QDockWidget* getProjectExploreDockWidget(){return m_projectExploreDockWidget;}
@@ -64,7 +64,8 @@ public:
 
 
         /* Property */
-        SnPropertyWidget*  m_propertyWidget;
+        SnPropertyBrowserWidget*  m_propertyWidget;
+		QDockWidget* m_propertyDockWidget;
 
         /* ProjectExplore */
         SnProjectExploreWidget* m_projectExploreWidget;
