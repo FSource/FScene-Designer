@@ -6,6 +6,7 @@
 
 class SnProject;
 class SnLayer2D;
+class SnIdentify;
 
 
 class SnMsgCenter:public QObject 
@@ -26,6 +27,8 @@ class SnMsgCenter:public QObject
 		void signalCurLayerChange(SnLayer2D* ly);
 		void signalCurEntityChange();
 
+		void signalIdentifyAttributeChange(SnIdentify* id,const char* name);
+
 
 	public:
 		/* project */
@@ -35,6 +38,8 @@ class SnMsgCenter:public QObject
 		void emitLayer2DAdd(SnLayer2D* ly);
 		void emitCurLayerChange(SnLayer2D* ly);
 		void emitCurEntityChange();
+
+		void emitIdentifyAttributeChange(SnIdentify* id,const char* name);
 
 };
 

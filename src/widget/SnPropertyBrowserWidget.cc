@@ -22,38 +22,68 @@ SnPropertyBrowserWidget::SnPropertyBrowserWidget()
 	m_variantFactor=new QtVariantEditorFactory(this);
 	m_propertyEditor = new QtTreePropertyBrowser(this);
 
+
 	m_propertyEditor->setFactoryForManager(m_variantManager,m_variantFactor);
 	m_propertyEditor->setHeaderVisible(false);
+	m_identify=NULL;
+	m_groupAttrDescList=NULL;
+
+
 	QVBoxLayout* vlayout=new QVBoxLayout();
 	vlayout->addWidget(m_propertyEditor);
 	vlayout->setContentsMargins(0,0,0,0);
 	setLayout(vlayout);
 
 
+	connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+			this, SLOT(slotEditorValueChange(QtProperty *, const QVariant &)));
 }
 
 
-void SnPropertyBrowserWidget::setPropertysList(SnAttrGroupList* list)
+void SnPropertyBrowserWidget::setIdentify(SnIdentify* id)
 {	
+	if(m_identify==id)
+	{
+		return;
+	}
+
+	m_identify=id;
+
 	m_propertyEditor->clear();
 	m_variantManager->clear();
+	m_nameToProperty.clear();
+	m_nameToDesc.clear();
 
-	if(list==NULL)
+	if(m_groupAttrDescList)
+	{
+		delete m_groupAttrDescList;
+		m_groupAttrDescList=NULL;
+	}
+
+	if(!m_identify)
 	{
 		return;
 	}
 
 
-	int size=list->getAttrGroupDescNu();
+
+	m_groupAttrDescList=id->getAttributeList();
+
+
+	m_variantManager->blockSignals(true);
+
+	int size=m_groupAttrDescList->getAttrGroupDescNu();
 	for(int i=0;i<size;i++)
 	{
-		SnAttrGroupDesc* gdesc=list->getAttrGroupDesc(i);
-		QtProperty* property=addProperty(gdesc);
+		SnAttrGroupDesc* gdesc=m_groupAttrDescList->getAttrGroupDesc(i);
+		QtProperty* property=addProperty(id,gdesc);
 		m_propertyEditor->addProperty(property);
 	}
+
+	m_variantManager->blockSignals(false);
 }
 
-QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrGroupDesc* desc)
+QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrGroupDesc* desc)
 {
 	const char* name=desc->getName();
 
@@ -65,7 +95,7 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrGroupDesc* desc)
 	{
 		SnAttrTypeDesc* tattr=desc->getAttrTypeDesc(i);
 
-		QtProperty* sub_property=addProperty(tattr);
+		QtProperty* sub_property=addProperty(id,tattr);
 		if(sub_property)
 		{
 			group->addSubProperty(sub_property);
@@ -76,12 +106,12 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrGroupDesc* desc)
 
 
 
-QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
+QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* tattr)
 {
+
 	const char* name=tattr->getName();
 	int type=tattr->getType();
-	FsVariant t_value=tattr->getValue();
-
+	FsVariant t_value=id->getAttribute(name);
 
 	if(type==SN_TYPE_ENUMS)
 	{
@@ -105,6 +135,8 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 				}
 			}
 
+			m_nameToProperty[name]=property;
+			m_nameToDesc[name]=tattr;
 
 			return property;
 		}
@@ -126,6 +158,8 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 				{
 					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Bool,QString(name));
 					property->setValue(*(bool*)t_value.getValue());
+					m_nameToProperty[name]=property;
+					m_nameToDesc[name]=tattr;
 					return property;
 					break;
 				}
@@ -133,6 +167,8 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 				{
 					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Double,QString(name));
 					property->setValue(*(float*)t_value.getValue());
+					m_nameToProperty[name]=property;
+					m_nameToDesc[name]=tattr;
 					return property;
 					break;
 				}
@@ -141,6 +177,8 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 					QtVariantProperty* property=m_variantManager->addProperty(QVariant::PointF,QString(name));
 					Vector2 value=*(Vector2*)t_value.getValue();
 					property->setValue(QPointF(value.x,value.y));
+					m_nameToProperty[name]=property;
+					m_nameToDesc[name]=tattr;
 					return property;
 					break;
 				}
@@ -149,6 +187,8 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Vector3D,QString(name));
 					Vector3 value=*(Vector3*)t_value.getValue();
 					property->setValue(QVector3D(value.x,value.y,value.z));
+					m_nameToProperty[name]=property;
+					m_nameToDesc[name]=tattr;
 					return property;
 					break;
 				}
@@ -157,6 +197,8 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Vector4D,QString(name));
 					Vector4 value=*(Vector4*)t_value.getValue();
 					property->setValue(QVector4D(value.x,value.y,value.z,value.w));
+					m_nameToProperty[name]=property;
+					m_nameToDesc[name]=tattr;
 					return property;
 					break;
 				}
@@ -166,6 +208,8 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Color,QString(name));
 					Color4f value=*(Color4f*)t_value.getValue();
 					property->setValue(QColor(value.r*255,value.g*255,value.b*255,value.a*255));
+					m_nameToProperty[name]=property;
+					m_nameToDesc[name]=tattr;
 					return property;
 					break;
 				}
@@ -175,6 +219,8 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 					QtVariantProperty* property=m_variantManager->addProperty(QVariant::String,QString(name));
 					const char* value=(char*)t_value.getValue();
 					property->setValue(value);
+					m_nameToProperty[name]=property;
+					m_nameToDesc[name]=tattr;
 					return property;
 					break;
 				}
@@ -184,6 +230,10 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnAttrTypeDesc* tattr)
 				const char* value=(char*)t_value.getValue();
 				std::string v=std::string(value)+std::string(FsEnum_FsTypeToStr(ftype));
 				property->setValue(v.c_str());
+
+				m_nameToProperty[name]=property;
+				m_nameToDesc[name]=tattr;
+
 				return property;
 				break;
 		}
@@ -208,6 +258,109 @@ void SnPropertyBrowserWidget::slotCurLayerChange(SnLayer2D* ly)
 	refreshProperty();
 }
 
+void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
+{
+	if(m_identify==NULL)
+	{
+		FS_TRACE_ERROR("NO Select Value,But has Attribute");
+		return ;
+	}
+
+	QString qname=p->propertyName();
+	std::string name=qname.toUtf8().constData();
+
+
+	SnAttrTypeDesc* desc=NULL; 
+	std::map<std::string,SnAttrTypeDesc*>::iterator iter=m_nameToDesc.find(name);
+	if(iter==m_nameToDesc.end())
+	{
+		FS_TRACE_ERROR("No Property(%s) Register",name.c_str());
+		return;
+	}
+	desc=iter->second;
+
+	if(desc->getType()==SN_TYPE_ENUMS)
+	{
+		QStringList& enum_list=desc->getEnums();
+		int value=qvariant_cast<int>(v);
+
+		QString enum_name=enum_list[value];
+
+		SnGlobal::dataOperator()->setIdentifyAttribute( m_identify,name.c_str(),FsVariant(enum_name.toUtf8().constData()));
+	}
+
+	else if(desc->getType()==SN_TYPE_NORMAL)
+	{
+		FsVariant ret;
+		switch(v.type())
+		{
+			case QVariant::Bool:
+				{
+					bool b_v=qvariant_cast<bool>(v);
+					ret=FsVariant(b_v);
+					break;
+				}
+			case QVariant::String:
+				{
+					QString t_v=qvariant_cast<QString>(v);
+					ret=FsVariant(t_v.toUtf8().constData());
+					break;
+				}
+			case QVariant::Double:
+				{
+					double t_v=qvariant_cast<double>(v);
+					ret=FsVariant(float(t_v));
+					break;
+				}
+			case QVariant::PointF:
+				{
+					QPointF t_v=qvariant_cast<QPointF>(v);
+					ret=FsVariant(Vector2(t_v.x(),t_v.y()));
+					break;
+				}
+
+			case QVariant::Vector3D:
+				{
+					QVector3D t_v=qvariant_cast<QVector3D>(v);
+					ret=FsVariant(Vector3(t_v.x(),t_v.y(),t_v.z()));
+					break;
+				}
+
+			case QVariant::Vector4D:
+				{
+					QVector4D t_v=qvariant_cast<QVector4D>(v);
+					ret=FsVariant(Vector4(t_v.x(),t_v.y(),t_v.z(),t_v.w()));
+					break;
+				}
+
+			case QVariant::Color:
+				{
+					QColor t_v=qvariant_cast<QColor>(v);
+					qreal r,g,b,a;
+					t_v.getRgbF(&r,&g,&b,&a);
+					ret=FsVariant(Color4f(r,g,b,a));
+					break;
+				}
+
+			default:
+				FS_TRACE_ERROR("Unkown Type For Change");
+				break;
+		}
+
+
+		SnGlobal::dataOperator()->setIdentifyAttribute( m_identify,name.c_str(),ret);
+	}
+
+}
+
+
+void SnPropertyBrowserWidget::slotIdentifyAttributeChange(SnIdentify* id,const char* name)
+{
+
+}
+
+
+
 
 
 void SnPropertyBrowserWidget::refreshProperty()
@@ -215,24 +368,19 @@ void SnPropertyBrowserWidget::refreshProperty()
 	Entity2D* en=SnGlobal::dataOperator()->getCurEntity();
 	if(en)
 	{
-		SnAttrGroupList* glist=dynamic_cast<SnIdentify*>(en)->getAttributeList();
-		setPropertysList(glist);
-		delete glist;
+		setIdentify(dynamic_cast<SnIdentify*>(en));
 		return ;
 	}
 
 	SnLayer2D* ly=SnGlobal::dataOperator()->getCurLayer();
 	if(ly)
 	{
-		SnAttrGroupList* glist=ly->getAttributeList();
-		setPropertysList(glist);
-		delete glist;
+		setIdentify(dynamic_cast<SnIdentify*>(ly));
 		return ;
-
-		setPropertysList(NULL);
 	}
+	setIdentify(NULL);
+	m_identify=NULL;
 }
-
 
 
 

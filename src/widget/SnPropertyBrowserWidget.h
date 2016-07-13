@@ -17,7 +17,6 @@ class SnPropertyBrowserWidget:public QWidget
 		~SnPropertyBrowserWidget();
 
 	public:
-		void setPropertysList(SnAttrGroupList* glist);
 
 		void setProperty(std::string name,Faeris::FsVariant value);
 
@@ -26,18 +25,28 @@ class SnPropertyBrowserWidget:public QWidget
 		void slotCurEntityChange();
 		void slotCurLayerChange(SnLayer2D* ly);
 
+	public slots:
+		void slotEditorValueChange(QtProperty*,const QVariant v);
+		void slotIdentifyAttributeChange(SnIdentify* id,const char* name);
 
 
 	protected:
-		QtProperty* addProperty(SnAttrGroupDesc* desc);
-		QtProperty* addProperty(SnAttrTypeDesc* tattr);
+		void setIdentify(SnIdentify* id);
+		QtProperty* addProperty(SnIdentify* id,SnAttrGroupDesc* desc);
+		QtProperty* addProperty(SnIdentify* id,SnAttrTypeDesc* tattr);
 		void refreshProperty();
 
 	private:
 		class QtTreePropertyBrowser* m_propertyEditor;
 		class QtVariantEditorFactory* m_variantFactor;
 		class QtVariantPropertyManager* m_variantManager;
-		std::map<std::string,class QtVariantProperty*> m_propertys;
+
+		std::map<std::string,QtProperty*> m_nameToProperty;
+		std::map<std::string,SnAttrTypeDesc*> m_nameToDesc;
+
+		SnAttrGroupList* m_groupAttrDescList;
+		SnIdentify* m_identify;
+
 };
 
 

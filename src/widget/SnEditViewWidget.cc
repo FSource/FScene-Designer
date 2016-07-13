@@ -390,3 +390,8 @@ void SnEditViewWidget::onZoomOut()
 
 	update();
 }
+
+void SnEditViewWidget::slotIdentifyAttributeChange(SnIdentify* /*id*/,const char* /*name*/)
+{
+	update();
+}

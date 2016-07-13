@@ -31,25 +31,22 @@ enum
 class SnAttrTypeDesc
 {
 	public:
-		SnAttrTypeDesc(const char* name,int type,const Faeris::FsVariant& value)
+		SnAttrTypeDesc(const char* name,int type)
 		{
 			m_name=name;
 			m_type=type;
-			m_value=value;
 		}
 
-		SnAttrTypeDesc(const char* name, QStringList enums, const Faeris::FsVariant& value)
+		SnAttrTypeDesc(const char* name, QStringList enums)
 		{
 			m_type=SN_TYPE_ENUMS;
 			m_name=name;
 			m_enums=enums;
-			m_value=value;
 		}
 
 	public:
 		const char* getName() { return m_name.c_str(); }
 		int getType() { return m_type; }
-		const  Faeris::FsVariant& getValue() { return m_value; }
 
 		void addEnum(QString v) {m_enums<<v;}
 		QStringList getEnums(){return m_enums;}
@@ -59,7 +56,6 @@ class SnAttrTypeDesc
 
 		/* normal type */
 		int m_type;
-		Faeris::FsVariant m_value;
 		QStringList m_enums;
 
 };

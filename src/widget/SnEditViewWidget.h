@@ -8,6 +8,8 @@
 
 #include "math/FsVector2.h"
 #include "graphics/FsColor.h"
+
+class SnIdentify;
 NS_FS_USE
 
 
@@ -58,6 +60,8 @@ class SnEditViewWidget:public QGLWidget
 	public slots:
 		void onZoomIn();
 		void onZoomOut();
+
+		void slotIdentifyAttributeChange(SnIdentify* id,const char* name);
 		
 	private:
 		Vector2 m_translate;

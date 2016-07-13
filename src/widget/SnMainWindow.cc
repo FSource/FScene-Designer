@@ -129,7 +129,7 @@ void SnMainWindow::initMenuBar()
 void SnMainWindow::initWidget()
 {
 	m_editViewWidget=new SnEditViewWidget;
-
+	connect(SnGlobal::msgCenter(), SIGNAL(signalIdentifyAttributeChange(SnIdentify*,const char* )),m_editViewWidget,SLOT(slotIdentifyAttributeChange(SnIdentify*,const char* )));
 
 
 	m_projectExploreWidget=new SnProjectExploreWidget;
@@ -151,6 +151,7 @@ void SnMainWindow::initWidget()
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurProjectChange()),m_propertyWidget,SLOT(slotCurProjectChange()));
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurLayerChange(SnLayer2D*)),m_propertyWidget,SLOT(slotCurLayerChange(SnLayer2D*)));
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurEntityChange()),m_propertyWidget,SLOT(slotCurEntityChange()));
+	connect(SnGlobal::msgCenter(), SIGNAL(signalIdentifyAttributeChange(SnIdentify*,const char* )),m_propertyWidget,SLOT(slotIdentifyAttributeChange(SnIdentify*,const char* )));
 }
 
 void SnMainWindow::initLayout()

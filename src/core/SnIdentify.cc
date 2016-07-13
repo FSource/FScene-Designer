@@ -72,14 +72,11 @@ const char* SnIdentify::getIdentifyName()
 
 SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,int type)
 {
-	FsVariant value=SnIdentify::getAttribute(name);
-	return new SnAttrTypeDesc(name,type,value);
+	return new SnAttrTypeDesc(name,type);
 }
 
 SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,const char* fn(int))
 {
-	FsVariant value=SnIdentify::getAttribute(name);
-
 	QStringList e_list;
 	int index=0;
 	while(fn(index)!=NULL)
@@ -87,7 +84,6 @@ SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,const char* fn(
 		e_list<<fn(index);
 		index++;
 	}
-	return new SnAttrTypeDesc(name,e_list,value);
-
+	return new SnAttrTypeDesc(name,e_list);
 }
 

@@ -6,6 +6,7 @@
 class SnProject;
 class SnScene;
 class SnLayer2D;
+class SnIdentify;
 class SnDataOperator
 {
 	public:
@@ -25,7 +26,7 @@ class SnDataOperator
 		void setCurEntity(Faeris::Entity2D* en);
 		Faeris::Entity2D* getCurEntity();
 
-
+		void setIdentifyAttribute(SnIdentify* id,const char* name,const Faeris::FsVariant& value);
 
 		void addLayer2D(SnLayer2D* layer);
 

@@ -149,6 +149,13 @@ void SnDataOperator::moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p
 	SnGlobal::msgCenter()->emitLayer2DAdd(NULL);
 }
 
+void SnDataOperator::setIdentifyAttribute(SnIdentify* id,const char* name,const Faeris::FsVariant& value)
+{
+	id->setAttribute(name,value);
+	SnGlobal::msgCenter()->emitIdentifyAttributeChange(id,name);
+}
+
+
 
 
 /* redo/undo */

@@ -34,6 +34,11 @@ void SnMsgCenter::emitCurEntityChange()
 	emit signalCurEntityChange();
 }
 
+void SnMsgCenter::emitIdentifyAttributeChange(SnIdentify* id,const char* name)
+{
+	emit signalIdentifyAttributeChange(id, name);
+}
+
 
 
 
