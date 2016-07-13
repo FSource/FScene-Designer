@@ -180,6 +180,12 @@
     <ClCompile Include="src\widget\SnPropertyBrowserWidget.cc">
       <Filter>src\widget</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_SnPropertyBrowserWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_SnPropertyBrowserWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -205,6 +211,9 @@
     </CustomBuild>
     <CustomBuild Include="src\operator\SnUiOperator.h">
       <Filter>src\operator</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\widget\SnPropertyBrowserWidget.h">
+      <Filter>src\widget</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -341,9 +350,6 @@
     </ClInclude>
     <ClInclude Include="src\util\SnRenderUtil.h">
       <Filter>src\util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\widget\SnPropertyBrowserWidget.h">
-      <Filter>src\widget</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

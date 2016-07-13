@@ -92,8 +92,7 @@ void SnProjectExploreWidget::connectSignal()
 	//connect(ma_newLayer2D,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(addLayer2D));
 	connect(ma_renameScene,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(renameScene()));
 	connect(ma_newLayer2D,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(addLayer2D()));
-	connect(SnGlobal::msgCenter(),SIGNAL(signalLayer2DAdd(SnLayer2D*)),this,SLOT(slotLayer2DAdd(SnLayer2D*)));
-	connect(SnGlobal::msgCenter(),SIGNAL(signalCurLayerChange(SnLayer2D*)),this,SLOT(slotCurLayerChange(SnLayer2D*)));
+
 
 }
 

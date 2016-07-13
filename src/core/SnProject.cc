@@ -16,6 +16,10 @@ const char* SnProject::identifyName()
 SnProject::SnProject()
 {
 	m_scene=new SnScene;
+
+	m_curlayer=NULL;
+	m_curEntity=NULL;
+	m_selectEntity=NULL;
 }
 
 SnProject::~SnProject()

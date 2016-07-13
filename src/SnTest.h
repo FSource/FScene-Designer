@@ -63,6 +63,10 @@ static SnProject* SnTest_CreateProject()
 	q1->setIdentifyName("Quad_Coin");
 	ch2->addChild(q1);
 
+	SnQuad2D* q2=new SnQuad2D();
+	q2->setIdentifyName("no Resurce");
+	en3->addChild(q2);
+
 	return proj;
 }
 

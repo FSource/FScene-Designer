@@ -21,8 +21,6 @@ class SnGlobal
 		static SnProject* getProject();
 		static void setProject(SnProject* proj);
 
-
-
 		static void setMainWindow(SnMainWindow* win);
 		static SnMainWindow* getMainWindow();
 

@@ -1,7 +1,13 @@
 #ifndef _SD_IDENTIFY_H_
 #define _SD_IDENTIFY_H_
 
+#include <vector>
 #include <string>
+#include "FsVariant.h"
+#include "support/util/FsArray.h"
+#include "FsEnums.h"
+#include <QStringList>
+
 
 enum 
 {
@@ -13,6 +19,134 @@ enum
 	SN_CLASS_ENTITY2D,
 	SN_CLASS_QUAD2D,
 };
+
+enum 
+{
+	SN_TYPE_NORMAL=0,
+	SN_TYPE_ENUMS=1,
+};
+
+
+
+class SnAttrTypeDesc
+{
+	public:
+		SnAttrTypeDesc(const char* name,int type,const Faeris::FsVariant& value)
+		{
+			m_name=name;
+			m_type=type;
+			m_value=value;
+		}
+
+		SnAttrTypeDesc(const char* name, QStringList enums, const Faeris::FsVariant& value)
+		{
+			m_type=SN_TYPE_ENUMS;
+			m_name=name;
+			m_enums=enums;
+			m_value=value;
+		}
+
+	public:
+		const char* getName() { return m_name.c_str(); }
+		int getType() { return m_type; }
+		const  Faeris::FsVariant& getValue() { return m_value; }
+
+		void addEnum(QString v) {m_enums<<v;}
+		QStringList getEnums(){return m_enums;}
+
+	private:
+		std::string m_name;
+
+		/* normal type */
+		int m_type;
+		Faeris::FsVariant m_value;
+		QStringList m_enums;
+
+};
+
+
+
+
+class SnAttrGroupDesc
+{
+	public: 
+		SnAttrGroupDesc(const char* name)
+		{
+			m_name=name;
+		}
+		~SnAttrGroupDesc()
+		{
+			int size=m_subAttr.size();
+			for(int i=0;i<size;i++)
+			{
+				delete m_subAttr[i];
+			}
+			m_subAttr.clear();
+		}
+
+	public:
+		void addAttrTypeDesc(SnAttrTypeDesc* sc)
+		{
+			m_subAttr.push_back(sc);
+		}
+		int getAttrTypeDescNu()
+		{
+			return m_subAttr.size();
+		}
+		SnAttrTypeDesc* getAttrTypeDesc(int index)
+		{
+			return m_subAttr[index];
+		}
+		const char* getName()
+		{
+			return m_name.c_str();
+		}
+	private:
+		std::string m_name;
+		std::vector<SnAttrTypeDesc*> m_subAttr;
+};
+
+class SnAttrGroupList 
+{
+	public:
+		SnAttrGroupList() {}
+	   	~SnAttrGroupList()
+		{
+			int size=m_groupList.size();
+			for(int i=0;i<size;i++)
+			{
+				delete m_groupList[i];
+			}
+			m_groupList.clear();
+		}
+
+	public:
+		void addAttrGroupDesc(SnAttrGroupDesc* desc)
+		{
+			m_groupList.push_back(desc);
+		}
+
+		int  getAttrGroupDescNu()
+		{
+			return m_groupList.size();
+		}
+
+		SnAttrGroupDesc* getAttrGroupDesc(int index)
+		{
+			return m_groupList[index];
+		}
+
+
+	private:
+		std::vector<SnAttrGroupDesc*> m_groupList;
+};
+
+
+
+
+
+
+
 
 class SnIdentify
 {
@@ -28,20 +162,22 @@ class SnIdentify
 		virtual SnIdentify* getIdentifyChild(int index);
 		virtual int getIdentifyChildIndex(SnIdentify* id);
 
-
 		virtual bool isDragEnabled();
 		virtual bool isDropEnabled();
 
+		virtual SnAttrGroupList* getAttributeList();
+
+		virtual void setAttribute(const char* name,const Faeris::FsVariant& value);
+		virtual Faeris::FsVariant getAttribute(const char* name);
+
 	public:
-		void setIdentifyName(const char* name){m_identifyName=name;}
-		const char* getIdentifyName(){return m_identifyName.c_str();}
+		void setIdentifyName(const char* name);
+		const char* getIdentifyName();
 
-	private:
-		std::string m_identifyName;
-
+	protected:
+		SnAttrTypeDesc* createAttributeDesc(const char* name,int type);
+		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* fn(int));
 };
-
-
 
 
 #endif /*_SD_IDENTIFY_H_*/

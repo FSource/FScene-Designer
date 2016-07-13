@@ -24,6 +24,7 @@ class SnMsgCenter:public QObject
 		void signalCurSceneChange();
 		void signalLayer2DAdd(SnLayer2D* ly);
 		void signalCurLayerChange(SnLayer2D* ly);
+		void signalCurEntityChange();
 
 
 	public:

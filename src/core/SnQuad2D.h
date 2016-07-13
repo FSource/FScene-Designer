@@ -9,6 +9,7 @@ class SnQuad2D:public TSnEntity2D<Faeris::Quad2D>
 	public:
 		virtual int identifyType();
 		virtual const char* identifyTypeName();
+		virtual SnAttrGroupList* getAttributeList();
 
 };
 

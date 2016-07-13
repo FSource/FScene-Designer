@@ -31,6 +31,7 @@ void SnMsgCenter::emitCurLayerChange(SnLayer2D* ly)
 }
 void SnMsgCenter::emitCurEntityChange()
 {
+	emit signalCurEntityChange();
 }
 
 

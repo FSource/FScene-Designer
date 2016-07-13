@@ -95,7 +95,7 @@ Entity2D* SnDataOperator::getCurEntity()
     SnProject* proj=getCurProject();
     if(proj)
     {
-		proj->getCurEntity();
+		return proj->getCurEntity();
 	}
 	return NULL;
 }
