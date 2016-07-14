@@ -12,6 +12,15 @@ template<class T>
 class TSnEntity2D:public SnIdentify ,public T
 {
 	public:
+		TSnEntity2D()
+		{
+			m_array=Faeris::FsArray::create();
+		}
+		virtual ~TSnEntity2D()
+		{
+			m_array->destroy();
+		}
+	public:
 		virtual int identifyType()
 		{
 			return 	SN_CLASS_T_ENTITY2D;
@@ -34,22 +43,56 @@ class TSnEntity2D:public SnIdentify ,public T
 			return dynamic_cast<SnIdentify*>(ep);
 
 		}
+		virtual void addIdentifyChild(SnIdentify* identify)
+		{
+			Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>(identify);
+
+			T::addChild(en);
+			m_array->push(en);
+		}
+
+		virtual void removeIdentifyChild(SnIdentify* identify)
+		{
+			Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>(identify);
+
+			T::removeChild(en);
+			m_array->remove(en);
+		}
+
+		virtual void clearIdentifyChild()
+		{
+			m_array->clear();
+			T::clearChild();
+		}
+
+
 
 		virtual int getIdentifyChildNu()
 		{
-			return T::getChildNu();
+			return m_array->size();
 		}
 
 		virtual SnIdentify* getIdentifyChild(int index)
 		{
-			Faeris::Entity* en=T::getChild(index);
+			Faeris::Entity2D* en=(Faeris::Entity2D*)m_array->get(index);
 			return dynamic_cast<SnIdentify*>(en);
 		}
-		virtual int getIdentifyChildIndex(SnIdentify* /*id*/)
+		virtual int getIdentifyChildIndex(SnIdentify* id)
 		{
-			//Faeris::Entity* en=dynamic_cast<Faeris::Entity*>(id);
+			Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>(id);
+			int size=m_array->size();
+			for(int i=0;i<size;i++)
+			{
+				if(en==m_array->get(i))
+				{
+					return i;
+				}
+			}
+
 			return 0;
 		}
+
+
 
 		virtual bool isDragEnabled(){return true;}
 		virtual bool isDropEnabled(){return true;}
@@ -89,6 +132,9 @@ class TSnEntity2D:public SnIdentify ,public T
 			glist->addAttrGroupDesc(group);
 			return glist;
 		}
+
+	private:
+		Faeris::FsArray* m_array;
 };
 
 

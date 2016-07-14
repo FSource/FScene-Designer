@@ -248,16 +248,6 @@ void SnPropertyBrowserWidget::slotCurProjectChange()
 	refreshProperty();
 }
 
-void SnPropertyBrowserWidget::slotCurEntityChange()
-{
-	refreshProperty();
-}
-
-void SnPropertyBrowserWidget::slotCurLayerChange(SnLayer2D* ly)
-{
-	refreshProperty();
-}
-
 void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
 {
 	if(m_identify==NULL)
@@ -281,7 +271,7 @@ void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
 
 	if(desc->getType()==SN_TYPE_ENUMS)
 	{
-		QStringList& enum_list=desc->getEnums();
+		const QStringList& enum_list=desc->getEnums();
 		int value=qvariant_cast<int>(v);
 
 		QString enum_name=enum_list[value];
@@ -353,6 +343,11 @@ void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
 
 }
 
+void SnPropertyBrowserWidget::slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st)
+{
+	refreshProperty();
+}
+
 
 void SnPropertyBrowserWidget::slotIdentifyAttributeChange(SnIdentify* id,const char* name)
 {
@@ -361,23 +356,16 @@ void SnPropertyBrowserWidget::slotIdentifyAttributeChange(SnIdentify* id,const c
 
 
 
-
-
 void SnPropertyBrowserWidget::refreshProperty()
 {
-	Entity2D* en=SnGlobal::dataOperator()->getCurEntity();
-	if(en)
+	SnIdentify* id=SnGlobal::dataOperator()->getCurrentIdentify();
+	if(id)
+
 	{
-		setIdentify(dynamic_cast<SnIdentify*>(en));
+		setIdentify(id);
 		return ;
 	}
 
-	SnLayer2D* ly=SnGlobal::dataOperator()->getCurLayer();
-	if(ly)
-	{
-		setIdentify(dynamic_cast<SnIdentify*>(ly));
-		return ;
-	}
 	setIdentify(NULL);
 	m_identify=NULL;
 }

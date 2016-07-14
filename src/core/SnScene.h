@@ -3,6 +3,7 @@
 
 
 #include "stage/FsScene.h"
+#include "support/util/FsArray.h"
 #include "SnIdentify.h"
 
 
@@ -16,10 +17,12 @@ class SnScene:public SnIdentify,public Faeris::Scene
 		virtual SnIdentify* getIdentifyParent();
 		virtual int getIdentifyChildNu();
 		virtual SnIdentify* getIdentifyChild(int index);
-		virtual int getIdentifyChildIndex(SnIdentify* id);
+
+
 
 	private:
 		std::string m_name;
+		Faeris::FsArray m_array;
 };
 
 

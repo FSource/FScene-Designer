@@ -20,8 +20,24 @@ const char* SnIdentify::identifyTypeName()
 SnIdentify* SnIdentify::getIdentifyParent(){return NULL;}
 int SnIdentify::getIdentifyChildNu( ){return 0;}
 SnIdentify* SnIdentify:: getIdentifyChild(int ){return NULL;}
-int SnIdentify::getIdentifyChildIndex(SnIdentify* ){return -1;}
 
+int SnIdentify::getIdentifyChildIndex(SnIdentify* id)
+{
+	int ident_nu=getIdentifyChildNu();
+	for(int i=0;i<ident_nu;i++)
+	{
+		SnIdentify* c=getIdentifyChild(i);
+		if(c==id)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+void SnIdentify::addIdentifyChild(SnIdentify* ){}
+void SnIdentify::removeIdentifyChild(SnIdentify* ){}
+void SnIdentify::clearIdentifyChild(){}
 
 bool SnIdentify::isDragEnabled(){return false;}
 bool SnIdentify::isDropEnabled(){return false;}

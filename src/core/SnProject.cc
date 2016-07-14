@@ -17,9 +17,8 @@ SnProject::SnProject()
 {
 	m_scene=new SnScene;
 
-	m_curlayer=NULL;
-	m_curEntity=NULL;
-	m_selectEntity=NULL;
+	m_currentIdentify=NULL;
+
 }
 
 SnProject::~SnProject()
@@ -42,26 +41,8 @@ SnScene* SnProject::getCurScene()
 }
 
 
-void SnProject::setCurLayer(SnLayer2D* layer)
+void SnProject::setCurrentAndSelectIdentify(SnIdentify* ct,const std::vector<SnIdentify*> select)
 {
-	m_curlayer=layer;
-	m_curEntity=NULL;
+	m_currentIdentify=ct;
+	m_selectIdentifys=select;
 }
-
-
-SnLayer2D* SnProject::getCurLayer()
-{
-	return m_curlayer;
-}
-
-void SnProject::setCurEntity(Faeris::Entity2D* en)
-{
-	m_curEntity=en;
-}
-
-Faeris::Entity2D* SnProject::getCurEntity()
-{
-	return m_curEntity;
-}
-
-

@@ -7,6 +7,7 @@
 class SnProjectExploreModel;
 class SnProject;
 class SnLayer2D;
+class SnIdentify;
 
 class SnProjectExploreWidget:public QWidget
 {
@@ -19,7 +20,8 @@ class SnProjectExploreWidget:public QWidget
 		void mousePress(const QModelIndex& index);
 		void onProjectChange();
 		void slotLayer2DAdd(SnLayer2D* ly);
-		void slotCurLayerChange(SnLayer2D* ly);
+		void slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
+
 
 
 

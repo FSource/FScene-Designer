@@ -24,10 +24,12 @@ class SnMsgCenter:public QObject
 		void signalCurProjectChange();
 		void signalCurSceneChange();
 		void signalLayer2DAdd(SnLayer2D* ly);
-		void signalCurLayerChange(SnLayer2D* ly);
-		void signalCurEntityChange();
+
+
 
 		void signalIdentifyAttributeChange(SnIdentify* id,const char* name);
+
+		void signalCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
 
 
 	public:
@@ -40,7 +42,7 @@ class SnMsgCenter:public QObject
 		void emitCurEntityChange();
 
 		void emitIdentifyAttributeChange(SnIdentify* id,const char* name);
-
+		void emitCurrrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
 };
 
 

@@ -31,14 +31,12 @@ class SnProject:public SnIdentify
 		void setName(std::string name);
 		std::string getName(){return m_name;}
 
+		SnIdentify* getCurrentIdentify(){return m_currentIdentify;}
 
 	public:
 		SnScene* getCurScene();
-		void setCurLayer(SnLayer2D* layer);
-		SnLayer2D* getCurLayer();
 
-		void setCurEntity(Faeris::Entity2D* en);
-		Faeris::Entity2D* getCurEntity();
+		void setCurrentAndSelectIdentify(SnIdentify* ct,const std::vector<SnIdentify*> select);
 
 
 	private:
@@ -48,11 +46,8 @@ class SnProject:public SnIdentify
 
 		SnScene* m_scene;
 
-		SnLayer2D* m_curlayer;
-
-		Faeris::Entity2D* m_curEntity;
-		Faeris::FsArray* m_selectEntity;
-
+		SnIdentify* m_currentIdentify;
+		std::vector<SnIdentify*> m_selectIdentifys;
 };
 
 

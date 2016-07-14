@@ -21,10 +21,12 @@ class SnDataOperator
 		SnScene* getCurScene();
 		void setSceneName(SnScene*,std::string name);
 
-		void setCurLayer(SnLayer2D* layer);
-		SnLayer2D* getCurLayer();
-		void setCurEntity(Faeris::Entity2D* en);
-		Faeris::Entity2D* getCurEntity();
+
+		void setIdentifyCurrentAndSelect(SnIdentify* current,const std::vector<SnIdentify*>& select);
+
+		SnIdentify* getCurrentIdentify();
+
+
 
 		void setIdentifyAttribute(SnIdentify* id,const char* name,const Faeris::FsVariant& value);
 

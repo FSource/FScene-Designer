@@ -41,70 +41,16 @@ SnScene* SnDataOperator::getCurScene()
     return NULL;
 }
 
-
-void SnDataOperator::setCurLayer(SnLayer2D* layer)
-{
-	if(getCurLayer()==layer)
-	{
-		return;
-	}
-
-	getCurProject()->setCurLayer(layer);
-
-	SnGlobal::msgCenter()->emitCurLayerChange(layer);
-}
-
-SnLayer2D* SnDataOperator::getCurLayer()
+SnIdentify* SnDataOperator::getCurrentIdentify()
 {
     SnProject* proj=getCurProject();
     if(proj)
     {
-		return proj->getCurLayer();
-	}
+        return proj->getCurrentIdentify();
+    }
 	return NULL;
+
 }
-
-
-void SnDataOperator::setCurEntity(Entity2D* en)
-{
-
-	SnLayer2D* cur_layer=getCurLayer();
-	if(getCurLayer()==en->getLayer())
-	{
-		if(getCurEntity()==en)
-		{
-			return;
-		}
-		else 
-		{
-			getCurProject()->setCurEntity(en);
-			SnGlobal::msgCenter()->emitCurEntityChange();
-		}
-	}
-	else 
-	{
-		getCurProject()->setCurLayer((SnLayer2D*)en->getLayer());
-		getCurProject()->  setCurEntity(en);
-		SnGlobal::msgCenter()->emitCurLayerChange((SnLayer2D*)en->getLayer());
-	}
-}
-
-Entity2D* SnDataOperator::getCurEntity()
-{
-
-    SnProject* proj=getCurProject();
-    if(proj)
-    {
-		return proj->getCurEntity();
-	}
-	return NULL;
-}
-
-
-
-
-
-
 
 
 void SnDataOperator::setSceneName(SnScene* sn,std::string name)
@@ -134,17 +80,26 @@ void SnDataOperator::reindexLayer2D(SnLayer2D* l_from,int index)
 void SnDataOperator::moveEntityToLayer(Faeris::Entity2D* en,SnLayer2D* layer)
 {
 	en->addRef();
-	en->detach();
-	layer->add(en);
+	
+	SnIdentify* e_id=dynamic_cast<SnIdentify*>(en);
+	e_id->getIdentifyParent()->removeIdentifyChild(e_id);
+
+	layer->addIdentifyChild(e_id);
 	en->decRef();
+
 	SnGlobal::msgCenter()->emitLayer2DAdd(layer);
 }
 
 void SnDataOperator::moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p)
 {
 	en->addRef();
-	en->detach();
-	p->addChild(en);
+
+	SnIdentify* e_id=dynamic_cast<SnIdentify*>(en);
+	e_id->getIdentifyParent()->removeIdentifyChild(e_id);
+
+	SnIdentify* e_p=dynamic_cast<SnIdentify*>(p);
+	e_p->addIdentifyChild(e_id);
+
 	en->decRef();
 	SnGlobal::msgCenter()->emitLayer2DAdd(NULL);
 }
@@ -155,6 +110,80 @@ void SnDataOperator::setIdentifyAttribute(SnIdentify* id,const char* name,const 
 	SnGlobal::msgCenter()->emitIdentifyAttributeChange(id,name);
 }
 
+void SnDataOperator::setIdentifyCurrentAndSelect(SnIdentify* ct_id,const std::vector<SnIdentify*>& st_ids)
+{
+    SnProject* proj=getCurProject();
+	if(!proj)
+	{
+		return;
+	}
+
+
+	if(ct_id!=NULL)
+	{
+		if(dynamic_cast<SnLayer2D*>(ct_id))
+		{
+			std::vector<SnIdentify*> real_select;
+			proj->setCurrentAndSelectIdentify(ct_id,real_select);
+			SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(ct_id,real_select);
+
+			/*
+			Layer2D* ct_layer=dynamic_cast<Layer2D*>(ct_id);
+			int size=st_ids.size();
+			for(int i=0;i<size;i++)
+			{
+				SnIdentify* s_id=st_ids[i];
+
+				Entity2D* en=dynamic_cast<Entity2D*>(s_id);
+				if(en)
+				{
+					if(en->getLayer()==ct_layer)
+					{
+						real_select.push_back(s_id);
+					}
+				}
+			}
+			*/
+		}
+		else if(dynamic_cast<Entity2D*>(ct_id))
+		{
+			std::vector<SnIdentify*> real_select;
+			Entity2D* ct_en=dynamic_cast<Entity2D*>(ct_id);
+			Layer2D* layer=(Layer2D*) ct_en->getLayer();
+
+			int size=st_ids.size();
+			for(int i=0;i<size;i++)
+			{
+				SnIdentify* s_id=st_ids[i];
+
+				Entity2D* en=dynamic_cast<Entity2D*>(s_id);
+				if(en)
+				{
+					if(en->getLayer()==layer)
+					{
+						real_select.push_back(s_id);
+					}
+				}
+			}
+			proj->setCurrentAndSelectIdentify(ct_id,real_select);
+			SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(ct_id,real_select);
+		}
+		else
+		{
+			std::vector<SnIdentify* > real_select;
+			proj->setCurrentAndSelectIdentify(ct_id,real_select);
+			SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(ct_id,real_select);
+
+		}
+
+	}
+	else 
+	{
+		std::vector<SnIdentify* > real_select;
+		proj->setCurrentAndSelectIdentify(NULL,real_select);
+		SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(ct_id,real_select);
+	}
+}
 
 
 

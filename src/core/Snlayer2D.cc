@@ -22,50 +22,6 @@ const char* SnLayer2D::identifyTypeName()
 }
 
 
-void SnLayer2D::add(Entity* en) 
-{
-	Layer2D::add(en);
-	m_array->push(en);
-}
-
-void SnLayer2D::remove(Entity* en)
-{
-	Layer2D::remove(en);
-	m_array->remove(en);
-}
-
-void SnLayer2D::clearEntity()
-{
-	Layer2D::clearEntity();
-	m_array->clear();
-}
-
-
-int SnLayer2D::getEntityNu()
-{
-	return m_array->size();
-}
-
-Entity2D*  SnLayer2D::getEntity(int index)
-{
-	return (Entity2D*) m_array->get(index);
-}
-
-int SnLayer2D::getEntityIndex(Faeris::Entity* en)
-{
-	int size=m_array->size();
-	for(int i=0;i<size;i++)
-	{
-		if(en==m_array->get(i))
-		{
-			return i;
-		}
-	}
-	return 0;
-}
-
-
-
 SnIdentify* SnLayer2D::getIdentifyParent()
 {
 	Faeris::Scene* sn=getScene();
@@ -75,21 +31,28 @@ SnIdentify* SnLayer2D::getIdentifyParent()
 
 int SnLayer2D::getIdentifyChildNu()
 {
-	return getEntityNu();
+	return m_array->size();
 }
 
 SnIdentify* SnLayer2D::getIdentifyChild(int index)
 {
-	Faeris::Entity2D* en=getEntity(index);
+	Faeris::Entity2D* en=(Entity2D*)m_array->get(index);
 	SnIdentify* id=dynamic_cast<SnIdentify*>(en);
 	return id;
 }
 
 int SnLayer2D::getIdentifyChildIndex(SnIdentify* id)
 {
-	Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>(id);
-	return getEntityIndex(en);
-
+	Entity2D* en=dynamic_cast<Entity2D*>(id);
+	int size=m_array->size();
+	for(int i=0;i<size;i++)
+	{
+		if(en==m_array->get(i))
+		{
+			return i;
+		}
+	}
+	return 0;
 }
 
 
@@ -104,6 +67,27 @@ bool SnLayer2D::isDropEnabled()
 }
 
 
+void SnLayer2D::addIdentifyChild(SnIdentify* idenfy)
+{
+	Entity2D* en=dynamic_cast<Entity2D*>(idenfy);
+	Layer2D::add(en);
+	m_array->push(en);
+
+}
+
+void SnLayer2D::removeIdentifyChild(SnIdentify* idenfy)
+{
+	Entity2D* en=dynamic_cast<Entity2D*>(idenfy);
+	Layer2D::remove(en);
+	m_array->remove(en);
+
+
+}
+void SnLayer2D::clearIdentifyChild()
+{
+	Layer2D::clearEntity();
+	m_array->clear();
+}
 
 
 SnLayer2D::~SnLayer2D()

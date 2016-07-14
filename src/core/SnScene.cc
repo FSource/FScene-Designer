@@ -11,15 +11,18 @@ const char* SnScene::identifyTypeName()
 	return "SnScene";
 }
 
-
 SnIdentify* SnScene::getIdentifyParent()
 {
 	return NULL;
 }
+
+
+
 int SnScene::getIdentifyChildNu()
 {
 	return layerNu();
 }
+
 SnIdentify* SnScene::getIdentifyChild(int index)
 {
 	int size=layerNu();
@@ -29,7 +32,5 @@ SnIdentify* SnScene::getIdentifyChild(int index)
 	SnIdentify* id=dynamic_cast<SnIdentify*>(layer);
 	return id;
 }
-int SnScene::getIdentifyChildIndex(SnIdentify* id)
-{
-	return 0;
-}
+
+

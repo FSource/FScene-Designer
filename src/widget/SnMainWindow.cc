@@ -135,8 +135,10 @@ void SnMainWindow::initWidget()
 	m_projectExploreWidget=new SnProjectExploreWidget;
 	m_projectExploreDockWidget= new QDockWidget("ProjectExplore");
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurProjectChange()),m_projectExploreWidget,SLOT(onProjectChange()));
-		connect(SnGlobal::msgCenter(),SIGNAL(signalLayer2DAdd(SnLayer2D*)),m_projectExploreWidget,SLOT(slotLayer2DAdd(SnLayer2D*)));
-	connect(SnGlobal::msgCenter(),SIGNAL(signalCurLayerChange(SnLayer2D*)),m_projectExploreWidget,SLOT(slotCurLayerChange(SnLayer2D*)));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalLayer2DAdd(SnLayer2D*)),m_projectExploreWidget,SLOT(slotLayer2DAdd(SnLayer2D*)));
+		connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
+		m_projectExploreWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
+
 
 
 	m_resourceExploreWidget=new SnResourceExploreWidget;
@@ -149,9 +151,9 @@ void SnMainWindow::initWidget()
 
 	m_propertyDockWidget=new QDockWidget("PropertyBrowserExplore");
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurProjectChange()),m_propertyWidget,SLOT(slotCurProjectChange()));
-	connect(SnGlobal::msgCenter(),SIGNAL(signalCurLayerChange(SnLayer2D*)),m_propertyWidget,SLOT(slotCurLayerChange(SnLayer2D*)));
-	connect(SnGlobal::msgCenter(),SIGNAL(signalCurEntityChange()),m_propertyWidget,SLOT(slotCurEntityChange()));
 	connect(SnGlobal::msgCenter(), SIGNAL(signalIdentifyAttributeChange(SnIdentify*,const char* )),m_propertyWidget,SLOT(slotIdentifyAttributeChange(SnIdentify*,const char* )));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
+		m_propertyWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
 }
 
 void SnMainWindow::initLayout()

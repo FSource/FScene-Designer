@@ -25,20 +25,18 @@ void SnMsgCenter::emitLayer2DAdd(SnLayer2D* ly)
 	emit signalLayer2DAdd(ly);
 }
 
-void SnMsgCenter::emitCurLayerChange(SnLayer2D* ly)
-{
-	emit signalCurLayerChange(ly);
-}
-void SnMsgCenter::emitCurEntityChange()
-{
-	emit signalCurEntityChange();
-}
+
 
 void SnMsgCenter::emitIdentifyAttributeChange(SnIdentify* id,const char* name)
 {
 	emit signalIdentifyAttributeChange(id, name);
 }
 
+void SnMsgCenter::emitCurrrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st)
+{
+	emit signalCurrentAndSelectsChange(id,st);
+
+}
 
 
 

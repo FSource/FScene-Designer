@@ -38,34 +38,34 @@ static SnProject* SnTest_CreateProject()
 
 	SnEntity2D* en1=new SnEntity2D();
 	en1->setIdentifyName("Entity1");
-	l4->add(en1);
+	l4->addIdentifyChild(en1);
 
 	SnEntity2D* en2=new SnEntity2D();
 	en2->setIdentifyName("Entity2");
-	l4->add(en2);
+	l4->addIdentifyChild(en2);
 
 	SnEntity2D* en3=new SnEntity2D();
 	en3->setIdentifyName("Entity3");
-	l4->add(en3);
+	l4->addIdentifyChild(en3);
 
 	SnEntity2D* ch1=new SnEntity2D();
 	ch1->setIdentifyName("Ch1");
-	en3->addChild(ch1);
+	en3->addIdentifyChild(ch1);
 
 	SnEntity2D* ch2=new SnEntity2D();
 	ch2->setIdentifyName("Ch2");
-	en3->addChild(ch2);
+	en3->addIdentifyChild(ch2);
 
 
 	SnQuad2D* q1=new SnQuad2D();
 	q1->setTexture("asset/Coin.png");
 
 	q1->setIdentifyName("Quad_Coin");
-	ch2->addChild(q1);
+	ch2->addIdentifyChild(q1);
 
 	SnQuad2D* q2=new SnQuad2D();
 	q2->setIdentifyName("no Resurce");
-	en3->addChild(q2);
+	en3->addIdentifyChild(q2);
 
 	return proj;
 }

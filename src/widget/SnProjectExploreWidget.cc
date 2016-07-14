@@ -106,19 +106,31 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 	}
 
 	SnIdentify* idfier=(SnIdentify*)index.internalPointer();
-
 	if(dynamic_cast<SnScene*>(idfier))
 	{
-		/*TODO(set current)*/
+		std::vector<SnIdentify*> st_ids;
+		SnGlobal::dataOperator()->setIdentifyCurrentAndSelect(idfier,st_ids);
 	}
-	else if(dynamic_cast<SnLayer2D*>(idfier))
+	else 
 	{
-		SnGlobal::dataOperator()->setCurLayer(dynamic_cast<SnLayer2D*>(idfier));
+
+		QModelIndexList list=m_projectExploreView->selectionModel()->selectedIndexes();
+		int size=list.size();
+
+		std::vector<SnIdentify*> st_ids;
+		for(int i=0;i<size;i++)
+		{
+			QModelIndex q_id=list[i];
+			if(q_id.internalPointer()!=0&&q_id.column()==0)
+			{
+				SnIdentify* s_id=(SnIdentify*)q_id.internalPointer();
+				st_ids.push_back(s_id);
+			}
+		}
+		SnGlobal::dataOperator()->setIdentifyCurrentAndSelect(idfier,st_ids);
 	}
-	else if(dynamic_cast<Entity2D*>(idfier))
-	{
-		SnGlobal::dataOperator()->setCurEntity(dynamic_cast<Entity2D*>(idfier));
-	}
+
+
 
 
 
@@ -128,7 +140,7 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 		{
 			m_menuScene->popup(QCursor::pos());
 		}
-		
+
 		else if(dynamic_cast<SnLayer2D*>(idfier))
 		{
 			m_menuLayer2D->popup(QCursor::pos());
@@ -152,10 +164,33 @@ void SnProjectExploreWidget::slotLayer2DAdd(SnLayer2D* ly)
 	m_projectExploreModel->refresh();
 }
 
-void SnProjectExploreWidget::slotCurLayerChange(SnLayer2D* ly)
+void SnProjectExploreWidget::slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st)
 {
-	//m_projectExploreView->selectionModel()->reset();
+	m_projectExploreView->selectionModel()->clearSelection();
+	
+
+	int size=st.size();
+	//QModelIndexList m_list;
+	for(int i=0;i<size;i++)
+	{
+		SnIdentify* id=st[i];
+		QModelIndex model_index=m_projectExploreModel->getIdentifyModelIndex(id);
+		m_projectExploreView->selectionModel()->select(model_index,QItemSelectionModel::Select);
+		//m_list->push_back(model_index);
+	}
+	
+	if(id!=NULL)
+	{
+		m_projectExploreView->selectionModel()->setCurrentIndex(m_projectExploreModel->getIdentifyModelIndex(id),QItemSelectionModel::SelectCurrent);
+	}
+	else 
+	{
+		m_projectExploreView->selectionModel()->clearCurrentIndex();
+	}
+
+
 }
+
 
 void SnProjectExploreWidget::destory()
 {

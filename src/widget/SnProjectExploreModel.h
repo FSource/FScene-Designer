@@ -3,6 +3,7 @@
 
 #include <QAbstractItemModel>
 #include "FsObject.h"
+class SnIdentify;
 
 class SnProjectExploreModel:public QAbstractItemModel 
 {
@@ -24,6 +25,9 @@ class SnProjectExploreModel:public QAbstractItemModel
 		virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int, const QModelIndex &parent);
  		virtual Qt::DropActions supportedDropActions() const;
 
+
+	public:
+		QModelIndex getIdentifyModelIndex(SnIdentify* id);
 
 
 	public:

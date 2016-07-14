@@ -315,10 +315,25 @@ bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction a
 }
 
 
+QModelIndex SnProjectExploreModel::getIdentifyModelIndex(SnIdentify* id)
+{
+	SnIdentify* p=id->getIdentifyParent();
+	if(p==NULL)
+	{
+		return  createIndex(0,0,id);
+	}
+	else 
+	{
+		int row=p->getIdentifyChildIndex(id);
+
+		return createIndex(row,0,id);
+	}
+	return QModelIndex();
+
+}
 
 
 
 
 
 
-   

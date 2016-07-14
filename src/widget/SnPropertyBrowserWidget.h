@@ -22,12 +22,12 @@ class SnPropertyBrowserWidget:public QWidget
 
 	public slots:
 		void slotCurProjectChange();
-		void slotCurEntityChange();
-		void slotCurLayerChange(SnLayer2D* ly);
+		void slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
 
 	public slots:
 		void slotEditorValueChange(QtProperty*,const QVariant v);
 		void slotIdentifyAttributeChange(SnIdentify* id,const char* name);
+
 
 
 	protected:

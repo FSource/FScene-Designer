@@ -22,24 +22,17 @@ public:
 		virtual SnIdentify* getIdentifyChild(int index);
 		virtual int getIdentifyChildIndex(SnIdentify* id);
 
+
+		virtual void addIdentifyChild(SnIdentify* idenfy);
+		virtual void removeIdentifyChild(SnIdentify* idenfy);
+		virtual void clearIdentifyChild();
+
+
 		virtual bool isDragEnabled();
 		virtual bool isDropEnabled();
 		
 	
 
-
-	public:
-		void add(Faeris::Entity* entity) FS_OVERRIDE;
-		void remove(Faeris::Entity* entity) FS_OVERRIDE;
-		void clearEntity() FS_OVERRIDE;
-
-	
-		
-
-	public:
-		int getEntityNu();
-		Faeris::Entity2D * getEntity(int index);
-		int getEntityIndex(Faeris::Entity* en);
 		
 
 	private:

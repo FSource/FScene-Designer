@@ -49,7 +49,7 @@ class SnAttrTypeDesc
 		int getType() { return m_type; }
 
 		void addEnum(QString v) {m_enums<<v;}
-		QStringList getEnums(){return m_enums;}
+		const QStringList& getEnums(){return m_enums;}
 
 	private:
 		std::string m_name;
@@ -157,6 +157,11 @@ class SnIdentify
 		virtual int getIdentifyChildNu();
 		virtual SnIdentify* getIdentifyChild(int index);
 		virtual int getIdentifyChildIndex(SnIdentify* id);
+
+		virtual void addIdentifyChild(SnIdentify* idenfy);
+		virtual void removeIdentifyChild(SnIdentify* idenfy);
+		virtual void clearIdentifyChild();
+
 
 		virtual bool isDragEnabled();
 		virtual bool isDropEnabled();
