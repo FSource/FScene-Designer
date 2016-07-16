@@ -190,6 +190,9 @@
     <ClCompile Include="Release\moc_SnUiOperator.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\controller\SnController.cc" />
+    <ClCompile Include="src\controller\SnSelectController.cc" />
+    <ClCompile Include="src\controller\SnViewMoveController.cc" />
     <ClCompile Include="src\core\SnEntity2D.cc" />
     <ClCompile Include="src\core\SnIdentify.cc" />
     <ClCompile Include="src\core\Snlayer2D.cc" />
@@ -213,6 +216,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_aboutdialog.h" />
+    <ClInclude Include="src\controller\SnController.h" />
+    <ClInclude Include="src\controller\SnSelectController.h" />
+    <ClInclude Include="src\controller\SnViewMoveController.h" />
     <ClInclude Include="src\core\SnEntity2D.h" />
     <ClInclude Include="src\core\SnIdentify.h" />
     <ClInclude Include="src\core\SnLayer2D.h" />

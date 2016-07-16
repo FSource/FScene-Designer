@@ -21,6 +21,9 @@
 #include "support/util/FsScriptUtil.h"
 
 #include "util/SnRenderUtil.h"
+#include "controller/SnViewMoveController.h"
+
+#include "controller/SnSelectController.h"
 
 
 SnEditViewWidget::SnEditViewWidget()
@@ -43,6 +46,9 @@ SnEditViewWidget::SnEditViewWidget()
 	setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
 
+	m_controller=NULL;
+	m_moveViewController=new SnViewMoveController();
+	m_selectController=new SnSelectController;
 }
 
 
@@ -138,6 +144,32 @@ void  SnEditViewWidget::paintGL()
 
 
 	drawScene();
+	if(m_controller)
+	{
+		m_controller->onDraw(this);
+	}
+}
+
+
+void SnEditViewWidget::setController(SnController* en)
+{
+	if(m_controller==en)
+	{
+		return;
+	}
+
+	if(m_controller!=NULL)
+	{
+		m_controller->onUnload(this);
+		m_controller=NULL;
+	}
+
+	m_controller=en;
+	if(m_controller)
+	{
+		m_controller->onLoad(this);
+	}
+
 }
 
 
@@ -151,6 +183,7 @@ void SnEditViewWidget::drawAxis()
     SnRenderUtil::drawLine(Vector2(a.x,0),Vector2(b.x,0),1,Color::RED);
     SnRenderUtil::drawLine(Vector2(0,a.y),Vector2(0,b.y),1,Color::BLUE);
 }
+
 void SnEditViewWidget::drawGrid()
 {
 	Vector2 a,b;
@@ -250,8 +283,13 @@ void SnEditViewWidget::getEditArea(Vector2* a,Vector2* b)
 	a->x=start.x;
 	a->y=start.y;
 
-	b->x=end.x;
+	b->x=end.x;    
 	b->y=end.y;
+}
+
+void SnEditViewWidget::translate(Vector2 t)
+{
+	setTranslate(m_translate+t);
 }
 
 void SnEditViewWidget::setTranslate(Vector2 t)
@@ -312,67 +350,79 @@ void SnEditViewWidget::wheelEvent(QWheelEvent* event)
 
 void SnEditViewWidget::mouseMoveEvent(QMouseEvent* event)
 {
-	float dx=event->x()-m_lastpos.x();
-	float dy=event->y()-m_lastpos.y();
-
-	if(event->buttons()&Qt::LeftButton)
+	if(m_controller)
 	{
-		if(m_spaceDown)
+		if(!m_controller->onTouchMove(this,event))
 		{
-			setTranslate(Vector2(m_translate.x+dx,m_translate.y-dy));
-			m_lastpos=event->pos();
-			update();
-			return;
+			m_controller=NULL;
 		}
 	}
-
-	m_lastpos=event->pos();
+	update();
 }
+
 
 void SnEditViewWidget::mousePressEvent(QMouseEvent* event)
 {
-	if(m_spaceDown)
+	if(m_controller==NULL)
 	{
-		m_lastpos=event->pos();
-		return;
+		setController(m_selectController);
 	}
-	m_lastpos=event->pos();
 
+	if(m_controller)
+	{
+		if(!m_controller->onTouchBegin(this,event))
+		{
+			setController(NULL);
+		}
+	}
+	update();
 }
+
+
 
 void SnEditViewWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-	if(m_spaceDown)
+	if(m_controller==NULL)
 	{
-		m_lastpos=event->pos();
 		return;
 	}
-	m_lastpos=event->pos();
+
+	if(!m_controller->onTouchEnd(this,event))
+	{
+		setController(NULL);
+	}
+	update();
 }
+
 
 void SnEditViewWidget::keyPressEvent(QKeyEvent* event)
 {
-	if(event->key()==Qt::Key_Space)
+
+
+	if(m_controller==NULL)
 	{
-		m_spaceDown=true;
-		m_prevCursor=cursor();
-		setCursor(Qt::ClosedHandCursor);
-		update();
-		return ;
+		if(m_moveViewController->onKeyPressEvent(this,event))
+		{
+			setController(m_moveViewController);
+			update();
+		}
 	}
 
+
 }
+
 void SnEditViewWidget::keyReleaseEvent(QKeyEvent* event)
 {
-	if(event->key()==Qt::Key_Space)
+	if(m_controller)
 	{
-		m_spaceDown=false;
-		setCursor(m_prevCursor);
-		m_prevCursor=Qt::ArrowCursor;
-		update();
-		return ;
+		if(!m_controller->onKeyReleaseEvent(this,event))
+		{
+			setController(NULL);
+		}
 	}
 }
+
+
 
 
 void SnEditViewWidget::onZoomIn()

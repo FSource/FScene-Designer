@@ -4,15 +4,15 @@
 #include "FsMacros.h"
 #include "math/FsVector2.h"
 #include "graphics/FsColor.h"
+#include "math/FsMatrix4.h"
 
 
-NS_FS_USE
 namespace SnRenderUtil
 {
-	void drawLine(Vector2 start,Vector2 end,float width,Color c);
-	void drawRectangle(Vector2 start,Vector2 end,Color c);
-	void setProjectionMatrix(Matrix4* mat);
-	void setWorldMatrix(Matrix4* mat);
+	void drawLine(Faeris::Vector2 start,Faeris::Vector2 end,float width,Faeris::Color c);
+	void drawRectangle(Faeris::Vector2 start,Faeris::Vector2 end,Faeris::Color c);
+	void setProjectionMatrix(Faeris::Matrix4* mat);
+	void setWorldMatrix(Faeris::Matrix4* mat);
 };
 
 #endif /*_SD_RENDER_UTIL_H_*/

@@ -73,6 +73,9 @@
     <Filter Include="src\3rd\QPropertyBroswer">
       <UniqueIdentifier>{33205b8f-d09d-400e-a7f0-7069004dc812}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\controller">
+      <UniqueIdentifier>{92632707-6695-45bd-b7dd-b51c17fcfae3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_image.cpp">
@@ -185,6 +188,15 @@
     </ClCompile>
     <ClCompile Include="Release\moc_SnPropertyBrowserWidget.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controller\SnController.cc">
+      <Filter>src\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controller\SnViewMoveController.cc">
+      <Filter>src\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controller\SnSelectController.cc">
+      <Filter>src\controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +362,15 @@
     </ClInclude>
     <ClInclude Include="src\util\SnRenderUtil.h">
       <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controller\SnController.h">
+      <Filter>src\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controller\SnViewMoveController.h">
+      <Filter>src\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controller\SnSelectController.h">
+      <Filter>src\controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

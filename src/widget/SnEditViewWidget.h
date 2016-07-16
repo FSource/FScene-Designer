@@ -8,7 +8,7 @@
 
 #include "math/FsVector2.h"
 #include "graphics/FsColor.h"
-
+class SnController;
 class SnIdentify;
 NS_FS_USE
 
@@ -26,8 +26,11 @@ class SnEditViewWidget:public QGLWidget
 		virtual void paintGL();
 
 	public:
+		void setController(SnController* cn);
 
+		void translate(Vector2 t);
         void setTranslate(Vector2  t);
+
 		Vector2 getTranslate();
 		void setZoom(float s);
 		float getZoom();
@@ -37,10 +40,20 @@ class SnEditViewWidget:public QGLWidget
 		Vector2 toEditCoord(Vector2 v);
 		void getEditArea(Vector2* a,Vector2* b);
 
+
+
 	public:
 		void drawAxis();
 		void drawGrid();
 		void drawScene();
+
+
+
+		void drawRect(const Vector2& p,float width,float height);
+		void drawBoundBox(SnIdentify* sn,const Color3f& c);
+
+		void drawSelectAreaInWidgetCoord(const Vector2& start,const Vector2& end);
+
 
 	public:
 		void setShowAxis(bool enable);
@@ -57,11 +70,14 @@ class SnEditViewWidget:public QGLWidget
 		Color getBackgroundColor();
 
 
+
 	public slots:
 		void onZoomIn();
 		void onZoomOut();
 
 		void slotIdentifyAttributeChange(SnIdentify* id,const char* name);
+
+
 		
 	private:
 		Vector2 m_translate;
@@ -80,6 +96,11 @@ class SnEditViewWidget:public QGLWidget
 		QPoint m_lastpos;
 		QCursor m_prevCursor;
 
+		SnController* m_controller;
+
+
+		SnController* m_moveViewController;
+		SnController* m_selectController;
 
     public: 
 
