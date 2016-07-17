@@ -87,6 +87,7 @@ void SnProjectExploreWidget::initMenu()
 
 void SnProjectExploreWidget::connectSignal()
 {
+	connect(m_projectExploreView,SIGNAL(clicked(const QModelIndex&)),this,SLOT(clicked(const QModelIndex&)));
 	connect(m_projectExploreView,SIGNAL(pressed(const QModelIndex&)),this,SLOT(mousePress(const QModelIndex&)));
 
 	//connect(ma_newLayer2D,SIGNAL(triggered()),SnGlobal::uiOperator(),SLOT(addLayer2D));
@@ -98,7 +99,7 @@ void SnProjectExploreWidget::connectSignal()
 
 
 
-void SnProjectExploreWidget::mousePress(const QModelIndex& index)
+void SnProjectExploreWidget::clicked(const QModelIndex& index)
 {
 	if(!index.isValid())
 	{
@@ -106,6 +107,11 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 	}
 
 	SnIdentify* idfier=(SnIdentify*)index.internalPointer();
+	if(m_projectExploreView->selectionModel()->currentIndex()!=index)
+	{
+		idfier=NULL;
+	}
+
 	if(dynamic_cast<SnScene*>(idfier))
 	{
 		std::vector<SnIdentify*> st_ids;
@@ -129,10 +135,17 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 		}
 		SnGlobal::dataOperator()->setIdentifyCurrentAndSelect(idfier,st_ids);
 	}
+}
 
 
+void SnProjectExploreWidget::mousePress(const QModelIndex& index)
+{
+	if(!index.isValid())
+	{
+		return ;
+	}
 
-
+	SnIdentify* idfier=(SnIdentify*)index.internalPointer();
 
 	if((QApplication::mouseButtons()&Qt::RightButton))
 	{
@@ -150,7 +163,6 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 
 		}
 	}
-
 }
 
 
@@ -167,6 +179,7 @@ void SnProjectExploreWidget::slotLayer2DAdd(SnLayer2D* ly)
 void SnProjectExploreWidget::slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st)
 {
 	m_projectExploreView->selectionModel()->clearSelection();
+	m_projectExploreView->selectionModel()->clearCurrentIndex();
 	
 
 	int size=st.size();
@@ -178,7 +191,9 @@ void SnProjectExploreWidget::slotCurrentAndSelectsChange(SnIdentify* id,const st
 		m_projectExploreView->selectionModel()->select(model_index,QItemSelectionModel::Select);
 		//m_list->push_back(model_index);
 	}
-	
+
+
+	/*
 	if(id!=NULL)
 	{
 		m_projectExploreView->selectionModel()->setCurrentIndex(m_projectExploreModel->getIdentifyModelIndex(id),QItemSelectionModel::SelectCurrent);
@@ -187,6 +202,7 @@ void SnProjectExploreWidget::slotCurrentAndSelectsChange(SnIdentify* id,const st
 	{
 		m_projectExploreView->selectionModel()->clearCurrentIndex();
 	}
+	*/
 
 
 }

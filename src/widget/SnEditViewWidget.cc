@@ -109,41 +109,57 @@ void SnEditViewWidget::initializeGL()
 
 }
 
+void SnEditViewWidget::updateViewMatrix()
+{
+
+	Vector2 a,b;
+	getEditArea(&a,&b);
+	float x=a.x;
+	float y=a.y;
+	float width=b.x-a.x;
+	float height=b.y-a.y;
+
+	Matrix4 mat;
+	mat.makeOrthographic(
+			x,
+			x+width,
+			y,
+			y+height,
+			-1024,
+			1024);
+
+	SnRenderUtil::setProjectionMatrix(&mat);
+
+}
 
 void SnEditViewWidget::resizeGL(int width,int height)
 {
-	Matrix4 mat;
-	mat.makeOrthographic(-width/2,width/2,-height/2,height/2,-100,100);
-    SnRenderUtil::setProjectionMatrix(&mat);
-	
+	updateViewMatrix();
 	//Global::renderDevice()->setViewMatrix(&Matrix4::IDENTITY);
-    Global::renderDevice()->setViewport(0,0,width,height);
+	Global::renderDevice()->setViewport(0,0,width,height);
 }
 
 
 void  SnEditViewWidget::paintGL()
 {
-    Global::renderDevice()->setClearColor(m_backgroundColor);
-    Global::renderDevice()->clear();
-
-	Matrix4 mat;
-	mat.makeCompose(Vector3(m_translate.x,m_translate.y,0),
-                    Vector3(0,0,0),E_EulerOrientType::XYZ,
-					Vector3(m_zoom,m_zoom,1));
-
-	SnRenderUtil::setWorldMatrix(&mat);
+	updateViewMatrix();
+	Global::renderDevice()->setClearColor(m_backgroundColor);
+	Global::renderDevice()->clear();
+	
+	SnRenderUtil::setWorldMatrix(&Matrix4::IDENTITY);
 
 	if(m_showGrid)
 	{
-        drawGrid();
+		drawGrid();
 	}
 	if(m_showAxis)
 	{
-        drawAxis();
+		drawAxis();
 	}
 
 
 	drawScene();
+	drawSelectIdentify();
 	if(m_controller)
 	{
 		m_controller->onDraw(this);
@@ -173,6 +189,23 @@ void SnEditViewWidget::setController(SnController* en)
 }
 
 
+void SnEditViewWidget::drawSelectIdentify()
+{
+	std::vector<SnIdentify*> ids=SnGlobal::dataOperator()->getSelectedIdentify();
+	int size=ids.size();
+	for(int i=0;i<size;i++)
+	{
+		SnIdentify* id=ids[i];
+		if(dynamic_cast<Entity2D*>(id))
+		{
+			Entity2D* en=dynamic_cast<Entity2D*>(id);
+			Matrix4* mat=en->getWorldMatrix();
+			float minx,maxx,miny,maxy;
+			en->getBoundSize2D(&minx,&maxx,&miny,&maxy);
+			SnRenderUtil::drawRectangleFrame(mat,Vector2(minx,miny),Vector2(maxx,maxy),Color(100,0,0));
+		}
+	}
+}
 
 
 
@@ -180,8 +213,8 @@ void SnEditViewWidget::drawAxis()
 {
 	Vector2 a,b;
 	getEditArea(&a,&b);
-    SnRenderUtil::drawLine(Vector2(a.x,0),Vector2(b.x,0),1,Color::RED);
-    SnRenderUtil::drawLine(Vector2(0,a.y),Vector2(0,b.y),1,Color::BLUE);
+	SnRenderUtil::drawLine(Vector2(a.x,0),Vector2(b.x,0),1,Color::RED);
+	SnRenderUtil::drawLine(Vector2(0,a.y),Vector2(0,b.y),1,Color::BLUE);
 }
 
 void SnEditViewWidget::drawGrid()
@@ -200,7 +233,7 @@ void SnEditViewWidget::drawGrid()
 		for(int j=min_y-1;j<=max_y;j++)
 		{
 			Vector2 start=Vector2(i*m_gridSize.x,j*m_gridSize.y);
-            Vector2 end=Vector2((i+1)*m_gridSize.x,(j+1)*m_gridSize.y);
+			Vector2 end=Vector2((i+1)*m_gridSize.x,(j+1)*m_gridSize.y);
 
 			if((i+j)%2)
 			{
@@ -442,6 +475,11 @@ void SnEditViewWidget::onZoomOut()
 }
 
 void SnEditViewWidget::slotIdentifyAttributeChange(SnIdentify* /*id*/,const char* /*name*/)
+{
+	update();
+}
+
+void  SnEditViewWidget::slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st)
 {
 	update();
 }

@@ -32,6 +32,10 @@ class SnProject:public SnIdentify
 		std::string getName(){return m_name;}
 
 		SnIdentify* getCurrentIdentify(){return m_currentIdentify;}
+		std::vector<SnIdentify*> getSelectedIdentify(){return m_selectIdentifys;}
+
+		SnLayer2D* getCurrentLayer(){return m_currentLayer;}
+
 
 	public:
 		SnScene* getCurScene();
@@ -48,6 +52,7 @@ class SnProject:public SnIdentify
 
 		SnIdentify* m_currentIdentify;
 		std::vector<SnIdentify*> m_selectIdentifys;
+		SnLayer2D* m_currentLayer;
 };
 
 

@@ -25,6 +25,7 @@ class SnEditViewWidget:public QGLWidget
 		virtual void resizeGL(int width,int height);
 		virtual void paintGL();
 
+
 	public:
 		void setController(SnController* cn);
 
@@ -46,6 +47,7 @@ class SnEditViewWidget:public QGLWidget
 		void drawAxis();
 		void drawGrid();
 		void drawScene();
+		void drawSelectIdentify();
 
 
 
@@ -76,8 +78,11 @@ class SnEditViewWidget:public QGLWidget
 		void onZoomOut();
 
 		void slotIdentifyAttributeChange(SnIdentify* id,const char* name);
+		void slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
 
 
+	protected:
+		void updateViewMatrix();
 		
 	private:
 		Vector2 m_translate;

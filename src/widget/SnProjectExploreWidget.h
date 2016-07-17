@@ -17,6 +17,7 @@ class SnProjectExploreWidget:public QWidget
 		~SnProjectExploreWidget();
 
 	public slots:
+		void clicked(const QModelIndex& index);
 		void mousePress(const QModelIndex& index);
 		void onProjectChange();
 		void slotLayer2DAdd(SnLayer2D* ly);

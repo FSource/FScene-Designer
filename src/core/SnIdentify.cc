@@ -81,7 +81,18 @@ const char* SnIdentify::getIdentifyName()
 {
 	FsObject* ob=dynamic_cast<FsObject*>(this);
 	return ob->getObjectName();
+
 }
+
+std::vector<SnIdentify*> SnIdentify::getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse)
+{
+	return std::vector<SnIdentify*>();
+}
+
+
+
+
+
 
 
 

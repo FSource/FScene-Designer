@@ -10,7 +10,14 @@
 namespace SnRenderUtil
 {
 	void drawLine(Faeris::Vector2 start,Faeris::Vector2 end,float width,Faeris::Color c);
+	void drawLine(Faeris::Matrix4* mat,Faeris::Vector2 start,Faeris::Vector2 end,float width,Faeris::Color c);
+
+
 	void drawRectangle(Faeris::Vector2 start,Faeris::Vector2 end,Faeris::Color c);
+	void drawRectangle(Faeris::Matrix4* mat,Faeris::Vector2 start,Faeris::Vector2 end,Faeris::Color c);
+
+
+	void drawRectangleFrame(Faeris::Matrix4* world_max, Faeris::Vector2 start,Faeris::Vector2 end,Faeris::Color c);
 	void setProjectionMatrix(Faeris::Matrix4* mat);
 	void setWorldMatrix(Faeris::Matrix4* mat);
 };

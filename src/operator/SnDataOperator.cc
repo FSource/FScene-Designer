@@ -52,6 +52,16 @@ SnIdentify* SnDataOperator::getCurrentIdentify()
 
 }
 
+SnLayer2D* SnDataOperator::getCurrentLayer()
+{
+
+    SnProject* proj=getCurProject();
+    if(proj)
+    {
+        return proj->getCurrentLayer();
+    }
+	return NULL;
+}
 
 void SnDataOperator::setSceneName(SnScene* sn,std::string name)
 {
@@ -119,6 +129,8 @@ void SnDataOperator::setIdentifyCurrentAndSelect(SnIdentify* ct_id,const std::ve
 	}
 
 
+
+
 	if(ct_id!=NULL)
 	{
 		if(dynamic_cast<SnLayer2D*>(ct_id))
@@ -183,6 +195,19 @@ void SnDataOperator::setIdentifyCurrentAndSelect(SnIdentify* ct_id,const std::ve
 		proj->setCurrentAndSelectIdentify(NULL,real_select);
 		SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(ct_id,real_select);
 	}
+}
+
+
+std::vector<SnIdentify*> SnDataOperator::getSelectedIdentify()
+{
+	SnProject* proj=getCurProject();
+	if(!proj)
+	{
+		return std::vector<SnIdentify*>();
+	}
+
+
+	return proj->getSelectedIdentify();
 }
 
 

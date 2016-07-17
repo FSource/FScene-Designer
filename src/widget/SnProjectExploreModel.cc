@@ -140,7 +140,16 @@ QVariant SnProjectExploreModel::data(const QModelIndex& index,int role)const
 		{ 
 			case Qt::DisplayRole:
 				{
-					return QString(idfier->getIdentifyName());
+					if(idfier==SnGlobal::dataOperator()->getCurrentLayer())
+					{
+
+						return QString(idfier->getIdentifyName())+QString("[Selected]");
+					}
+					else 
+					{
+						return QString(idfier->getIdentifyName());
+					}
+
 					break;
 				}
 			case Qt::DecorationRole:

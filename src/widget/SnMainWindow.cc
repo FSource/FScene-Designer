@@ -130,6 +130,8 @@ void SnMainWindow::initWidget()
 {
 	m_editViewWidget=new SnEditViewWidget;
 	connect(SnGlobal::msgCenter(), SIGNAL(signalIdentifyAttributeChange(SnIdentify*,const char* )),m_editViewWidget,SLOT(slotIdentifyAttributeChange(SnIdentify*,const char* )));
+			connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
+		m_editViewWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
 
 
 	m_projectExploreWidget=new SnProjectExploreWidget;

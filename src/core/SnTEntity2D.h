@@ -6,7 +6,7 @@
 #include "core/SnIdentify.h"
 #include "FsObject.h"
 #include "FsEnums.h"
-
+#include "util/SnUtil.h"
 
 template<class T>
 class TSnEntity2D:public SnIdentify ,public T
@@ -91,6 +91,30 @@ class TSnEntity2D:public SnIdentify ,public T
 
 			return 0;
 		}
+
+		virtual std::vector<SnIdentify*> getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse)
+		{
+			std::vector<SnIdentify* > ret;
+			int size=m_array->size();
+			for(int i=0;i<size;i++)
+			{
+				Entity2D* en=(Entity2D*)m_array->get(i);
+				SnIdentify* id=dynamic_cast<SnIdentify*>(en);
+				if(SnUtil::identifyInRect(id,start,end))
+				{
+					ret.push_back(id);
+				}
+
+				if(traverse)
+				{
+					std::vector<SnIdentify*> r=id->getChildInArea(start,end,traverse);
+					ret.insert(ret.end(),r.begin(),r.end());
+				}
+			}
+
+			return ret;
+		}
+
 
 
 

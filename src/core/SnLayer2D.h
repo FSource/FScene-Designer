@@ -31,9 +31,8 @@ public:
 		virtual bool isDragEnabled();
 		virtual bool isDropEnabled();
 		
+		virtual std::vector<SnIdentify*> getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse);
 	
-
-		
 
 	private:
 		Faeris::FsArray* m_array;

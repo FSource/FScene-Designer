@@ -26,8 +26,8 @@ class SnSelectController:public SnController
 
 
 	public:
-		void findIndentifyInArea(Faeris::Vector2f start,Faeris::Vector2f end);
-		void findIndentifyInPoint(Faeris::Vector2f x);
+		void findIndentifyInArea(SnEditViewWidget* view,Faeris::Vector2f start,Faeris::Vector2f end);
+		void findIndentifyInPoint(SnEditViewWidget* view,Faeris::Vector2f x);
 
 	private:
 		bool m_isTouchPress;

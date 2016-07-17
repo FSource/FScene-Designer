@@ -5,12 +5,14 @@
 #include "stage/FsScene.h"
 
 #include "SnLayer2D.h"
+#include "util/SnUtil.h"
 
 NS_FS_USE
 SnLayer2D::SnLayer2D()
 {
 	m_array=FsArray::create();
 	m_array->addRef();
+
 }
 int SnLayer2D::identifyType()
 {
@@ -83,11 +85,37 @@ void SnLayer2D::removeIdentifyChild(SnIdentify* idenfy)
 
 
 }
+
 void SnLayer2D::clearIdentifyChild()
 {
 	Layer2D::clearEntity();
 	m_array->clear();
 }
+
+std::vector<SnIdentify*> SnLayer2D::getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse)
+{
+	std::vector<SnIdentify*> ret;
+
+	int size=m_array->size();
+	for(int i=0;i<size;i++)
+	{
+   		Entity2D* en=(Entity2D*)m_array->get(i);
+		SnIdentify* id=dynamic_cast<SnIdentify*>(en);
+		if(SnUtil::identifyInRect(id,start,end))
+		{
+			ret.push_back(id);
+		}
+
+		if(traverse)
+		{
+			std::vector<SnIdentify*> r=id->getChildInArea(start,end,traverse);
+			ret.insert(ret.end(),r.begin(),r.end());
+		}
+	}
+
+	return ret;
+}
+
 
 
 SnLayer2D::~SnLayer2D()

@@ -171,6 +171,9 @@ class SnIdentify
 		virtual void setAttribute(const char* name,const Faeris::FsVariant& value);
 		virtual Faeris::FsVariant getAttribute(const char* name);
 
+		virtual std::vector<SnIdentify*> getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse);
+
+
 	public:
 		void setIdentifyName(const char* name);
 		const char* getIdentifyName();

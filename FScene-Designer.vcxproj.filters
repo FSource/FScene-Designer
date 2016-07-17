@@ -174,9 +174,6 @@
     <ClCompile Include="Release\moc_SnUiOperator.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="src\util\SdUtil.cc">
-      <Filter>src\util</Filter>
-    </ClCompile>
     <ClCompile Include="src\util\SnRenderUtil.cc">
       <Filter>src\util</Filter>
     </ClCompile>
@@ -197,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="src\controller\SnSelectController.cc">
       <Filter>src\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\SnUtil.cc">
+      <Filter>src\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,9 +357,6 @@
     <ClInclude Include="src\util\SdCircleQueue.h">
       <Filter>src\util</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\SdUtil.h">
-      <Filter>src\util</Filter>
-    </ClInclude>
     <ClInclude Include="src\util\SnRenderUtil.h">
       <Filter>src\util</Filter>
     </ClInclude>
@@ -371,6 +368,9 @@
     </ClInclude>
     <ClInclude Include="src\controller\SnSelectController.h">
       <Filter>src\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\SnUtil.h">
+      <Filter>src\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

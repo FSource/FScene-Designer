@@ -98,7 +98,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>.;src;3rdparty\PropertyBrower\src;faeris\lib\libfaeris\src;faeris\lib\lib3rdparty\freetype\include;faeris\lib\lib3rdparty\curl\include;faeris\lib\lib3rdparty\GL\include;faeris\lib\lib3rdparty\libpng\include;faeris\lib\lib3rdparty\pthread\include;$(QTDIR)\include;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;debug;$(QTDIR)\mkspecs\win32-msvc2012;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -204,7 +204,7 @@
     <ClCompile Include="src\SnGlobal.cc" />
     <ClCompile Include="src\SnMain.cc" />
     <ClCompile Include="src\SnMsgCenter.cc" />
-    <ClCompile Include="src\util\SdUtil.cc" />
+    <ClCompile Include="src\util\SnUtil.cc" />
     <ClCompile Include="src\util\SnRenderUtil.cc" />
     <ClCompile Include="src\widget\SnEditViewWidget.cc" />
     <ClCompile Include="src\widget\SnInputDialog.cc" />
@@ -251,7 +251,7 @@
     <ClInclude Include="src\SnMacros.h" />
     <ClInclude Include="src\SnTest.h" />
     <ClInclude Include="src\util\SdCircleQueue.h" />
-    <ClInclude Include="src\util\SdUtil.h" />
+    <ClInclude Include="src\util\SnUtil.h" />
     <ClInclude Include="src\util\SnRenderUtil.h" />
     <ClInclude Include="src\widget\SnInputDialog.h" />
     <CustomBuild Include="src\widget\SnResourceExploreWidget.h">

@@ -36,36 +36,49 @@ static SnProject* SnTest_CreateProject()
 	sn->push(l3);
 	sn->push(l4);
 
-	SnEntity2D* en1=new SnEntity2D();
+	SnQuad2D* en1=new SnQuad2D();
+	en1->setSize(40,40);
+	en1->setPosition(100,-100);
 	en1->setIdentifyName("Entity1");
 	l4->addIdentifyChild(en1);
 
-	SnEntity2D* en2=new SnEntity2D();
+	SnQuad2D* en2=new SnQuad2D();
+	en2->setSize(60,30);
+	en2->setPosition(-100,100);
 	en2->setIdentifyName("Entity2");
 	l4->addIdentifyChild(en2);
 
-	SnEntity2D* en3=new SnEntity2D();
+	SnQuad2D* en3=new SnQuad2D();
+	en3->setSize(100,100);
+	en3->setPosition(200,-200);
 	en3->setIdentifyName("Entity3");
 	l4->addIdentifyChild(en3);
 
-	SnEntity2D* ch1=new SnEntity2D();
+	SnQuad2D* ch1=new SnQuad2D();
+	ch1->setSize(32,32);
+	ch1->setPosition(-80,0);
 	ch1->setIdentifyName("Ch1");
 	en3->addIdentifyChild(ch1);
 
-	SnEntity2D* ch2=new SnEntity2D();
+	SnQuad2D* ch2=new SnQuad2D();
+	ch2->setSize(56,23);
+	ch2->setPosition(90,0);
 	ch2->setIdentifyName("Ch2");
 	en3->addIdentifyChild(ch2);
 
 
 	SnQuad2D* q1=new SnQuad2D();
 	q1->setTexture("asset/Coin.png");
-
+	q1->setPosition(200,200);
 	q1->setIdentifyName("Quad_Coin");
-	ch2->addIdentifyChild(q1);
+	l4->addIdentifyChild(q1);
 
 	SnQuad2D* q2=new SnQuad2D();
+	q2->setSize(128,128);
+	q2->setPosition(-300,450);
 	q2->setIdentifyName("no Resurce");
 	en3->addIdentifyChild(q2);
+
 
 	return proj;
 }
