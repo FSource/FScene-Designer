@@ -11,7 +11,13 @@ namespace  SnUtil
         QString toProjectPath(const QString& path);
 		QString toRelativePath(const QString& root,const QString& path);
 
+
 		bool identifyInRect(SnIdentify* en,Faeris::Vector2f start,Faeris::Vector2f end);
+		bool identifyHitPoint(SnIdentify* en,Faeris::Vector2f p);
+
+		bool hitIdentityCenterPoint(SnIdentify* en,Faeris::Vector2f pos,float gap);
+		bool hitIdentityAxisX(SnIdentify* en,Faeris::Vector2f pos,float width,float height);
+		bool hitIdentityAxisY(SnIdentify* en,Faeris::Vector2f pos,float width,float height);
 
 
 	template <typename T>

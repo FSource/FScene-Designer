@@ -11,7 +11,7 @@
 #include "operator/SnDataOperator.h"
 #include "core/SnIdentify.h"
 #include "core/SnLayer2D.h"
-
+#include "SnThemeConfig.h"
 
 NS_FS_USE
 
@@ -85,19 +85,26 @@ bool SnSelectController::onTouchEnd(SnEditViewWidget* view,QMouseEvent* event)
 	if(m_isMulSelect)
 	{
 		findIndentifyInArea(view,m_start,m_end);
-		if(m_selectedSet.size()==0)
-		{
-			SnGlobal::dataOperator()->setIdentifyCurrentAndSelect(NULL,m_selectedSet);
-		}
-		else 
-		{
-			SnGlobal::dataOperator()->setIdentifyCurrentAndSelect(m_selectedSet[0],m_selectedSet);
-		}
 	}
+	else 
+	{
+		findIndentifyInPoint(view,m_start);
+	}
+
+
+	if(m_selectedSet.size()==0)
+	{
+		SnGlobal::dataOperator()->setIdentifyCurrentAndSelect(NULL,m_selectedSet);
+	}
+	else 
+	{
+		SnGlobal::dataOperator()->setIdentifyCurrentAndSelect(m_selectedSet[0],m_selectedSet);
+	}
+	
 
 	m_isTouchPress=false;
 
-	return true;
+	return false;
 }
 
 
@@ -117,6 +124,19 @@ void SnSelectController::findIndentifyInArea(SnEditViewWidget* view,Vector2f sta
 
 void SnSelectController::findIndentifyInPoint(SnEditViewWidget* view,Vector2f x)
 {
+	SnIdentify* l=SnGlobal::dataOperator()->getCurrentLayer();
+	if(l)
+	{
+		Vector2f p=view->toEditCoord(x);
+		SnIdentify* id=l->getChildHitPoint(p,true);
+		std::vector<SnIdentify*> ids;
+		if(id)
+		{
+			ids.push_back(id);
+		}	
+
+		m_selectedSet=ids;
+	}
 
 }
 
@@ -132,7 +152,7 @@ void SnSelectController::onDraw(SnEditViewWidget* view)
 			Matrix4* max4= en->getWorldMatrix();
 			float minx,maxx,miny,maxy;
 			en->getBoundSize2D(&minx,&maxx,&miny,&maxy);
-			SnRenderUtil::drawRectangleFrame(max4,Vector2f(minx,miny),Vector2f(maxx,maxy),Color(100,0,0));
+			SnRenderUtil::drawRectangleFrame(max4,Vector2f(minx,miny),Vector2f(maxx,maxy),SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_WIDTH,SnThemeConfig::SELECT_CONTROLLER_SELECTED_COLOR);
 		}
 		return;
 	}

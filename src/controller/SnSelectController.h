@@ -17,6 +17,7 @@ class SnSelectController:public SnController
 
 	public:
 		virtual bool onLoad(SnEditViewWidget* view);
+
 	public:
 		virtual bool onTouchBegin(SnEditViewWidget* view,QMouseEvent* event);
 		virtual bool onTouchMove(SnEditViewWidget* view,QMouseEvent* event);

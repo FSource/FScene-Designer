@@ -115,6 +115,31 @@ std::vector<SnIdentify*> SnLayer2D::getChildInArea(Faeris::Vector2f& start,Faeri
 
 	return ret;
 }
+SnIdentify* SnLayer2D::getChildHitPoint(Faeris::Vector2f p,bool traverse)
+{
+
+	int size=m_array->size();
+	for(int i=0;i<size;i++)
+	{
+   		Entity2D* en=(Entity2D*)m_array->get(i);
+		SnIdentify* id=dynamic_cast<SnIdentify*>(en);
+		if(SnUtil::identifyHitPoint(id,p))
+		{
+			return id;
+		}
+
+		if(traverse)
+		{
+			SnIdentify* ret= id->getChildHitPoint(p,traverse);
+			if(ret)
+			{
+				return ret;
+			}
+		}
+	}
+	return NULL;
+
+}
 
 
 

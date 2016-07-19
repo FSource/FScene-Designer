@@ -4,6 +4,8 @@
 
 #include <QObject>
 
+#include "SnEnums.h"
+
 class SnProject;
 class SnLayer2D;
 class SnIdentify;
@@ -31,6 +33,8 @@ class SnMsgCenter:public QObject
 
 		void signalCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
 
+		void signalEditModeChange(SN_EditMode mode);
+
 
 	public:
 		/* project */
@@ -43,6 +47,8 @@ class SnMsgCenter:public QObject
 
 		void emitIdentifyAttributeChange(SnIdentify* id,const char* name);
 		void emitCurrrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
+
+		void emitEditModeChange(SN_EditMode mode);
 };
 
 

@@ -33,6 +33,7 @@
 #include "support/util/FsArray.h"
 #include "support/util/FsScriptUtil.h"
 #include "SnTest.h"  
+#include "SnThemeConfig.h"
 
 NS_FS_BEGIN
 void _FsScriptExtends_Finalize(FsObject* ob){}
@@ -52,8 +53,8 @@ int main(int argc,char** argv)
 
     QApplication app(argc,argv);
 
+	SnThemeConfig::initConfig();
 	SnGlobal::moduleInit();
-
 
     SnMainWindow* win=new SnMainWindow();
 	SnGlobal::setMainWindow(win);

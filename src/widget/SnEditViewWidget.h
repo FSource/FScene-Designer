@@ -8,6 +8,7 @@
 
 #include "math/FsVector2.h"
 #include "graphics/FsColor.h"
+#include "SnEnums.h"
 class SnController;
 class SnIdentify;
 NS_FS_USE
@@ -49,6 +50,8 @@ class SnEditViewWidget:public QGLWidget
 		void drawScene();
 		void drawSelectIdentify();
 
+		void drawEditModeInfo();
+		void drawTranslateInfo(Color c);
 
 
 		void drawRect(const Vector2& p,float width,float height);
@@ -79,7 +82,8 @@ class SnEditViewWidget:public QGLWidget
 
 		void slotIdentifyAttributeChange(SnIdentify* id,const char* name);
 		void slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
-
+		void slotCurProjectChange();
+		void slotEditModeChange(SN_EditMode mode);
 
 	protected:
 		void updateViewMatrix();
@@ -103,9 +107,11 @@ class SnEditViewWidget:public QGLWidget
 
 		SnController* m_controller;
 
-
+		SN_EditMode m_editMode;
 		SnController* m_moveViewController;
 		SnController* m_selectController;
+		SnController* m_translateController;
+
 
     public: 
 

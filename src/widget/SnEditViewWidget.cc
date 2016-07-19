@@ -1,6 +1,7 @@
 #include <QWheelEvent>
 #include "widget/SnEditViewWidget.h"
 #include "core/SnScene.h"
+#include "core/SnProject.h"
 #include "SnGlobal.h"
 #include "operator/SnDataOperator.h"
 
@@ -24,6 +25,9 @@
 #include "controller/SnViewMoveController.h"
 
 #include "controller/SnSelectController.h"
+#include "controller/SnTranslateController.h"
+
+#include "SnThemeConfig.h"
 
 
 SnEditViewWidget::SnEditViewWidget()
@@ -35,7 +39,7 @@ SnEditViewWidget::SnEditViewWidget()
 	m_showGrid=true;
 
 	m_gridSize=Vector2(32,32);
-
+	m_editMode=SN_EditMode::TRANSALTE;
 	m_gridColorA=Color(100,100,100);
     m_gridColorB=Color(70,70,70);
 
@@ -49,6 +53,8 @@ SnEditViewWidget::SnEditViewWidget()
 	m_controller=NULL;
 	m_moveViewController=new SnViewMoveController();
 	m_selectController=new SnSelectController;
+	m_translateController=new SnTranslateController;
+
 }
 
 
@@ -164,6 +170,10 @@ void  SnEditViewWidget::paintGL()
 	{
 		m_controller->onDraw(this);
 	}
+	else
+	{
+		drawEditModeInfo();
+	}
 }
 
 
@@ -202,7 +212,7 @@ void SnEditViewWidget::drawSelectIdentify()
 			Matrix4* mat=en->getWorldMatrix();
 			float minx,maxx,miny,maxy;
 			en->getBoundSize2D(&minx,&maxx,&miny,&maxy);
-			SnRenderUtil::drawRectangleFrame(mat,Vector2(minx,miny),Vector2(maxx,maxy),Color(100,0,0));
+			SnRenderUtil::drawRectangleFrame(mat,Vector2(minx,miny),Vector2(maxx,maxy),SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_WIDTH,SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_COLOR);
 		}
 	}
 }
@@ -213,8 +223,8 @@ void SnEditViewWidget::drawAxis()
 {
 	Vector2 a,b;
 	getEditArea(&a,&b);
-	SnRenderUtil::drawLine(Vector2(a.x,0),Vector2(b.x,0),1,Color::RED);
-	SnRenderUtil::drawLine(Vector2(0,a.y),Vector2(0,b.y),1,Color::BLUE);
+	SnRenderUtil::drawLine(Vector2(a.x,0),Vector2(b.x,0),SnThemeConfig::VIEW_AXIS_WIDTH,SnThemeConfig::VIEW_AXIS_X_COLOR);
+	SnRenderUtil::drawLine(Vector2(0,a.y),Vector2(0,b.y),SnThemeConfig::VIEW_AXIS_WIDTH,SnThemeConfig::VIEW_AXIS_Y_COLOR);
 }
 
 void SnEditViewWidget::drawGrid()
@@ -273,6 +283,45 @@ void SnEditViewWidget::drawScene()
 	scene->draw(render);
 }
 
+void SnEditViewWidget::drawEditModeInfo()
+{
+	if(m_editMode==SN_EditMode::TRANSALTE)
+	{
+		drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR);
+	}
+}
+
+void SnEditViewWidget::drawTranslateInfo(Color c)
+{
+	std::vector<SnIdentify*> ids=SnGlobal::dataOperator()->getSelectedIdentify();
+	int size=ids.size();
+	if(size==0)
+	{
+		return;
+	}
+
+	SnIdentify* id=ids[0];
+	Entity2D* en=dynamic_cast<Entity2D*>(id);
+
+	Matrix4 mat=*en->getWorldMatrix();
+	mat.setScale(Vector3(1,1,1));
+	/*
+	Vector3 pos=en->getPositionInWorld();
+	float rotate=en->getRotateZ();
+
+	Matrix4 mat;
+	mat.makeCompose(pos,Vector3(0,0,rotate),E_EulerOrientType::XYZ,Vector3(1,1,1));
+	*/
+
+	float gap=SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_HIT_GAP/m_zoom;
+	
+	Vector2f start=Vector2(-gap,-gap);
+	Vector2f end=Vector2(gap,gap);
+
+	SnRenderUtil::drawRectangle(&mat,start,end,c);
+	SnRenderUtil::drawRectangleFrame(&mat,start,end,SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_OUT_LINE_WIDTH,SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_OUT_LINE_COLOR);
+
+}
 
 
 Vector2 SnEditViewWidget::toWidgetCoord(Vector2 v)
@@ -398,7 +447,23 @@ void SnEditViewWidget::mousePressEvent(QMouseEvent* event)
 {
 	if(m_controller==NULL)
 	{
-		setController(m_selectController);
+		switch(m_editMode)
+		{
+			case SN_EditMode::TRANSALTE:
+				{
+
+					if(m_translateController->onTouchBegin(this,event))
+					{
+						setController(m_translateController);
+					}
+				}
+				break;
+		}
+
+		if(m_controller==NULL)
+		{
+			setController(m_selectController);
+		}
 	}
 
 	if(m_controller)
@@ -455,9 +520,6 @@ void SnEditViewWidget::keyReleaseEvent(QKeyEvent* event)
 	}
 }
 
-
-
-
 void SnEditViewWidget::onZoomIn()
 {
 	m_zoom*=1.1f;
@@ -483,3 +545,24 @@ void  SnEditViewWidget::slotCurrentAndSelectsChange(SnIdentify* id,const std::ve
 {
 	update();
 }
+
+void SnEditViewWidget::slotCurProjectChange()
+{
+	SnProject* proj=SnGlobal::dataOperator()->getCurProject();
+	if(proj)
+	{
+		m_editMode=proj->getEditMode();
+	}
+	update();
+}
+
+void SnEditViewWidget::slotEditModeChange(SN_EditMode mode)
+{
+	m_editMode=mode;
+	update();
+}
+
+
+
+
+

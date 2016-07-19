@@ -30,6 +30,7 @@ namespace  SnUtil
 	*/
 
 
+
 	bool identifyInRect(SnIdentify* id,Vector2f start,Vector2f end)
 	{
 		float minx=start.x ;
@@ -66,5 +67,77 @@ namespace  SnUtil
 		}
 		return false;
 	}
+
+	bool identifyHitPoint(SnIdentify* id,Vector2f p)
+	{
+		Entity2D* en=dynamic_cast<Entity2D*>(id);
+		if(!en)
+		{
+			return false;
+		}
+		return en->hit2D(p.x,p.y);
+	}
+
+	bool hitIdentityCenterPoint(SnIdentify* id,Vector2f pos,float gap)
+	{
+		Entity2D* en=dynamic_cast<Entity2D*>(id);
+		if(!en)
+		{
+			return false;
+		}
+
+		Vector3f t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+		if(Math::abs(t.x) < gap)
+		{
+			if(Math::abs(t.y) < gap)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	bool hitIdentityAxisX(SnIdentify* id,Vector2f pos,float width,float height)
+	{
+		Entity2D* en=dynamic_cast<Entity2D*>(id);
+		if(!en)
+		{
+			return false;
+		}
+
+		Vector3f t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+
+		if(Math::abs(t.y)< width)
+		{
+			if(t.x>0&&t.x< height)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	bool hitIdentityAxisY(SnIdentify* id,Vector2f pos,float width,float height)
+	{
+		Entity2D* en=dynamic_cast<Entity2D*>(id);
+		if(!en)
+		{
+			return false;
+		}
+
+		Vector3f t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+		if(Math::abs(t.x)<width)
+		{
+			if(t.y>0&&t.y<height)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 }
 

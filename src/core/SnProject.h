@@ -8,7 +8,10 @@
 #include "core/SnEntity2D.h"
 #include "core/SnLayer2D.h"
 
+#include "SnEnums.h"
+
 class SnScene;
+
 
 class SnProject:public SnIdentify
 {
@@ -36,6 +39,10 @@ class SnProject:public SnIdentify
 
 		SnLayer2D* getCurrentLayer(){return m_currentLayer;}
 
+		/* edit mode */
+		void setEditMode(SN_EditMode mode){m_editMode=mode;}
+		SN_EditMode getEditMode(){return m_editMode;}
+
 
 	public:
 		SnScene* getCurScene();
@@ -53,7 +60,12 @@ class SnProject:public SnIdentify
 		SnIdentify* m_currentIdentify;
 		std::vector<SnIdentify*> m_selectIdentifys;
 		SnLayer2D* m_currentLayer;
+
+		/* edit mode */
+		SN_EditMode m_editMode;
+
 };
 
-
 #endif
+
+

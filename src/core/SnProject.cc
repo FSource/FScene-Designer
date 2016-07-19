@@ -1,9 +1,11 @@
 
-#include "core/SnProject.h"
+
 #include "SnScene.h"
 #include "core/SnEntity2D.h"
+#include "core/SnProject.h"
 
 NS_FS_USE
+
 int SnProject::identifyType()
 {
 	return SN_CLASS_PROJECT;
@@ -21,6 +23,8 @@ SnProject::SnProject()
 
 	m_currentIdentify=NULL;
 	m_currentLayer=NULL;
+
+	m_editMode=SN_EditMode::TRANSALTE;
 
 }
 

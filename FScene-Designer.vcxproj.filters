@@ -198,6 +198,12 @@
     <ClCompile Include="src\util\SnUtil.cc">
       <Filter>src\util</Filter>
     </ClCompile>
+    <ClCompile Include="src\SnThemeConfig.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controller\SnTranslateController.cc">
+      <Filter>src\controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -371,6 +377,15 @@
     </ClInclude>
     <ClInclude Include="src\util\SnUtil.h">
       <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SnThemeConfig.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SnEnums.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controller\SnTranslateController.h">
+      <Filter>src\controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

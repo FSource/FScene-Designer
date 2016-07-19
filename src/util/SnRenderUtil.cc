@@ -24,11 +24,14 @@ namespace SnRenderUtil
 		glMatrixMode(GL_MODELVIEW);
 	}
 
-
-	void drawRectangleFrame(Faeris::Matrix4* world_max, Faeris::Vector2 start,Faeris::Vector2 end,Faeris::Color c)
+	void drawRectangleFrame(Faeris::Matrix4* world_max, Faeris::Vector2 start,Faeris::Vector2 end,float width,Faeris::Color c)
 	{
-		drawRectangle(world_max,start,end,c); 
+		drawLine(world_max,Vector2(start.x,start.y),Vector2(start.x,end.y),width,c);
+		drawLine(world_max,Vector2(start.x,start.y),Vector2(end.x,start.y),width,c);
+		drawLine(world_max,Vector2(end.x,end.y),Vector2(end.x,start.y),width,c);
+		drawLine(world_max,Vector2(end.x,end.y),Vector2(start.x,end.y),width,c);
 	}
+
 
 
 	void drawRectangle(Vector2 start,Vector2 end,Color c)
@@ -75,10 +78,11 @@ namespace SnRenderUtil
 	}
 
 
-    void drawLine(Matrix4* max,Vector2 start,Vector2 end,float /*width*/,Color c)
+    void drawLine(Matrix4* max,Vector2 start,Vector2 end,float width,Color c)
 	{
 		setWorldMatrix(max);
 		RenderDevice* render=Global::renderDevice();
+		glLineWidth(width);
 
 		/* use default opengl pipeline */
 		render->setProgram(NULL);

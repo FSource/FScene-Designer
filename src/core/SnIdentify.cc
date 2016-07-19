@@ -89,6 +89,13 @@ std::vector<SnIdentify*> SnIdentify::getChildInArea(Faeris::Vector2f& start,Faer
 	return std::vector<SnIdentify*>();
 }
 
+SnIdentify* SnIdentify::getChildHitPoint(Faeris::Vector2f p,bool traverse)
+{
+	return NULL;
+}
+
+void SnIdentify::translateInWorld(float x,float y)
+{ }
 
 
 
@@ -113,4 +120,7 @@ SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,const char* fn(
 	}
 	return new SnAttrTypeDesc(name,e_list);
 }
+
+
+
 

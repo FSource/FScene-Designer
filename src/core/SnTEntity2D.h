@@ -115,8 +115,37 @@ class TSnEntity2D:public SnIdentify ,public T
 			return ret;
 		}
 
+		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f point,bool traverse)
+		{
+			int size=m_array->size();
+			for(int i=0;i<size;i++)
+			{
+				Entity2D* en=(Entity2D*)m_array->get(i);
+				SnIdentify* id=dynamic_cast<SnIdentify*>(en);
+				if(SnUtil::identifyHitPoint(id,point))
+				{
+					return id;
+				}
 
+				if(traverse)
+				{
+					SnIdentify* ret= id->getChildHitPoint(point,traverse);
+					if(ret)
+					{
+						return ret;
+					}
+				}
+			}
+			return NULL;
 
+		}
+
+		virtual void translateInWorld(float x,float y)
+		{
+			Faeris::Vector3f pos=getPositionInWorld();
+			Faeris::Vector3f ret=Faeris::Vector3f(pos.x+x,pos.y+y,0);
+			setPositionInWorld(ret);
+		}
 
 		virtual bool isDragEnabled(){return true;}
 		virtual bool isDropEnabled(){return true;}
@@ -128,7 +157,7 @@ class TSnEntity2D:public SnIdentify ,public T
 			SnAttrGroupDesc* group=new SnAttrGroupDesc("Entity");
 			group->addAttrTypeDesc(createAttributeDesc("position",SN_TYPE_NORMAL));
 			group->addAttrTypeDesc(createAttributeDesc("scale",SN_TYPE_NORMAL));
-			group->addAttrTypeDesc(createAttributeDesc("rotate",SN_TYPE_NORMAL));
+			group->addAttrTypeDesc(createAttributeDesc("rotateZ",SN_TYPE_NORMAL));
 			group->addAttrTypeDesc(createAttributeDesc("visible",SN_TYPE_NORMAL));
 			group->addAttrTypeDesc(createAttributeDesc("visibles",SN_TYPE_NORMAL));
 

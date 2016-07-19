@@ -32,6 +32,7 @@ public:
 		virtual bool isDropEnabled();
 		
 		virtual std::vector<SnIdentify*> getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse);
+		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f p,bool traverse);
 	
 
 	private:

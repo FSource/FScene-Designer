@@ -39,6 +39,11 @@ void SnMsgCenter::emitCurrrentAndSelectsChange(SnIdentify* id,const std::vector<
 }
 
 
+void SnMsgCenter::emitEditModeChange(SN_EditMode mode)
+{
+	emit signalEditModeChange(mode);
+}
+
 
 
 
