@@ -175,7 +175,13 @@ class SnIdentify
 		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f p,bool traverse);
 
 		virtual void translateInWorld(float x,float y);
+		virtual void translateXInWorld(float x,float y);
+		virtual void translateYInWorld(float x,float y);
 
+		virtual Faeris::Vector2f toXAxisProj(Faeris::Vector2f v);
+		virtual Faeris::Vector2f toYAxisProj(Faeris::Vector2f v);
+
+		virtual bool isAncestors(SnIdentify* id);
 
 	public:
 		void setIdentifyName(const char* name);

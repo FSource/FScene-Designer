@@ -34,6 +34,8 @@ namespace SnRenderUtil
 
 
 
+
+
 	void drawRectangle(Vector2 start,Vector2 end,Color c)
 	{
 
@@ -96,6 +98,29 @@ namespace SnRenderUtil
 		}
 		glEnd();
 	}
+
+
+	void drawTriangle(Faeris::Matrix4* mat,Faeris::Vector2 a,Faeris::Vector2 b,Faeris::Vector2 c,Faeris::Color color)
+	{
+
+		setWorldMatrix(mat);
+		RenderDevice* render=Global::renderDevice();
+		/* use default opengl pipeline */
+		render->setProgram(NULL);
+
+		render->disableAllAttrArray();
+		glColor4f(float(color.r)/255.0f,float(color.g)/255.0f,float(color.b)/255.0f,float(color.a)/255.0f);
+		glBegin(GL_TRIANGLES);
+		{
+			glVertex2f(a.x,a.y);
+			glVertex2f(b.x,b.y);
+			glVertex2f(c.x,c.y);
+		}
+		glEnd();
+	}
+
+
+
 
 }
 

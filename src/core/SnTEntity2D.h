@@ -147,6 +147,59 @@ class TSnEntity2D:public SnIdentify ,public T
 			setPositionInWorld(ret);
 		}
 
+		virtual void translateXInWorld(float x,float y)
+		{
+			Faeris::Matrix4 mat=*getWorldMatrix();
+			mat.setScale(Faeris::Vector3(1,1,1));
+
+			Faeris::Vector3f v_x=mat.getColumnX();
+			Faeris::Vector3f v_y=mat.getColumnY();
+
+			Faeris::Vector3f m(x,y,0);
+
+			Faeris::Vector3f t=m.proj(v_x);
+			translateInWorld(t.x,t.y);
+		}
+
+
+		virtual void translateYInWorld(float x,float y)
+		{
+			Faeris::Matrix4 mat=*getWorldMatrix();
+			mat.setScale(Faeris::Vector3(1,1,1));
+
+			Faeris::Vector3f v_x=mat.getColumnX();
+			Faeris::Vector3f v_y=mat.getColumnY();
+
+			Faeris::Vector3f m(x,y,0);
+
+			Faeris::Vector3f t=m.proj(v_y);
+			translateInWorld(t.x,t.y);
+		}
+		virtual Faeris::Vector2f toXAxisProj(Faeris::Vector2f v)
+		{
+			Faeris::Matrix4 mat=*getWorldMatrix();
+			mat.setScale(Faeris::Vector3(1,1,1));
+			Faeris::Vector3f v_x=mat.getColumnX();
+			Faeris::Vector3f m(v.x,v.y,0);
+			Faeris::Vector3f t=m.proj(v_x);
+
+			return Faeris::Vector2f(t.x,t.y);
+
+		}
+
+		virtual Faeris::Vector2f toYAxisProj(Faeris::Vector2f v)
+		{
+			Faeris::Matrix4 mat=*getWorldMatrix();
+			mat.setScale(Faeris::Vector3(1,1,1));
+			Faeris::Vector3f v_y=mat.getColumnY();
+			Faeris::Vector3f m(v.x,v.y,0);
+			Faeris::Vector3f t=m.proj(v_y);
+
+			return Faeris::Vector2f(t.x,t.y);
+		}
+
+
+
 		virtual bool isDragEnabled(){return true;}
 		virtual bool isDropEnabled(){return true;}
 

@@ -36,6 +36,8 @@ class SnProject:public SnIdentify
 
 		SnIdentify* getCurrentIdentify(){return m_currentIdentify;}
 		std::vector<SnIdentify*> getSelectedIdentify(){return m_selectIdentifys;}
+		std::vector<SnIdentify*> getSelectedIdentifyRoot(){return m_selectIdentifysRoots;}
+
 
 		SnLayer2D* getCurrentLayer(){return m_currentLayer;}
 
@@ -59,6 +61,7 @@ class SnProject:public SnIdentify
 
 		SnIdentify* m_currentIdentify;
 		std::vector<SnIdentify*> m_selectIdentifys;
+		std::vector<SnIdentify*> m_selectIdentifysRoots;
 		SnLayer2D* m_currentLayer;
 
 		/* edit mode */

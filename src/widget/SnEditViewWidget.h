@@ -51,7 +51,7 @@ class SnEditViewWidget:public QGLWidget
 		void drawSelectIdentify();
 
 		void drawEditModeInfo();
-		void drawTranslateInfo(Color c);
+		void drawTranslateInfo(Color c,Color c_x,Color c_y);
 
 
 		void drawRect(const Vector2& p,float width,float height);

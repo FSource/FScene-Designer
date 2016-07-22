@@ -27,6 +27,7 @@ class SnDataOperator
 		SnIdentify* getCurrentIdentify();
 		SnLayer2D* getCurrentLayer();
 		std::vector<SnIdentify*> getSelectedIdentify();
+		std::vector<SnIdentify*> getSelectedIdentifyRoot();
 
 
 

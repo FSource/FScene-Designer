@@ -16,6 +16,8 @@ namespace SnRenderUtil
 	void drawRectangle(Faeris::Vector2 start,Faeris::Vector2 end,Faeris::Color c);
 	void drawRectangle(Faeris::Matrix4* mat,Faeris::Vector2 start,Faeris::Vector2 end,Faeris::Color c);
 
+	void drawTriangle(Faeris::Matrix4* mat,Faeris::Vector2 a,Faeris::Vector2 b,Faeris::Vector2 c,Faeris::Color color);
+
 
 	void drawRectangleFrame(Faeris::Matrix4* world_max, Faeris::Vector2 start,Faeris::Vector2 end,float width,Faeris::Color c);
 

@@ -95,7 +95,29 @@ bool SnTranslateController::onTouchMove(SnEditViewWidget* view,QMouseEvent* even
 	}
 	SnIdentify* id=ids[0];
 
-	id->translateInWorld(diff_x,diff_y);
+	std::vector<SnIdentify*> ids_root=SnGlobal::dataOperator()->getSelectedIdentifyRoot();
+	int ids_root_size=ids_root.size();
+
+	Vector2f t_v=Vector2f(diff_x,diff_y);
+
+
+	if(m_moveX&&!m_moveY)
+	{
+		t_v=id->toXAxisProj(t_v);
+	}
+	else if((!m_moveX)&&m_moveY)
+	{
+		t_v=id->toYAxisProj(t_v);
+	}
+
+
+	for(int i=0;i<ids_root_size;i++)
+	{
+		SnIdentify* id_root=ids_root[i];
+		id_root->translateInWorld(t_v.x,t_v.y);
+	}
+
+
 	m_lastPos=cur_pos;
 
 	return true;
@@ -114,7 +136,27 @@ bool SnTranslateController::onTouchEnd(SnEditViewWidget* view,QMouseEvent* event
 
 void SnTranslateController::onDraw(SnEditViewWidget* view)
 {
-	view->drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR_ONFOCUS);
+	if(m_moveX&&m_moveY)
+	{
+		view->drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR_ONFOCUS,
+				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_COLOR,
+				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR
+				);
+	}
+	else if(m_moveX&&!m_moveY)
+	{
+		view->drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR,
+				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_FOCUS_COLOR,
+				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR
+				);
+	}
+	else if((!m_moveX)&&m_moveY)
+	{
+		view->drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR,
+				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_COLOR,
+				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_FOCUS_COLOR
+				);
+	}
 }
 
 

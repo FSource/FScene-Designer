@@ -71,5 +71,39 @@ void SnProject::setCurrentAndSelectIdentify(SnIdentify* ct,const std::vector<SnI
 	m_currentIdentify=ct;
 	m_selectIdentifys=select;
 
+	m_selectIdentifysRoots.clear();
 
+	int size=m_selectIdentifys.size();
+
+	for(int i=0;i<size;i++)
+	{
+		SnIdentify* id=m_selectIdentifys[i];
+
+		bool push_back=true;
+		for(int j=0;j<size;j++)
+		{
+			if(id->isAncestors(m_selectIdentifys[j]))
+			{
+				
+				push_back=false;
+			}
+		}
+		if(push_back)
+		{
+			m_selectIdentifysRoots.push_back(id);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

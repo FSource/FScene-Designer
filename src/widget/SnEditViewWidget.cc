@@ -287,11 +287,13 @@ void SnEditViewWidget::drawEditModeInfo()
 {
 	if(m_editMode==SN_EditMode::TRANSALTE)
 	{
-		drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR);
+		drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR,
+				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_COLOR,
+				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR);
 	}
 }
 
-void SnEditViewWidget::drawTranslateInfo(Color c)
+void SnEditViewWidget::drawTranslateInfo(Color c,Color c_x,Color c_y)
 {
 	std::vector<SnIdentify*> ids=SnGlobal::dataOperator()->getSelectedIdentify();
 	int size=ids.size();
@@ -321,6 +323,22 @@ void SnEditViewWidget::drawTranslateInfo(Color c)
 	SnRenderUtil::drawRectangle(&mat,start,end,c);
 	SnRenderUtil::drawRectangleFrame(&mat,start,end,SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_OUT_LINE_WIDTH,SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_OUT_LINE_COLOR);
 
+
+	Vector2f axis_x=Vector2f(SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_LONG/m_zoom,0);
+	Vector2f axis_y=Vector2f(0,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_LONG/m_zoom);
+
+
+	SnRenderUtil::drawLine(&mat,Vector2(0,0),axis_x,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_WIDTH,c_x);
+	SnRenderUtil::drawLine(&mat,Vector2(0,0),axis_y,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_WIDTH,c_y);
+
+	float tri_x1=(SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_LONG-SnThemeConfig::TRANSLATE_CONTROLLER_TRIANGLE_WIDTH)/m_zoom;
+	float tri_x2=(SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_LONG)/m_zoom;
+
+	float tri_y1=(SnThemeConfig::TRANSLATE_CONTROLLER_TRIANGLE_HEIGHT/2)/m_zoom;
+	float tri_y2=-tri_y1;
+
+	SnRenderUtil::drawTriangle(&mat,Vector2(tri_x1,tri_y1),Vector2(tri_x1,tri_y2),Vector2(tri_x2,0),c_x);
+	SnRenderUtil::drawTriangle(&mat,Vector2(tri_y2,tri_x1),Vector2(tri_y1,tri_x1),Vector2(0,tri_x2),c_y);
 }
 
 

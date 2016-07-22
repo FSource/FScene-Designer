@@ -210,6 +210,20 @@ std::vector<SnIdentify*> SnDataOperator::getSelectedIdentify()
 	return proj->getSelectedIdentify();
 }
 
+std::vector<SnIdentify*> SnDataOperator::getSelectedIdentifyRoot()
+{
+	SnProject* proj=getCurProject();
+	if(!proj)
+	{
+		return std::vector<SnIdentify*>();
+	}
+
+
+	return proj->getSelectedIdentifyRoot();
+}
+
+
+
 
 
 /* redo/undo */

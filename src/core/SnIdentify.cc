@@ -95,12 +95,42 @@ SnIdentify* SnIdentify::getChildHitPoint(Faeris::Vector2f p,bool traverse)
 }
 
 void SnIdentify::translateInWorld(float x,float y)
-{ }
+{ 
+}
+
+void SnIdentify::translateXInWorld(float x,float y)
+{
+}
+
+void SnIdentify::translateYInWorld(float x,float y)
+{
+}
 
 
+Vector2f SnIdentify::toXAxisProj(Vector2f v)
+{
+	return v;
+}
 
+Vector2f SnIdentify::toYAxisProj(Vector2f v)
+{
+	return v;
+}
 
+bool SnIdentify::isAncestors(SnIdentify* id)
+{
+	SnIdentify* p=getIdentifyParent();
 
+	while(p)
+	{
+		if(p==id)
+		{
+			return true;
+		}
+		p=p->getIdentifyParent();
+	}
+	return false;
+}
 
 
 
