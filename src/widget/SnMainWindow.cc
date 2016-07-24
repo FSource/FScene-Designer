@@ -9,11 +9,12 @@
 #include "widget/SnProjectExploreWidget.h"
 #include "widget/SnResourceExploreWidget.h"
 #include "operator/SnUiOperator.h"
-//#include "operator/SnDataOperator.h"
+#include "operator/SnDataOperator.h"
 
 #include "widget/SnPropertyBrowserWidget.h"
 #include "SnGlobal.h"
 #include "SnMsgCenter.h"
+#include "SnEnums.h"
 
 
 SnMainWindow::SnMainWindow()
@@ -59,7 +60,67 @@ void SnMainWindow::initToolBar()
 	m_toolbar->addAction(mt_zoomOut);
 	connect(mt_zoomOut,SIGNAL(triggered()),this,SLOT(onZoomOut()));
     addToolBar(Qt::LeftToolBarArea,m_toolbar);
+
+	/* separator */
+	m_toolbar->addSeparator();
+
+	/* edit group */
+	mg_editInfo=new QActionGroup(this);
+
+
+
+	/* edit info */
+	mt_translate=new QAction(QPixmap(SN_MT_TRANSLATE),"Translate",this);
+	mt_translate->setCheckable(true);
+	m_toolbar->addAction(mt_translate);
+	mg_editInfo->addAction(mt_translate);
+
+	
+	mt_rotate=new QAction(QPixmap(SN_MT_ROTATE),"Rotate",this);
+	mt_rotate->setCheckable(true);
+	m_toolbar->addAction(mt_rotate);
+	mg_editInfo->addAction(mt_rotate);
+
+	mt_scale=new QAction(QPixmap(SN_MT_SCALE),"Scale",this);
+	mt_scale->setCheckable(true);
+	m_toolbar->addAction(mt_scale);
+	mg_editInfo->addAction(mt_scale);
+
+
+	mt_resize=new QAction(QPixmap(SN_MT_RESIZE),"Resize",this);
+	mt_resize->setCheckable(true);
+	m_toolbar->addAction(mt_resize);
+	mg_editInfo->addAction(mt_resize);
+
+
+
+	mg_editInfo->setExclusive(true);
+	mt_translate->setChecked(true);
+
+	connect(mg_editInfo,SIGNAL(triggered(QAction* )),this,SLOT(onEditModeChange(QAction*)));
+
+	/* separator */
+	m_toolbar->addSeparator();
+
+	/* axis info */
+	mg_axis=new QActionGroup(this);
+
+	mt_local=new QAction(QPixmap(SN_MT_AXIS_LOCAL),"Local",this);
+	mt_local->setCheckable(true);
+	m_toolbar->addAction(mt_local);
+	mg_axis->addAction(mt_local);
+
+	mt_world=new QAction(QPixmap(SN_MT_AXIS_WORLD),"World",this);
+	mt_world->setCheckable(true);
+	m_toolbar->addAction(mt_world);
+	mg_axis->addAction(mt_world);
+
+	mg_axis->setExclusive(true);
+	mt_local->setChecked(true);
+	connect(mg_axis,SIGNAL(triggered(QAction* )),this,SLOT(onAxisModeChange(QAction*)));
+
 }
+
 
 void SnMainWindow::initMenuBar()
 {
@@ -128,10 +189,18 @@ void SnMainWindow::initMenuBar()
 
 void SnMainWindow::initWidget()
 {
+	connect(SnGlobal::msgCenter(),SIGNAL(signalEditModeChange(SN_EditMode)),this,SLOT(onEditModeChange(SN_EditMode)));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalTranslateModeChange(SN_TranslateMode)),this,SLOT(onAxisModeChange(SN_TranslateMode)));
+
+
+
 	m_editViewWidget=new SnEditViewWidget;
 	connect(SnGlobal::msgCenter(), SIGNAL(signalIdentifyAttributeChange(SnIdentify*,const char* )),m_editViewWidget,SLOT(slotIdentifyAttributeChange(SnIdentify*,const char* )));
 			connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
 		m_editViewWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
+
+	connect(SnGlobal::msgCenter(),SIGNAL(signalEditModeChange(SN_EditMode)),m_editViewWidget,SLOT(onEditModeChange(SN_EditMode)));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalTranslateModeChange(SN_TranslateMode)),m_editViewWidget,SLOT(onAxisModeChange(SN_TranslateMode)));
 
 
 	m_projectExploreWidget=new SnProjectExploreWidget;
@@ -253,6 +322,80 @@ void SnMainWindow::onAbout()
     m_aboutDialog->show();
 }
 
+void SnMainWindow::onEditModeChange(QAction* action)
+{
+
+	if(action==mt_translate)
+	{
+		SnGlobal::dataOperator()->setEditMode(SN_EditMode::TRANSALTE);
+	}
+	else if(action==mt_scale)
+	{
+		SnGlobal::dataOperator()->setEditMode(SN_EditMode::SCALE);
+	}
+	else if(action==mt_rotate)
+	{
+		SnGlobal::dataOperator()->setEditMode(SN_EditMode::SCALE);
+	}
+	else if(action==mt_resize)
+	{
+		SnGlobal::dataOperator()->setEditMode(SN_EditMode::RESIZE);
+	}
+}
+
+void SnMainWindow::onAxisModeChange(QAction* action)
+{
+	if(action==mt_world)
+	{
+		SnGlobal::dataOperator()->setTranslateMode(SN_TranslateMode::WORLD);
+	}
+	else if(action==mt_local)
+	{
+		SnGlobal::dataOperator()->setTranslateMode(SN_TranslateMode::LOCAL);
+	}
+
+}
+
+void SnMainWindow::onEditModeChange(SN_EditMode mode)
+{
+	mg_editInfo->blockSignals(true);
+
+	if(mode ==SN_EditMode::RESIZE)
+	{
+		mt_resize->setChecked(true);
+	}
+	else if(mode==SN_EditMode::SCALE)
+	{
+		mt_scale->setChecked(true);
+	}
+	else if(mode==SN_EditMode::TRANSALTE)
+	{
+		mt_translate->setChecked(true);
+	}
+	else if(mode==SN_EditMode::ROTATE)
+	{
+		mt_rotate->setChecked(true);
+	}
+
+	mg_editInfo->blockSignals(false);
+}
+
+void SnMainWindow::onAxisModeChange(SN_TranslateMode mode )
+{
+	mg_axis->blockSignals(true);
+	if(mode==SN_TranslateMode::LOCAL)
+	{
+		mt_local->setChecked(true);
+	}
+	else if(mode==SN_TranslateMode::WORLD)
+	{
+		mt_world->setChecked(true);
+	}
+
+}
+
+
+
 
 void SnMainWindow::createAboutDialog()
 {
@@ -262,6 +405,8 @@ void SnMainWindow::createAboutDialog()
     ui_about.setupUi(m_aboutDialog);
 
 }
+
+
 
 
 

@@ -45,6 +45,8 @@ class SnProject:public SnIdentify
 		void setEditMode(SN_EditMode mode){m_editMode=mode;}
 		SN_EditMode getEditMode(){return m_editMode;}
 
+		void setTranslateMode(SN_TranslateMode mode){m_translateMode=mode;}
+		SN_TranslateMode getTranslateMode(){return m_translateMode;}
 
 	public:
 		SnScene* getCurScene();
@@ -66,7 +68,7 @@ class SnProject:public SnIdentify
 
 		/* edit mode */
 		SN_EditMode m_editMode;
-
+		SN_TranslateMode m_translateMode;
 };
 
 #endif

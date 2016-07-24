@@ -8,11 +8,14 @@ enum class SN_EditMode
 	TRANSALTE=0,
 	ROTATE=1,
 	SCALE=2,
-	HEIGHT_WIDTH=3,
+	RESIZE=3,
 };
 
-
+enum class SN_TranslateMode 
+{
+	LOCAL=1,
+	WORLD=2
+};
 
 #endif /*_SN_ENUMS_H_*/
-
 

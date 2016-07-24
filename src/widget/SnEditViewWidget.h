@@ -51,7 +51,7 @@ class SnEditViewWidget:public QGLWidget
 		void drawSelectIdentify();
 
 		void drawEditModeInfo();
-		void drawTranslateInfo(Color c,Color c_x,Color c_y);
+		void drawTranslateInfo(Color c,Color c_x,Color c_y,SN_TranslateMode mode);
 
 
 		void drawRect(const Vector2& p,float width,float height);
@@ -80,10 +80,15 @@ class SnEditViewWidget:public QGLWidget
 		void onZoomIn();
 		void onZoomOut();
 
+		void onEditModeChange(SN_EditMode mode);
+		void onAxisModeChange(SN_TranslateMode mode);
+
+
 		void slotIdentifyAttributeChange(SnIdentify* id,const char* name);
 		void slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
 		void slotCurProjectChange();
-		void slotEditModeChange(SN_EditMode mode);
+
+
 
 	protected:
 		void updateViewMatrix();
@@ -108,9 +113,12 @@ class SnEditViewWidget:public QGLWidget
 		SnController* m_controller;
 
 		SN_EditMode m_editMode;
+		SN_TranslateMode m_translateMode;
 		SnController* m_moveViewController;
 		SnController* m_selectController;
 		SnController* m_translateController;
+		SnController* m_wtranslateController;
+
 
 
     public: 

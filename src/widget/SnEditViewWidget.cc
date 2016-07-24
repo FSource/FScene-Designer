@@ -40,6 +40,8 @@ SnEditViewWidget::SnEditViewWidget()
 
 	m_gridSize=Vector2(32,32);
 	m_editMode=SN_EditMode::TRANSALTE;
+	m_translateMode=SN_TranslateMode::WORLD;
+
 	m_gridColorA=Color(100,100,100);
     m_gridColorB=Color(70,70,70);
 
@@ -53,7 +55,12 @@ SnEditViewWidget::SnEditViewWidget()
 	m_controller=NULL;
 	m_moveViewController=new SnViewMoveController();
 	m_selectController=new SnSelectController;
-	m_translateController=new SnTranslateController;
+
+	m_translateController=new SnTranslateController(SN_TranslateMode::LOCAL);
+
+
+	m_wtranslateController=new SnTranslateController(SN_TranslateMode::WORLD);
+
 
 }
 
@@ -289,11 +296,11 @@ void SnEditViewWidget::drawEditModeInfo()
 	{
 		drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR,
 				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_COLOR,
-				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR);
+				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR,m_translateMode);
 	}
 }
 
-void SnEditViewWidget::drawTranslateInfo(Color c,Color c_x,Color c_y)
+void SnEditViewWidget::drawTranslateInfo(Color c,Color c_x,Color c_y,SN_TranslateMode mode)
 {
 	std::vector<SnIdentify*> ids=SnGlobal::dataOperator()->getSelectedIdentify();
 	int size=ids.size();
@@ -305,18 +312,27 @@ void SnEditViewWidget::drawTranslateInfo(Color c,Color c_x,Color c_y)
 	SnIdentify* id=ids[0];
 	Entity2D* en=dynamic_cast<Entity2D*>(id);
 
-	Matrix4 mat=*en->getWorldMatrix();
-	mat.setScale(Vector3(1,1,1));
-	/*
-	Vector3 pos=en->getPositionInWorld();
-	float rotate=en->getRotateZ();
-
 	Matrix4 mat;
-	mat.makeCompose(pos,Vector3(0,0,rotate),E_EulerOrientType::XYZ,Vector3(1,1,1));
-	*/
+	if(mode == SN_TranslateMode::LOCAL)
+	{
+		mat=*en->getWorldMatrix();
+		mat.setScale(Vector3(1,1,1));
+	}
+	else 
+	{
+		mat.makeIdentity();
+		mat.setTranslate(en->getPositionInWorld());
+	}
+	/*
+	   Vector3 pos=en->getPositionInWorld();
+	   float rotate=en->getRotateZ();
+
+	   Matrix4 mat;
+	   mat.makeCompose(pos,Vector3(0,0,rotate),E_EulerOrientType::XYZ,Vector3(1,1,1));
+	   */
 
 	float gap=SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_HIT_GAP/m_zoom;
-	
+
 	Vector2f start=Vector2(-gap,-gap);
 	Vector2f end=Vector2(gap,gap);
 
@@ -469,10 +485,20 @@ void SnEditViewWidget::mousePressEvent(QMouseEvent* event)
 		{
 			case SN_EditMode::TRANSALTE:
 				{
-
-					if(m_translateController->onTouchBegin(this,event))
+					if(m_translateMode==SN_TranslateMode::WORLD)
 					{
-						setController(m_translateController);
+						if(m_wtranslateController->onTouchBegin(this,event))
+						{
+							setController(m_wtranslateController);
+						}
+					}
+					else 
+					{
+						if(m_translateController->onTouchBegin(this,event))
+						{
+							setController(m_translateController);
+						}
+			
 					}
 				}
 				break;
@@ -514,6 +540,22 @@ void SnEditViewWidget::mouseReleaseEvent(QMouseEvent* event)
 void SnEditViewWidget::keyPressEvent(QKeyEvent* event)
 {
 
+	switch(event->key())
+	{
+		case Qt::Key_R:
+			SnGlobal::dataOperator()->setEditMode(SN_EditMode::ROTATE);
+			break;
+		case Qt::Key_S:
+			SnGlobal::dataOperator()->setEditMode(SN_EditMode::SCALE);
+			break;
+		case Qt::Key_T:
+			SnGlobal::dataOperator()->setEditMode(SN_EditMode::TRANSALTE);
+			break;
+		case Qt::Key_F:
+			SnGlobal::dataOperator()->setEditMode(SN_EditMode::RESIZE);
+			break;
+	}
+
 
 	if(m_controller==NULL)
 	{
@@ -523,8 +565,6 @@ void SnEditViewWidget::keyPressEvent(QKeyEvent* event)
 			update();
 		}
 	}
-
-
 }
 
 void SnEditViewWidget::keyReleaseEvent(QKeyEvent* event)
@@ -554,6 +594,20 @@ void SnEditViewWidget::onZoomOut()
 	update();
 }
 
+void SnEditViewWidget::onEditModeChange(SN_EditMode mode)
+{
+	m_editMode=mode;
+
+	update();
+}
+
+void SnEditViewWidget::onAxisModeChange(SN_TranslateMode mode)
+{
+	m_translateMode=mode;
+	update();
+}
+
+
 void SnEditViewWidget::slotIdentifyAttributeChange(SnIdentify* /*id*/,const char* /*name*/)
 {
 	update();
@@ -570,13 +624,8 @@ void SnEditViewWidget::slotCurProjectChange()
 	if(proj)
 	{
 		m_editMode=proj->getEditMode();
+		m_translateMode=proj->getTranslateMode();
 	}
-	update();
-}
-
-void SnEditViewWidget::slotEditModeChange(SN_EditMode mode)
-{
-	m_editMode=mode;
 	update();
 }
 

@@ -8,7 +8,10 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
+#include <QActionGroup>
 #include <QDialog>
+#include "SnEnums.h"
+
 
 class SnEditViewWidget;
 class SnPropertyBrowserWidget;
@@ -33,10 +36,17 @@ class SnMainWindow:public QMainWindow
 		SnResourceExploreWidget* getResourceExploreWidget(){return m_resourceExploreWidget;}
 		QDockWidget* getResourceExploreDockWidget(){return m_resourceExploreDockWidget;}
 
-public:
-        void createAboutDialog();
+	public:
+		void createAboutDialog();
+
 
 	public slots:
+		void onEditModeChange(SN_EditMode mode);
+		void onAxisModeChange(SN_TranslateMode mode);
+
+
+	public slots:
+
 		/* file */
 		void onNewProject();
 
@@ -48,37 +58,45 @@ public:
 		void onZoomIn();
 		void onZoomOut();
 
+		/* edit mode */
+		void onEditModeChange(QAction* action);
+
+		/* axis mode */
+		void onAxisModeChange(QAction* action);
+
+
+
 
 		void onHelp();
 		void onAbout();
 
 	protected:
 		void initWidget();
-        void initLayout();
-        void initToolBar();
+		void initLayout();
+		void initToolBar();
 		void initMenuBar();
-    private:
+	private:
 
-        /* Edit View */
-        SnEditViewWidget*  m_editViewWidget;
+		/* Edit View */
+		SnEditViewWidget*  m_editViewWidget;
 
 
-        /* Property */
-        SnPropertyBrowserWidget*  m_propertyWidget;
+		/* Property */
+		SnPropertyBrowserWidget*  m_propertyWidget;
 		QDockWidget* m_propertyDockWidget;
 
-        /* ProjectExplore */
-        SnProjectExploreWidget* m_projectExploreWidget;
+		/* ProjectExplore */
+		SnProjectExploreWidget* m_projectExploreWidget;
 		QDockWidget* m_projectExploreDockWidget;
 
 
-        /* ResourceExplore  */
+		/* ResourceExplore  */
 		SnResourceExploreWidget* m_resourceExploreWidget;
 		QDockWidget* m_resourceExploreDockWidget;
 
 
-        /* dialog */
-        QDialog* m_aboutDialog;
+		/* dialog */
+		QDialog* m_aboutDialog;
 
 		/* ToolBar */
 		QToolBar* m_toolbar;
@@ -87,10 +105,23 @@ public:
 		QAction* mt_zoomIn;
 		QAction* mt_zoomOut;
 
+		/* edit info */
+		QAction* mt_translate;
+		QAction* mt_scale;
+		QAction* mt_rotate;
+		QAction* mt_resize;
+		QActionGroup* mg_editInfo;
+
+		/* axis info */
+		QActionGroup* mg_axis;
+		QAction* mt_local;
+		QAction* mt_world;
+
+
 		/* MenuBar*/
 		QMenuBar* m_menubar;
 		QMenu* mn_file;
-		QMenu* mn_edit;
+		QMenu* mn_edit;  
 		QMenu* mn_view;
 		QMenu* mn_animation;
 		QMenu* mn_setting;

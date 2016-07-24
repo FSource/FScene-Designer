@@ -34,6 +34,7 @@ class SnMsgCenter:public QObject
 		void signalCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
 
 		void signalEditModeChange(SN_EditMode mode);
+		void signalTranslateModeChange(SN_TranslateMode mode);
 
 
 	public:
@@ -49,6 +50,7 @@ class SnMsgCenter:public QObject
 		void emitCurrrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
 
 		void emitEditModeChange(SN_EditMode mode);
+		void emitTranslateModeChange(SN_TranslateMode mode);
 };
 
 

@@ -8,12 +8,13 @@
 #include "widget/SnEditViewWidget.h"
 
 NS_FS_USE
-SnTranslateController::SnTranslateController()
+SnTranslateController::SnTranslateController(SN_TranslateMode mode)
 {
 	m_isTouchPress=false;
 	m_start.set(0,0);
 	m_lastPos.set(0,0);
 	m_end.set(0,0);
+	m_mode=mode;
 }
 
 SnTranslateController::~SnTranslateController()
@@ -49,21 +50,21 @@ bool SnTranslateController::onTouchBegin(SnEditViewWidget* view,QMouseEvent* eve
 	float zoom=view->getZoom();
 
 
-	if(SnUtil::hitIdentityCenterPoint(id,m_start,SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_HIT_GAP/zoom))
+	if(SnUtil::hitIdentityCenterPoint(id,m_start,SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_HIT_GAP/zoom,m_mode))
 	{
 		m_moveX=true;
 		m_moveY=true;
 		m_isTouchPress=true;
 		return true;
 	}
-	else if(SnUtil::hitIdentityAxisX(id, m_start,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_WIDTH/zoom,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_LONG/zoom)) 
+	else if(SnUtil::hitIdentityAxisX(id, m_start,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_WIDTH/zoom,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_LONG/zoom,m_mode)) 
 	{
 		m_moveX=true;
 		m_moveY=false;
 		m_isTouchPress=true;
 		return true;
 	}
-	else if(SnUtil::hitIdentityAxisY(id,m_start,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_WIDTH/zoom,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_LONG/zoom))
+	else if(SnUtil::hitIdentityAxisY(id,m_start,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_WIDTH/zoom,SnThemeConfig::TRANSLATE_CONTROLLER_AXIS_HIT_LONG/zoom,m_mode))
 	{
 		m_moveX=false;
 		m_moveY=true;
@@ -72,7 +73,6 @@ bool SnTranslateController::onTouchBegin(SnEditViewWidget* view,QMouseEvent* eve
 	}
 	return false;
 }
-
 
 
 
@@ -96,26 +96,34 @@ bool SnTranslateController::onTouchMove(SnEditViewWidget* view,QMouseEvent* even
 	SnIdentify* id=ids[0];
 
 	std::vector<SnIdentify*> ids_root=SnGlobal::dataOperator()->getSelectedIdentifyRoot();
-	int ids_root_size=ids_root.size();
 
 	Vector2f t_v=Vector2f(diff_x,diff_y);
 
 
-	if(m_moveX&&!m_moveY)
+	if(m_mode==SN_TranslateMode::WORLD)
 	{
-		t_v=id->toXAxisProj(t_v);
+		if(m_moveX&&!m_moveY)
+		{
+			t_v=Vector2f(diff_x,0);
+		}
+		else if((!m_moveX)&&m_moveY)
+		{
+			t_v=Vector2f(0,diff_y);
+		}
 	}
-	else if((!m_moveX)&&m_moveY)
+	else 
 	{
-		t_v=id->toYAxisProj(t_v);
+		if(m_moveX&&!m_moveY)
+		{
+			t_v=id->toXAxisProj(t_v);
+		}
+		else if((!m_moveX)&&m_moveY)
+		{
+			t_v=id->toYAxisProj(t_v);
+		}
 	}
 
-
-	for(int i=0;i<ids_root_size;i++)
-	{
-		SnIdentify* id_root=ids_root[i];
-		id_root->translateInWorld(t_v.x,t_v.y);
-	}
+	SnGlobal::dataOperator()->translateInWorld(ids_root,t_v.x,t_v.y);
 
 
 	m_lastPos=cur_pos;
@@ -140,21 +148,21 @@ void SnTranslateController::onDraw(SnEditViewWidget* view)
 	{
 		view->drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR_ONFOCUS,
 				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_COLOR,
-				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR
+				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR,m_mode
 				);
 	}
 	else if(m_moveX&&!m_moveY)
 	{
 		view->drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR,
 				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_FOCUS_COLOR,
-				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR
+				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR,m_mode
 				);
 	}
 	else if((!m_moveX)&&m_moveY)
 	{
 		view->drawTranslateInfo(SnThemeConfig::TRANSLATE_CONTROLLER_CENTER_POINT_COLOR,
 				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_COLOR,
-				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_FOCUS_COLOR
+				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_FOCUS_COLOR,m_mode
 				);
 	}
 }

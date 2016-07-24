@@ -351,10 +351,131 @@ void SnPropertyBrowserWidget::slotCurrentAndSelectsChange(SnIdentify* id,const s
 
 void SnPropertyBrowserWidget::slotIdentifyAttributeChange(SnIdentify* id,const char* name)
 {
+	if(id!=m_identify)
+	{
+		return ;
+	}
 
+	std::map<std::string,QtProperty*>::iterator iter=m_nameToProperty.find(name);
+	if(iter==m_nameToProperty.end())
+	{
+		FS_TRACE_WARN("Unkown Property %s To Update",name);
+		return ;
+	}
+
+
+	std::map<std::string,SnAttrTypeDesc*>::iterator t_iter=m_nameToDesc.find(name);
+	if(t_iter==m_nameToDesc.end())
+	{
+		FS_TRACE_WARN("Unkown Desc %s To Update",name);
+		return ;
+	}
+
+
+
+	FsVariant t_value=id->getAttribute(name);
+	this->blockSignals(true);
+	updateProperty((QtVariantProperty*)iter->second,t_iter->second,t_value);
+	this->blockSignals(false);
 }
 
 
+
+void SnPropertyBrowserWidget::updateProperty(QtVariantProperty* property,SnAttrTypeDesc* tattr,FsVariant t_value)
+{
+
+
+	const char* name=tattr->getName();
+	int type=tattr->getType();
+
+
+	if(type==SN_TYPE_ENUMS)
+	{
+		E_FsType ftype=t_value.getType();
+		if(ftype==E_FsType::FT_CHARS)
+		{
+			QStringList enums_name=tattr->getEnums();
+			const char* value=(char*)t_value.getValue();
+
+			int size=enums_name.size();
+			for(int i=0;i<size;i++)
+			{
+				if(enums_name.value(i)==value)
+				{
+					property->setValue(i);
+					break;
+				}
+			}
+		}
+	}
+	else if(type==SN_TYPE_NORMAL)
+	{
+		E_FsType ftype=t_value.getType();
+		switch(ftype)
+		{
+			case E_FsType::FT_IN_VALID:
+				{
+					return ;
+				}
+
+			case E_FsType::FT_B_1:
+				{
+					property->setValue(*(bool*)t_value.getValue());
+					break;
+				}
+			case E_FsType::	FT_F_1:
+				{
+
+					property->setValue(*(float*)t_value.getValue());
+					break;
+				}
+			case E_FsType::FT_F_2:
+				{
+
+					Vector2 value=*(Vector2*)t_value.getValue();
+					property->setValue(QPointF(value.x,value.y));
+					break;
+				}
+			case E_FsType::FT_F_3:
+				{
+
+					Vector3 value=*(Vector3*)t_value.getValue();
+					property->setValue(QVector3D(value.x,value.y,value.z));
+					break;
+				}
+			case E_FsType::FT_F_4:
+				{
+
+					Vector4 value=*(Vector4*)t_value.getValue();
+					property->setValue(QVector4D(value.x,value.y,value.z,value.w));
+					break;
+				}
+
+			case E_FsType::FT_COLOR_4:
+				{
+
+					Color4f value=*(Color4f*)t_value.getValue();
+					property->setValue(QColor(value.r*255,value.g*255,value.b*255,value.a*255));
+					break;
+				}
+
+			case E_FsType::FT_CHARS:
+				{
+					const char* value=(char*)t_value.getValue();
+					property->setValue(value);
+					break;
+				}
+
+			default:
+				const char* value=(char*)t_value.getValue();
+				std::string v=std::string(value)+std::string(FsEnum_FsTypeToStr(ftype));
+				property->setValue(v.c_str());
+
+				break;
+		}
+	}
+
+}
 
 void SnPropertyBrowserWidget::refreshProperty()
 {

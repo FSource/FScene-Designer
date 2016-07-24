@@ -233,6 +233,9 @@
     <CustomBuild Include="src\widget\SnPropertyBrowserWidget.h">
       <Filter>src\widget</Filter>
     </CustomBuild>
+    <CustomBuild Include="edit_mode.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\qrc\icon\IDI_REDO.png">
@@ -386,6 +389,9 @@
     </ClInclude>
     <ClInclude Include="src\controller\SnTranslateController.h">
       <Filter>src\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_edit_mode.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

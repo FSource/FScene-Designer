@@ -27,5 +27,8 @@
         <file>icon/toup.png</file>
         <file>icon/up.png</file>
         <file>icon/translate.png</file>
+        <file>icon/local_axis.png</file>
+        <file>icon/world_axis.png</file>
+        <file>icon/resize.png</file>
     </qresource>
 </RCC>

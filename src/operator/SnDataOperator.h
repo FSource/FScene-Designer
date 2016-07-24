@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "stage/entity/FsEntity2D.h"
+#include "SnEnums.h"
 class SnProject;
 class SnScene;
 class SnLayer2D;
@@ -39,6 +40,13 @@ class SnDataOperator
 		void moveEntityToLayer(Faeris::Entity2D* en,SnLayer2D* layer);
 			
 		void moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p);
+
+		/* transform info */
+		void translateInWorld(std::vector<SnIdentify*> ids,float x,float y);
+
+		void setEditMode(SN_EditMode mode);
+		void setTranslateMode(SN_TranslateMode mode);
+
 
 
 		/* redo/undo */ 

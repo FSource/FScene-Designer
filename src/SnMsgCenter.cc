@@ -44,6 +44,10 @@ void SnMsgCenter::emitEditModeChange(SN_EditMode mode)
 	emit signalEditModeChange(mode);
 }
 
+void SnMsgCenter::emitTranslateModeChange(SN_TranslateMode mode)
+{
+	emit signalTranslateModeChange(mode);
+}
 
 
 

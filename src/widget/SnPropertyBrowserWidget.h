@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtProperty>
+#include <QtVariantProperty>
 
 #include "core/SnIdentify.h"
 #include "core/SnLayer2D.h"
@@ -35,6 +36,7 @@ class SnPropertyBrowserWidget:public QWidget
 		QtProperty* addProperty(SnIdentify* id,SnAttrGroupDesc* desc);
 		QtProperty* addProperty(SnIdentify* id,SnAttrTypeDesc* tattr);
 		void refreshProperty();
+		void updateProperty(QtVariantProperty* p,SnAttrTypeDesc* tattr,Faeris::FsVariant v);
 
 	private:
 		class QtTreePropertyBrowser* m_propertyEditor;

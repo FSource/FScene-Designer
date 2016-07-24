@@ -23,6 +23,15 @@
 #define SN_SHOW ":images/icon/eye_show.png"
 #define SN_HIDE ":images/icon/eye_hide.png"
 
+/* edit info */
+#define SN_MT_TRANSLATE ":images/icon/translate.png"
+#define SN_MT_SCALE ":images/icon/scale.png"
+#define SN_MT_ROTATE ":images/icon/rotate.png"
+#define SN_MT_RESIZE ":images/icon/resize.png"
+
+/* axis info */
+#define SN_MT_AXIS_LOCAL ":images/icon/local_axis.png"
+#define SN_MT_AXIS_WORLD ":images/icon/world_axis.png"
 
 
 #endif /*_SN_MACROS_H_*/

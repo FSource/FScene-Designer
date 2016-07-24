@@ -78,7 +78,7 @@ namespace  SnUtil
 		return en->hit2D(p.x,p.y);
 	}
 
-	bool hitIdentityCenterPoint(SnIdentify* id,Vector2f pos,float gap)
+	bool hitIdentityCenterPoint(SnIdentify* id,Vector2f pos,float gap,SN_TranslateMode mode)
 	{
 		Entity2D* en=dynamic_cast<Entity2D*>(id);
 		if(!en)
@@ -86,7 +86,19 @@ namespace  SnUtil
 			return false;
 		}
 
-		Vector3f t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+		Vector3f t ;
+
+		if(mode ==SN_TranslateMode::LOCAL) 
+		{
+
+			t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+		}
+		else 
+		{
+			Vector3f p = en->getPositionInWorld();
+			t=Vector3f(pos.x,pos.y,0)-p;
+		}
+
 		if(Math::abs(t.x) < gap)
 		{
 			if(Math::abs(t.y) < gap)
@@ -98,7 +110,7 @@ namespace  SnUtil
 		return false;
 	}
 
-	bool hitIdentityAxisX(SnIdentify* id,Vector2f pos,float width,float height)
+	bool hitIdentityAxisX(SnIdentify* id,Vector2f pos,float width,float height,SN_TranslateMode mode)
 	{
 		Entity2D* en=dynamic_cast<Entity2D*>(id);
 		if(!en)
@@ -106,7 +118,18 @@ namespace  SnUtil
 			return false;
 		}
 
-		Vector3f t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+		Vector3f t ;
+		if(mode ==SN_TranslateMode::LOCAL) 
+		{
+
+			t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+		}
+		else 
+		{
+			Vector3f p = en->getPositionInWorld();
+			t=Vector3f(pos.x,pos.y,0)-p;
+		}
+
 
 		if(Math::abs(t.y)< width)
 		{
@@ -119,7 +142,7 @@ namespace  SnUtil
 		return false;
 	}
 
-	bool hitIdentityAxisY(SnIdentify* id,Vector2f pos,float width,float height)
+	bool hitIdentityAxisY(SnIdentify* id,Vector2f pos,float width,float height,SN_TranslateMode mode)
 	{
 		Entity2D* en=dynamic_cast<Entity2D*>(id);
 		if(!en)
@@ -127,7 +150,18 @@ namespace  SnUtil
 			return false;
 		}
 
-		Vector3f t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+		Vector3f t ;
+		if(mode ==SN_TranslateMode::LOCAL) 
+		{
+
+			t= en->worldToLocal(Vector3f(pos.x,pos.y,0));
+		}
+		else 
+		{
+			Vector3f p = en->getPositionInWorld();
+			t=Vector3f(pos.x,pos.y,0)-p;
+		}
+
 		if(Math::abs(t.x)<width)
 		{
 			if(t.y>0&&t.y<height)
@@ -137,7 +171,6 @@ namespace  SnUtil
 		}
 		return false;
 	}
-
-
 }
+
 

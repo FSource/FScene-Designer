@@ -114,6 +114,19 @@ void SnDataOperator::moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p
 	SnGlobal::msgCenter()->emitLayer2DAdd(NULL);
 }
 
+
+void SnDataOperator::translateInWorld(std::vector<SnIdentify*> ids_root,float x,float y)
+{
+	int ids_root_size=ids_root.size();
+	for(int i=0;i<ids_root_size;i++)
+	{
+		SnIdentify* id_root=ids_root[i];
+		id_root->translateInWorld(x,y);
+		SnGlobal::msgCenter()->emitIdentifyAttributeChange(id_root,"position");
+	}
+}
+
+
 void SnDataOperator::setIdentifyAttribute(SnIdentify* id,const char* name,const Faeris::FsVariant& value)
 {
 	id->setAttribute(name,value);
@@ -220,6 +233,34 @@ std::vector<SnIdentify*> SnDataOperator::getSelectedIdentifyRoot()
 
 
 	return proj->getSelectedIdentifyRoot();
+}
+
+
+void SnDataOperator::setEditMode(SN_EditMode mode)
+{
+
+	SnProject* proj=getCurProject();
+	if(!proj)
+	{
+
+		return ;
+	}
+
+
+	proj->setEditMode(mode);
+	SnGlobal::msgCenter()->emitEditModeChange(mode);
+}
+
+void SnDataOperator::setTranslateMode(SN_TranslateMode mode)
+{
+	SnProject* proj=getCurProject();
+	if(!proj)
+	{
+		return;
+	}
+
+	proj->setTranslateMode(mode);
+	SnGlobal::msgCenter()->emitTranslateModeChange(mode);
 }
 
 
