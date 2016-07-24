@@ -43,7 +43,11 @@ class SnDataOperator
 
 		/* transform info */
 		void translateInWorld(std::vector<SnIdentify*> ids,float x,float y);
+		void rotate(std::vector<SnIdentify*> ids,float angle);
 
+
+
+		/* mode info */
 		void setEditMode(SN_EditMode mode);
 		void setTranslateMode(SN_TranslateMode mode);
 

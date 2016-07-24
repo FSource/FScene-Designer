@@ -126,6 +126,20 @@ void SnDataOperator::translateInWorld(std::vector<SnIdentify*> ids_root,float x,
 	}
 }
 
+void SnDataOperator::rotate(std::vector<SnIdentify*> ids_root,float angle)
+{
+
+	int ids_root_size=ids_root.size();
+	for(int i=0;i<ids_root_size;i++)
+	{
+		SnIdentify* id_root=ids_root[i];
+		id_root->rotate(angle);
+		SnGlobal::msgCenter()->emitIdentifyAttributeChange(id_root,"rotateZ");
+	}
+
+}
+
+
 
 void SnDataOperator::setIdentifyAttribute(SnIdentify* id,const char* name,const Faeris::FsVariant& value)
 {
@@ -135,7 +149,7 @@ void SnDataOperator::setIdentifyAttribute(SnIdentify* id,const char* name,const 
 
 void SnDataOperator::setIdentifyCurrentAndSelect(SnIdentify* ct_id,const std::vector<SnIdentify*>& st_ids)
 {
-    SnProject* proj=getCurProject();
+	SnProject* proj=getCurProject();
 	if(!proj)
 	{
 		return;
@@ -153,22 +167,22 @@ void SnDataOperator::setIdentifyCurrentAndSelect(SnIdentify* ct_id,const std::ve
 			SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(ct_id,real_select);
 
 			/*
-			Layer2D* ct_layer=dynamic_cast<Layer2D*>(ct_id);
-			int size=st_ids.size();
-			for(int i=0;i<size;i++)
-			{
-				SnIdentify* s_id=st_ids[i];
+			   Layer2D* ct_layer=dynamic_cast<Layer2D*>(ct_id);
+			   int size=st_ids.size();
+			   for(int i=0;i<size;i++)
+			   {
+			   SnIdentify* s_id=st_ids[i];
 
-				Entity2D* en=dynamic_cast<Entity2D*>(s_id);
-				if(en)
-				{
-					if(en->getLayer()==ct_layer)
-					{
-						real_select.push_back(s_id);
-					}
-				}
-			}
-			*/
+			   Entity2D* en=dynamic_cast<Entity2D*>(s_id);
+			   if(en)
+			   {
+			   if(en->getLayer()==ct_layer)
+			   {
+			   real_select.push_back(s_id);
+			   }
+			   }
+			   }
+			   */
 		}
 		else if(dynamic_cast<Entity2D*>(ct_id))
 		{

@@ -106,6 +106,17 @@ void SnIdentify::translateYInWorld(float x,float y)
 {
 }
 
+void SnIdentify::rotate(float angle)
+{
+}
+
+
+Vector3f SnIdentify::getPositionInWorld()
+{
+	return Vector3f();
+}
+
+
 
 Vector2f SnIdentify::toXAxisProj(Vector2f v)
 {

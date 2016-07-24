@@ -139,6 +139,17 @@ class TSnEntity2D:public SnIdentify ,public T
 			return NULL;
 
 		}
+		virtual void rotate(float angle)
+		{
+			float r=getRotateZ();
+			r+=angle;
+			setRotateZ(r);
+		}
+
+		virtual Faeris::Vector3f getPositionInWorld()
+		{
+			return T::getPositionInWorld();
+		}
 
 		virtual void translateInWorld(float x,float y)
 		{

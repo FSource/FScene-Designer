@@ -16,6 +16,7 @@ namespace  SnUtil
 		bool identifyInRect(SnIdentify* en,Faeris::Vector2f start,Faeris::Vector2f end);
 		bool identifyHitPoint(SnIdentify* en,Faeris::Vector2f p);
 
+
 		bool hitIdentityCenterPoint(SnIdentify* en,Faeris::Vector2f pos,float gap,SN_TranslateMode mode);
 		bool hitIdentityAxisX(SnIdentify* en,Faeris::Vector2f pos,float width,float height,SN_TranslateMode mode );
 		bool hitIdentityAxisY(SnIdentify* en,Faeris::Vector2f pos,float width,float height,SN_TranslateMode mode );

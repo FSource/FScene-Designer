@@ -119,8 +119,33 @@ namespace SnRenderUtil
 		glEnd();
 	}
 
+	void drawCircle(Faeris::Matrix4* mat,float radius,float width,Faeris::Color color,float rad_start,float rad_end)
+	{
+		setWorldMatrix(mat);
+		RenderDevice* render=Global::renderDevice();
+		/* use default opengl pipeline */
+		render->setProgram(NULL);
+		glLineWidth(width);
 
+		render->disableAllAttrArray();
+		glColor4f(float(color.r)/255.0f,float(color.g)/255.0f,float(color.b)/255.0f,float(color.a)/255.0f);
 
+		int div=90;
+		float step=(rad_end-rad_start)/(180)*3.14/div;
 
+		glBegin(GL_LINE_STRIP);
+		for(int i=0;i<=div;i++)
+		{
+			float angle=rad_start/180*3.14+step*i;
+
+			glVertex2f(cos(angle)*radius,sin(angle)*radius);
+		}
+		glEnd();
+	}
 }
+
+
+
+
+
 

@@ -52,6 +52,8 @@ class SnEditViewWidget:public QGLWidget
 
 		void drawEditModeInfo();
 		void drawTranslateInfo(Color c,Color c_x,Color c_y,SN_TranslateMode mode);
+		
+		void drawRotateInfo(Color c,float angle);
 
 
 		void drawRect(const Vector2& p,float width,float height);
@@ -118,6 +120,7 @@ class SnEditViewWidget:public QGLWidget
 		SnController* m_selectController;
 		SnController* m_translateController;
 		SnController* m_wtranslateController;
+		SnController* m_rotateController;
 
 
 

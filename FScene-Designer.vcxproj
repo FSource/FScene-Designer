@@ -191,6 +191,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\controller\SnController.cc" />
+    <ClCompile Include="src\controller\SnRotateController.cc" />
     <ClCompile Include="src\controller\SnSelectController.cc" />
     <ClCompile Include="src\controller\SnTranslateController.cc" />
     <ClCompile Include="src\controller\SnViewMoveController.cc" />
@@ -220,6 +221,7 @@
     <ClInclude Include="GeneratedFiles\ui_aboutdialog.h" />
     <ClInclude Include="GeneratedFiles\ui_edit_mode.h" />
     <ClInclude Include="src\controller\SnController.h" />
+    <ClInclude Include="src\controller\SnRotateController.h" />
     <ClInclude Include="src\controller\SnSelectController.h" />
     <ClInclude Include="src\controller\SnTranslateController.h" />
     <ClInclude Include="src\controller\SnViewMoveController.h" />

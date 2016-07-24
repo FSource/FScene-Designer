@@ -26,6 +26,7 @@
 
 #include "controller/SnSelectController.h"
 #include "controller/SnTranslateController.h"
+#include "controller/SnRotateController.h"
 
 #include "SnThemeConfig.h"
 
@@ -57,9 +58,9 @@ SnEditViewWidget::SnEditViewWidget()
 	m_selectController=new SnSelectController;
 
 	m_translateController=new SnTranslateController(SN_TranslateMode::LOCAL);
-
-
 	m_wtranslateController=new SnTranslateController(SN_TranslateMode::WORLD);
+
+	m_rotateController=new SnRotateController();
 
 
 }
@@ -298,6 +299,43 @@ void SnEditViewWidget::drawEditModeInfo()
 				SnThemeConfig::TRANSLATE_CONTROLLER_X_AXIS_COLOR,
 				SnThemeConfig::TRANSLATE_CONTROLLER_Y_AXIS_COLOR,m_translateMode);
 	}
+	else if(m_editMode==SN_EditMode::ROTATE)
+	{
+		drawRotateInfo(SnThemeConfig::ROTATE_CONTROLLER_OUT_LINE_COLOR, 0);
+	}
+
+}
+
+
+void SnEditViewWidget::drawRotateInfo(Color c,float angle)
+{
+
+	std::vector<SnIdentify*> ids=SnGlobal::dataOperator()->getSelectedIdentify();
+	int size=ids.size();
+	if(size==0)
+	{
+		return;
+	}
+
+	SnIdentify* id=ids[0];
+	Entity2D* en=dynamic_cast<Entity2D*>(id);
+
+	Matrix4 mat=*en->getWorldMatrix();
+	mat.setScale(Vector3(1,1,1));
+
+	float radius=SnThemeConfig::ROTATE_CONTROLLER_RADIUS/m_zoom;
+
+
+	SnRenderUtil::drawCircle(&mat,radius,SnThemeConfig::ROTATE_CONTROLLER_OUT_LINE_WIDTH,c,10,350);
+	SnRenderUtil::drawLine(&mat,Vector2f(0,0),Vector2f(radius,0),SnThemeConfig::ROTATE_CONTROLLER_OUT_LINE_WIDTH,c);
+
+	float tri_x1=(SnThemeConfig::ROTATE_CONTROLLER_RADIUS)/m_zoom;
+	float tri_x2=(SnThemeConfig::ROTATE_CONTROLLER_RADIUS+SnThemeConfig::ROTATE_CONTROLLER_TRIANGLE_WIDTH)/m_zoom;
+
+	float tri_y1=(SnThemeConfig::ROTATE_CONTROLLER_TRIANGLE_HEIGHT/2)/m_zoom;
+	float tri_y2=-tri_y1;
+
+	SnRenderUtil::drawTriangle(&mat,Vector2(tri_x1,tri_y1),Vector2(tri_x1,tri_y2),Vector2(tri_x2,0),c);
 }
 
 void SnEditViewWidget::drawTranslateInfo(Color c,Color c_x,Color c_y,SN_TranslateMode mode)
@@ -498,7 +536,15 @@ void SnEditViewWidget::mousePressEvent(QMouseEvent* event)
 						{
 							setController(m_translateController);
 						}
-			
+
+					}
+				}
+				break;
+			case SN_EditMode::ROTATE:
+				{
+					if(m_rotateController->onTouchBegin(this,event))
+					{
+						setController(m_rotateController);
 					}
 				}
 				break;

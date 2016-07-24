@@ -78,6 +78,9 @@ namespace  SnUtil
 		return en->hit2D(p.x,p.y);
 	}
 
+
+
+
 	bool hitIdentityCenterPoint(SnIdentify* id,Vector2f pos,float gap,SN_TranslateMode mode)
 	{
 		Entity2D* en=dynamic_cast<Entity2D*>(id);

@@ -174,9 +174,12 @@ class SnIdentify
 		virtual std::vector<SnIdentify*> getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse);
 		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f p,bool traverse);
 
+
+		virtual Faeris::Vector3f getPositionInWorld();
 		virtual void translateInWorld(float x,float y);
 		virtual void translateXInWorld(float x,float y);
 		virtual void translateYInWorld(float x,float y);
+		virtual void rotate(float angle);
 
 		virtual Faeris::Vector2f toXAxisProj(Faeris::Vector2f v);
 		virtual Faeris::Vector2f toYAxisProj(Faeris::Vector2f v);

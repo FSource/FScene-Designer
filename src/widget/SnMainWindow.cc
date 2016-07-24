@@ -335,7 +335,7 @@ void SnMainWindow::onEditModeChange(QAction* action)
 	}
 	else if(action==mt_rotate)
 	{
-		SnGlobal::dataOperator()->setEditMode(SN_EditMode::SCALE);
+		SnGlobal::dataOperator()->setEditMode(SN_EditMode::ROTATE);
 	}
 	else if(action==mt_resize)
 	{

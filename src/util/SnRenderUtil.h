@@ -18,6 +18,8 @@ namespace SnRenderUtil
 
 	void drawTriangle(Faeris::Matrix4* mat,Faeris::Vector2 a,Faeris::Vector2 b,Faeris::Vector2 c,Faeris::Color color);
 
+	void drawCircle(Faeris::Matrix4* mat,float radius,float width,Faeris::Color c,float rad_start,float rad_end);
+
 
 	void drawRectangleFrame(Faeris::Matrix4* world_max, Faeris::Vector2 start,Faeris::Vector2 end,float width,Faeris::Color c);
 
