@@ -103,6 +103,16 @@ bool SnRotateController::onTouchMove(SnEditViewWidget* view,QMouseEvent* event)
 	float vty=ty-oy;
 
 	float dg=(vfx*vtx+vfy*vty)/(sqrt(vfx*vfx+vfy*vfy)*sqrt(vtx*vtx+vty*vty));
+	if(dg>1.0f)
+	{
+		dg=1.0f;
+	}
+
+	if(dg<-1.0f)
+	{
+		dg=-1.0f;
+	}
+
 
 	int direction=vtx*vfy-vty*vfx<0?1:-1;
 

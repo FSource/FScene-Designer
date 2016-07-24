@@ -41,7 +41,7 @@ SnEditViewWidget::SnEditViewWidget()
 
 	m_gridSize=Vector2(32,32);
 	m_editMode=SN_EditMode::TRANSALTE;
-	m_translateMode=SN_TranslateMode::WORLD;
+	m_translateMode=SN_TranslateMode::LOCAL;
 
 	m_gridColorA=Color(100,100,100);
     m_gridColorB=Color(70,70,70);
@@ -303,6 +303,63 @@ void SnEditViewWidget::drawEditModeInfo()
 	{
 		drawRotateInfo(SnThemeConfig::ROTATE_CONTROLLER_OUT_LINE_COLOR, 0);
 	}
+	else if(m_editMode==SN_EditMode::RESIZE)
+	{
+		drawResizeInfo(Color());
+	}
+
+}
+
+void SnEditViewWidget::drawResizeInfo(Color c)
+{
+
+	std::vector<SnIdentify*> ids=SnGlobal::dataOperator()->getSelectedIdentify();
+	int size=ids.size();
+	if(size==0)
+	{
+		return;
+	}
+
+	SnIdentify* id=ids[0];
+	Entity2D* en=dynamic_cast<Entity2D*>(id);
+
+	Matrix4 mat=*en->getWorldMatrix();
+	float minx,maxx,miny,maxy;
+	en->getBoundSize2D(&minx,&maxx,&miny,&maxy);
+
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx,miny),Vector2(maxx,maxy),SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_WIDTH,SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_COLOR);
+
+	float width=2;
+	float gap=4/m_zoom;
+	Faeris::Color t_c=SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_COLOR;
+	Faeris::Color f_c=Color(255,255,255,155);
+
+
+	SnRenderUtil::drawRectangle(&mat,Vector2(minx-gap,miny-gap),Vector2(minx+gap,miny+gap),f_c);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx-gap,miny-gap),Vector2(minx+gap,miny+gap),width,t_c);
+
+
+	SnRenderUtil::drawRectangle(&mat,Vector2(maxx-gap,miny-gap),Vector2(maxx+gap,miny+gap),f_c);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2(maxx-gap,miny-gap),Vector2(maxx+gap,miny+gap),width,t_c);
+
+	SnRenderUtil::drawRectangle(&mat,Vector2(minx-gap,maxy-gap),Vector2(minx+gap,maxy+gap),f_c);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx-gap,maxy-gap),Vector2(minx+gap,maxy+gap),width,t_c);
+
+	SnRenderUtil::drawRectangle(&mat,Vector2(maxx-gap,maxy-gap),Vector2(maxx+gap,maxy+gap),f_c);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2(maxx-gap,maxy-gap),Vector2(maxx+gap,maxy+gap),width,t_c);
+
+	SnRenderUtil::drawRectangle(&mat,Vector2((minx+maxx)/2-gap,miny-gap),Vector2((minx+maxx)/2+gap,miny+gap),f_c);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2((minx+maxx)/2-gap,miny-gap),Vector2((minx+maxx)/2+gap,miny+gap),width,t_c);
+
+	SnRenderUtil::drawRectangle(&mat,Vector2((minx+maxx)/2-gap,maxy-gap),Vector2((minx+maxx)/2+gap,maxy+gap),f_c);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2((minx+maxx)/2-gap,maxy-gap),Vector2((minx+maxx)/2+gap,maxy+gap),width,t_c);
+	
+	SnRenderUtil::drawRectangle(&mat,Vector2(minx-gap,(miny+maxy)/2-gap),Vector2(minx+gap,(miny+maxy)/2+gap),f_c);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx-gap,(miny+maxy)/2-gap),Vector2(minx+gap,(miny+maxy)/2+gap),width,t_c);
+	
+	SnRenderUtil::drawRectangle(&mat,Vector2(maxx-gap,(miny+maxy)/2-gap),Vector2(maxx+gap,(miny+maxy)/2+gap),f_c);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2(maxx-gap,(miny+maxy)/2-gap),Vector2(maxx+gap,(miny+maxy)/2+gap),width,t_c);
+	
 
 }
 

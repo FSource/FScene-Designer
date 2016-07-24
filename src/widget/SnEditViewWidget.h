@@ -51,7 +51,9 @@ class SnEditViewWidget:public QGLWidget
 		void drawSelectIdentify();
 
 		void drawEditModeInfo();
+
 		void drawTranslateInfo(Color c,Color c_x,Color c_y,SN_TranslateMode mode);
+		void drawResizeInfo(Faeris::Color c);
 		
 		void drawRotateInfo(Color c,float angle);
 
