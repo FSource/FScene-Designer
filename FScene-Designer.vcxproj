@@ -193,6 +193,7 @@
     <ClCompile Include="src\controller\SnController.cc" />
     <ClCompile Include="src\controller\SnResizeController.cc" />
     <ClCompile Include="src\controller\SnRotateController.cc" />
+    <ClCompile Include="src\controller\SnScaleController.cc" />
     <ClCompile Include="src\controller\SnSelectController.cc" />
     <ClCompile Include="src\controller\SnTranslateController.cc" />
     <ClCompile Include="src\controller\SnViewMoveController.cc" />
@@ -224,6 +225,7 @@
     <ClInclude Include="src\controller\SnController.h" />
     <ClInclude Include="src\controller\SnResizeController.h" />
     <ClInclude Include="src\controller\SnRotateController.h" />
+    <ClInclude Include="src\controller\SnScaleController.h" />
     <ClInclude Include="src\controller\SnSelectController.h" />
     <ClInclude Include="src\controller\SnTranslateController.h" />
     <ClInclude Include="src\controller\SnViewMoveController.h" />

@@ -54,8 +54,8 @@ class SnEditViewWidget:public QGLWidget
 
 		void drawTranslateInfo(Color c,Color c_x,Color c_y,SN_TranslateMode mode);
 		void drawResizeInfo(Faeris::Color c,int hit_pos);
-		
 		void drawRotateInfo(Color c,float angle);
+		void drawScaleInfo(Color cc,Color cx,Color cy,float lx,float ly);
 
 
 		void drawRect(const Vector2& p,float width,float height);
@@ -124,6 +124,7 @@ class SnEditViewWidget:public QGLWidget
 		SnController* m_wtranslateController;
 		SnController* m_rotateController;
 		SnController* m_resizeController;
+		SnController* m_scaleController;
 
 
 

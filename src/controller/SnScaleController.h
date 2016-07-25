@@ -3,6 +3,10 @@
 
 #include "SnController.h"
 
+#include "math/FsVector2.h"
+#include "SnEnums.h"
+
+
 
 class SnScaleController:public SnController 
 {
@@ -21,6 +25,13 @@ class SnScaleController:public SnController
 
 	public:
 		bool m_isTouchPress;
+
+		Faeris::Vector2f m_centerPos;
+		Faeris::Vector2f m_lastPos;
+		Faeris::Vector2f m_start;
+		bool m_moveX;
+		bool m_moveY;
+
 
 };
 

@@ -210,6 +210,9 @@
     <ClCompile Include="src\controller\SnResizeController.cc">
       <Filter>src\controller</Filter>
     </ClCompile>
+    <ClCompile Include="src\controller\SnScaleController.cc">
+      <Filter>src\controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -403,6 +406,9 @@
       <Filter>src\controller</Filter>
     </ClInclude>
     <ClInclude Include="src\controller\SnResizeController.h">
+      <Filter>src\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controller\SnScaleController.h">
       <Filter>src\controller</Filter>
     </ClInclude>
   </ItemGroup>

@@ -28,6 +28,7 @@
 #include "controller/SnTranslateController.h"
 #include "controller/SnRotateController.h"
 #include "controller/SnResizeController.h"
+#include "controller/SnScaleController.h"
 
 #include "SnThemeConfig.h"
 
@@ -65,6 +66,7 @@ SnEditViewWidget::SnEditViewWidget()
 
 	m_resizeController=new SnResizeController();
 
+	m_scaleController=new SnScaleController();
 
 }
 
@@ -310,6 +312,15 @@ void SnEditViewWidget::drawEditModeInfo()
 	{
 		drawResizeInfo(Color(),-1);
 	}
+	else if(m_editMode==SN_EditMode::SCALE)
+	{
+		drawScaleInfo(SnThemeConfig::SCALE_CONTROLLER_CENTER_POINT_COLOR,
+				SnThemeConfig::SCALE_CONTROLLER_X_AXIS_COLOR,
+				SnThemeConfig::SCALE_CONTROLLER_Y_AXIS_COLOR,
+				SnThemeConfig::SCALE_CONTROLLER_AXIS_HIT_LONG,
+				SnThemeConfig::SCALE_CONTROLLER_AXIS_HIT_LONG
+				);
+	}
 
 }
 
@@ -373,9 +384,56 @@ void SnEditViewWidget::drawResizeInfo(Color c,int hit_pos)
 		SnRenderUtil::drawRectangleFrame(&mat2,v_pos[i][0],v_pos[i][1],width,t_c);
 	}
 
+}
 
+void SnEditViewWidget::drawScaleInfo(Color cc, Color cx,Color cy,float lx,float ly)
+{
+
+	std::vector<SnIdentify*> ids=SnGlobal::dataOperator()->getSelectedIdentify();
+	int size=ids.size();
+	if(size==0)
+	{
+		return;
+	}
+
+	SnIdentify* id=ids[0];
+	Entity2D* en=dynamic_cast<Entity2D*>(id);
+
+	Matrix4 mat;
+	mat=*en->getWorldMatrix();
+	mat.setScale(Vector3(1,1,1));
+
+
+	float gap=SnThemeConfig::SCALE_CONTROLLER_CENTER_POINT_HIT_GAP/m_zoom;
+
+	Vector2f start=Vector2(-gap,-gap);
+	Vector2f end=Vector2(gap,gap);
+
+	SnRenderUtil::drawRectangle(&mat,start,end,cc);
+	SnRenderUtil::drawRectangleFrame(&mat,start,end,SnThemeConfig::SCALE_CONTROLLER_CENTER_POINT_OUT_LINE_WIDTH,SnThemeConfig::SCALE_CONTROLLER_CENTER_POINT_OUT_LINE_COLOR);
+
+
+	Vector2f axis_x=Vector2f(lx/m_zoom,0);
+	Vector2f axis_y=Vector2f(0,ly/m_zoom);
+
+	SnRenderUtil::drawLine(&mat,Vector2(0,0),axis_x,SnThemeConfig::SCALE_CONTROLLER_AXIS_WIDTH,cx);
+	SnRenderUtil::drawLine(&mat,Vector2(0,0),axis_y,SnThemeConfig::SCALE_CONTROLLER_AXIS_WIDTH,cy);
+
+	float x1=(lx-SnThemeConfig::SCALE_CONTROLLER_AXIS_RECT_SIZE)/m_zoom;
+	float x2=(lx)/m_zoom;
+
+	
+	float x3=(ly-SnThemeConfig::SCALE_CONTROLLER_AXIS_RECT_SIZE)/m_zoom;
+	float x4=(ly)/m_zoom;
+
+	float y1=(SnThemeConfig::SCALE_CONTROLLER_AXIS_RECT_SIZE/2)/m_zoom;
+	float y2=-y1;
+
+	SnRenderUtil::drawRectangle(&mat,Vector2f(x1,y1),Vector2f(x2,y2),cx);
+	SnRenderUtil::drawRectangle(&mat,Vector2f(y1,x3),Vector2f(y2,x4),cy);
 
 }
+
 
 
 void SnEditViewWidget::drawRotateInfo(Color c,float angle)
@@ -608,6 +666,14 @@ void SnEditViewWidget::mousePressEvent(QMouseEvent* event)
 							setController(m_translateController);
 						}
 
+					}
+				}
+				break;
+			case SN_EditMode::SCALE:
+				{
+					if(m_scaleController->onTouchBegin(this,event))
+					{
+						setController(m_scaleController);
 					}
 				}
 				break;
