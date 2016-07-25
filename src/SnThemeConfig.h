@@ -47,6 +47,14 @@ class SnThemeConfig
 		static float ROTATE_CONTROLLER_TRIANGLE_HEIGHT;
 
 
+		/* resize controller */
+		static float RESIZE_CONTROLLER_HIT_LENGTH;
+		static float RESIZE_CONTROLLER_RECTANCLE_LENGTH;
+		static float RESIZE_CONTROLLER_OUT_LINE_WIDTH;
+
+		static Faeris::Color RESIZE_CONTROLLER_OUT_LINE_COLOR;
+		static Faeris::Color RESIZE_CONTROLLER_FILL_COLOR;
+		static Faeris::Color RESIZE_CONTROLLER_FILL_FOCUS_COLOR;
 
 
 

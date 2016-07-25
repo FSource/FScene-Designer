@@ -207,6 +207,9 @@
     <ClCompile Include="src\controller\SnRotateController.cc">
       <Filter>src\controller</Filter>
     </ClCompile>
+    <ClCompile Include="src\controller\SnResizeController.cc">
+      <Filter>src\controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -397,6 +400,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="src\controller\SnRotateController.h">
+      <Filter>src\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controller\SnResizeController.h">
       <Filter>src\controller</Filter>
     </ClInclude>
   </ItemGroup>

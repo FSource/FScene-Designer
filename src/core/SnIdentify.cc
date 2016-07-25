@@ -128,6 +128,13 @@ Vector2f SnIdentify::toYAxisProj(Vector2f v)
 	return v;
 }
 
+
+void SnIdentify::getBoundSize2D(float* minx,float* maxx,float* miny,float* maxy)
+{
+
+}
+
+
 bool SnIdentify::isAncestors(SnIdentify* id)
 {
 	SnIdentify* p=getIdentifyParent();

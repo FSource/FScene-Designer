@@ -186,6 +186,8 @@ class SnIdentify
 
 		virtual bool isAncestors(SnIdentify* id);
 
+		virtual void getBoundSize2D(float* minx,float* maxx,float* miny,float* maxy);
+
 	public:
 		void setIdentifyName(const char* name);
 		const char* getIdentifyName();

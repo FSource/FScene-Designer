@@ -23,6 +23,9 @@ class SnResizeController:public SnController
 
 	public:
 		bool m_isTouchPress;
+		int m_hitPos;
+		Faeris::Vector2f m_lastPos;
+		Faeris::Vector2f m_start;
 };
 
 #endif /*_SN_RESIZE_CONTROLLER_H_*/

@@ -27,6 +27,7 @@
 #include "controller/SnSelectController.h"
 #include "controller/SnTranslateController.h"
 #include "controller/SnRotateController.h"
+#include "controller/SnResizeController.h"
 
 #include "SnThemeConfig.h"
 
@@ -61,6 +62,8 @@ SnEditViewWidget::SnEditViewWidget()
 	m_wtranslateController=new SnTranslateController(SN_TranslateMode::WORLD);
 
 	m_rotateController=new SnRotateController();
+
+	m_resizeController=new SnResizeController();
 
 
 }
@@ -305,12 +308,12 @@ void SnEditViewWidget::drawEditModeInfo()
 	}
 	else if(m_editMode==SN_EditMode::RESIZE)
 	{
-		drawResizeInfo(Color());
+		drawResizeInfo(Color(),-1);
 	}
 
 }
 
-void SnEditViewWidget::drawResizeInfo(Color c)
+void SnEditViewWidget::drawResizeInfo(Color c,int hit_pos)
 {
 
 	std::vector<SnIdentify*> ids=SnGlobal::dataOperator()->getSelectedIdentify();
@@ -324,42 +327,53 @@ void SnEditViewWidget::drawResizeInfo(Color c)
 	Entity2D* en=dynamic_cast<Entity2D*>(id);
 
 	Matrix4 mat=*en->getWorldMatrix();
+
+	Matrix4 mat2=mat;
+	//mat2.setScale(Vector3f(1,1,1));
+
 	float minx,maxx,miny,maxy;
 	en->getBoundSize2D(&minx,&maxx,&miny,&maxy);
 
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx,miny),Vector2(maxx,maxy),SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_WIDTH,SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_COLOR);
+	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx,miny),Vector2(maxx,maxy),SnThemeConfig::RESIZE_CONTROLLER_OUT_LINE_WIDTH,SnThemeConfig::RESIZE_CONTROLLER_OUT_LINE_COLOR);
 
-	float width=2;
-	float gap=4/m_zoom;
-	Faeris::Color t_c=SnThemeConfig::IDENTIFY_SELECT_OUT_LINE_COLOR;
-	Faeris::Color f_c=Color(255,255,255,155);
+	float s_x=mat.getScale().x;
+	float s_y=mat.getScale().y;
+
+	float width=SnThemeConfig::RESIZE_CONTROLLER_OUT_LINE_WIDTH;
+
+	float gap_x=SnThemeConfig::RESIZE_CONTROLLER_RECTANCLE_LENGTH/m_zoom/s_x;
+	float gap_y=SnThemeConfig::RESIZE_CONTROLLER_RECTANCLE_LENGTH/m_zoom/s_y;
+
+	Faeris::Color t_c=SnThemeConfig::RESIZE_CONTROLLER_OUT_LINE_COLOR;
+	Faeris::Color f_c1=SnThemeConfig::RESIZE_CONTROLLER_FILL_COLOR;
+	Faeris::Color f_c2=SnThemeConfig::RESIZE_CONTROLLER_FILL_FOCUS_COLOR;
 
 
-	SnRenderUtil::drawRectangle(&mat,Vector2(minx-gap,miny-gap),Vector2(minx+gap,miny+gap),f_c);
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx-gap,miny-gap),Vector2(minx+gap,miny+gap),width,t_c);
+	Faeris::Vector2f v_pos[8][2] ={
+		{Vector2(minx-gap_x,miny-gap_y),Vector2(minx+gap_x,miny+gap_y)},
+		{Vector2((minx+maxx)/2-gap_x,miny-gap_y),Vector2((minx+maxx)/2+gap_x,miny+gap_y)},
+		{Vector2(maxx-gap_x,miny-gap_y),Vector2(maxx+gap_x,miny+gap_y)},
+		{Vector2(maxx-gap_x,(miny+maxy)/2-gap_y),Vector2(maxx+gap_x,(miny+maxy)/2+gap_y)},
+		{Vector2(maxx-gap_x,maxy-gap_y),Vector2(maxx+gap_x,maxy+gap_y)},
+		{Vector2((minx+maxx)/2-gap_x,maxy-gap_y),Vector2((minx+maxx)/2+gap_x,maxy+gap_y)},
+		{Vector2(minx-gap_x,maxy-gap_y),Vector2(minx+gap_x,maxy+gap_y)},
+		{Vector2(minx-gap_x,(miny+maxy)/2-gap_y),Vector2(minx+gap_x,(miny+maxy)/2+gap_y)},
+	};
+
+	for(int i=0;i<8;i++)
+	{
+		if(i==hit_pos)
+		{
+			SnRenderUtil::drawRectangle(&mat,v_pos[i][0],v_pos[i][1],f_c2);
+		}
+		else 
+		{
+			SnRenderUtil::drawRectangle(&mat,v_pos[i][0],v_pos[i][1],f_c1);
+		}
+		SnRenderUtil::drawRectangleFrame(&mat2,v_pos[i][0],v_pos[i][1],width,t_c);
+	}
 
 
-	SnRenderUtil::drawRectangle(&mat,Vector2(maxx-gap,miny-gap),Vector2(maxx+gap,miny+gap),f_c);
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2(maxx-gap,miny-gap),Vector2(maxx+gap,miny+gap),width,t_c);
-
-	SnRenderUtil::drawRectangle(&mat,Vector2(minx-gap,maxy-gap),Vector2(minx+gap,maxy+gap),f_c);
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx-gap,maxy-gap),Vector2(minx+gap,maxy+gap),width,t_c);
-
-	SnRenderUtil::drawRectangle(&mat,Vector2(maxx-gap,maxy-gap),Vector2(maxx+gap,maxy+gap),f_c);
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2(maxx-gap,maxy-gap),Vector2(maxx+gap,maxy+gap),width,t_c);
-
-	SnRenderUtil::drawRectangle(&mat,Vector2((minx+maxx)/2-gap,miny-gap),Vector2((minx+maxx)/2+gap,miny+gap),f_c);
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2((minx+maxx)/2-gap,miny-gap),Vector2((minx+maxx)/2+gap,miny+gap),width,t_c);
-
-	SnRenderUtil::drawRectangle(&mat,Vector2((minx+maxx)/2-gap,maxy-gap),Vector2((minx+maxx)/2+gap,maxy+gap),f_c);
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2((minx+maxx)/2-gap,maxy-gap),Vector2((minx+maxx)/2+gap,maxy+gap),width,t_c);
-	
-	SnRenderUtil::drawRectangle(&mat,Vector2(minx-gap,(miny+maxy)/2-gap),Vector2(minx+gap,(miny+maxy)/2+gap),f_c);
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2(minx-gap,(miny+maxy)/2-gap),Vector2(minx+gap,(miny+maxy)/2+gap),width,t_c);
-	
-	SnRenderUtil::drawRectangle(&mat,Vector2(maxx-gap,(miny+maxy)/2-gap),Vector2(maxx+gap,(miny+maxy)/2+gap),f_c);
-	SnRenderUtil::drawRectangleFrame(&mat,Vector2(maxx-gap,(miny+maxy)/2-gap),Vector2(maxx+gap,(miny+maxy)/2+gap),width,t_c);
-	
 
 }
 
@@ -605,6 +619,15 @@ void SnEditViewWidget::mousePressEvent(QMouseEvent* event)
 					}
 				}
 				break;
+			case SN_EditMode::RESIZE:
+				{
+					if(m_resizeController->onTouchBegin(this,event))
+					{
+						setController(m_resizeController);
+					}
+				}
+				break;
+
 		}
 
 		if(m_controller==NULL)

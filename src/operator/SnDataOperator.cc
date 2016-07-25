@@ -138,6 +138,53 @@ void SnDataOperator::rotate(std::vector<SnIdentify*> ids_root,float angle)
 	}
 
 }
+void SnDataOperator::setBoundSize2D(std::vector<SnIdentify*> ids_root,float r_minx,float r_maxx,float r_miny,float r_maxy)
+
+{
+	int ids_root_size=ids_root.size();
+	for(int i=0;i<ids_root_size;i++)
+	{
+		SnIdentify* id_root=ids_root[i];
+		Entity2D* en=dynamic_cast<Entity2D*>(id_root);
+
+		if(!en) 
+		{
+			continue;
+		}
+
+		float minx,maxx,miny,maxy;
+		en->getBoundSize2D(&minx,&maxx,&miny,&maxy);
+
+		float t_minx=minx*r_minx;
+		float t_maxx=maxx*r_maxx;
+		float t_miny=miny*r_miny;
+		float t_maxy=maxy*r_maxy;
+
+		Vector2f anchor=en->getAnchor();
+
+		float posx=t_minx*(1-anchor.x)+t_maxx*anchor.x;
+		float posy=t_miny*(1-anchor.y)+t_maxy*anchor.y;
+
+		Matrix4* mat=en->getLocalMatrix();
+
+		Matrix4 t_mat=*mat;
+		t_mat.setTranslate(0,0,0);
+
+		Vector3f t_pos=t_mat.mulVector3(Vector3f(posx,posy,0));
+
+		  
+		float s_x=t_maxx-t_minx;
+		float s_y=t_maxy-t_miny;
+
+
+		en->move(t_pos.x,t_pos.y,0);
+
+		en->setSize(s_x,s_y);
+
+		SnGlobal::msgCenter()->emitIdentifyAttributeChange(id_root,"position");
+		SnGlobal::msgCenter()->emitIdentifyAttributeChange(id_root,"size");
+	}
+}
 
 
 

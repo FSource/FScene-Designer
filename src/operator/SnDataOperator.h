@@ -44,6 +44,7 @@ class SnDataOperator
 		/* transform info */
 		void translateInWorld(std::vector<SnIdentify*> ids,float x,float y);
 		void rotate(std::vector<SnIdentify*> ids,float angle);
+		void setBoundSize2D(std::vector<SnIdentify*> ids,float r_minx,float r_maxx,float r_miny,float r_maxy);
 
 
 

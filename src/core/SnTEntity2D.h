@@ -209,6 +209,12 @@ class TSnEntity2D:public SnIdentify ,public T
 			return Faeris::Vector2f(t.x,t.y);
 		}
 
+	
+		virtual void getBoundSize2D(float* minx,float* maxx,float* miny,float* maxy)
+		{
+			return T::getBoundSize2D(minx,maxx,miny,maxy);
+		}
+
 
 
 		virtual bool isDragEnabled(){return true;}
