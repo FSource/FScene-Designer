@@ -89,8 +89,14 @@ namespace  SnUtil
 			return false;
 		}
 
-		Vector3f t ;
+		Matrix4* mat=en->getWorldMatrix();
+		Vector3 s_info=mat->getScale();
+		float gapy=gap/s_info.y;
+		float gapx=gap/s_info.x;
 
+
+		
+		Vector3f t ;
 		if(mode ==SN_TranslateMode::LOCAL) 
 		{
 
@@ -102,9 +108,9 @@ namespace  SnUtil
 			t=Vector3f(pos.x,pos.y,0)-p;
 		}
 
-		if(Math::abs(t.x) < gap)
+		if(Math::abs(t.x) < gapx)
 		{
-			if(Math::abs(t.y) < gap)
+			if(Math::abs(t.y) < gapy)
 			{
 				return true;
 			}
@@ -113,13 +119,19 @@ namespace  SnUtil
 		return false;
 	}
 
-	bool hitIdentityAxisX(SnIdentify* id,Vector2f pos,float width,float height,SN_TranslateMode mode)
+	bool hitIdentityAxisX(SnIdentify* id,Vector2f pos,float width,float length,SN_TranslateMode mode)
 	{
 		Entity2D* en=dynamic_cast<Entity2D*>(id);
 		if(!en)
 		{
 			return false;
 		}
+
+		Matrix4* mat=en->getWorldMatrix();
+
+		Vector3 s_info=mat->getScale();
+		width=width/s_info.y;
+		length=length/s_info.x;
 
 		Vector3f t ;
 		if(mode ==SN_TranslateMode::LOCAL) 
@@ -136,7 +148,7 @@ namespace  SnUtil
 
 		if(Math::abs(t.y)< width)
 		{
-			if(t.x>0&&t.x< height)
+			if(t.x>0&&t.x< length)
 			{
 				return true;
 			}
@@ -145,13 +157,19 @@ namespace  SnUtil
 		return false;
 	}
 
-	bool hitIdentityAxisY(SnIdentify* id,Vector2f pos,float width,float height,SN_TranslateMode mode)
+	bool hitIdentityAxisY(SnIdentify* id,Vector2f pos,float width,float length,SN_TranslateMode mode)
 	{
 		Entity2D* en=dynamic_cast<Entity2D*>(id);
 		if(!en)
 		{
 			return false;
 		}
+
+		Matrix4* mat=en->getWorldMatrix();
+
+		Vector3 s_info=mat->getScale();
+		width=width/s_info.x;
+		length=length/s_info.y;
 
 		Vector3f t ;
 		if(mode ==SN_TranslateMode::LOCAL) 
@@ -167,7 +185,7 @@ namespace  SnUtil
 
 		if(Math::abs(t.x)<width)
 		{
-			if(t.y>0&&t.y<height)
+			if(t.y>0&&t.y<length)
 			{
 				return true;
 			}

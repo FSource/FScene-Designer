@@ -138,6 +138,29 @@ void SnDataOperator::rotate(std::vector<SnIdentify*> ids_root,float angle)
 	}
 
 }
+
+void SnDataOperator::scale(std::vector<SnIdentify*> ids_root,float sx,float sy)
+{
+	int ids_root_size=ids_root.size();
+
+	for(int i=0;i<ids_root_size;i++)
+	{
+		SnIdentify* id_root=ids_root[i];
+		Entity2D* en=dynamic_cast<Entity2D*>(id_root);
+
+		Vector3f rs=en->getScale();
+
+		rs.x*=sx;
+		rs.y*=sy;
+
+		en->setScale(rs);
+
+		SnGlobal::msgCenter()->emitIdentifyAttributeChange(id_root,"scale");
+	}
+}
+
+
+
 void SnDataOperator::setBoundSize2D(std::vector<SnIdentify*> ids_root,float r_minx,float r_maxx,float r_miny,float r_maxy)
 
 {

@@ -29,8 +29,12 @@ class SnScaleController:public SnController
 		Faeris::Vector2f m_centerPos;
 		Faeris::Vector2f m_lastPos;
 		Faeris::Vector2f m_start;
-		bool m_moveX;
-		bool m_moveY;
+
+		bool m_scaleX;
+		bool m_scaleY;
+
+		float m_scaleXRadio;
+		float m_scaleYRadio;
 
 
 };
