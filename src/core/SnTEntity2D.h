@@ -118,7 +118,7 @@ class TSnEntity2D:public SnIdentify ,public T
 		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f point,bool traverse)
 		{
 			int size=m_array->size();
-			for(int i=0;i<size;i++)
+			for(int i=size-1;i>=0;i--)
 			{
 				Entity2D* en=(Entity2D*)m_array->get(i);
 				SnIdentify* id=dynamic_cast<SnIdentify*>(en);

@@ -213,6 +213,9 @@
     <ClCompile Include="src\controller\SnScaleController.cc">
       <Filter>src\controller</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\SnLabelTTF.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -410,6 +413,9 @@
     </ClInclude>
     <ClInclude Include="src\controller\SnScaleController.h">
       <Filter>src\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnLabelTTF.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

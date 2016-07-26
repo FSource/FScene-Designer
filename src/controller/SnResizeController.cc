@@ -67,6 +67,13 @@ bool SnResizeController::onTouchBegin(SnEditViewWidget* view,QMouseEvent* event)
 		Vector2f(minx,(miny+maxy)/2),
 	};
 
+	Matrix4* mat=en->getWorldMatrix();
+	Vector3 s_info=mat->getScale();
+
+	float gx=SnThemeConfig::RESIZE_CONTROLLER_HIT_LENGTH/zoom/s_info.x;
+	float gy=SnThemeConfig::RESIZE_CONTROLLER_HIT_LENGTH/zoom/s_info.y;
+
+
 	for( int i=0;i<8;i++)
 	{
 		float lx=l_pos.x;
@@ -75,9 +82,10 @@ bool SnResizeController::onTouchBegin(SnEditViewWidget* view,QMouseEvent* event)
 		float cx=p[i].x;
 		float cy=p[i].y;
 
-		if(Math::abs(lx-cx)<SnThemeConfig::RESIZE_CONTROLLER_HIT_LENGTH/zoom)
+
+		if(Math::abs(lx-cx)<gx)
 		{
-			if(Math::abs(ly-cy)<SnThemeConfig::RESIZE_CONTROLLER_HIT_LENGTH/zoom)
+			if(Math::abs(ly-cy)<gy)
 			{
 				m_hitPos=i;
 				m_isTouchPress=true;

@@ -199,6 +199,7 @@
     <ClCompile Include="src\controller\SnViewMoveController.cc" />
     <ClCompile Include="src\core\SnEntity2D.cc" />
     <ClCompile Include="src\core\SnIdentify.cc" />
+    <ClCompile Include="src\core\SnLabelTTF.cc" />
     <ClCompile Include="src\core\Snlayer2D.cc" />
     <ClCompile Include="src\core\SnProject.cc" />
     <ClCompile Include="src\core\SnQuad2D.cc" />
@@ -231,6 +232,7 @@
     <ClInclude Include="src\controller\SnViewMoveController.h" />
     <ClInclude Include="src\core\SnEntity2D.h" />
     <ClInclude Include="src\core\SnIdentify.h" />
+    <ClInclude Include="src\core\SnLabelTTF.h" />
     <ClInclude Include="src\core\SnLayer2D.h" />
     <ClInclude Include="src\core\SnProject.h" />
     <ClInclude Include="src\core\SnQuad2D.h" />

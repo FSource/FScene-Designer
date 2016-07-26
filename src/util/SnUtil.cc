@@ -92,7 +92,7 @@ namespace  SnUtil
 		Matrix4* mat=en->getWorldMatrix();
 		Vector3 s_info=mat->getScale();
 		float gapy=gap/s_info.y;
-		float gapx=gap/s_info.x;
+		float gapx=gap/s_info.x; 
 
 
 		

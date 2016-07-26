@@ -163,6 +163,15 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* 
 					return property;
 					break;
 				}
+			case E_FsType::FT_I_1:
+				{
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Int,QString(name));
+					property->setValue(*(int*)t_value.getValue());
+					m_nameToProperty[name]=property;
+					m_nameToDesc[name]=tattr;
+					return property;
+					break;
+				}
 			case E_FsType::	FT_F_1:
 				{
 					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Double,QString(name));
@@ -250,6 +259,7 @@ void SnPropertyBrowserWidget::slotCurProjectChange()
 
 void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
 {
+
 	if(m_identify==NULL)
 	{
 		FS_TRACE_ERROR("NO Select Value,But has Attribute");
@@ -288,6 +298,12 @@ void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
 				{
 					bool b_v=qvariant_cast<bool>(v);
 					ret=FsVariant(b_v);
+					break;
+				}
+			case QVariant::Int:
+				{
+					int i_v=qvariant_cast<int>(v);
+					ret=FsVariant(i_v);
 					break;
 				}
 			case QVariant::String:
@@ -421,6 +437,11 @@ void SnPropertyBrowserWidget::updateProperty(QtVariantProperty* property,SnAttrT
 			case E_FsType::FT_B_1:
 				{
 					property->setValue(*(bool*)t_value.getValue());
+					break;
+				}
+			case E_FsType::FT_I_1:
+				{
+					property->setValue(*(int*)t_value.getValue());
 					break;
 				}
 			case E_FsType::	FT_F_1:

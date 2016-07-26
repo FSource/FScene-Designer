@@ -6,6 +6,7 @@
 #include "core/SnProject.h"
 #include "core/SnEntity2D.h"
 #include "core/SnQuad2D.h"
+#include "core/SnLabelTTF.h"
 
 static SnProject* SnTest_CreateProject()
 {
@@ -78,6 +79,11 @@ static SnProject* SnTest_CreateProject()
 	q2->setPosition(-300,450);
 	q2->setIdentifyName("no Resurce");
 	en3->addIdentifyChild(q2);
+
+	SnLabelTTF* t1=new SnLabelTTF;
+	t1->setIdentifyName("LabelTTF");
+
+	l4->addIdentifyChild(t1);
 
 
 	return proj;
