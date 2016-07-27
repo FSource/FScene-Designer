@@ -216,6 +216,12 @@
     <ClCompile Include="src\core\SnLabelTTF.cc">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\SnPressButton.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\SnUiWidget.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -415,6 +421,12 @@
       <Filter>src\controller</Filter>
     </ClInclude>
     <ClInclude Include="src\core\SnLabelTTF.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnPressButton.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnUiWidget.h">
       <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>

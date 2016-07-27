@@ -126,6 +126,9 @@ void SnEditViewWidget::initializeGL()
 	cls_mgr->preRegisterClass();
 
 
+	FsFaeris_LoadSysResource();
+
+
 }
 
 void SnEditViewWidget::updateViewMatrix()

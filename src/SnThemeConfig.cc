@@ -71,6 +71,8 @@ Faeris::Color SnThemeConfig::RESIZE_CONTROLLER_FILL_COLOR;
 Faeris::Color SnThemeConfig::RESIZE_CONTROLLER_FILL_FOCUS_COLOR;
 
 
+/* press button */
+Faeris::Vector2f SnThemeConfig::PRESS_BUTTON_DEFAULT_SIZE;
 
 
 void SnThemeConfig::initConfig()
@@ -144,4 +146,6 @@ void SnThemeConfig::initConfig()
 	RESIZE_CONTROLLER_FILL_COLOR=Color(255,255,255,100);
 	RESIZE_CONTROLLER_FILL_FOCUS_COLOR=Color(255,255,0,255);
 
+	/* press button */
+	PRESS_BUTTON_DEFAULT_SIZE=Vector2f(90,32);
 }

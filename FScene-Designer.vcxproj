@@ -201,9 +201,11 @@
     <ClCompile Include="src\core\SnIdentify.cc" />
     <ClCompile Include="src\core\SnLabelTTF.cc" />
     <ClCompile Include="src\core\Snlayer2D.cc" />
+    <ClCompile Include="src\core\SnPressButton.cc" />
     <ClCompile Include="src\core\SnProject.cc" />
     <ClCompile Include="src\core\SnQuad2D.cc" />
     <ClCompile Include="src\core\SnScene.cc" />
+    <ClCompile Include="src\core\SnUiWidget.cc" />
     <ClCompile Include="src\operator\SnDataOperator.cc" />
     <ClCompile Include="src\operator\SnUiOperator.cc" />
     <ClCompile Include="src\SnGlobal.cc" />
@@ -234,10 +236,12 @@
     <ClInclude Include="src\core\SnIdentify.h" />
     <ClInclude Include="src\core\SnLabelTTF.h" />
     <ClInclude Include="src\core\SnLayer2D.h" />
+    <ClInclude Include="src\core\SnPressButton.h" />
     <ClInclude Include="src\core\SnProject.h" />
     <ClInclude Include="src\core\SnQuad2D.h" />
     <ClInclude Include="src\core\SnScene.h" />
     <ClInclude Include="src\core\SnTEntity2D.h" />
+    <ClInclude Include="src\core\SnUiWidget.h" />
     <ClInclude Include="src\operator\SnDataOperator.h" />
     <CustomBuild Include="src\widget\SnPropertyBrowserWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

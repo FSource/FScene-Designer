@@ -2,7 +2,9 @@
 
 SnLabelTTF::SnLabelTTF()
 {
+	init();
 	setString("LabelTTF");
+	
 }
 
 

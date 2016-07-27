@@ -2,6 +2,8 @@
 #define _SN_THEME_CONFIG_H_ 
 
 #include "graphics/FsColor.h"
+#include "math/FsVector2.h"
+
 
 class SnThemeConfig 
 {
@@ -75,6 +77,8 @@ class SnThemeConfig
 		static Faeris::Color RESIZE_CONTROLLER_FILL_COLOR;
 		static Faeris::Color RESIZE_CONTROLLER_FILL_FOCUS_COLOR;
 
+		/* press button */
+		static Faeris::Vector2f PRESS_BUTTON_DEFAULT_SIZE;
 
 
 

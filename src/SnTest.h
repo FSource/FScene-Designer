@@ -7,6 +7,8 @@
 #include "core/SnEntity2D.h"
 #include "core/SnQuad2D.h"
 #include "core/SnLabelTTF.h"
+#include "core/SnPressButton.h"
+#include "core/SnUiWidget.h"
 
 static SnProject* SnTest_CreateProject()
 {
@@ -85,6 +87,14 @@ static SnProject* SnTest_CreateProject()
 
 	l4->addIdentifyChild(t1);
 
+
+	SnPressButton* pb1=new SnPressButton;
+	pb1->setIdentifyName("PressButton1");
+	l4->addIdentifyChild(pb1);
+	
+	SnUiWidget* ui1=new SnUiWidget;
+	ui1->setIdentifyName("UiWidget1");
+	l4->addIdentifyChild(ui1);
 
 	return proj;
 }
