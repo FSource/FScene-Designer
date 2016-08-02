@@ -9,6 +9,9 @@
 #include "core/SnLabelTTF.h"
 #include "core/SnPressButton.h"
 #include "core/SnUiWidget.h"
+#include "core/SnPageView.h"
+#include "core/SnScrollView.h"
+#include "core/SnListView.h"
 
 static SnProject* SnTest_CreateProject()
 {
@@ -94,7 +97,42 @@ static SnProject* SnTest_CreateProject()
 	
 	SnUiWidget* ui1=new SnUiWidget;
 	ui1->setIdentifyName("UiWidget1");
-	l4->addIdentifyChild(ui1);
+	//l4->addIdentifyChild(ui1);
+	
+	SnUiWidget* ui2=new SnUiWidget;
+	ui2->setIdentifyName("UiWidget2");
+
+	SnPageView* pg1=new SnPageView;
+	pg1->setIdentifyName("PageView1");
+	l4->addIdentifyChild(pg1);
+
+	pg1->addPage(ui1);
+	pg1->addPage(ui2);
+	pg1->setCurrentPageIndex(0);
+
+
+	/* scroll view */
+	SnScrollView* sv1=new SnScrollView;
+	sv1->setIdentifyName("ScrollView1");
+	l4->addIdentifyChild(sv1);
+
+	SnUiWidget* sv_c1=new SnUiWidget;
+	sv_c1->setIdentifyName("SVContent1");
+	sv1->setContentWidget(sv_c1);
+
+	/* list view */
+	SnListView* sl1=new SnListView;
+	sl1->setIdentifyName("ListView1");
+	l4->addIdentifyChild(sl1);
+
+	SnUiWidget* ls_c1=new SnUiWidget;
+	ls_c1->setIdentifyName("ListItem1");
+	sl1->addListItem(ls_c1);
+
+	SnUiWidget* ls_c2=new SnUiWidget;
+	ls_c2->setIdentifyName("ListItem2");
+	sl1->addListItem(ls_c2);
+
 
 	return proj;
 }

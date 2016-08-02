@@ -25,13 +25,10 @@ SnAttrGroupList* SnPressButton::getAttributeList()
 
 
 	SnAttrGroupDesc* group =new SnAttrGroupDesc("PressButton");
-	group->addAttrTypeDesc(createAttributeDesc("textureUrl",SN_TYPE_NORMAL));
-
+	group->addAttrTypeDesc(createAttributeDesc("textureUrl",SN_TYPE_EXTENDS,SN_EXTENDS_EDIT_FILEPATH));
 	glist->addAttrGroupDesc(group);
 
 	return glist;
-
-
 }
 
 

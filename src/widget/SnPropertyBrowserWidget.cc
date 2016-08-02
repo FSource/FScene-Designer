@@ -3,8 +3,8 @@
 #include <QVBoxLayout>
 
 #include "widget/SnPropertyBrowserWidget.h"
-#include "qtpropertymanager.h"
-#include "qteditorfactory.h"
+#include "snvariantmanager.h"
+#include "snvariantfactory.h"
 #include "qttreepropertybrowser.h"
 #include "qtvariantproperty.h"
 #include "support/util/FsScriptUtil.h"
@@ -18,8 +18,8 @@ NS_FS_USE
 SnPropertyBrowserWidget::SnPropertyBrowserWidget()
 {
 
-	m_variantManager=new QtVariantPropertyManager(this);
-	m_variantFactor=new QtVariantEditorFactory(this);
+	m_variantManager=new SnVariantManager(this);
+	m_variantFactor=new SnVariantFactory(this);
 	m_propertyEditor = new QtTreePropertyBrowser(this);
 
 
@@ -247,6 +247,26 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* 
 				break;
 		}
 	}
+	else if(type==SN_TYPE_EXTENDS)
+	{
+		E_FsType ftype=t_value.getType();
+		switch(ftype)
+		{
+			case E_FsType::FT_CHARS:
+				{
+					if(tattr->getEditorType()==SN_EXTENDS_EDIT_FILEPATH)
+					{
+						QtVariantProperty* property=m_variantManager->addProperty(SnVariantManager::filePathTypeId(),QString(name));
+						const char* value=(char*)t_value.getValue();
+						property->setValue(value);
+						m_nameToProperty[name]=property;
+						m_nameToDesc[name]=tattr;
+						return property;
+					}
+				}
+				break;
+		}
+	}
 	return NULL;
 }	
 
@@ -289,7 +309,7 @@ void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
 		SnGlobal::dataOperator()->setIdentifyAttribute( m_identify,name.c_str(),FsVariant(enum_name.toUtf8().constData()));
 	}
 
-	else if(desc->getType()==SN_TYPE_NORMAL)
+	else if(desc->getType()==SN_TYPE_NORMAL||desc->getType()==SN_TYPE_EXTENDS)
 	{
 		FsVariant ret;
 		switch(v.type())

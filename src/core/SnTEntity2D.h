@@ -122,10 +122,7 @@ class TSnEntity2D:public SnIdentify ,public T
 			{
 				Entity2D* en=(Entity2D*)m_array->get(i);
 				SnIdentify* id=dynamic_cast<SnIdentify*>(en);
-				if(SnUtil::identifyHitPoint(id,point))
-				{
-					return id;
-				}
+		
 
 				if(traverse)
 				{
@@ -134,6 +131,10 @@ class TSnEntity2D:public SnIdentify ,public T
 					{
 						return ret;
 					}
+				}
+				if(SnUtil::identifyHitPoint(id,point))
+				{
+					return id;
 				}
 			}
 			return NULL;

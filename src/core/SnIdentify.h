@@ -21,14 +21,24 @@ enum
 	SN_CLASS_LABEL_TTF,
 	SN_CLASS_PRESS_BUTTON,
 	SN_CLASS_UI_WIDGET,
+	SN_CLASS_PAGE_VIEW,
+	SN_CLASS_LIST_VIEW,
+	SN_CLASS_SCROLL_VIEW,
 };
 
 enum 
 {
 	SN_TYPE_NORMAL=0,
 	SN_TYPE_ENUMS=1,
+	SN_TYPE_EXTENDS=2,
 };
 
+
+enum 
+{
+	SN_EXTENDS_EDIT_UNKOWN=0,
+	SN_EXTENDS_EDIT_FILEPATH=1,
+};
 
 
 class SnAttrTypeDesc
@@ -38,6 +48,13 @@ class SnAttrTypeDesc
 		{
 			m_name=name;
 			m_type=type;
+			m_editType=SN_EXTENDS_EDIT_UNKOWN;
+		}
+		SnAttrTypeDesc(const char* name,int type,int editType)
+		{
+			m_name=name;
+			m_type=type;
+			m_editType=editType;
 		}
 
 		SnAttrTypeDesc(const char* name, QStringList enums)
@@ -45,11 +62,14 @@ class SnAttrTypeDesc
 			m_type=SN_TYPE_ENUMS;
 			m_name=name;
 			m_enums=enums;
+			m_editType=-1;
 		}
 
 	public:
 		const char* getName() { return m_name.c_str(); }
 		int getType() { return m_type; }
+		int getEditorType(){return m_editType;}
+
 
 		void addEnum(QString v) {m_enums<<v;}
 		const QStringList& getEnums(){return m_enums;}
@@ -60,7 +80,7 @@ class SnAttrTypeDesc
 		/* normal type */
 		int m_type;
 		QStringList m_enums;
-
+		int m_editType;
 };
 
 
@@ -197,6 +217,7 @@ class SnIdentify
 
 	protected:
 		SnAttrTypeDesc* createAttributeDesc(const char* name,int type);
+		SnAttrTypeDesc* createAttributeDesc(const char* name,int type,int editor_type);
 		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* fn(int));
 };
 

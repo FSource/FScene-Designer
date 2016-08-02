@@ -19,7 +19,12 @@ SOURCES += \
     src/qtpropertybrowserutils.cpp \
     src/qtpropertymanager.cpp \
     src/qttreepropertybrowser.cpp \
-    src/qtvariantproperty.cpp
+    src/qtvariantproperty.cpp \
+    extension/fileedit.cpp \
+    extension/fileeditfactory.cpp \
+    extension/filepathmanager.cpp \
+    extension/snvariantfactory.cpp \
+    extension/snvariantmanager.cpp
 
 HEADERS += \
     src/objectcontroller.h \
@@ -30,7 +35,12 @@ HEADERS += \
     src/qtpropertybrowserutils_p.h \
     src/qtpropertymanager.h \
     src/qttreepropertybrowser.h \
-    src/qtvariantproperty.h
+    src/qtvariantproperty.h \
+    extension/fileedit.h \
+    extension/fileeditfactory.h \
+    extension/filepathmanager.h \
+    extension/snvariantfactory.h \
+    extension/snvariantmanager.h
 
 
 unix {

@@ -13,6 +13,7 @@ class SnUiWidget:public TSnEntity2D<Faeris::UiWidget>
 		virtual int identifyType();
 		virtual const char* identifyTypeName();
 		virtual SnAttrGroupList* getAttributeList();
+		virtual SnIdentify* getIdentifyParent();
 
 };
 

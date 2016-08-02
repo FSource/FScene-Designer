@@ -16,6 +16,17 @@ const char* SnUiWidget::identifyTypeName()
 	return "SN_CLASS_UI_WIDGET";
 }
 
+SnIdentify* SnUiWidget::getIdentifyParent()
+{
+	UiWidget* widget=getParentWidget();
+	if(widget!=NULL)
+	{
+		return dynamic_cast<SnIdentify*>(widget);
+	}
+
+	return TSnEntity2D<UiWidget>::getIdentifyParent();
+}
+
 SnAttrGroupList* SnUiWidget::getAttributeList()
 {
 	SnAttrGroupList* glist=TSnEntity2D<Faeris::UiWidget>::getAttributeList();
@@ -24,7 +35,7 @@ SnAttrGroupList* SnUiWidget::getAttributeList()
 
 	group->addAttrTypeDesc(createAttributeDesc("scissorEnabled",SN_TYPE_NORMAL));
 	group->addAttrTypeDesc(createAttributeDesc("bgEnabled",SN_TYPE_NORMAL));
-	group->addAttrTypeDesc(createAttributeDesc("bgTextureUrl",SN_TYPE_NORMAL));
+	group->addAttrTypeDesc(createAttributeDesc("bgTextureUrl",SN_TYPE_EXTENDS,SN_EXTENDS_EDIT_FILEPATH));
 	group->addAttrTypeDesc(createAttributeDesc("bgColor",SN_TYPE_NORMAL));
 
 	glist->addAttrGroupDesc(group);

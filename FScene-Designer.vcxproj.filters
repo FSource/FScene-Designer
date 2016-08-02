@@ -222,6 +222,15 @@
     <ClCompile Include="src\core\SnUiWidget.cc">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\SnPageView.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\SnScrollView.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\SnListView.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -427,6 +436,15 @@
       <Filter>src\core</Filter>
     </ClInclude>
     <ClInclude Include="src\core\SnUiWidget.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnPageView.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnScrollView.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnListView.h">
       <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>

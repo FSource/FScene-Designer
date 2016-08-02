@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QtProperty>
 #include <QtVariantProperty>
+#include "snvariantmanager.h"
+#include "snvariantfactory.h"
 
 #include "core/SnIdentify.h"
 #include "core/SnLayer2D.h"

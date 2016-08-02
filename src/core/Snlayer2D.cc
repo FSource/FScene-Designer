@@ -123,10 +123,7 @@ SnIdentify* SnLayer2D::getChildHitPoint(Faeris::Vector2f p,bool traverse)
 	{
    		Entity2D* en=(Entity2D*)m_array->get(i);
 		SnIdentify* id=dynamic_cast<SnIdentify*>(en);
-		if(SnUtil::identifyHitPoint(id,p))
-		{
-			return id;
-		}
+	
 
 		if(traverse)
 		{
@@ -135,6 +132,11 @@ SnIdentify* SnLayer2D::getChildHitPoint(Faeris::Vector2f p,bool traverse)
 			{
 				return ret;
 			}
+		}
+
+		if(SnUtil::identifyHitPoint(id,p))
+		{
+			return id;
 		}
 	}
 	return NULL;

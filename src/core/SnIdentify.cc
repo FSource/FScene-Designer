@@ -157,6 +157,11 @@ SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,int type)
 	return new SnAttrTypeDesc(name,type);
 }
 
+SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,int type,int editor_type)
+{
+	return new SnAttrTypeDesc(name,type,editor_type);
+}
+
 SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,const char* fn(int))
 {
 	QStringList e_list;
