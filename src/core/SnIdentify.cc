@@ -1,4 +1,6 @@
 #include "core/SnIdentify.h"
+#include "support/util/FsDict.h"
+#include "support/util/FsString.h"
 
 NS_FS_USE
 SnIdentify::SnIdentify()
@@ -151,6 +153,31 @@ bool SnIdentify::isAncestors(SnIdentify* id)
 }
 
 
+Faeris::FsDict* SnIdentify::getObjectFst()
+{
+	FsDict* dict=FsDict::create();
+	char** attrs=getObjectFstAttrList();
+
+	char* p=attrs[0];
+	while(p)
+	{
+		FsVariant v=getAttribute(p);
+		FsObject* ob=variantToFst(v);
+		if(ob)
+		{
+			dict->insert(FsString::create(p),ob);
+		}
+		else 
+		{
+			FS_TRACE_WARN("can't get %s attribute info",p);
+		}
+		p++;
+	}
+	return dict;
+}
+
+
+
 
 SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,int type)
 {
@@ -175,5 +202,133 @@ SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,const char* fn(
 }
 
 
+Faeris::FsObject* SnIdentify::variantToFst(const FsVariant& t_value)
+{
+	E_FsType ftype=t_value.getType();
+	switch(ftype)
+	{
+		case E_FsType::FT_IN_VALID:
+			{
+				FS_TRACE_WARN("Error FsVariant To Cast");
+				return NULL;
+			}
+
+		case E_FsType::FT_B_1:
+			{
+				bool value=*(bool*)t_value.getValue();
+				if(value)
+				{
+					return FsString::create("true");
+				}
+				else 
+				{
+					return FsString::create("false");
+				}
+			}
+			break;
+		case E_FsType::FT_I_1:
+			{
+				char buf[128];
+				int value =*(int*)t_value.getValue();
+				sprintf(buf,"%d",value);
+				return FsString::create(buf);
+			}
+		case E_FsType::	FT_F_1:
+			{
+				char buf[128];
+				float value= *(float*)t_value.getValue();
+				sprintf(buf,"%f",value);
+				return FsString::create(buf);
+				break;
+			}
+		case E_FsType::FT_F_2:
+			{
+				FsArray* ret=FsArray::create();
+				Vector2 value=*(Vector2*)t_value.getValue();
+
+				char buf[128];
+				sprintf(buf,"%f",value.v[0]);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.v[1]);
+				ret->push(FsString::create(buf));
+
+				return ret;
+			}
+		case E_FsType::FT_F_3:
+			{
+
+				FsArray* ret=FsArray::create();
+				Vector3 value=*(Vector3*)t_value.getValue();
+
+				char buf[128];
+				sprintf(buf,"%f",value.v[0]);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.v[1]);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.v[2]);
+				ret->push(FsString::create(buf));
+
+				return ret;
+				break;
+			}
+		case E_FsType::FT_F_4:
+			{
+
+				FsArray* ret=FsArray::create();
+				Vector3 value=*(Vector3*)t_value.getValue();
+
+				char buf[128];
+				sprintf(buf,"%f",value.v[0]);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.v[1]);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.v[2]);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.v[3]);
+				ret->push(FsString::create(buf));
+
+				return ret;
+				break;
+			}
+
+		case E_FsType::FT_COLOR_4:
+			{
+				FsArray* ret=FsArray::create();
+				Color4f value=*(Color4f*)t_value.getValue();
+
+				char buf[128];
+				sprintf(buf,"%f",value.r);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.g);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.b);
+				ret->push(FsString::create(buf));
+				sprintf(buf,"%f",value.a);
+				ret->push(FsString::create(buf));
+
+				return ret;
+				break;
+			}
+
+		case E_FsType::FT_CHARS:
+			{
+				const char* value=(char*)t_value.getValue();
+				return FsString::create(value);
+			}
+
+	}
+
+	assert(0);
+	return NULL;
+}
 
 
+char** SnIdentify::getObjectFstAttrList()
+{
+	char* p[]={
+		"className",
+		"objectName",
+		NULL,
+	};
+	return p;
+}

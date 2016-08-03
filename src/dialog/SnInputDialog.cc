@@ -1,4 +1,4 @@
-#include "widget/SnInputDialog.h"
+#include "dialog/SnInputDialog.h"
 
 
 SnInputDialog::SnInputDialog(const char* title)

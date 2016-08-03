@@ -3,12 +3,15 @@
 
 
 #include <QString>
+#include <string>
 #include "math/FsVector2.h"
 #include "SnEnums.h"
 class SnIdentify;
 
 namespace  SnUtil 
 {
+		std::string qtostd(QString value);
+
         QString toProjectPath(const QString& path);
 		QString toRelativePath(const QString& root,const QString& path);
 

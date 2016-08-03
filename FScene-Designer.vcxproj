@@ -145,6 +145,9 @@
     <ClCompile Include="Debug\moc_SnMsgCenter.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Debug\moc_SnNewProjectDialog.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Debug\moc_SnProjectExploreModel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -173,6 +176,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_SnMsgCenter.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_SnNewProjectDialog.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_SnProjectExploreModel.cpp">
@@ -209,6 +215,8 @@
     <ClCompile Include="src\core\SnScene.cc" />
     <ClCompile Include="src\core\SnScrollView.cc" />
     <ClCompile Include="src\core\SnUiWidget.cc" />
+    <ClCompile Include="src\dialog\SnInputDialog.cc" />
+    <ClCompile Include="src\dialog\SnNewProjectDialog.cc" />
     <ClCompile Include="src\operator\SnDataOperator.cc" />
     <ClCompile Include="src\operator\SnUiOperator.cc" />
     <ClCompile Include="src\SnGlobal.cc" />
@@ -218,7 +226,6 @@
     <ClCompile Include="src\util\SnUtil.cc" />
     <ClCompile Include="src\util\SnRenderUtil.cc" />
     <ClCompile Include="src\widget\SnEditViewWidget.cc" />
-    <ClCompile Include="src\widget\SnInputDialog.cc" />
     <ClCompile Include="src\widget\SnMainWindow.cc" />
     <ClCompile Include="src\widget\SnProjectExploreModel.cc" />
     <ClCompile Include="src\widget\SnProjectExploreWidget.cc" />
@@ -228,6 +235,7 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_aboutdialog.h" />
     <ClInclude Include="GeneratedFiles\ui_edit_mode.h" />
+    <ClInclude Include="GeneratedFiles\ui_new_project.h" />
     <ClInclude Include="src\controller\SnController.h" />
     <ClInclude Include="src\controller\SnResizeController.h" />
     <ClInclude Include="src\controller\SnRotateController.h" />
@@ -248,6 +256,17 @@
     <ClInclude Include="src\core\SnScrollView.h" />
     <ClInclude Include="src\core\SnTEntity2D.h" />
     <ClInclude Include="src\core\SnUiWidget.h" />
+    <ClInclude Include="src\dialog\SnInputDialog.h" />
+    <CustomBuild Include="src\dialog\SnNewProjectDialog.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SnNewProjectDialog.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\src" "-I.\3rdparty\PropertyBrower\extension" "-I.\3rdparty\PropertyBrower\src" "-I.\faeris\lib\libfaeris\src" "-I.\faeris\lib\lib3rdparty\freetype\include" "-I.\faeris\lib\lib3rdparty\curl\include" "-I.\faeris\lib\lib3rdparty\GL\include" "-I.\faeris\lib\lib3rdparty\libpng\include" "-I.\faeris\lib\lib3rdparty\pthread\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2012" "-I.\GeneratedFiles"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SnNewProjectDialog.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\src" "-I.\faeris\lib\libfaeris\src" "-I.\faeris\lib\lib3rdparty\freetype\include" "-I.\faeris\lib\lib3rdparty\curl\include" "-I.\faeris\lib\lib3rdparty\GL\include" "-I.\faeris\lib\lib3rdparty\libpng\include" "-I.\faeris\lib\lib3rdparty\pthread\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2012" "-I.\GeneratedFiles"</Command>
+    </CustomBuild>
     <ClInclude Include="src\operator\SnDataOperator.h" />
     <CustomBuild Include="src\widget\SnPropertyBrowserWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -277,7 +296,6 @@
     <ClInclude Include="src\util\SdCircleQueue.h" />
     <ClInclude Include="src\util\SnUtil.h" />
     <ClInclude Include="src\util\SnRenderUtil.h" />
-    <ClInclude Include="src\widget\SnInputDialog.h" />
     <CustomBuild Include="src\widget\SnResourceExploreWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SnResourceExploreWidget.h...</Message>
@@ -482,6 +500,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </None>
+    <CustomBuild Include="resource\ui\new_project.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

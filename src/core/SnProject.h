@@ -17,7 +17,10 @@ class SnProject:public SnIdentify
 {
 	public:
 		SnProject();
+		SnProject(Faeris::FsDict* dict);
+
 		~SnProject();
+
 
 	public:
 		int identifyType();

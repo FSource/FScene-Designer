@@ -16,6 +16,7 @@ class SnUiOperator:public QObject
 
 	public slots:
 		void newProject();
+		void openProject();
 		void renameScene();
 		void addLayer2D();
 };

@@ -8,6 +8,13 @@ NS_FS_USE
 
 namespace  SnUtil 
 {
+
+	std::string qtostd(QString value)
+	{
+		std::string ret=value.toUtf8().constData();
+		return ret;
+	}
+
 	/*
 	QString toProjectPath(const QString& path)
 	{

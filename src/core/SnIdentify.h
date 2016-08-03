@@ -7,6 +7,7 @@
 #include "support/util/FsArray.h"
 #include "FsEnums.h"
 #include <QStringList>
+#include "FsObject.h"
 
 
 enum 
@@ -211,6 +212,12 @@ class SnIdentify
 
 		virtual void getBoundSize2D(float* minx,float* maxx,float* miny,float* maxy);
 
+
+		/* Attribute  Info */
+		virtual Faeris::FsDict* getObjectFst();
+
+
+
 	public:
 		void setIdentifyName(const char* name);
 		const char* getIdentifyName();
@@ -219,6 +226,9 @@ class SnIdentify
 		SnAttrTypeDesc* createAttributeDesc(const char* name,int type);
 		SnAttrTypeDesc* createAttributeDesc(const char* name,int type,int editor_type);
 		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* fn(int));
+		Faeris::FsObject* variantToFst(const Faeris::FsVariant& v);
+
+		virtual char** getObjectFstAttrList();
 };
 
 

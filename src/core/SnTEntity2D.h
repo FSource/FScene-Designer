@@ -7,6 +7,7 @@
 #include "FsObject.h"
 #include "FsEnums.h"
 #include "util/SnUtil.h"
+#include "support/util/FsDict.h"
 
 template<class T>
 class TSnEntity2D:public SnIdentify ,public T
@@ -73,7 +74,7 @@ class TSnEntity2D:public SnIdentify ,public T
 		}
 
 		virtual SnIdentify* getIdentifyChild(int index)
-		{
+		{ 
 			Faeris::Entity2D* en=(Faeris::Entity2D*)m_array->get(index);
 			return dynamic_cast<SnIdentify*>(en);
 		}
@@ -255,6 +256,32 @@ class TSnEntity2D:public SnIdentify ,public T
 
 			glist->addAttrGroupDesc(group);
 			return glist;
+		}
+
+
+		virtual char** getObjectFstAttrList()
+		{
+			static char* attrs[]={
+				"position",
+				"scale",
+				"rotateZ",
+				"visible",
+				"visibles",
+				"anchor",
+				"size",
+				"touchEnabled",
+				"touchesEnabled",
+				"touchDispatchEnabled",
+				"touchesDispatchEnabled",
+				"color",
+				"opacity",
+				"blendEquation",
+				"blendSrc",
+				"blendDst",
+				NULL,
+			};
+
+			return attrs;
 		}
 
 	private:

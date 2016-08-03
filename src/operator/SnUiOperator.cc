@@ -5,10 +5,12 @@
 #include <string>
 
 #include "SnUiOperator.h"
+#include "SnIoOperator.h"
 #include "SnGlobal.h"
 #include "operator/SnDataOperator.h"
 #include "core/SnProject.h"
-#include "widget/SnInputDialog.h"
+#include "dialog/SnInputDialog.h"
+#include "dialog/SnNewProjectDialog.h"
 #include "core/SnScene.h"
 #include "core/SnLayer2D.h"
 #include "SnTest.h"
@@ -25,41 +27,41 @@ SnUiOperator::~SnUiOperator()
 
 void SnUiOperator::newProject()
 {
-	
-    QString file=QFileDialog::getSaveFileName(
-			(QWidget*)NULL,
-                QString("Open FScene Project"),
-                QString("."),
-                QString("FScene File(*.fscene)"));
-	
-    if(file.length()==0)
-    {
-        return;
-    }
-
-    QFileInfo file_info(file);
-
-
-    file=file_info.absoluteFilePath();
-    QString dir_name=file_info.path()+"/";
-    QString file_name=file_info.fileName();
-	QString base_name=file_info.baseName();
-
-
-	
+	SnNewProjectDialog  dialog;
+	if(dialog.exec()!=QDialog::Accepted)
+	{
+		return;
+	}	
 
     SnProject* proj=new SnProject();
-	std::string t_dir=dir_name.toUtf8().constData();
-	std::string t_file=file_name.toUtf8().constData();
-	std::string t_basename=base_name.toUtf8().constData();
 	
-	proj->setDirName(t_dir);
-    proj->setFileName(t_file);
-	proj->setName(t_basename);
+	proj->setDirName(dialog.getFilePath());
+	proj->setFileName(dialog.getFileName());
+	proj->setName(dialog.getFileName());
 	SnGlobal::setProject(SnTest_CreateProject());
 	//SnGlobal::setProject(proj);
+}
+
+void SnUiOperator::openProject()
+{
+
+	QString file=QFileDialog::getSaveFileName(
+			(QWidget*)NULL,
+			QString("Open FScene Project"),
+			QString("."),
+			QString("FScene File(*.fscene)"));
+
+	if(file.length()==0)
+	{
+		return;
+	}
+
+	SnProject* proj=SnGlobal::ioOperator()->loadProject(SnUtil::qtostd(file).c_str());
+
+	SnGlobal::setProject(proj);
 
 }
+
 
 void SnUiOperator::renameScene()
 {
@@ -67,7 +69,7 @@ void SnUiOperator::renameScene()
 
 	SnInputDialog dialog("Rename Scene",scene->getIdentifyName());
 
-    if(dialog.exec()==QDialog::Accepted)
+	if(dialog.exec()==QDialog::Accepted)
 	{
 		std::string name=dialog.getTextField();
 		if(name=="")
@@ -89,7 +91,7 @@ void SnUiOperator::addLayer2D()
 {
 	SnInputDialog dialog("Create Layer2D");
 
-    if(dialog.exec()==QDialog::Accepted)
+	if(dialog.exec()==QDialog::Accepted)
 	{
 		std::string name=dialog.getTextField();
 		if(name=="")

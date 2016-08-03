@@ -11,6 +11,7 @@ class SnQuad2D:public TSnEntity2D<Faeris::Quad2D>
 		virtual const char* identifyTypeName();
 		virtual SnAttrGroupList* getAttributeList();
 
+		virtual char** getObjectFstAttrList();
 };
 
 

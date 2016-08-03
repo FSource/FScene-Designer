@@ -76,6 +76,9 @@
     <Filter Include="src\controller">
       <UniqueIdentifier>{92632707-6695-45bd-b7dd-b51c17fcfae3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\dialog">
+      <UniqueIdentifier>{3e9b5402-f2a1-449e-9e3e-ddd2ff4c02d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_image.cpp">
@@ -122,9 +125,6 @@
     </ClCompile>
     <ClCompile Include="Release\moc_SnEditViewWidget.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widget\SnInputDialog.cc">
-      <Filter>src\widget</Filter>
     </ClCompile>
     <ClCompile Include="src\widget\SnMainWindow.cc">
       <Filter>src\widget</Filter>
@@ -231,6 +231,18 @@
     <ClCompile Include="src\core\SnListView.cc">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\dialog\SnInputDialog.cc">
+      <Filter>src\dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dialog\SnNewProjectDialog.cc">
+      <Filter>src\dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_SnNewProjectDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_SnNewProjectDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -262,6 +274,12 @@
     </CustomBuild>
     <CustomBuild Include="edit_mode.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="resource\ui\new_project.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\dialog\SnNewProjectDialog.h">
+      <Filter>src\dialog</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -384,9 +402,6 @@
     <ClInclude Include="src\core\SnTEntity2D.h">
       <Filter>src\core</Filter>
     </ClInclude>
-    <ClInclude Include="src\widget\SnInputDialog.h">
-      <Filter>src\widget</Filter>
-    </ClInclude>
     <ClInclude Include="src\operator\SnDataOperator.h">
       <Filter>src\operator</Filter>
     </ClInclude>
@@ -446,6 +461,12 @@
     </ClInclude>
     <ClInclude Include="src\core\SnListView.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_new_project.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dialog\SnInputDialog.h">
+      <Filter>src\dialog</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

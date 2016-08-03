@@ -23,3 +23,31 @@ SnAttrGroupList* SnQuad2D::getAttributeList()
 	return glist;
 
 }
+
+
+
+char** SnQuad2D::getObjectFstAttrList()
+{
+	static char* attrs[]={
+		"resourceUrl",
+		"position",
+		"scale",
+		"rotateZ",
+		"visible",
+		"visibles",
+		"anchor",
+		"size",
+		"touchEnabled",
+		"touchesEnabled",
+		"touchDispatchEnabled",
+		"touchesDispatchEnabled",
+		"color",
+		"opacity",
+		"blendEquation",
+		"blendSrc",
+		"blendDst",
+		NULL,
+	}; 
+
+	return attrs;
+}

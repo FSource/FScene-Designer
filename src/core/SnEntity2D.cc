@@ -6,9 +6,9 @@ int SnEntity2D::identifyType()
 {
 	return SN_CLASS_ENTITY2D;
 }
+
 const char* SnEntity2D::identifyTypeName()
 {
 	return "SN_CLASS_ENTITY2D";
 }
-
 
