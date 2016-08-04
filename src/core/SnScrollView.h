@@ -8,6 +8,8 @@
 class SnScrollView:public TSnEntity2D<Faeris::ScrollView>
 {
 	public:
+		static SnScrollView*  newInstance(Faeris::FsDict* dict);
+	public:
 		SnScrollView();
 
 	public:

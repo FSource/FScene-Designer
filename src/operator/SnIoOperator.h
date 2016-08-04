@@ -10,7 +10,6 @@ class SnIdentify;
 
 class SnIoOperator
 {
-	Q_OBJECT
 
 	public:
 		SnIoOperator();
@@ -22,7 +21,6 @@ class SnIoOperator
 
 		void exportProject(SnProject* proj,const char* filename);
 		void exportSnIdentify(SnIdentify* id,const char* filename);
-
 };
 
 

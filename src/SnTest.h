@@ -16,7 +16,7 @@
 static SnProject* SnTest_CreateProject()
 {
 
-	SnProject* proj=new SnProject();
+	SnProject* proj=SnProject::create();
 
 	proj->setDirName("E:/");
 	proj->setFileName("temp.fscene");

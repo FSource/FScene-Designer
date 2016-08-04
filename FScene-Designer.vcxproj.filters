@@ -243,6 +243,12 @@
     <ClCompile Include="Release\moc_SnNewProjectDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="src\SnIdentifyFactory.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\operator\SnIoOperator.cc">
+      <Filter>src\operator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -280,6 +286,9 @@
     </CustomBuild>
     <CustomBuild Include="src\dialog\SnNewProjectDialog.h">
       <Filter>src\dialog</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\operator\SnIoOperator.h">
+      <Filter>src\operator</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -467,6 +476,9 @@
     </ClInclude>
     <ClInclude Include="src\dialog\SnInputDialog.h">
       <Filter>src\dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SnIdentifyFactory.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

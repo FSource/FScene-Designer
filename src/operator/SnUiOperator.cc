@@ -20,7 +20,7 @@ SnUiOperator::SnUiOperator()
 }
 
 
-SnUiOperator::~SnUiOperator()
+SnUiOperator::~SnUiOperator() 
 {
 }
 
@@ -33,19 +33,19 @@ void SnUiOperator::newProject()
 		return;
 	}	
 
-    SnProject* proj=new SnProject();
+	SnProject* proj= SnProject::create();
 	
 	proj->setDirName(dialog.getFilePath());
 	proj->setFileName(dialog.getFileName());
 	proj->setName(dialog.getFileName());
-	SnGlobal::setProject(SnTest_CreateProject());
-	//SnGlobal::setProject(proj);
+	SnGlobal::setProject(proj);
+
 }
 
 void SnUiOperator::openProject()
 {
 
-	QString file=QFileDialog::getSaveFileName(
+	QString file=QFileDialog::getOpenFileName(
 			(QWidget*)NULL,
 			QString("Open FScene Project"),
 			QString("."),
@@ -57,6 +57,13 @@ void SnUiOperator::openProject()
 	}
 
 	SnProject* proj=SnGlobal::ioOperator()->loadProject(SnUtil::qtostd(file).c_str());
+
+	if(proj==NULL)
+	{
+		QMessageBox msg(QMessageBox::Warning,"Open Project","Open Project Failed");
+		msg.exec();
+		return ;
+	}
 
 	SnGlobal::setProject(proj);
 

@@ -1,5 +1,18 @@
 #include "SnPageView.h"
 
+
+SnPageView* SnPageView::newInstance(Faeris::FsDict* dict)
+{
+	SnPageView* ret=new SnPageView();
+	ret->setIdentifyAttributes(dict);
+	return ret;
+}
+
+
+
+
+
+
 SnPageView::SnPageView ()
 {
 	setSize(64,64);

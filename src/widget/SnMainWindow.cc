@@ -138,6 +138,7 @@ void SnMainWindow::initMenuBar()
 		/* open */
 		QAction* open_project=new QAction(QPixmap(SN_MT_OPEN_PORJECT),"&Open",this);
 		mn_file->addAction(open_project);
+		connect(open_project,SIGNAL(triggered()),this,SLOT(onOpenProject()));
 
 			/* close */
 		QAction* close=new QAction(QPixmap(SN_MT_CLOSE_PORJECT),"&Close",this);
@@ -272,6 +273,12 @@ void SnMainWindow::onNewProject()
 {
 	SnGlobal::uiOperator()->newProject();
 }
+
+void SnMainWindow::onOpenProject()
+{
+	SnGlobal::uiOperator()->openProject();
+}
+
 
 
 void SnMainWindow::onUndo()

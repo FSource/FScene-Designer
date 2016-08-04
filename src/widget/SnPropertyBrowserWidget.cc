@@ -111,7 +111,7 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* 
 
 	const char* name=tattr->getName();
 	int type=tattr->getType();
-	FsVariant t_value=id->getAttribute(name);
+	FsVariant t_value=id->getIdentifyAttribute(name);
 
 	if(type==SN_TYPE_ENUMS)
 	{
@@ -409,7 +409,7 @@ void SnPropertyBrowserWidget::slotIdentifyAttributeChange(SnIdentify* id,const c
 
 
 
-	FsVariant t_value=id->getAttribute(name);
+	FsVariant t_value=id->getIdentifyAttribute(name);
 	this->blockSignals(true);
 	updateProperty((QtVariantProperty*)iter->second,t_iter->second,t_value);
 	this->blockSignals(false);

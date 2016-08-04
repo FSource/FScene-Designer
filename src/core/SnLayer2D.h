@@ -9,6 +9,9 @@
 class SnLayer2D:public SnIdentify, public Faeris::Layer2D 
 {
 	public:
+		static SnLayer2D* newInstance(Faeris::FsDict* dict);
+
+	public:
 		SnLayer2D();
 		~SnLayer2D();
 

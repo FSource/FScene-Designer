@@ -1,5 +1,13 @@
 #include "SnScrollView.h"
 
+SnScrollView* SnScrollView::newInstance(Faeris::FsDict* dict)
+{
+	SnScrollView* ret=new SnScrollView();
+	ret->setIdentifyAttributes(dict);
+	return ret;
+}
+
+
 SnScrollView::SnScrollView()
 {
 	setSize(64,64);

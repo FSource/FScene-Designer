@@ -60,13 +60,28 @@ SnAttrGroupList* SnIdentify::getAttributeList()
 }
 
 
-void SnIdentify::setAttribute(const char* name,const FsVariant&  value)
+void SnIdentify::setIdentifyAttribute(const char* name,const FsVariant&  value)
 {
 	FsObject* ob=dynamic_cast<FsObject*>(this);
 	ob->setAttribute(name,value);
 }
 
-FsVariant SnIdentify::getAttribute(const char* name)
+void SnIdentify::setIdentifyAttributes(Faeris::FsDict* dict)
+{
+	FsDict::Iterator* iter=dict->takeIterator();
+	while(!iter->done())
+	{
+		FsString* name=(FsString*)iter->getKey();
+		FsObject* value=iter->getValue();
+		setIdentifyAttribute(name->cstr(),value);
+		iter->next();
+	}
+	delete iter;
+
+}
+
+
+FsVariant SnIdentify::getIdentifyAttribute(const char* name)
 {
 	FsObject* ob=dynamic_cast<FsObject*>(this);
 	FsVariant ret= ob->getAttribute(name);
@@ -161,7 +176,7 @@ Faeris::FsDict* SnIdentify::getObjectFst()
 	char* p=attrs[0];
 	while(p)
 	{
-		FsVariant v=getAttribute(p);
+		FsVariant v=getIdentifyAttribute(p);
 		FsObject* ob=variantToFst(v);
 		if(ob)
 		{
@@ -325,7 +340,7 @@ Faeris::FsObject* SnIdentify::variantToFst(const FsVariant& t_value)
 
 char** SnIdentify::getObjectFstAttrList()
 {
-	char* p[]={
+	static char* p[]={
 		"className",
 		"objectName",
 		NULL,

@@ -1,5 +1,13 @@
 #include "SnLabelTTF.h"
 
+
+SnLabelTTF* SnLabelTTF::newInstance(Faeris::FsDict* dict)
+{
+	SnLabelTTF* ret =new SnLabelTTF();
+	ret->setIdentifyAttributes(dict);
+	return ret;
+}
+
 SnLabelTTF::SnLabelTTF()
 {
 	init();

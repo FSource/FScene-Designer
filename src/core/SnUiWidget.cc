@@ -1,5 +1,14 @@
 #include "SnUiWidget.h"
 
+
+SnUiWidget* SnUiWidget::newInstance(Faeris::FsDict* dict)
+{
+	SnUiWidget* ret=new SnUiWidget();
+	ret->setIdentifyAttributes(dict);
+	return ret;
+}
+
+
 SnUiWidget::SnUiWidget()
 {
 	setSize(64,64);

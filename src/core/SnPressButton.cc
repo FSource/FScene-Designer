@@ -2,6 +2,15 @@
 #include "SnThemeConfig.h"
 
 
+SnPressButton* SnPressButton::newInstance(Faeris::FsDict* dict)
+{
+	SnPressButton* ret=new SnPressButton();
+	ret->setIdentifyAttributes(dict);
+	return ret;
+}
+
+
+
 
 SnPressButton::SnPressButton()
 {

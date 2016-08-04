@@ -1,5 +1,12 @@
 #include "SnQuad2D.h"
 
+SnQuad2D* SnQuad2D::newInstance(Faeris::FsDict* dict)
+{
+	SnQuad2D* ret=new SnQuad2D();
+	ret->setIdentifyAttributes(dict);
+	return ret;
+}
+
 
 int SnQuad2D::identifyType()
 {

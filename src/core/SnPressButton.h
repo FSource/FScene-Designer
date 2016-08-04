@@ -8,6 +8,9 @@
 class SnPressButton:public TSnEntity2D<Faeris::PressButton> 
 {
 	public:
+		static SnPressButton* newInstance(Faeris::FsDict* dict);
+
+	public:
 		SnPressButton();
 
 	public:

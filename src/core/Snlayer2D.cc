@@ -8,6 +8,18 @@
 #include "util/SnUtil.h"
 
 NS_FS_USE
+
+SnLayer2D* SnLayer2D::newInstance(Faeris::FsDict* dict)
+{
+	SnLayer2D* ret=new SnLayer2D();
+	ret->setIdentifyAttributes(dict);
+	return ret;
+}
+
+
+
+
+
 SnLayer2D::SnLayer2D()
 {
 	m_array=FsArray::create();

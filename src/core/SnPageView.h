@@ -7,6 +7,9 @@
 class SnPageView:public TSnEntity2D<Faeris::PageView> 
 {
 	public:
+		static SnPageView* newInstance(Faeris::FsDict* dict);
+
+	public:
 		SnPageView();
 
 	public:

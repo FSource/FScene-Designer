@@ -8,6 +8,9 @@
 class SnListView:public TSnEntity2D<Faeris::ListView>
 {
 	public:
+		static SnListView* newInstance(Faeris::FsDict* dict);
+
+	public:
 		SnListView();
 
 	public:

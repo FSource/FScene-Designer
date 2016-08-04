@@ -1,5 +1,13 @@
 #include "SnListView.h"
 
+
+SnListView* SnListView::newInstance(Faeris::FsDict* dict)
+{
+	SnListView* ret=new SnListView();
+	ret->setIdentifyAttributes(dict);
+	return ret;
+}
+
 SnListView::SnListView()
 {
 	setSize(64,128);

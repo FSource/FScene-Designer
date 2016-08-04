@@ -49,6 +49,8 @@ class SnMainWindow:public QMainWindow
 
 		/* file */
 		void onNewProject();
+		void onOpenProject();
+
 
 
 		/* edit */

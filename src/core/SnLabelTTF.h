@@ -9,11 +9,15 @@
 class SnLabelTTF:public TSnEntity2D<Faeris::LabelTTF> 
 {
 	public:
+		static SnLabelTTF* newInstance(Faeris::FsDict* dict);
+
+	public:
 		SnLabelTTF();
 
 	public:
 		virtual int identifyType();
 		virtual const char* identifyTypeName();
+
 		virtual SnAttrGroupList* getAttributeList();
 
 };

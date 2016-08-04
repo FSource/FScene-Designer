@@ -192,8 +192,6 @@ class SnIdentify
 
 		virtual SnAttrGroupList* getAttributeList();
 
-		virtual void setAttribute(const char* name,const Faeris::FsVariant& value);
-		virtual Faeris::FsVariant getAttribute(const char* name);
 
 		virtual std::vector<SnIdentify*> getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse);
 		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f p,bool traverse);
@@ -214,6 +212,12 @@ class SnIdentify
 
 
 		/* Attribute  Info */
+		virtual void setIdentifyAttribute(const char* name,const Faeris::FsVariant& value);
+		virtual Faeris::FsVariant getIdentifyAttribute(const char* name);
+
+		virtual void setIdentifyAttributes(Faeris::FsDict* dict);
+
+
 		virtual Faeris::FsDict* getObjectFst();
 
 

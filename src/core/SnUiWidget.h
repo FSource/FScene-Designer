@@ -7,6 +7,8 @@
 class SnUiWidget:public TSnEntity2D<Faeris::UiWidget>
 {
 	public:
+		static SnUiWidget* newInstance(Faeris::FsDict* dict);
+	public:
 		SnUiWidget();
 
 	public:

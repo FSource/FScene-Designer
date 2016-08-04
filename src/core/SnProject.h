@@ -8,23 +8,28 @@
 #include "core/SnEntity2D.h"
 #include "core/SnLayer2D.h"
 
+#include "mgr/FsTextureMgr.h"
+#include "mgr/FsFelisScriptMgr.h"
+#include "mgr/FsFontBitmapMgr.h"
+#include "mgr/FsFontTTFMgr.h"
+#include "mgr/FsProgramSourceMgr.h"
+#include "mgr/FsSprite2DDataMgr.h"
+
 #include "SnEnums.h"
 
 class SnScene;
 
 
-class SnProject:public SnIdentify
+class SnProject
 {
 	public:
-		SnProject();
-		SnProject(Faeris::FsDict* dict);
+		static SnProject* create();
+		static SnProject* create(Faeris::FsDict* dict);
 
-		~SnProject();
 
 
 	public:
-		int identifyType();
-		const char* identifyName();
+		~SnProject();
 
 	public:
 		std::string getFileName(){return m_fileName;}
@@ -51,11 +56,21 @@ class SnProject:public SnIdentify
 		void setTranslateMode(SN_TranslateMode mode){m_translateMode=mode;}
 		SN_TranslateMode getTranslateMode(){return m_translateMode;}
 
+		/* register global info */
+		void unRegisterFsGlobalMgr();
+		void registerFsGlobalMgr();
+
+		void loadScene();
+
 	public:
 		SnScene* getCurScene();
 
 		void setCurrentAndSelectIdentify(SnIdentify* ct,const std::vector<SnIdentify*> select);
 
+	protected:
+		bool init();
+		bool init(Faeris::FsDict* dict);
+		SnProject();
 
 	private:
 		std::string m_fileName;
@@ -72,7 +87,23 @@ class SnProject:public SnIdentify
 		/* edit mode */
 		SN_EditMode m_editMode;
 		SN_TranslateMode m_translateMode;
+
+		/* resolution */
+		int m_resolutionX;
+		int m_resolutionY;
+
+		/* Scene Config */
+		Faeris::FsDict* m_sceneCfg;
+
+		/* resource Mgr */
+		Faeris::TextureMgr* m_textureMgr;
+		Faeris::FontTTFMgr* m_fontTTFMgr;
+		Faeris::FontBitmapMgr* m_fontBmpMgr;
+		Faeris::Sprite2DDataMgr* m_sprite2DMgr;
+		Faeris::ProgramSourceMgr* m_programSourceMgr;
+		Faeris::FelisScriptMgr* m_felisScriptMgr;
 };
+
 
 #endif
 

@@ -42,8 +42,8 @@ class TSnEntity2D:public SnIdentify ,public T
 
 			}
 			return dynamic_cast<SnIdentify*>(ep);
-
 		}
+
 		virtual void addIdentifyChild(SnIdentify* identify)
 		{
 			Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>(identify);
@@ -115,6 +115,19 @@ class TSnEntity2D:public SnIdentify ,public T
 
 			return ret;
 		}
+
+		virtual void setIdentifyAttribute(const char* name,const Faeris::FsVariant& value)
+		{
+			if(strcmp(name,"children")==0)
+			{
+
+			}
+			else 
+			{
+				SnIdentify::setIdentifyAttribute(name,value);
+			}
+		}
+
 
 		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f point,bool traverse)
 		{

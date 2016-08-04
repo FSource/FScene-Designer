@@ -9,20 +9,21 @@
 
 class SnScene:public SnIdentify,public Faeris::Scene
 {
+	public:
+		static SnScene* newInstance(Faeris::FsDict* dict);
 
 	public:
 		virtual int identifyType();
 		virtual const char* identifyTypeName();
 
+		virtual SnAttrGroupList* getAttributeList();
 		virtual SnIdentify* getIdentifyParent();
 		virtual int getIdentifyChildNu();
 		virtual SnIdentify* getIdentifyChild(int index);
 
 
-
 	private:
 		std::string m_name;
-		Faeris::FsArray m_array;
 };
 
 

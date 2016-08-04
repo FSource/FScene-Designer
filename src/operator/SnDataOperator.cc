@@ -213,7 +213,7 @@ void SnDataOperator::setBoundSize2D(std::vector<SnIdentify*> ids_root,float r_mi
 
 void SnDataOperator::setIdentifyAttribute(SnIdentify* id,const char* name,const Faeris::FsVariant& value)
 {
-	id->setAttribute(name,value);
+	id->setIdentifyAttribute(name,value);
 	SnGlobal::msgCenter()->emitIdentifyAttributeChange(id,name);
 }
 

@@ -9,13 +9,13 @@ class SnDataOperator;
 class SnUiOperator;
 class SnIoOperator;
 class SnScene;
+class SnIdentifyFactory;
 
 class SnGlobal
 {
 	public:
 		static void moduleInit();
 		static void moduleExit();
-
 
 	public:
 		static SnProject* getProject();
@@ -29,7 +29,7 @@ class SnGlobal
 		static SnUiOperator* uiOperator();
 		static SnIoOperator* ioOperator();
 		static SnMsgCenter* msgCenter();
-
+		static SnIdentifyFactory* identifyFactory();
 
 	private:
 		static SnProject* m_project;
@@ -38,11 +38,9 @@ class SnGlobal
 		static SnDataOperator* m_dataOperator;
 		static SnUiOperator* m_uiOperator;
 		static SnIoOperator* m_ioOperator;
+		static SnIdentifyFactory* m_identifyFactory;
 };
 
-
-
-
-
-
 #endif /*_SN_GLOBAL_H_*/
+
+
