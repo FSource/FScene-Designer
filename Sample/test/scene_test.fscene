@@ -1,0 +1,52 @@
+projectType:FSceneDesigner
+scene:{
+	editClass:SnScene
+	objectName:aaaa
+	layers:[
+		{
+			editClass:SnLayer2D
+			objectName:layer1
+			viewArea:[0,0,1280,720]
+		}
+		{
+			editClass:SnLayer2D
+			objectName:layer2
+			viewArea:[0,0,1280,720]
+			entity:[
+				{
+					editClass:SnQuad2D
+					objectName:qud2
+					resourceUrl:""
+					size:[40,40]
+				}
+				{
+					editClass:SnUiWidget
+					objectName:uid1
+					position:[100.00,0.00,0.00]
+				}
+				{
+					editClass:SnListView
+					objectName:lisview
+					position:[200.00,0.00,0.00]
+				}
+				{
+					editClass:SnPageView
+					objectName:page
+					position:[300.00,0.00,0.00]
+				}
+				{
+					editClass:SnScrollView
+					objectName:scrollv
+					position:[400.00,0.00,0.00]
+				}
+			]
+		}
+		{
+			editClass:SnLayer2D
+			objectName:layer3
+			viewArea:[0,0,1280,720]
+		}
+	]
+}
+date:"2016-6-21"
+

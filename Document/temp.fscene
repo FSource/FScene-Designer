@@ -1,0 +1,67 @@
+{
+	className:FsScene,
+	layers:[
+		{
+			className:FsLayer2D,
+			camera:{
+				className:Camera2D,
+				viewport:{
+					x:30,
+					y:38,
+					width:20,
+					height:30
+				}
+			}
+			entitys:[
+				{
+					className:Quad2D,
+					textureUrl:temp.png,
+					size:{
+						width:20,
+						height:30
+					},
+					animations:{
+						run:{
+							className:ParallAnimation,
+							subAnimation:[
+								{
+
+									className:AttributeAnimaiton,
+									lerpMode:smooth,
+									attributeName:position
+									valueType:vector3,
+									keyframes:[
+										{
+											time:0,
+											value:{.ftype:vector3,x:3, y:4, z:5 }
+										},
+										{
+											time:1,
+											value:[13,14,15]
+										},
+										{
+											time:5,
+											value:[113,4,5]
+										},
+										{
+											time:25,
+											value:[113,4,5]
+										}
+									]
+								},
+							]
+						},
+						jump:{
+
+						},
+						walk:{
+
+						}
+
+					}
+
+				}
+			]
+		}
+	]
+}

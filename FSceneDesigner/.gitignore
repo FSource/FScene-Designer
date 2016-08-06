@@ -7,5 +7,3 @@
 *.swo
 /debug
 /debug/*.pdb
-*.sdf
-*.suo
