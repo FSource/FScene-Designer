@@ -68,7 +68,7 @@ namespace  SnUtil
 		float e_maxx,e_minx,e_miny,e_maxy;
 		en->getTRSBoundSize2D(&e_minx,&e_maxx,&e_miny,&e_maxy);
 
-		if(e_minx>minx&&e_maxx<maxx&&e_miny>miny&&e_maxy<maxy)
+		if(e_minx>=minx&&e_maxx<=maxx&&e_miny>=miny&&e_maxy<=maxy)
 		{
 			return true;
 		}

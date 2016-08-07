@@ -42,7 +42,75 @@ std::vector<std::string> TSnUiWidget<T>::getObjectFstAttrList()
 
 }
 
+template<typename T>
+ SnIdentify* TSnUiWidget<T>::getChildHitPoint(Faeris::Vector2f point,bool traverse)
+{
+	if(getScissorEnabled())
+	{
+		if(!SnUtil::identifyHitPoint(this,point))
+		{
+			return NULL;
+		}
+	}
+
+	return TSnEntity2D<T>::getChildHitPoint(point,traverse);
+
+
+}
+
+template<typename T>
+std::vector<SnIdentify*> TSnUiWidget<T>::getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse)
+{
+	std::vector<SnIdentify* > ret;
+	int child_nu=getIdentifyChildNu();
+
+	float minx,maxx,miny,maxy;
+	getTRSBoundSize2D(&minx,&maxx,&miny,&maxy);
+
+	Faeris::Vector2f ts(minx,miny);
+	Faeris::Vector2f te(maxx,maxy);
+
+
+	for(int i=0;i<child_nu;i++)
+	{
+		SnIdentify* id=getIdentifyChild(i);
+
+		if(SnUtil::identifyInRect(id,start,end))
+		{
+			if(getScissorEnabled())
+			{
+				if(SnUtil::identifyInRect(id,ts,te))
+				{
+					ret.push_back(id);
+				}
+			}
+			else 
+			{
+				ret.push_back(id);
+			}
+		}
+
+		if(traverse)
+		{
+			std::vector<SnIdentify*> r=id->getChildInArea(start,end,traverse);
+			ret.insert(ret.end(),r.begin(),r.end());
+		}
+	}
+
+	return ret;
+}
+
 
 
 #endif /*_SN_T_UI_WIDGET_INL_*/
+
+
+
+
+
+
+
+
+
+
 

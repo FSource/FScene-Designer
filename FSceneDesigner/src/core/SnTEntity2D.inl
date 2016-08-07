@@ -1,6 +1,10 @@
 #ifndef _SN_T_ENTITY2D_INL_
 #define _SN_T_ENTITY2D_INL_ 
 
+#include "SnGlobal.h"
+#include "SnIdentifyFactory.h"
+
+
 template<typename T> 
 TSnEntity2D<T>::TSnEntity2D()
 {
@@ -96,11 +100,11 @@ template<typename T>
 std::vector<SnIdentify*> TSnEntity2D<T>::getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse)
 {
 	std::vector<SnIdentify* > ret;
-	int size=m_array->size();
-	for(int i=0;i<size;i++)
+	int child_nu=getIdentifyChildNu();
+
+	for(int i=0;i<child_nu;i++)
 	{
-		Entity2D* en=(Entity2D*)m_array->get(i);
-		SnIdentify* id=dynamic_cast<SnIdentify*>(en);
+		SnIdentify* id=getIdentifyChild(i);
 		if(SnUtil::identifyInRect(id,start,end))
 		{
 			ret.push_back(id);
@@ -119,13 +123,10 @@ std::vector<SnIdentify*> TSnEntity2D<T>::getChildInArea(Faeris::Vector2f& start,
 template<typename T>
 SnIdentify* TSnEntity2D<T>::getChildHitPoint(Faeris::Vector2f point,bool traverse)
 {
-	int size=m_array->size();
-	for(int i=size-1;i>=0;i--)
+	int child_nu=getIdentifyChildNu();
+	for(int i=child_nu-1;i>=0;i--)
 	{
-		Entity2D* en=(Entity2D*)m_array->get(i);
-		SnIdentify* id=dynamic_cast<SnIdentify*>(en);
-
-
+		SnIdentify* id=getIdentifyChild(i);
 		if(traverse)
 		{
 			SnIdentify* ret= id->getChildHitPoint(point,traverse);
@@ -262,7 +263,58 @@ SnAttrGroupList* TSnEntity2D<T>:: getAttributeList()
 }
 
 
-template<typename T>
+inline void TSnEntity2D_setChildren(Faeris::FsObject* ob,Faeris::FsArray* attr)
+{
+	SnIdentify* en_id=dynamic_cast<SnIdentify*>(ob);
+	int size=attr->size();
+	for(int i=0;i<size;i++)
+	{
+		Faeris::FsDict* dict=attr->getDict(i);
+		if(dict)
+		{
+			SnIdentify* id=SnGlobal::identifyFactory()->newInstance(dict);
+			if(id)
+			{
+				Faeris::Entity2D* ch=dynamic_cast<Faeris::Entity2D*>(id);
+				if(ch)
+				{
+					en_id->addIdentifyChild(id);
+				}
+				else 
+				{
+					FS_TRACE_WARN("Not SubClass Of Entity2D,Ingore Item(%d)",i);
+					delete id;
+				}
+			}
+		}
+		else 
+		{
+			FS_TRACE_WARN("Not Dict,Ingore Item(%d)",i);
+		}
+	}
+}
+
+inline Faeris::FsArray* TSnEntity2D_getChildren(Faeris::FsObject* ob)
+{
+	SnIdentify* id=dynamic_cast<SnIdentify*>(ob);
+
+	Faeris::FsArray* ret= Faeris::FsArray::create();
+	int child_nu=id->getIdentifyChildNu();
+	for(int i=0;i<child_nu;i++)
+	{
+		SnIdentify* ch=id->getIdentifyChild(i);
+		Faeris::FsDict* dict=ch->takeObjectFst();
+		ret->push(dict);
+	}
+	return ret;
+}
+
+
+
+
+
+
+	template<typename T>
 std::vector<std::string> TSnEntity2D<T>::getObjectFstAttrList()
 {
 	std::vector<std::string> ret= SnIdentify::getObjectFstAttrList();
@@ -284,12 +336,6 @@ std::vector<std::string> TSnEntity2D<T>::getObjectFstAttrList()
 	ret.push_back("blendDst");
 	return ret;
 }
-
-
-
-
-
-
 
 
 

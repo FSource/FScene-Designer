@@ -2,6 +2,8 @@
 #include "SnClass.h"
 #include "FsClass.h"
 #include "FsEnums.h"
+#include "SnGlobal.h"
+#include "SnIdentifyFactory.h"
 
 
 NS_FS_USE
@@ -32,11 +34,11 @@ const char* SnListView::identifyTypeName()
 
 
 
-
 int SnListView::getIdentifyChildNu()
 {
 	return getListItemNu();
 }
+
 
 
 
@@ -52,6 +54,28 @@ int SnListView::getIdentifyChildIndex(SnIdentify* id)
 
 	return getListItemIndex(widget);
 }
+
+void SnListView::addIdentifyChild(SnIdentify* id)
+{
+	UiWidget* widget=dynamic_cast<UiWidget*>(id);
+	assert(widget);
+	addListItem(widget);
+}
+
+void SnListView::removeIdentifyChild(SnIdentify* id)
+{
+	UiWidget* widget=dynamic_cast<UiWidget*>(id);
+	assert(widget);
+	removeListItem(widget);
+}
+
+void SnListView::clearIdentifyChild()
+{
+	clearListItem();
+}
+
+
+
 
 
 
@@ -80,23 +104,80 @@ SnAttrGroupList* SnListView::getAttributeList()
 std::vector<std::string> SnListView::getObjectFstAttrList()
 {
 	std::vector<std::string> ret=TSnUiWidget<ListView>::getObjectFstAttrList();
-	ret.push_back("scrollX");
-	ret.push_back("scrollY");
 	ret.push_back("mode");
 	ret.push_back("listGap");
+	ret.push_back("listItems");
+
+	ret.push_back("scrollX");
+	ret.push_back("scrollY");
+
 	return ret;
 }
 
 
 
 /* class attribute */
+static void SnListView_setListItem(FsObject* ob,FsArray* attr)
+{
+	SnListView* view=dynamic_cast<SnListView*>(ob);
+
+	int item_nu=attr->size();
+	for(int i=0;i<item_nu;i++)
+	{
+		FsDict* dict=attr->getDict(i);
+		if(dict)
+		{
+			SnIdentify* id=SnGlobal::identifyFactory()->newInstance(dict);
+			if(id)
+			{
+				UiWidget* en=dynamic_cast<UiWidget*>(id);
+				if(en)
+				{
+					view->addIdentifyChild(id);
+				}
+				else 
+				{
+					FS_TRACE_WARN("Not SubClass Of UiWidget,Ingore Item(%d)",i);
+					delete id;
+				}
+			}
+		}
+		else 
+		{
+			FS_TRACE_WARN("Not Dict,Ingore Item(%d)",i);
+		}
+	}
+}
+
+static FsArray* SnListView_getListItem(FsObject* ob)
+{
+
+	SnListView* view=dynamic_cast<SnListView*>(ob);
+	FsArray* ret=FsArray::create();
+
+	int item_nu=view->getIdentifyChildNu();
+
+	for(int i=0;i<item_nu;i++)
+	{
+		SnIdentify* id=view->getIdentifyChild(i);
+		FsDict* dict=id->takeObjectFst();
+		ret->push(dict);
+	}
+	return ret;
+}
+
+
+
+
 
 SN_CLASS_ATTR_SET_GET_CHARS_FUNCTION(SnIdentify,setIdentifyClassName,getIdentifyClassName);
 SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
 
+
 static FsClass::FsAttributeDeclare S_SnListView_Main_Attr[]={
 	FS_CLASS_ATTR_DECLARE("className",E_FsType::FT_CHARS,NULL,SnIdentify_setIdentifyClassName,SnIdentify_getIdentifyClassName),
 	FS_CLASS_ATTR_DECLARE("editClass",E_FsType::FT_CHARS,NULL,0,SnIdentify_identifyTypeName),
+	FS_CLASS_ATTR_DECLARE("listItems",E_FsType::FT_ARRAY,NULL,SnListView_setListItem,SnListView_getListItem),
 
 	FS_CLASS_ATTR_DECLARE(NULL,E_FsType::FT_IN_VALID,NULL,0,0)
 };

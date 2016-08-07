@@ -42,6 +42,7 @@ std::vector<std::string> SnQuad2D::getObjectFstAttrList()
 	std::vector<std::string> ret=TSnEntity2D<Faeris::Quad2D>::getObjectFstAttrList();
 	ret.push_back("resourceUrl");
 	ret.push_back("size");
+	ret.push_back("children");
 
 	return ret;
 }
@@ -53,6 +54,7 @@ SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
 static FsClass::FsAttributeDeclare S_Quad2D_Main_Attr[]={
 	FS_CLASS_ATTR_DECLARE("className",E_FsType::FT_CHARS,NULL,SnIdentify_setIdentifyClassName,SnIdentify_getIdentifyClassName),
 	FS_CLASS_ATTR_DECLARE("editClass",E_FsType::FT_CHARS,NULL,0,SnIdentify_identifyTypeName),
+	FS_CLASS_ATTR_DECLARE("children",E_FsType::FT_ARRAY,NULL,TSnEntity2D_setChildren,TSnEntity2D_getChildren),
 	FS_CLASS_ATTR_DECLARE(NULL,E_FsType::FT_IN_VALID,NULL,0,0)
 };
 

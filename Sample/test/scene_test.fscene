@@ -1,52 +1,287 @@
 projectType:FSceneDesigner
+version:v2.0.0
+resolutionX:0
+resolutionY:0
 scene:{
 	editClass:SnScene
+	className:Scene
 	objectName:aaaa
+	touchEnabled:true
+	touchesEnabled:true
 	layers:[
 		{
 			editClass:SnLayer2D
+			className:Layer2D
 			objectName:layer1
-			viewArea:[0,0,1280,720]
-		}
+			visible:true
+			touchEnabled:false
+			touchesEnabled:false
+			dispatchTouchEnabled:false
+			dispatchTouchesEnabled:false
+			viewArea:[0.00,0.00,1280.00,720.00]
+			entity:[]
+		},
 		{
 			editClass:SnLayer2D
+			className:Layer2D
 			objectName:layer2
-			viewArea:[0,0,1280,720]
+			visible:true
+			touchEnabled:false
+			touchesEnabled:false
+			dispatchTouchEnabled:false
+			dispatchTouchesEnabled:false
+			viewArea:[0.00,0.00,1280.00,720.00]
 			entity:[
 				{
 					editClass:SnQuad2D
+					className:Quad2D
 					objectName:qud2
+					position:[197.00,87.00,0.00]
+					scale:[1.00,1.00,1.00]
+					rotateZ:0.00
+					visible:true
+					visibles:true
+					anchor:[0.50,0.50]
+					touchEnabled:false
+					touchesEnabled:false
+					touchDispatchEnabled:false
+					touchesDispatchEnabled:false
+					color:[1.00,1.00,1.00,1.00]
+					opacity:1.00
+					blendEquation:add
+					blendSrc:srcAlpha
+					blendDst:oneMinusSrcAlpha
 					resourceUrl:""
-					size:[40,40]
-				}
+					size:[40.00,40.00]
+					children:[]
+				},
 				{
 					editClass:SnUiWidget
+					className:UiWidget
 					objectName:uid1
-					position:[100.00,0.00,0.00]
-				}
+					position:[-144.00,0.00,0.00]
+					scale:[1.00,1.00,1.00]
+					rotateZ:0.00
+					visible:true
+					visibles:true
+					anchor:[0.50,0.50]
+					size:[64.00,64.00]
+					touchEnabled:true
+					touchesEnabled:false
+					touchDispatchEnabled:true
+					touchesDispatchEnabled:false
+					color:[1.00,1.00,1.00,1.00]
+					opacity:1.00
+					blendEquation:add
+					blendSrc:srcAlpha
+					blendDst:oneMinusSrcAlpha
+					scissorEnabled:true
+					bgEnabled:true
+					bgTextureUrl:""
+					bgColor:[1.00,1.00,1.00,0.78]
+					children:[]
+				},
 				{
 					editClass:SnListView
+					className:ListView
 					objectName:lisview
-					position:[200.00,0.00,0.00]
-				}
+					position:[-225.50,256.50,0.00]
+					scale:[1.00,1.00,1.00]
+					rotateZ:0.00
+					visible:true
+					visibles:true
+					anchor:[0.50,0.50]
+					size:[69.00,137.00]
+					touchEnabled:true
+					touchesEnabled:false
+					touchDispatchEnabled:true
+					touchesDispatchEnabled:false
+					color:[1.00,1.00,1.00,1.00]
+					opacity:1.00
+					blendEquation:add
+					blendSrc:srcAlpha
+					blendDst:oneMinusSrcAlpha
+					scissorEnabled:true
+					bgEnabled:true
+					bgTextureUrl:""
+					bgColor:[1.00,1.00,1.00,0.78]
+					mode:vertical
+					listGap:20.00
+					listItems:[
+						{
+							editClass:SnUiWidget
+							className:UiWidget
+							objectName:sfsd
+							position:[34.50,-25.00,0.00]
+							scale:[1.00,1.00,1.00]
+							rotateZ:0.00
+							visible:true
+							visibles:true
+							anchor:[0.50,0.50]
+							size:[100.00,50.00]
+							touchEnabled:true
+							touchesEnabled:false
+							touchDispatchEnabled:true
+							touchesDispatchEnabled:false
+							color:[1.00,1.00,1.00,1.00]
+							opacity:1.00
+							blendEquation:add
+							blendSrc:srcAlpha
+							blendDst:oneMinusSrcAlpha
+							scissorEnabled:true
+							bgEnabled:true
+							bgTextureUrl:""
+							bgColor:[1.00,0.00,0.00,0.80]
+							children:[
+								{
+									editClass:SnUiWidget
+									className:UiWidget
+									objectName:sfsd
+									position:[-0.50,2.50,0.00]
+									scale:[1.00,1.00,1.00]
+									rotateZ:0.00
+									visible:true
+									visibles:true
+									anchor:[0.50,0.50]
+									size:[35.00,31.00]
+									touchEnabled:true
+									touchesEnabled:false
+									touchDispatchEnabled:true
+									touchesDispatchEnabled:false
+									color:[1.00,1.00,1.00,1.00]
+									opacity:1.00
+									blendEquation:add
+									blendSrc:srcAlpha
+									blendDst:oneMinusSrcAlpha
+									scissorEnabled:true
+									bgEnabled:true
+									bgTextureUrl:""
+									bgColor:[1.00,1.00,0.00,0.80]
+									children:[]
+								}]
+						},
+						{
+							editClass:SnUiWidget
+							className:UiWidget
+							objectName:sfsd
+							position:[34.50,-95.00,0.00]
+							scale:[1.00,1.00,1.00]
+							rotateZ:0.00
+							visible:true
+							visibles:true
+							anchor:[0.50,0.50]
+							size:[100.00,50.00]
+							touchEnabled:true
+							touchesEnabled:false
+							touchDispatchEnabled:true
+							touchesDispatchEnabled:false
+							color:[1.00,1.00,1.00,1.00]
+							opacity:1.00
+							blendEquation:add
+							blendSrc:srcAlpha
+							blendDst:oneMinusSrcAlpha
+							scissorEnabled:true
+							bgEnabled:true
+							bgTextureUrl:""
+							bgColor:[1.00,0.00,1.00,0.80]
+							children:[]
+						},
+						{
+							editClass:SnUiWidget
+							className:UiWidget
+							objectName:sfsd
+							position:[34.50,-165.00,0.00]
+							scale:[1.00,1.00,1.00]
+							rotateZ:0.00
+							visible:true
+							visibles:true
+							anchor:[0.50,0.50]
+							size:[100.00,50.00]
+							touchEnabled:true
+							touchesEnabled:false
+							touchDispatchEnabled:true
+							touchesDispatchEnabled:false
+							color:[1.00,1.00,1.00,1.00]
+							opacity:1.00
+							blendEquation:add
+							blendSrc:srcAlpha
+							blendDst:oneMinusSrcAlpha
+							scissorEnabled:true
+							bgEnabled:true
+							bgTextureUrl:""
+							bgColor:[0.00,1.00,1.00,0.80]
+							children:[]
+						}]
+					scrollX:0.00
+					scrollY:1.00
+				},
 				{
 					editClass:SnPageView
+					className:PageView
 					objectName:page
-					position:[300.00,0.00,0.00]
-				}
+					position:[80.00,1.00,0.00]
+					scale:[1.00,1.00,1.00]
+					rotateZ:0.00
+					visible:true
+					visibles:true
+					anchor:[0.50,0.50]
+					size:[64.00,64.00]
+					touchEnabled:true
+					touchesEnabled:false
+					touchDispatchEnabled:true
+					touchesDispatchEnabled:false
+					color:[1.00,1.00,1.00,1.00]
+					opacity:1.00
+					blendEquation:add
+					blendSrc:srcAlpha
+					blendDst:oneMinusSrcAlpha
+					scissorEnabled:true
+					bgEnabled:true
+					bgTextureUrl:""
+					bgColor:[1.00,1.00,1.00,0.78]
+					currentPageIndex:0
+				},
 				{
 					editClass:SnScrollView
+					className:ScrollView
 					objectName:scrollv
 					position:[400.00,0.00,0.00]
-				}
-			]
-		}
+					scale:[1.00,1.00,1.00]
+					rotateZ:0.00
+					visible:true
+					visibles:true
+					anchor:[0.50,0.50]
+					size:[64.00,64.00]
+					touchEnabled:true
+					touchesEnabled:false
+					touchDispatchEnabled:true
+					touchesDispatchEnabled:false
+					color:[1.00,1.00,1.00,1.00]
+					opacity:1.00
+					blendEquation:add
+					blendSrc:srcAlpha
+					blendDst:oneMinusSrcAlpha
+					scissorEnabled:true
+					bgEnabled:true
+					bgTextureUrl:""
+					bgColor:[1.00,1.00,1.00,0.78]
+					scrollX:0.00
+					scrollY:0.00
+				}]
+		},
 		{
 			editClass:SnLayer2D
+			className:Layer2D
 			objectName:layer3
-			viewArea:[0,0,1280,720]
-		}
-	]
+			visible:true
+			touchEnabled:false
+			touchesEnabled:false
+			dispatchTouchEnabled:false
+			dispatchTouchesEnabled:false
+			viewArea:[0.00,0.00,1280.00,720.00]
+			entity:[]
+		}]
 }
-date:"2016-6-21"
-
+about:FsScene Designer For FEngine
+email:"fscene@fsource.cn"
+url:fscene.fsource.cn

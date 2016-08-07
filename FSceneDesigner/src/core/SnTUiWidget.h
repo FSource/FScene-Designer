@@ -11,6 +11,10 @@ class  TSnUiWidget:public  TSnEntity2D<T>
 		virtual SnIdentify* getIdentifyParent();
 
 		virtual std::vector<std::string> getObjectFstAttrList();
+		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f point,bool traverse);
+		virtual std::vector<SnIdentify*> getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse);
+
+
 };
 
 #include "SnTUiWidget.inl"

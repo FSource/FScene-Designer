@@ -24,6 +24,11 @@ class SnListView:public TSnUiWidget<Faeris::ListView>
 		virtual SnIdentify* getIdentifyChild(int index);
 		virtual int getIdentifyChildIndex(SnIdentify* id);
 
+		virtual void addIdentifyChild(SnIdentify* idenfy);
+		virtual void removeIdentifyChild(SnIdentify* idenfy);
+		virtual void clearIdentifyChild();
+
+
 		virtual SnAttrGroupList* getAttributeList();
 		virtual std::vector<std::string> getObjectFstAttrList();
 

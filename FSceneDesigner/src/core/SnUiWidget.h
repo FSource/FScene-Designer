@@ -17,6 +17,7 @@ class SnUiWidget:public TSnUiWidget<Faeris::UiWidget>
 		virtual int identifyType();
 		virtual const char* identifyTypeName();
 
+		virtual std::vector<std::string> getObjectFstAttrList();
 };
 
 

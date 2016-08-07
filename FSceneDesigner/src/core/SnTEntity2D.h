@@ -59,7 +59,6 @@ class TSnEntity2D:public SnIdentify ,public T
 	private:
 		Faeris::FsArray* m_array;
 
-
 };
 
 

@@ -36,7 +36,7 @@ scene:{
 					editClass:SnQuad2D
 					className:Quad2D
 					objectName:qud2
-					position:[0.00,0.00,0.00]
+					position:[197.00,87.00,0.00]
 					scale:[1.00,1.00,1.00]
 					rotateZ:0.00
 					visible:true
@@ -53,12 +53,13 @@ scene:{
 					blendDst:oneMinusSrcAlpha
 					resourceUrl:""
 					size:[40.00,40.00]
+					children:[]
 				},
 				{
 					editClass:SnUiWidget
 					className:UiWidget
 					objectName:uid1
-					position:[100.00,0.00,0.00]
+					position:[-144.00,0.00,0.00]
 					scale:[1.00,1.00,1.00]
 					rotateZ:0.00
 					visible:true
@@ -78,18 +79,19 @@ scene:{
 					bgEnabled:true
 					bgTextureUrl:""
 					bgColor:[1.00,1.00,1.00,0.78]
+					children:[]
 				},
 				{
 					editClass:SnListView
 					className:ListView
 					objectName:lisview
-					position:[200.00,0.00,0.00]
+					position:[-225.50,256.50,0.00]
 					scale:[1.00,1.00,1.00]
 					rotateZ:0.00
 					visible:true
 					visibles:true
 					anchor:[0.50,0.50]
-					size:[64.00,128.00]
+					size:[69.00,137.00]
 					touchEnabled:true
 					touchesEnabled:false
 					touchDispatchEnabled:true
@@ -103,16 +105,121 @@ scene:{
 					bgEnabled:true
 					bgTextureUrl:""
 					bgColor:[1.00,1.00,1.00,0.78]
-					scrollX:0.00
-					scrollY:0.00
 					mode:vertical
-					listGap:0.00
+					listGap:20.00
+					listItems:[
+						{
+							editClass:SnUiWidget
+							className:UiWidget
+							objectName:sfsd
+							position:[34.50,-25.00,0.00]
+							scale:[1.00,1.00,1.00]
+							rotateZ:0.00
+							visible:true
+							visibles:true
+							anchor:[0.50,0.50]
+							size:[100.00,50.00]
+							touchEnabled:true
+							touchesEnabled:false
+							touchDispatchEnabled:true
+							touchesDispatchEnabled:false
+							color:[1.00,1.00,1.00,1.00]
+							opacity:1.00
+							blendEquation:add
+							blendSrc:srcAlpha
+							blendDst:oneMinusSrcAlpha
+							scissorEnabled:true
+							bgEnabled:true
+							bgTextureUrl:""
+							bgColor:[1.00,0.00,0.00,0.80]
+							children:[
+								{
+									editClass:SnUiWidget
+									className:UiWidget
+									objectName:sfsd
+									position:[-0.50,2.50,0.00]
+									scale:[1.00,1.00,1.00]
+									rotateZ:0.00
+									visible:true
+									visibles:true
+									anchor:[0.50,0.50]
+									size:[35.00,31.00]
+									touchEnabled:true
+									touchesEnabled:false
+									touchDispatchEnabled:true
+									touchesDispatchEnabled:false
+									color:[1.00,1.00,1.00,1.00]
+									opacity:1.00
+									blendEquation:add
+									blendSrc:srcAlpha
+									blendDst:oneMinusSrcAlpha
+									scissorEnabled:true
+									bgEnabled:true
+									bgTextureUrl:""
+									bgColor:[1.00,1.00,0.00,0.80]
+									children:[]
+								}]
+						},
+						{
+							editClass:SnUiWidget
+							className:UiWidget
+							objectName:sfsd
+							position:[34.50,-95.00,0.00]
+							scale:[1.00,1.00,1.00]
+							rotateZ:0.00
+							visible:true
+							visibles:true
+							anchor:[0.50,0.50]
+							size:[100.00,50.00]
+							touchEnabled:true
+							touchesEnabled:false
+							touchDispatchEnabled:true
+							touchesDispatchEnabled:false
+							color:[1.00,1.00,1.00,1.00]
+							opacity:1.00
+							blendEquation:add
+							blendSrc:srcAlpha
+							blendDst:oneMinusSrcAlpha
+							scissorEnabled:true
+							bgEnabled:true
+							bgTextureUrl:""
+							bgColor:[1.00,0.00,1.00,0.80]
+							children:[]
+						},
+						{
+							editClass:SnUiWidget
+							className:UiWidget
+							objectName:sfsd
+							position:[34.50,-165.00,0.00]
+							scale:[1.00,1.00,1.00]
+							rotateZ:0.00
+							visible:true
+							visibles:true
+							anchor:[0.50,0.50]
+							size:[100.00,50.00]
+							touchEnabled:true
+							touchesEnabled:false
+							touchDispatchEnabled:true
+							touchesDispatchEnabled:false
+							color:[1.00,1.00,1.00,1.00]
+							opacity:1.00
+							blendEquation:add
+							blendSrc:srcAlpha
+							blendDst:oneMinusSrcAlpha
+							scissorEnabled:true
+							bgEnabled:true
+							bgTextureUrl:""
+							bgColor:[0.00,1.00,1.00,0.80]
+							children:[]
+						}]
+					scrollX:0.00
+					scrollY:1.00
 				},
 				{
 					editClass:SnPageView
 					className:PageView
 					objectName:page
-					position:[300.00,0.00,0.00]
+					position:[80.00,1.00,0.00]
 					scale:[1.00,1.00,1.00]
 					rotateZ:0.00
 					visible:true
