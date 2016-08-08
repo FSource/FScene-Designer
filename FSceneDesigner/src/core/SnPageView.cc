@@ -134,7 +134,7 @@ void SnPageView_setPages(FsObject* ob,FsArray* attr)
 					FsString* st_alv=dict->lookupString("pageAlignV");
 					if(st_alv)
 					{
-						align_v=FsEnum_StrToAlignH(st_alv->cstr());
+						align_v=FsEnum_StrToAlignV(st_alv->cstr());
 					}
 					pg_view->addPage(widget,align_h,align_v);
 				}
@@ -162,14 +162,14 @@ FsArray* SnPageView_getPages(FsObject* ob)
 	FsArray* ret= FsArray::create();
 	for(int i=0;i<page_nu;i++)
 	{
-		UiWidget* widget=getPage(i);
+		UiWidget* widget=pg_view->getPage(i);
 		SnIdentify* id=dynamic_cast<SnIdentify*>(widget);
 		FsDict* dict=id->takeObjectFst();
 		const char* align_h=FsEnum_AlignHToStr(pg_view->getPageAlignH(i));
-		const char* align_v=FsEnum_AlignHToStr(pg_view->getPageAlignV(i));
+		const char* align_v=FsEnum_AlignVToStr(pg_view->getPageAlignV(i));
 
-		dict->insert(FsString::create("pageAlignH",align_h);
-		dict->insert(FsString::create("pageAlignV",align_v);
+		dict->insert(FsString::create("pageAlignH"),FsString::create(align_h));
+		dict->insert(FsString::create("pageAlignV"),FsString::create(align_v));
 
 		ret->push(dict);
 

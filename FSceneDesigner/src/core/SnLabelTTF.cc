@@ -1,5 +1,9 @@
 #include "SnLabelTTF.h"
 
+#include "SnClass.h"
+#include "FsClass.h"
+#include "FsEnums.h"
+NS_FS_USE
 
 SnLabelTTF* SnLabelTTF::newInstance(Faeris::FsDict* dict)
 {
@@ -27,9 +31,9 @@ const char *SnLabelTTF::identifyTypeName()
 }
 
 
-std::vector<std::string> SnQuad2D::getObjectFstAttrList()
+std::vector<std::string> SnLabelTTF::getObjectFstAttrList()
 {
-	std::vector<std::string> ret=TSnEntity2D<Faeris::Quad2D>::getObjectFstAttrList();
+	std::vector<std::string> ret=TSnEntity2D<Faeris::LabelTTF>::getObjectFstAttrList();
 
 	ret.push_back("fontName");
 	ret.push_back("fontSize");

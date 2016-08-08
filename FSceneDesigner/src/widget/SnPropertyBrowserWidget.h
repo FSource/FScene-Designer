@@ -40,6 +40,11 @@ class SnPropertyBrowserWidget:public QWidget
 		void refreshProperty();
 		void updateProperty(QtVariantProperty* p,SnAttrTypeDesc* tattr,Faeris::FsVariant v);
 
+
+		void saveExpandState();
+		
+		void updateExpandState();
+
 	private:
 		class QtTreePropertyBrowser* m_propertyEditor;
 		class QtVariantEditorFactory* m_variantFactor;
@@ -47,6 +52,8 @@ class SnPropertyBrowserWidget:public QWidget
 
 		std::map<std::string,QtProperty*> m_nameToProperty;
 		std::map<std::string,SnAttrTypeDesc*> m_nameToDesc;
+
+		std::map<std::string,bool> m_nameToExpands;
 
 		SnAttrGroupList* m_groupAttrDescList;
 		SnIdentify* m_identify;

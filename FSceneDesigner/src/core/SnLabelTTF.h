@@ -22,6 +22,7 @@ class SnLabelTTF:public TSnEntity2D<Faeris::LabelTTF>
 		virtual const char* identifyTypeName();
 
 		virtual SnAttrGroupList* getAttributeList();
+		std::vector<std::string> getObjectFstAttrList();
 
 };
 

@@ -100,13 +100,13 @@ void SnScrollView_setContentWidget(FsObject* ob,FsDict* dict)
 		}
 		else 
 		{
-			FS_TRACE_WARN("Not SubClass Of UiWidget ,Ingore Item(%d)",i);
+			FS_TRACE_WARN("Not SubClass Of UiWidget ,Ingore Item");
 			delete id;
 		}
 	}
 	else 
 	{
-		FS_TRACE_WARN("Not SubClass Of UiWidget ,Ingore Item(%d)",i);
+		FS_TRACE_WARN("Not SubClass Of SnIdentify ,Ingore Item");
 		delete id;
 	}
 }
