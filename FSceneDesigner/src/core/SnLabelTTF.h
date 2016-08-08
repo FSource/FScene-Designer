@@ -9,6 +9,9 @@
 class SnLabelTTF:public TSnEntity2D<Faeris::LabelTTF> 
 {
 	public:
+		FS_CLASS_DECLARE(SnLabelTTF);
+
+	public:
 		static SnLabelTTF* newInstance(Faeris::FsDict* dict);
 
 	public:

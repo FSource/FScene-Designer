@@ -76,6 +76,7 @@ SnAttrGroupList* SnScrollView::getAttributeList()
 std::vector<std::string> SnScrollView::getObjectFstAttrList()
 {
 	std::vector<std::string> ret=TSnUiWidget<ScrollView>::getObjectFstAttrList();
+	ret.push_back("contentWidget");
 	ret.push_back("scrollX");
 	ret.push_back("scrollY");
 	return ret;
@@ -85,6 +86,49 @@ std::vector<std::string> SnScrollView::getObjectFstAttrList()
 
 
 /* class attribute */
+void SnScrollView_setContentWidget(FsObject* ob,FsDict* dict)
+{
+	SnScrollView* sl_view=dynamic_cast<SnScrollView*>(ob);
+
+	SnIdentify* id=SnGlobal::identifyFactory()->newInstance(dict);
+	if(id)
+	{
+		UiWidget* widget=dynamic_cast<UiWidget*>(id);
+		if(widget)
+		{
+			sl_view->setContentWidget(widget);
+		}
+		else 
+		{
+			FS_TRACE_WARN("Not SubClass Of UiWidget ,Ingore Item(%d)",i);
+			delete id;
+		}
+	}
+	else 
+	{
+		FS_TRACE_WARN("Not SubClass Of UiWidget ,Ingore Item(%d)",i);
+		delete id;
+	}
+}
+
+FsDict* SnScrollView_getContentWidget(FsObject* ob)
+{
+	SnScrollView* sl_view=dynamic_cast<SnScrollView*>(ob);
+
+	UiWidget* widget=sl_view->getContentWidget();
+	if(widget==NULL)
+	{
+		return NULL;
+	}
+
+	SnIdentify* id=dynamic_cast<SnIdentify*>(widget);
+
+	return id->takeObjectFst();
+}
+
+
+
+
 
 SN_CLASS_ATTR_SET_GET_CHARS_FUNCTION(SnIdentify,setIdentifyClassName,getIdentifyClassName);
 SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
@@ -95,7 +139,8 @@ SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
 static FsClass::FsAttributeDeclare S_SnScrollView_Main_Attr[]={
 	FS_CLASS_ATTR_DECLARE("className",E_FsType::FT_CHARS,NULL,SnIdentify_setIdentifyClassName,SnIdentify_getIdentifyClassName),
 	FS_CLASS_ATTR_DECLARE("editClass",E_FsType::FT_CHARS,NULL,0,SnIdentify_identifyTypeName),
-	
+	FS_CLASS_ATTR_DECLARE("contentWidget",E_FsType::FT_DICT,NULL,SnScrollView_setContentWidget,SnScrollView_getContentWidget),
+
 	FS_CLASS_ATTR_DECLARE(NULL,E_FsType::FT_IN_VALID,NULL,0,0)
 };
 
