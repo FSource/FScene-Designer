@@ -21,6 +21,7 @@ class SnScrollView:public TSnUiWidget<Faeris::ScrollView>
 		virtual int getIdentifyChildNu();
 		virtual SnIdentify* getIdentifyChild(int index);
 		virtual int getIdentifyChildIndex(SnIdentify* id);
+		virtual bool acceptChild(SnIdentify* id);
 
 		
 		virtual SnAttrGroupList* getAttributeList();

@@ -27,6 +27,7 @@ class SnListView:public TSnUiWidget<Faeris::ListView>
 		virtual void addIdentifyChild(SnIdentify* idenfy);
 		virtual void removeIdentifyChild(SnIdentify* idenfy);
 		virtual void clearIdentifyChild();
+		virtual bool acceptChild(SnIdentify* identify);
 
 
 		virtual SnAttrGroupList* getAttributeList();

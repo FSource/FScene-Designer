@@ -53,6 +53,11 @@ int SnScrollView::getIdentifyChildIndex(SnIdentify* id)
 	return 0;
 }
 
+bool SnScrollView::acceptChild(SnIdentify* id)
+{
+	return false;
+}
+
 
 
 

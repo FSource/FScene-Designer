@@ -35,6 +35,7 @@ class SnLayer2D:public SnIdentify, public Faeris::Layer2D
 		virtual void addIdentifyChild(SnIdentify* idenfy);
 		virtual void removeIdentifyChild(SnIdentify* idenfy);
 		virtual void clearIdentifyChild();
+		virtual bool acceptChild(SnIdentify* identify);
 
 
 		virtual bool isDragEnabled();
