@@ -22,6 +22,7 @@ class SnPageView:public TSnUiWidget<Faeris::PageView>
 		virtual int getIdentifyChildNu();
 		virtual SnIdentify* getIdentifyChild(int index);
 		virtual int getIdentifyChildIndex(SnIdentify* id);
+		virtual bool acceptChild(SnIdentify* identify);
 
 	
 

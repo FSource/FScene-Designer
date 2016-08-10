@@ -128,6 +128,19 @@ void SnLayer2D::clearIdentifyChild()
 	m_array->clear();
 }
 
+void SnLayer2D::acceptChild(SnIdentify* id)
+{
+	Entity2D* en =dynamic_cast<Entity2D*>(id);
+	if(en==NULL)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+
+
 std::vector<SnIdentify*> SnLayer2D::getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse)
 {
 	std::vector<SnIdentify*> ret;

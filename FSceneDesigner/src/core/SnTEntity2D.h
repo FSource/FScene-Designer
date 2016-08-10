@@ -25,6 +25,7 @@ class TSnEntity2D:public SnIdentify ,public T
 		virtual void addIdentifyChild(SnIdentify* identify);
 		virtual void removeIdentifyChild(SnIdentify* identify);
 		virtual void clearIdentifyChild();
+		virtual bool acceptChild(SnIdentify* identify);
 
 
 		virtual int getIdentifyChildNu();

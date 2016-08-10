@@ -65,6 +65,13 @@ int SnPageView::getIdentifyChildIndex(SnIdentify* id)
 	return 0;
 }
 
+bool SnPageView::acceptChild(SnIdentify* id)
+{
+	return  false;
+}
+
+
+
 
 bool SnPageView::isDropEnabled()
 {

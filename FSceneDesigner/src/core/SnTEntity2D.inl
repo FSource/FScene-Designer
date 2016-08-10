@@ -70,6 +70,21 @@ void TSnEntity2D<T>::clearIdentifyChild()
 }
 
 template<typename T>
+bool TSnEntity2D<T>::acceptChild(SnIdentify* id)
+{
+	Entity2D* en =dynamic_cast<Entity2D*>(id);
+	if(en==NULL)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+
+
+
+template<typename T>
 int TSnEntity2D<T>::getIdentifyChildNu()
 {
 	return m_array->size();

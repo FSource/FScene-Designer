@@ -74,6 +74,17 @@ void SnListView::clearIdentifyChild()
 	clearListItem();
 }
 
+bool SnListView::acceptChild(SnIdentify* id)
+{
+	UiWidget* en =dynamic_cast<UiWidget*>(id);
+	if(en==NULL)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 
 
 

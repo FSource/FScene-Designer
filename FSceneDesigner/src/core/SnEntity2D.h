@@ -9,6 +9,7 @@ class SnEntity2D:public TSnEntity2D<Faeris::Entity2D>
 {
 	public:
 		static SnEntity2D* newInstance(Faeris::FsDict* dict);
+
 	public:
 		virtual int identifyType();
 		virtual const char* identifyTypeName();

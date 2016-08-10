@@ -40,6 +40,10 @@ int SnIdentify::getIdentifyChildIndex(SnIdentify* id)
 void SnIdentify::addIdentifyChild(SnIdentify* ){}
 void SnIdentify::removeIdentifyChild(SnIdentify* ){}
 void SnIdentify::clearIdentifyChild(){}
+bool SnIdentify::acceptChild(SnIdentify* id){return false;}
+
+
+
 
 bool SnIdentify::isDragEnabled(){return false;}
 bool SnIdentify::isDropEnabled(){return false;}
