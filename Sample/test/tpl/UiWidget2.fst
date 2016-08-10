@@ -1,0 +1,3 @@
+editClass:SnUiWidget
+objectName:aaaa
+

@@ -1,4 +1,6 @@
 #include <QWheelEvent>
+#include <QDragEnterEvent>
+#include <QMimeData>
 #include "widget/SnEditViewWidget.h"
 #include "core/SnScene.h"
 #include "core/SnProject.h"
@@ -67,6 +69,9 @@ SnEditViewWidget::SnEditViewWidget()
 	m_resizeController=new SnResizeController();
 
 	m_scaleController=new SnScaleController();
+
+
+
 
 }
 
@@ -156,6 +161,69 @@ void  SnEditViewWidget::paintGL()
 	}
 }
 
+void SnEditViewWidget::dragEnterEvent(QDragEnterEvent* event)
+{
+	if(SnGlobal::getProject()==NULL)
+	{
+		event->ignore();
+		return;
+	}
+
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		event->ignore();
+		return;
+	}
+
+
+	QList<QUrl> urls = event->mimeData()->urls();  
+    if (urls.isEmpty()) {  
+		event->ignore();
+        return;  
+    }  
+ 
+    QString fileName = urls.first().toLocalFile();  
+	std::string file_name=fileName.toUtf8().constData();
+
+	if(SnUtil::canCreateIdentifyFromUrl(file_name.c_str()))
+	{
+		event->accept();
+	}
+	else 
+	{
+		event->ignore();
+	}
+
+
+
+
+}
+
+
+void SnEditViewWidget::dropEvent(QDropEvent * event)
+{
+
+	QList<QUrl> urls = event->mimeData()->urls();  
+    if (urls.isEmpty()) {  
+        return;  
+    }  
+ 
+    QString fileName = urls.first().toLocalFile();  
+    if (fileName.isEmpty()) {  
+        return;  
+    }  
+
+	std::string file_name=fileName.toUtf8().constData();
+
+
+	
+	QPoint pos=event->pos();
+	
+	FS_TRACE_WARN("File name is %s, pos(%d,%d)",file_name.c_str(),pos.x(),pos.y());
+	Vector2 w_pos=toEditCoord(Vector2(pos.x(),pos.y()));
+	SnGlobal::dataOperator()->addIdentifyFromUrl(w_pos,file_name);
+
+}
 
 void SnEditViewWidget::setController(SnController* en)
 {
@@ -713,6 +781,13 @@ void SnEditViewWidget::keyPressEvent(QKeyEvent* event)
 		case Qt::Key_F:
 			SnGlobal::dataOperator()->setEditMode(SN_EditMode::RESIZE);
 			break;
+		case Qt::Key_Delete:
+			{
+				if(m_controller==NULL)
+				{
+					SnGlobal::dataOperator()->deleteSelect();
+				}
+			}
 	}
 
 

@@ -41,7 +41,7 @@ void SnUiOperator::newProject()
 	}
 	
 	proj->setDirName(path);
-	proj->setFileName(dialog.getFilePath()+dialog.getFileName());
+	proj->setFileName(path+dialog.getFileName()+".fscene");
 	proj->setName(dialog.getFileName());
 
 	SnGlobal::setProject(proj);
@@ -84,7 +84,7 @@ void SnUiOperator::saveProject()
 		return;
 	}
 
-	std::string file_name=proj->getFileName()+".test";
+	std::string file_name=proj->getFileName();
 	SnGlobal::ioOperator()->saveProject(proj,file_name.c_str());
 
 	bool ret=SnGlobal::ioOperator()->saveProject(proj,file_name.c_str());

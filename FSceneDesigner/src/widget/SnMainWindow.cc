@@ -184,7 +184,7 @@ void SnMainWindow::initMenuBar()
         ms_about_us=new QAction(QPixmap(""),"&About Us",this);
         mn_about->addAction(ms_about_us);
         connect(ms_about_us,SIGNAL(triggered()),this,SLOT(onAbout()));
-    }
+	}
 
 
 }
@@ -197,9 +197,11 @@ void SnMainWindow::initWidget()
 
 
 	m_editViewWidget=new SnEditViewWidget;
+	m_editViewWidget->setAcceptDrops(true);
+
 	connect(SnGlobal::msgCenter(), SIGNAL(signalIdentifyAttributeChange(SnIdentify*,const char* )),m_editViewWidget,SLOT(slotIdentifyAttributeChange(SnIdentify*,const char* )));
-			connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
-		m_editViewWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
+			m_editViewWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
 
 	connect(SnGlobal::msgCenter(),SIGNAL(signalEditModeChange(SN_EditMode)),m_editViewWidget,SLOT(onEditModeChange(SN_EditMode)));
 	connect(SnGlobal::msgCenter(),SIGNAL(signalTranslateModeChange(SN_TranslateMode)),m_editViewWidget,SLOT(onAxisModeChange(SN_TranslateMode)));
@@ -209,8 +211,11 @@ void SnMainWindow::initWidget()
 	m_projectExploreDockWidget= new QDockWidget("ProjectExplore");
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurProjectChange()),m_projectExploreWidget,SLOT(onProjectChange()));
 	connect(SnGlobal::msgCenter(),SIGNAL(signalLayer2DAdd(SnLayer2D*)),m_projectExploreWidget,SLOT(slotLayer2DAdd(SnLayer2D*)));
-		connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
-		m_projectExploreWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalIdentifyAdd(SnIdentify*)),m_projectExploreWidget,SLOT(slotIdentifyAdd(SnIdentify*)));
+	connect(SnGlobal::msgCenter(),SIGNAL(signalIdentifyDelete(std::vector<SnIdentify*>)),m_projectExploreWidget,SLOT(slotIdentifyDelete(std::vector<SnIdentify*>)));
+
+	connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
+			m_projectExploreWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
 
 
 
@@ -226,7 +231,7 @@ void SnMainWindow::initWidget()
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurProjectChange()),m_propertyWidget,SLOT(slotCurProjectChange()));
 	connect(SnGlobal::msgCenter(), SIGNAL(signalIdentifyAttributeChange(SnIdentify*,const char* )),m_propertyWidget,SLOT(slotIdentifyAttributeChange(SnIdentify*,const char* )));
 	connect(SnGlobal::msgCenter(),SIGNAL(signalCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )),
-		m_propertyWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
+			m_propertyWidget,SLOT(slotCurrentAndSelectsChange(SnIdentify* ,const std::vector<SnIdentify*>& )));
 }
 
 void SnMainWindow::initLayout()
@@ -245,18 +250,18 @@ void SnMainWindow::initLayout()
 	m_propertyDockWidget->setWidget(m_propertyWidget);
 	m_propertyDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
 
-	 addDockWidget(Qt::LeftDockWidgetArea,m_propertyDockWidget);
+	addDockWidget(Qt::LeftDockWidgetArea,m_propertyDockWidget);
 
 	/* ProjectExplore*/
 	m_projectExploreDockWidget->setWidget(m_projectExploreWidget);
 	m_projectExploreDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
-    addDockWidget(Qt::RightDockWidgetArea,m_projectExploreDockWidget);
+	addDockWidget(Qt::RightDockWidgetArea,m_projectExploreDockWidget);
 
 
 	/* ResourceExplore*/
 	m_resourceExploreDockWidget->setWidget(m_resourceExploreWidget);
 	m_projectExploreDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
-    addDockWidget(Qt::RightDockWidgetArea,m_resourceExploreDockWidget);
+	addDockWidget(Qt::RightDockWidgetArea,m_resourceExploreDockWidget);
 
 
 	/* tabifyDockWidget */
@@ -288,25 +293,25 @@ void SnMainWindow::onSaveProject()
 
 void SnMainWindow::onUndo()
 {
-    /*
-	if(SnOperator::data()->canUndo())
-    {
-        qDebug("undo");
-		SnOperator::data()->undo();
-	}
-    */
+	/*
+	   if(SnOperator::data()->canUndo())
+	   {
+	   qDebug("undo");
+	   SnOperator::data()->undo();
+	   }
+	   */
 
 }
 
 void SnMainWindow::onRedo()
 {
-    /*
-	if(SnOperator::data()->canRedo())
-    {
-        qDebug("redo");
-		SnOperator::data()->redo();
-	}
-    */
+	/*
+	   if(SnOperator::data()->canRedo())
+	   {
+	   qDebug("redo");
+	   SnOperator::data()->redo();
+	   }
+	   */
 
 }
 
@@ -324,14 +329,14 @@ void SnMainWindow::onZoomOut()
 
 void SnMainWindow::onHelp()
 {
-  QDesktopServices::openUrl(QUrl("http://www.fsource.cn"));
+	QDesktopServices::openUrl(QUrl("http://www.fsource.cn"));
 }
 
 
 
 void SnMainWindow::onAbout()
 {
-    m_aboutDialog->show();
+	m_aboutDialog->show();
 }
 
 void SnMainWindow::onEditModeChange(QAction* action)
@@ -411,10 +416,10 @@ void SnMainWindow::onAxisModeChange(SN_TranslateMode mode )
 
 void SnMainWindow::createAboutDialog()
 {
-    /* about dialog */
-    m_aboutDialog=new QDialog;
-    Ui_AboutDialog ui_about;
-    ui_about.setupUi(m_aboutDialog);
+	/* about dialog */
+	m_aboutDialog=new QDialog;
+	Ui_AboutDialog ui_about;
+	ui_about.setupUi(m_aboutDialog);
 
 }
 

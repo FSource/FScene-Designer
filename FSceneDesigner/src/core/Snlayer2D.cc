@@ -26,6 +26,7 @@ SnLayer2D* SnLayer2D::newInstance(Faeris::FsDict* dict)
 
 SnLayer2D::SnLayer2D()
 {
+	setRefDelete(false);
 	m_array=FsArray::create();
 	m_array->addRef();
 	m_editViewArea.set(0,0,0,0);

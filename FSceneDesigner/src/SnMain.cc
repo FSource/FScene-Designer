@@ -57,6 +57,7 @@ int main(int argc,char** argv)
 	SnGlobal::moduleInit();
 
     SnMainWindow* win=new SnMainWindow();
+	//win->setAcceptDrops(true);
 	SnGlobal::setMainWindow(win);
 
 

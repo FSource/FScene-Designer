@@ -26,6 +26,8 @@ class SnEditViewWidget:public QGLWidget
 		virtual void resizeGL(int width,int height);
 		virtual void paintGL();
 
+		virtual void dragEnterEvent(QDragEnterEvent *event);
+		virtual void dropEvent(QDropEvent * event);
 
 	public:
 		void setController(SnController* cn);

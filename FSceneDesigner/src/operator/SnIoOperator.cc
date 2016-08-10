@@ -40,6 +40,7 @@ SnProject* SnIoOperator::loadProject(const char* filename)
 	}
 
 	QTextStream txtInput(&f);  
+	txtInput.setCodec("UTF-8");
 
 	QString content=txtInput.readAll();
 	FsDict* dict=ScriptUtil::parseScriptFromStr(content.toUtf8().constData());

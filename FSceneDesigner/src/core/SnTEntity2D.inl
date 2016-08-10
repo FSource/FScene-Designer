@@ -8,8 +8,10 @@
 template<typename T> 
 TSnEntity2D<T>::TSnEntity2D()
 {
+	T::setRefDelete(false);
 	m_array=Faeris::FsArray::create();
 	m_className=T::getClassName();
+
 }
 
 template<typename T> 

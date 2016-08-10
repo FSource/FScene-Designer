@@ -49,7 +49,15 @@ void SnMsgCenter::emitTranslateModeChange(SN_TranslateMode mode)
 	emit signalTranslateModeChange(mode);
 }
 
+void SnMsgCenter::emitIdentifyAdd(SnIdentify* id)
+{
+	emit signalIdentifyAdd(id);
+}
 
+void SnMsgCenter::emitIdentifyDelete(std::vector<SnIdentify*> ids)
+{
+	emit signalIdentifyDelete(ids);
+}
 
 
 

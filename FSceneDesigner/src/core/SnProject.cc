@@ -7,6 +7,7 @@
 #include "SnGlobal.h"
 #include "SnIdentifyFactory.h"
 #include "FsGlobal.h"
+#include "sys/io/FsVFS.h"
 
 
 NS_FS_USE
@@ -138,6 +139,7 @@ void SnProject::loadScene()
 		}
 		m_scene=scene;
 	}
+
 }
 
 
@@ -204,6 +206,7 @@ void SnProject::setCurrentAndSelectIdentify(SnIdentify* ct,const std::vector<SnI
 		}
 	}
 
+
 	m_currentIdentify=ct;
 	m_selectIdentifys=select;
 
@@ -254,6 +257,8 @@ void SnProject::registerFsGlobalMgr()
 	Global::setProgramSourceMgr(m_programSourceMgr);
 	Global::setFelisScriptMgr(m_felisScriptMgr);
 	Global::setFontBitmapMgr(m_fontBmpMgr);
+
+	VFS::setRoot(m_dirName.c_str());
 }
 
 

@@ -21,8 +21,9 @@ class SnProjectExploreWidget:public QWidget
 		void mousePress(const QModelIndex& index);
 		void onProjectChange();
 		void slotLayer2DAdd(SnLayer2D* ly);
+		void slotIdentifyAdd(SnIdentify* id);
 		void slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
-
+		void slotIdentifyDelete(std::vector<SnIdentify*> st);
 
 
 

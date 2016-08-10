@@ -35,6 +35,7 @@ const char* SnScene::identifyTypeName()
 
 SnScene::SnScene()
 {
+	setRefDelete(false);
 	m_className=Scene::getClassName();
 }
 

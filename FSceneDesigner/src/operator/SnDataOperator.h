@@ -34,6 +34,7 @@ class SnDataOperator
 
 		void setIdentifyAttribute(SnIdentify* id,const char* name,const Faeris::FsVariant& value);
 
+
 		void addLayer2D(SnLayer2D* layer);
 
 		void reindexLayer2D(SnLayer2D* layer,int index);
@@ -52,6 +53,11 @@ class SnDataOperator
 		/* mode info */
 		void setEditMode(SN_EditMode mode);
 		void setTranslateMode(SN_TranslateMode mode);
+
+
+		/* add and delete */
+		void addIdentifyFromUrl(Faeris::Vector2 pos,const std::string& filename);
+		void deleteSelect();
 
 
 

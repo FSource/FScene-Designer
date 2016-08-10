@@ -2,6 +2,7 @@
 #define _SD_MSG_CENTER_H_
 
 
+#include <vector>
 #include <QObject>
 
 #include "SnEnums.h"
@@ -25,16 +26,19 @@ class SnMsgCenter:public QObject
 		/* project */
 		void signalCurProjectChange();
 		void signalCurSceneChange();
+
 		void signalLayer2DAdd(SnLayer2D* ly);
+		void signalIdentifyAdd(SnIdentify* id);
+		void signalIdentifyDelete(std::vector<SnIdentify*> ids);
 
 
 
 		void signalIdentifyAttributeChange(SnIdentify* id,const char* name);
 
 		void signalCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st);
-
 		void signalEditModeChange(SN_EditMode mode);
 		void signalTranslateModeChange(SN_TranslateMode mode);
+
 
 
 	public:
@@ -43,6 +47,10 @@ class SnMsgCenter:public QObject
 		void emitCurSceneChange();
 
 		void emitLayer2DAdd(SnLayer2D* ly);
+		void emitIdentifyAdd(SnIdentify* id);
+		void emitIdentifyDelete(std::vector<SnIdentify*> ids);
+
+
 		void emitCurLayerChange(SnLayer2D* ly);
 		void emitCurEntityChange();
 

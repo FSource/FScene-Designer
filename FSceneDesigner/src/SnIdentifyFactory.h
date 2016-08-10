@@ -13,6 +13,7 @@ typedef SnIdentify* (*SnIdentifyCreateFunc)(Faeris::FsDict*);
 class SnIdentifyFactory 
 {
 	public:
+		SnIdentify* newInstanceFromUrl(const char* filename);
 		SnIdentify* newInstance(Faeris::FsDict* dict);
 
 	public:

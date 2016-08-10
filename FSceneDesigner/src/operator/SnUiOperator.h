@@ -14,6 +14,9 @@ class SnUiOperator:public QObject
 		SnUiOperator();
 		~SnUiOperator();
 
+
+
+
 	public slots:
 		void newProject();
 		void openProject();

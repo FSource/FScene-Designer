@@ -64,6 +64,7 @@ void SnResourceExploreWidget::init()
 	m_fileModel->setNameFilterDisables(false);
 
 	m_resourceView=new QTreeView(this);
+	m_resourceView->setDragEnabled(true);
 	m_resourceView->setHeaderHidden(true);
 
 }

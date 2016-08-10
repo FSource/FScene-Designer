@@ -175,6 +175,16 @@ void SnProjectExploreWidget::slotLayer2DAdd(SnLayer2D* ly)
 {
 	m_projectExploreModel->refresh();
 }
+void SnProjectExploreWidget::slotIdentifyAdd(SnIdentify* id)
+{
+	m_projectExploreModel->refresh();
+}
+
+void SnProjectExploreWidget::slotIdentifyDelete(std::vector<SnIdentify*> id)
+{
+	m_projectExploreModel->refresh();
+}
+
 
 void SnProjectExploreWidget::slotCurrentAndSelectsChange(SnIdentify* id,const std::vector<SnIdentify*>& st)
 {

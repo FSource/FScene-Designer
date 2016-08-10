@@ -1,3 +1,6 @@
+#include <QTextStream>
+#include <QDir>
+
 #include "SnIdentifyFactory.h"
 #include "support/util/FsString.h"
 
@@ -12,8 +15,37 @@
 #include "core/SnScrollView.h"
 #include "core/SnUiWidget.h"
 
+#include "support/util/FsScriptUtil.h"
+
+
 
 NS_FS_USE
+
+SnIdentify* SnIdentifyFactory::newInstanceFromUrl(const char* filename)
+{
+
+	QFile f(filename);
+
+	if(!f.open(QIODevice::ReadOnly | QIODevice::Text))  
+	{
+		return NULL;
+	}
+
+	QTextStream txtInput(&f);  
+
+	QString content=txtInput.readAll();
+	FsDict* dict=ScriptUtil::parseScriptFromStr(content.toUtf8().constData());
+
+	if(dict==NULL)
+	{
+		return NULL;
+	}
+
+	SnIdentify* id=newInstance(dict);
+	dict->destroy();
+	return id;
+}
+
 
 
 SnIdentify* SnIdentifyFactory::newInstance(Faeris::FsDict* dict)
