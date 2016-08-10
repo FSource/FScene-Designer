@@ -9,6 +9,8 @@
 #include <QStringList>
 #include <QModelIndex>
 
+class SnFileIconProvider;
+
 
 class SnResourceExploreWidget:public QWidget
 {
@@ -34,6 +36,7 @@ class SnResourceExploreWidget:public QWidget
 	private:
 		QFileSystemModel* m_fileModel;
 		QTreeView* m_resourceView;
+		SnFileIconProvider* m_fileIconProvider;
 };
 
 #endif /*_MD_RESOURCE_WIDGET_H_*/

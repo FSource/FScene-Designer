@@ -249,6 +249,12 @@
     <ClCompile Include="src\operator\SnIoOperator.cc">
       <Filter>src\operator</Filter>
     </ClCompile>
+    <ClCompile Include="src\widget\SnFileIconProvider.cc">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\SnLabelBitmap.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="resource\ui\aboutdialog.ui">
@@ -485,6 +491,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\core\SnTUiWidget.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\widget\SnFileIconProvider.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SnLabelBitmap.h">
       <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>

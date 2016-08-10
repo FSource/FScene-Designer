@@ -201,10 +201,9 @@ QVariant SnProjectExploreModel::data(const QModelIndex& index,int role)const
 		flags|=Qt::ItemIsDragEnabled;
 	}
 
-	if(idfier->isDropEnabled())
-	{
-		flags|=Qt::ItemIsDropEnabled;
-	}
+
+	flags|=Qt::ItemIsDropEnabled;
+	
 
 	return flags;
 }

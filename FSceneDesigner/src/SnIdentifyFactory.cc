@@ -14,6 +14,7 @@
 #include "core/SnScene.h"
 #include "core/SnScrollView.h"
 #include "core/SnUiWidget.h"
+#include "core/SnLabelBitmap.h"
 
 #include "support/util/FsScriptUtil.h"
 
@@ -84,6 +85,7 @@ void SnIdentifyFactory::preLoadCreatorFuncs()
 	m_creatorFuncs["SnScene"] =(SnIdentifyCreateFunc)SnScene::newInstance;
 	m_creatorFuncs["SnScrollView"] =(SnIdentifyCreateFunc)SnScrollView::newInstance;
 	m_creatorFuncs["SnUiWidget"] =(SnIdentifyCreateFunc)SnUiWidget::newInstance;
+	m_creatorFuncs["SnLabelBitmap"]=(SnIdentifyCreateFunc)SnLabelBitmap::newInstance;
 
 }
 

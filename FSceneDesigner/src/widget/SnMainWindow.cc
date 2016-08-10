@@ -169,21 +169,76 @@ void SnMainWindow::initMenuBar()
 	}
     mn_edit=m_menubar->addMenu("&Edit");
     mn_view=m_menubar->addMenu("&View");
-    mn_animation=m_menubar->addMenu("&Animation");
-    mn_setting=m_menubar->addMenu("&Setting");
 
-    /* about */
-    QMenu* mn_about=m_menubar->addMenu("About");
-    {
-        /* online toturial*/
-        ms_help=new QAction(QPixmap(""),"&Online Tutorial",this);
-        mn_about->addAction(ms_help);
-        connect(ms_help,SIGNAL(triggered()),this,SLOT(onHelp()));
+    mn_entity=m_menubar->addMenu("&Entity");
+	{
+		mn_newEntity2D=new QMenu("Create Entity2D");
 
-        /* about us */
-        ms_about_us=new QAction(QPixmap(""),"&About Us",this);
-        mn_about->addAction(ms_about_us);
-        connect(ms_about_us,SIGNAL(triggered()),this,SLOT(onAbout()));
+		mn_entity->addMenu(mn_newEntity2D);
+		{
+			mf_newEntity=new QAction("Entity2D",this);
+			mn_newEntity2D->addAction(mf_newEntity);
+
+			mf_newQuad2D=new QAction("Quad2D",this);
+			mn_newEntity2D->addAction(mf_newQuad2D);
+
+			mf_newSprie2D=new QAction("Sprite2D",this);
+			mn_newEntity2D->addAction(mf_newSprie2D);
+
+			mf_newLabelTTF=new QAction("LabelTTF",this);
+			mn_newEntity2D->addAction(mf_newLabelTTF);
+
+			mf_newLabelBitmap=new QAction("LabelBitmap",this);
+			mn_newEntity2D->addAction(mf_newLabelBitmap);
+
+			mf_newParticle2D=new QAction("Particle2D",this);
+			mn_newEntity2D->addAction(mf_newParticle2D);
+		}
+		mn_newUi=new QMenu("Create Ui");
+		mn_entity->addMenu(mn_newUi);
+		{
+			mf_newPressButton=new QAction("PressButton",this);
+			mn_newUi->addAction(mf_newPressButton);
+
+			mf_newToggleButton=new QAction("ToggleButton",this);
+			mn_newUi->addAction(mf_newToggleButton);
+
+			mf_newProcessBar=new QAction("ProcessBar",this);
+			mn_newUi->addAction(mf_newProcessBar);
+
+			mf_newUiWidget=new QAction("UiWidget",this);
+			mn_newUi->addAction(mf_newUiWidget);
+
+			mf_newScrollView=new QAction("ScrollView",this);
+			mn_newUi->addAction(mf_newScrollView);
+
+			mf_newListView=new QAction("ListView",this);
+			mn_newUi->addAction(mf_newListView);
+
+			mf_newPageView=new QAction("PageView",this);
+			mn_newUi->addAction(mf_newPageView);
+
+			mf_newDynamicView=new QAction("DynamicView",this);
+			mn_newUi->addAction(mf_newDynamicView);
+		}
+
+	}
+
+	mn_animation=m_menubar->addMenu("&Animation");
+	mn_setting=m_menubar->addMenu("&Setting");
+
+	/* about */
+	QMenu* mn_about=m_menubar->addMenu("About");
+	{
+		/* online toturial*/
+		ms_help=new QAction(QPixmap(""),"&Online Tutorial",this);
+		mn_about->addAction(ms_help);
+		connect(ms_help,SIGNAL(triggered()),this,SLOT(onHelp()));
+
+		/* about us */
+		ms_about_us=new QAction(QPixmap(""),"&About Us",this);
+		mn_about->addAction(ms_about_us);
+		connect(ms_about_us,SIGNAL(triggered()),this,SLOT(onAbout()));
 	}
 
 

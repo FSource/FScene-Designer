@@ -7,6 +7,10 @@
 #include "core/SnProject.h"
 #include "SnGlobal.h"
 
+#include "SnFileIconProvider.h"
+
+
+
 SnResourceExploreWidget::SnResourceExploreWidget()
 {
     init();
@@ -62,6 +66,10 @@ void SnResourceExploreWidget::init()
 	m_fileModel->setReadOnly(true);
 	m_fileModel->setFilter(QDir::AllDirs|QDir::Files|QDir::NoSymLinks|QDir::NoDotAndDotDot );
 	m_fileModel->setNameFilterDisables(false);
+
+	m_fileIconProvider=new SnFileIconProvider();
+	m_fileModel->setIconProvider(m_fileIconProvider);
+
 
 	m_resourceView=new QTreeView(this);
 	m_resourceView->setDragEnabled(true);

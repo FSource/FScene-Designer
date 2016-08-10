@@ -222,25 +222,29 @@ class SnIdentify
 		virtual Faeris::FsDict* takeObjectFst();
 
 		/* pos adjust */
+		/*
 		virtual void forwardIdentifyChild(SnIdentify* id);
 		virtual void backIdentifyChild(SnIdentify* id);
 		virtual void toTopIdentifyChild(SnIdentify* id);
 		virtual void toTailIdentifyChild(SnIdentify* id);
+		*/
 
 
 		/* state info */
-		virtual void saveState(const char* name);
-		virtual void restoreState(const char* name);
+		//virtual void saveState(const char* name);
+		//virtual void restoreState(const char* name);
 
 		/* feature */
-		virtual bool setDragEnabled(bool value);
+		//virtual bool setDragEnabled(bool value);
 		virtual bool isDragEnabled();
 
+		/*
 		void setDeleteEnabled(bool value);
 		virtual bool isDeleteEnabled();
 
 		virtual void setDuplicateEnabled(bool value);
 		virtual bool isDuplicateEnabled();
+		*/
 
 
 

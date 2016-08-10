@@ -46,7 +46,7 @@ bool SnIdentify::acceptChild(SnIdentify* id){return false;}
 
 
 bool SnIdentify::isDragEnabled(){return false;}
-bool SnIdentify::isDropEnabled(){return false;}
+
 
 
 

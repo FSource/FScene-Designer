@@ -1,4 +1,41 @@
-g`"
+#include <assert.h>
+#include "operator/SnDataOperator.h"
+#include "core/SnProject.h"
+
+#include "SnGlobal.h"
+#include "SnMsgCenter.h"
+#include "core/SnScene.h"
+#include "core/SnLayer2D.h"
+
+
+NS_FS_USE
+
+SnDataOperator::SnDataOperator()
+{
+}
+
+SnDataOperator::~SnDataOperator()
+{
+}
+
+
+SnProject* SnDataOperator::getCurProject()
+{
+    return SnGlobal::getProject();
+}
+
+
+void SnDataOperator::setCurProject(SnProject* proj)
+{
+    SnGlobal::setProject(proj);
+	SnGlobal::msgCenter()->emitCurProjectChange();
+}
+
+SnScene* SnDataOperator::getCurScene()
+{
+    SnProject* proj=getCurProject();
+    if(proj)
+    {
         return proj->getCurScene();
     }
     return NULL;
@@ -329,13 +366,13 @@ void SnDataOperator::addIdentifyFromUrl(Faeris::Vector2f pos,const std::string& 
 
 
 	std::string relative_path=SnUtil::toRelativePath(proj->getDirName().c_str(),filename.c_str());
+
 	SnIdentify* identify=SnUtil::createIdentifyFromUrl(filename.c_str(),relative_path.c_str());
+
 	if(identify==NULL)
 	{
 		return;
 	}
-
-
 
 	Entity2D* en=dynamic_cast<Entity2D*>(identify);
 	assert(en);
@@ -343,7 +380,7 @@ void SnDataOperator::addIdentifyFromUrl(Faeris::Vector2f pos,const std::string& 
 	std::vector<SnIdentify*> select=getSelectedIdentify();
 	if(select.size()>0)
 	{
-		if(select[0]->acceptIdentifyChild(identify))
+		if(select[0]->acceptChild(identify)&&SnUtil::identifyHitPoint(select[0],pos))
 		{
 			select[0]->addIdentifyChild(identify);
 		}
@@ -361,12 +398,12 @@ void SnDataOperator::addIdentifyFromUrl(Faeris::Vector2f pos,const std::string& 
 
 	SnGlobal::msgCenter()->emitIdentifyAdd(identify);
 
-	std::vector<SnIdentify*> select;
-	select.push_back(identify);
+	std::vector<SnIdentify*> new_select;
+	new_select.push_back(identify);
 
-	proj->setCurrentAndSelectIdentify(identify,select);
+	proj->setCurrentAndSelectIdentify(identify,new_select);
 
-	SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(identify,select);
+	SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(identify,new_select);
 
 }
 

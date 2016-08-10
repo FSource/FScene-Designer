@@ -125,6 +125,28 @@ class SnMainWindow:public QMainWindow
 		QMenuBar* m_menubar;
 		QMenu* mn_file;
 		QMenu* mn_edit;  
+
+		QMenu* mn_entity;
+		QAction* mf_newEntity;
+
+		QMenu* mn_newEntity2D;
+		QAction* mf_newQuad2D;
+		QAction* mf_newSprie2D;
+		QAction* mf_newLabelTTF;
+		QAction* mf_newLabelBitmap;
+		QAction* mf_newParticle2D;
+		QMenu* mn_newUi;
+		QAction* mf_newPressButton;
+		QAction* mf_newToggleButton;
+		QAction* mf_newProcessBar;
+		QAction* mf_newUiWidget;
+		QAction* mf_newScrollView;
+		QAction* mf_newListView;
+		QAction* mf_newPageView;
+		QAction* mf_newDynamicView;
+
+
+
 		QMenu* mn_view;
 		QMenu* mn_animation;
 		QMenu* mn_setting;

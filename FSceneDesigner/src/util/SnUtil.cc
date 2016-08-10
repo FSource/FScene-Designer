@@ -10,6 +10,7 @@
 #include "SnIdentifyFactory.h"
 #include "core/SnLabelTTF.h"
 #include "core/SnQuad2D.h"
+#include "core/SnLabelBitmap.h"
 
 #include "support/util/FsScriptUtil.h"
 #include "support/util/FsDict.h"
@@ -363,6 +364,10 @@ namespace  SnUtil
 		}
 		else if(type==SN_CLASS_LABEL_BMP)
 		{
+			SnLabelBitmap* ret=new SnLabelBitmap();
+			ret->setFontName(relative);
+			ret->setObjectName(filename.c_str());
+			return ret;
 		
 		}
 		else 
