@@ -61,6 +61,11 @@ class SnProject
 		void registerFsGlobalMgr();
 
 		void loadScene();
+		void setResolutionX(int rx){ m_resolutionX=rx;}
+		int getResolutionX(){return m_resolutionX;}
+
+		void setResolutionY(int ry){m_resolutionY=ry;}
+		int getResolutionY(){return m_resolutionY;}
 
 		/* save and export */
 		Faeris::FsDict* takeSaveFst();

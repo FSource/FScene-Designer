@@ -100,17 +100,13 @@ void SnDataOperator::moveEntityToLayer(Faeris::Entity2D* en,SnLayer2D* layer)
 	SnGlobal::msgCenter()->emitLayer2DAdd(layer);
 }
 
-void SnDataOperator::moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p)
+void SnDataOperator::moveIdentifyToIdentify(SnIdentify* id,SnIdentify* p)
 {
-	en->addRef();
+	assert(p->acceptChild(id));
 
-	SnIdentify* e_id=dynamic_cast<SnIdentify*>(en);
-	e_id->getIdentifyParent()->removeIdentifyChild(e_id);
+	id->getIdentifyParent()->removeIdentifyChild(id);
 
-	SnIdentify* e_p=dynamic_cast<SnIdentify*>(p);
-	e_p->addIdentifyChild(e_id);
-
-	en->decRef();
+	p->addIdentifyChild(id);
 	SnGlobal::msgCenter()->emitLayer2DAdd(NULL);
 }
 
@@ -406,6 +402,56 @@ void SnDataOperator::addIdentifyFromUrl(Faeris::Vector2f pos,const std::string& 
 	SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(identify,new_select);
 
 }
+
+void SnDataOperator::addIdentify(SnIdentify* identify)
+{
+
+	SnProject* proj=getCurProject();
+	if(!proj)
+	{
+		delete identify ;
+		return;
+	}
+
+	SnLayer2D* ly=getCurrentLayer();
+	if(ly==NULL)
+	{
+		delete identify ;
+		return;
+	}
+
+	Entity2D* en=dynamic_cast<Entity2D*>(identify);
+	assert(en);
+
+	std::vector<SnIdentify*> select=getSelectedIdentify();
+	if(select.size()>0)
+	{
+		if(select[0]->acceptChild(identify))
+		{
+			select[0]->addIdentifyChild(identify);
+		}
+		else 
+		{
+			ly->addIdentifyChild(identify);
+		}
+	}
+	else 
+	{
+		ly->addIdentifyChild(identify);
+	}
+
+
+	SnGlobal::msgCenter()->emitIdentifyAdd(identify);
+
+	std::vector<SnIdentify*> new_select;
+	new_select.push_back(identify);
+
+	proj->setCurrentAndSelectIdentify(identify,new_select);
+
+	SnGlobal::msgCenter()->emitCurrrentAndSelectsChange(identify,new_select);
+
+}
+
 
 
 void SnDataOperator::deleteSelect()

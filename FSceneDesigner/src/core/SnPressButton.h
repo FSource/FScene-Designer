@@ -8,6 +8,9 @@
 class SnPressButton:public TSnEntity2D<Faeris::PressButton> 
 {
 	public:
+		FS_CLASS_DECLARE(SnPressButton);
+
+	public:
 		static SnPressButton* newInstance(Faeris::FsDict* dict);
 
 	public:
@@ -17,6 +20,7 @@ class SnPressButton:public TSnEntity2D<Faeris::PressButton>
 		virtual int identifyType();
 		virtual const char* identifyTypeName();
 		virtual SnAttrGroupList* getAttributeList();
+		virtual std::vector<std::string> getObjectFstAttrList();
 };
 
 

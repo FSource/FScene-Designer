@@ -40,7 +40,7 @@ class SnDataOperator
 		void reindexLayer2D(SnLayer2D* layer,int index);
 		void moveEntityToLayer(Faeris::Entity2D* en,SnLayer2D* layer);
 			
-		void moveEntityToEntity(Faeris::Entity2D* en,Faeris::Entity2D* p);
+		void moveIdentifyToIdentify(SnIdentify* id,SnIdentify* p);
 
 		/* transform info */
 		void translateInWorld(std::vector<SnIdentify*> ids,float x,float y);
@@ -57,6 +57,8 @@ class SnDataOperator
 
 		/* add and delete */
 		void addIdentifyFromUrl(Faeris::Vector2 pos,const std::string& filename);
+		void addIdentify(SnIdentify* id);
+
 		void deleteSelect();
 
 

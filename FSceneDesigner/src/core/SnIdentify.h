@@ -49,20 +49,43 @@ class SnAttrTypeDesc
 	public:
 		SnAttrTypeDesc(const char* name,int type)
 		{
+			m_desplayName=name;
 			m_name=name;
 			m_type=type;
 			m_editType=SN_EXTENDS_EDIT_UNKOWN;
 		}
+
+		SnAttrTypeDesc(const char* name,const char* desplay_name,int type)
+		{
+			m_name=name;
+			m_desplayName=desplay_name;
+			m_type=type;
+			m_editType=SN_EXTENDS_EDIT_UNKOWN;
+		}
+
+
 		SnAttrTypeDesc(const char* name,int type,int editType)
 		{
+			m_desplayName=name;
 			m_name=name;
 			m_type=type;
 			m_editType=editType;
 		}
 
+		SnAttrTypeDesc(const char* name,const char* desplay_name,int type,int editType)
+		{
+			m_desplayName=desplay_name;
+			m_name=name;
+			m_type=type;
+			m_editType=editType;
+		}
+
+
+
 		SnAttrTypeDesc(const char* name, QStringList enums)
 		{
 			m_type=SN_TYPE_ENUMS;
+			m_desplayName=name;
 			m_name=name;
 			m_enums=enums;
 			m_editType=-1;
@@ -70,6 +93,8 @@ class SnAttrTypeDesc
 
 	public:
 		const char* getName() { return m_name.c_str(); }
+		const char* getDisplayName(){return m_desplayName.c_str();}
+
 		int getType() { return m_type; }
 		int getEditorType(){return m_editType;}
 
@@ -79,6 +104,7 @@ class SnAttrTypeDesc
 
 	private:
 		std::string m_name;
+		std::string m_desplayName;
 
 		/* normal type */
 		int m_type;
@@ -261,6 +287,10 @@ class SnIdentify
 		SnAttrTypeDesc* createAttributeDesc(const char* name,int type);
 		SnAttrTypeDesc* createAttributeDesc(const char* name,int type,int editor_type);
 		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* fn(int));
+
+		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* display_name,int type);
+		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* display_name,int type,int editor_type);
+
 		Faeris::FsObject* variantToFst(const Faeris::FsVariant& v);
 
 		virtual std::vector<std::string> getObjectFstAttrList();

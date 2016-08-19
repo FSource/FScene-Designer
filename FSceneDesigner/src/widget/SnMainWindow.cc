@@ -16,6 +16,18 @@
 #include "SnMsgCenter.h"
 #include "SnEnums.h"
 
+#include "core/SnEntity2D.h"
+#include "core/SnQuad2D.h"
+#include "core/SnLabelTTF.h"
+#include "core/SnLabelBitmap.h"
+#include "core/SnPressButton.h"
+//#include "core/SnProcessBar.h"
+#include "core/SnUiWidget.h"
+#include "core/SnScrollView.h"
+#include "core/SnListView.h"
+#include "core/SnPageView.h"
+
+
 
 SnMainWindow::SnMainWindow()
 {
@@ -151,80 +163,105 @@ void SnMainWindow::initMenuBar()
 		mn_file->addAction(save_project);
 		connect(save_project,SIGNAL(triggered()),this,SLOT(onSaveProject()));
 
-					/* save */
-		QAction* save_as =new QAction(QPixmap(SN_MT_SAVE_AS_PORJECT),"&Save As",this);
-		mn_file->addAction(save_as);
-		
-					/* save */
+
+		/* save */
 		QAction* export_project =new QAction(QPixmap(SN_MT_SAVE_AS_PORJECT),"&Export",this);
 		mn_file->addAction(export_project);
+		connect(export_project,SIGNAL(triggered()),this,SLOT(onExportProject()));
 
-			
+
 		mn_file->addSeparator();
 
-						/* exit */
+		/* exit */
 		QAction* exit =new QAction(QPixmap(SN_MT_EXIT_PORJECT),"&Exit",this);
 		mn_file->addAction(exit);
 
 	}
-    mn_edit=m_menubar->addMenu("&Edit");
-    mn_view=m_menubar->addMenu("&View");
+	mn_edit=m_menubar->addMenu("&Edit");
+	mn_view=m_menubar->addMenu("&View");
 
-    mn_entity=m_menubar->addMenu("&Entity");
+	mn_object=m_menubar->addMenu("&Object");
 	{
-		mn_newEntity2D=new QMenu("Create Entity2D");
+		mf_newLayer2D=new QAction("Create Layer2D",this);
+		mn_object->addAction(mf_newLayer2D);
+		connect(mf_newLayer2D,SIGNAL(triggered()),this,SLOT(onCreateLayer2D()));
 
-		mn_entity->addMenu(mn_newEntity2D);
+		mn_newEntity2D=new QMenu("Create Entity2D");
+		mn_object->addMenu(mn_newEntity2D);
 		{
 			mf_newEntity=new QAction("Entity2D",this);
 			mn_newEntity2D->addAction(mf_newEntity);
+			connect(mf_newEntity,SIGNAL(triggered()),this,SLOT(onCreateEntity2D()));
 
 			mf_newQuad2D=new QAction("Quad2D",this);
 			mn_newEntity2D->addAction(mf_newQuad2D);
+			connect(mf_newQuad2D,SIGNAL(triggered()),this,SLOT(onCreateQuad2D()));
 
 			mf_newSprie2D=new QAction("Sprite2D",this);
 			mn_newEntity2D->addAction(mf_newSprie2D);
+			connect(mf_newSprie2D,SIGNAL(triggered()),this,SLOT(onCreateSprite2D()));
 
 			mf_newLabelTTF=new QAction("LabelTTF",this);
 			mn_newEntity2D->addAction(mf_newLabelTTF);
+			connect(mf_newLabelTTF,SIGNAL(triggered()),this,SLOT(onCreateLabelTTF()));
 
 			mf_newLabelBitmap=new QAction("LabelBitmap",this);
 			mn_newEntity2D->addAction(mf_newLabelBitmap);
+			connect(mf_newLabelBitmap,SIGNAL(triggered()),this,SLOT(onCreateLabelBitmap()));
 
 			mf_newParticle2D=new QAction("Particle2D",this);
 			mn_newEntity2D->addAction(mf_newParticle2D);
+			connect(mf_newParticle2D,SIGNAL(triggered()),this,SLOT(onCreateParticle2D()));
 		}
 		mn_newUi=new QMenu("Create Ui");
-		mn_entity->addMenu(mn_newUi);
+		mn_object->addMenu(mn_newUi);
 		{
 			mf_newPressButton=new QAction("PressButton",this);
 			mn_newUi->addAction(mf_newPressButton);
+			connect(mf_newPressButton,SIGNAL(triggered()),this,SLOT(onCreatePressButton()));
 
 			mf_newToggleButton=new QAction("ToggleButton",this);
 			mn_newUi->addAction(mf_newToggleButton);
+			connect(mf_newToggleButton,SIGNAL(triggered()),this,SLOT(onCreateToggleButton()));
 
 			mf_newProcessBar=new QAction("ProcessBar",this);
 			mn_newUi->addAction(mf_newProcessBar);
+			connect(mf_newProcessBar,SIGNAL(triggered()),this,SLOT(onCreateProcessBar()));
 
 			mf_newUiWidget=new QAction("UiWidget",this);
 			mn_newUi->addAction(mf_newUiWidget);
+			connect(mf_newUiWidget,SIGNAL(triggered()),this,SLOT(onCreateUiWidget()));
 
 			mf_newScrollView=new QAction("ScrollView",this);
 			mn_newUi->addAction(mf_newScrollView);
+			connect(mf_newScrollView,SIGNAL(triggered()),this,SLOT(onCreateScrollView()));
 
 			mf_newListView=new QAction("ListView",this);
 			mn_newUi->addAction(mf_newListView);
+			connect(mf_newListView,SIGNAL(triggered()),this,SLOT(onCreateListView()));
 
 			mf_newPageView=new QAction("PageView",this);
 			mn_newUi->addAction(mf_newPageView);
+			connect(mf_newPageView,SIGNAL(triggered()),this,SLOT(onCreatePageView()));
 
 			mf_newDynamicView=new QAction("DynamicView",this);
 			mn_newUi->addAction(mf_newDynamicView);
+			connect(mf_newDynamicView,SIGNAL(triggered()),this,SLOT(onCreateDynamicView()));
 		}
 
 	}
 
+
 	mn_animation=m_menubar->addMenu("&Animation");
+
+	mn_simulator=m_menubar->addMenu("Simulator");
+
+	mf_runWindow=new QAction("Run In Window",this);
+	mn_simulator->addAction(mf_runWindow);
+	connect(mf_runWindow,SIGNAL(triggered()),this,SLOT(onRunInWindow()));  
+	
+
+
 	mn_setting=m_menubar->addMenu("&Setting");
 
 	/* about */
@@ -344,6 +381,11 @@ void SnMainWindow::onSaveProject()
 	SnGlobal::uiOperator()->saveProject();
 }
 
+void SnMainWindow::onExportProject()
+{
+	SnGlobal::uiOperator()->exportProject();
+}
+
 
 
 void SnMainWindow::onUndo()
@@ -380,8 +422,156 @@ void SnMainWindow::onZoomOut()
 	m_editViewWidget->onZoomOut();
 }
 
+/* object */
+void SnMainWindow::onCreateLayer2D()
+{
+	if(SnGlobal::dataOperator()->getCurProject()==NULL)
+	{
+		return;
+	}
+
+	SnGlobal::uiOperator()->addLayer2D();
+}
+
+void  SnMainWindow::onCreateEntity2D()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnEntity2D* en=new SnEntity2D();
+	SnGlobal::dataOperator()->addIdentify(en);
+}
+
+void SnMainWindow::onCreateQuad2D()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnQuad2D* id=new SnQuad2D();
+	SnGlobal::dataOperator()->addIdentify(id);
+}
+
+void SnMainWindow::onCreateSprite2D()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+
+}
+
+void SnMainWindow::onCreateLabelTTF()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnLabelTTF* id=new SnLabelTTF();
+	SnGlobal::dataOperator()->addIdentify(id);
+}
+
+void SnMainWindow::onCreateLabelBitmap()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnLabelBitmap* id=new SnLabelBitmap();
+	SnGlobal::dataOperator()->addIdentify(id);
+}
+
+void SnMainWindow::onCreateParticle2D()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+}
+
+void SnMainWindow::onCreatePressButton()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnPressButton* id=new SnPressButton();
+	SnGlobal::dataOperator()->addIdentify(id);
+}
+
+void SnMainWindow::onCreateToggleButton()
+{
+
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+}
+
+void SnMainWindow::onCreateProcessBar()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+}
 
 
+void SnMainWindow::onCreateUiWidget()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnUiWidget* id=new SnUiWidget();
+	SnGlobal::dataOperator()->addIdentify(id);
+}
+
+void SnMainWindow::onCreateScrollView()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnScrollView* id=new SnScrollView();
+	SnGlobal::dataOperator()->addIdentify(id);
+}
+
+void SnMainWindow::onCreateListView()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnListView* id=new SnListView();
+	SnGlobal::dataOperator()->addIdentify(id);
+}
+
+void SnMainWindow::onCreatePageView()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+	SnPageView* id=new SnPageView();
+	SnGlobal::dataOperator()->addIdentify(id);
+}
+
+void SnMainWindow::onCreateDynamicView()
+{
+	if(SnGlobal::dataOperator()->getCurrentLayer()==NULL)
+	{
+		return;
+	}
+
+}
+
+
+
+
+
+/* about */
 void SnMainWindow::onHelp()
 {
 	QDesktopServices::openUrl(QUrl("http://www.fsource.cn"));
@@ -467,7 +657,15 @@ void SnMainWindow::onAxisModeChange(SN_TranslateMode mode )
 }
 
 
+void SnMainWindow::onRunInWindow()
+{
+	if(SnGlobal::dataOperator()->getCurProject()==NULL)
+	{
+		return;
+	}
 
+	SnGlobal::uiOperator()->runInWindow();
+}
 
 void SnMainWindow::createAboutDialog()
 {

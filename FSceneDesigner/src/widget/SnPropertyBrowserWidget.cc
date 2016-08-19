@@ -12,6 +12,7 @@
 #include "FsEnums.h"
 #include "SnGlobal.h"
 #include "operator/SnDataOperator.h"
+#include "core/SnProject.h"
 
 
 NS_FS_USE
@@ -57,6 +58,7 @@ void SnPropertyBrowserWidget::setIdentify(SnIdentify* id)
 	m_variantManager->clear();
 	m_nameToProperty.clear();
 	m_nameToDesc.clear();
+	m_propertyToDesc.clear();
 
 	if(m_groupAttrDescList)
 	{
@@ -119,9 +121,11 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrGroupDesc*
 QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* tattr)
 {
 
-	const char* name=tattr->getName();
+	const char* disp_name=tattr->getDisplayName();
 	int type=tattr->getType();
-	FsVariant t_value=id->getIdentifyAttribute(name);
+
+	const char* name_value=tattr->getName();
+	FsVariant t_value=id->getIdentifyAttribute(name_value);
 
 	if(type==SN_TYPE_ENUMS)
 	{
@@ -129,7 +133,7 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* 
 		if(ftype==E_FsType::FT_CHARS)
 		{
 
-			QtVariantProperty* property=m_variantManager->addProperty(QtVariantPropertyManager::enumTypeId(),QString(name));
+			QtVariantProperty* property=m_variantManager->addProperty(QtVariantPropertyManager::enumTypeId(),QString(disp_name));
 			QStringList enums_name=tattr->getEnums();
 
 			property->setAttribute(QLatin1String("enumNames"), enums_name);
@@ -145,8 +149,9 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* 
 				}
 			}
 
-			m_nameToProperty[name]=property;
-			m_nameToDesc[name]=tattr;
+			m_nameToProperty[name_value]=property;
+			m_nameToDesc[name_value]=tattr;
+			m_propertyToDesc[property]=tattr;
 
 			return property;
 		}
@@ -166,81 +171,89 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* 
 
 			case E_FsType::FT_B_1:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Bool,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Bool,QString(disp_name));
 					property->setValue(*(bool*)t_value.getValue());
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
 			case E_FsType::FT_I_1:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Int,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Int,QString(disp_name));
 					property->setValue(*(int*)t_value.getValue());
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
 			case E_FsType::	FT_F_1:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Double,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Double,QString(disp_name));
 					property->setValue(*(float*)t_value.getValue());
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
 			case E_FsType::FT_F_2:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::PointF,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::PointF,QString(disp_name));
 					Vector2 value=*(Vector2*)t_value.getValue();
 					property->setValue(QPointF(value.x,value.y));
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
 			case E_FsType::FT_F_3:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Vector3D,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Vector3D,QString(disp_name));
 					Vector3 value=*(Vector3*)t_value.getValue();
 					property->setValue(QVector3D(value.x,value.y,value.z));
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
 			case E_FsType::FT_F_4:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Vector4D,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Vector4D,QString(disp_name));
 					Vector4 value=*(Vector4*)t_value.getValue();
 					property->setValue(QVector4D(value.x,value.y,value.z,value.w));
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
 
 			case E_FsType::FT_COLOR_4:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Color,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::Color,QString(disp_name));
 					Color4f value=*(Color4f*)t_value.getValue();
 					property->setValue(QColor(value.r*255,value.g*255,value.b*255,value.a*255));
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
 
 			case E_FsType::FT_F_RECT2D:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::RectF,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::RectF,QString(disp_name));
 					Rect2D value=*(Rect2D*)t_value.getValue();
 
 					property->setValue(QRectF(value.x,value.y,value.width,value.height));
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
@@ -248,23 +261,25 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* 
 
 			case E_FsType::FT_CHARS:
 				{
-					QtVariantProperty* property=m_variantManager->addProperty(QVariant::String,QString(name));
+					QtVariantProperty* property=m_variantManager->addProperty(QVariant::String,QString(disp_name));
 					const char* value=(char*)t_value.getValue();
 					property->setValue(value);
-					m_nameToProperty[name]=property;
-					m_nameToDesc[name]=tattr;
+					m_nameToProperty[name_value]=property;
+					m_nameToDesc[name_value]=tattr;
+					m_propertyToDesc[property]=tattr;
 					return property;
 					break;
 				}
 
 			default:
-				QtVariantProperty* property=m_variantManager->addProperty(QVariant::String,QString(name));
+				QtVariantProperty* property=m_variantManager->addProperty(QVariant::String,QString(disp_name));
 				const char* value=(char*)t_value.getValue();
 				std::string v=std::string(value)+std::string(FsEnum_FsTypeToStr(ftype));
 				property->setValue(v.c_str());
 
-				m_nameToProperty[name]=property;
-				m_nameToDesc[name]=tattr;
+				m_nameToProperty[name_value]=property;
+				m_nameToDesc[name_value]=tattr;
+				m_propertyToDesc[property]=tattr;
 
 				return property;
 				break;
@@ -279,11 +294,12 @@ QtProperty* SnPropertyBrowserWidget::addProperty(SnIdentify* id,SnAttrTypeDesc* 
 				{
 					if(tattr->getEditorType()==SN_EXTENDS_EDIT_FILEPATH)
 					{
-						QtVariantProperty* property=m_variantManager->addProperty(SnVariantManager::filePathTypeId(),QString(name));
+						QtVariantProperty* property=m_variantManager->addProperty(SnVariantManager::filePathTypeId(),QString(disp_name));
 						const char* value=(char*)t_value.getValue();
 						property->setValue(value);
-						m_nameToProperty[name]=property;
-						m_nameToDesc[name]=tattr;
+						m_nameToProperty[name_value]=property;
+						m_nameToDesc[name_value]=tattr;
+						m_propertyToDesc[property]=tattr;
 						return property;
 					}
 				}
@@ -318,15 +334,15 @@ void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
 	QString qname=p->propertyName();
 	std::string name=qname.toUtf8().constData();
 
-
 	SnAttrTypeDesc* desc=NULL; 
-	std::map<std::string,SnAttrTypeDesc*>::iterator iter=m_nameToDesc.find(name);
-	if(iter==m_nameToDesc.end())
+	std::map<QtProperty*,SnAttrTypeDesc*>::iterator iter=m_propertyToDesc.find(p);
+	if(iter==m_propertyToDesc.end())
 	{
 		FS_TRACE_ERROR("No Property(%s) Register",name.c_str());
 		return;
 	}
 	desc=iter->second;
+	name=desc->getName();
 
 	if(desc->getType()==SN_TYPE_ENUMS)
 	{
@@ -357,8 +373,25 @@ void SnPropertyBrowserWidget::slotEditorValueChange(QtProperty* p,QVariant v)
 				}
 			case QVariant::String:
 				{
+				
 					QString t_v=qvariant_cast<QString>(v);
-					ret=FsVariant(t_v.toUtf8().constData());
+					if(desc->getEditorType()==SN_EXTENDS_EDIT_FILEPATH)
+					{
+						std::string dir_path=SnGlobal::dataOperator()->getCurProject()->getDirName();
+						if(t_v.startsWith(dir_path.c_str()))
+						{
+							std::string r_path=SnUtil::toRelativePath(dir_path.c_str(),t_v.toUtf8().constData());
+							ret=FsVariant(r_path.c_str());
+						}
+						else 
+						{
+							ret=FsVariant(t_v.toUtf8().constData());
+						}
+					}
+					else 
+					{
+						ret=FsVariant(t_v.toUtf8().constData());
+					}
 					break;
 				}
 			case QVariant::Double:
@@ -456,7 +489,7 @@ void SnPropertyBrowserWidget::updateProperty(QtVariantProperty* property,SnAttrT
 {
 
 
-	const char* name=tattr->getName();
+	//const char* name=tattr->getName();
 	int type=tattr->getType();
 
 
@@ -479,7 +512,7 @@ void SnPropertyBrowserWidget::updateProperty(QtVariantProperty* property,SnAttrT
 			}
 		}
 	}
-	else if(type==SN_TYPE_NORMAL)
+	else if(type==SN_TYPE_NORMAL||type==SN_TYPE_EXTENDS)
 	{
 		E_FsType ftype=t_value.getType();
 		switch(ftype)
@@ -590,13 +623,24 @@ void SnPropertyBrowserWidget::updateExpandState()
 	while (it.hasNext()) 
 	{
 		QtBrowserItem *item = it.next();
-		QtProperty *prop = item->property();
-		std::string name=prop->propertyName().toUtf8().constData();
-		if(m_nameToExpands.find(name)!=m_nameToExpands.end())
+		QtProperty* prop = item->property();
+		std::map<QtProperty*,SnAttrTypeDesc*>::iterator iter;
+
+		iter=m_propertyToDesc.find(prop);
+
+		if(iter!=m_propertyToDesc.end())
 		{
-			bool value=m_nameToExpands[name];
-			m_propertyEditor->setExpanded(item,value);
+			SnAttrTypeDesc* desc=iter->second;
+			std::string name=desc->getName();
+
+			if(m_nameToExpands.find(name)!=m_nameToExpands.end())
+			{
+				bool value=m_nameToExpands[name];
+				m_propertyEditor->setExpanded(item,value);
+			}
 		}
+
+
 
 		QList<QtBrowserItem *> ch_list = item->children();
 
@@ -606,11 +650,19 @@ void SnPropertyBrowserWidget::updateExpandState()
 		{
 			QtBrowserItem* ch_item = ch_it.next();
 			QtProperty *ch_prop = ch_item->property();
-			std::string ch_name=ch_prop->propertyName().toUtf8().constData();
-			if(m_nameToExpands.find(ch_name)!=m_nameToExpands.end())
+
+			std::map<QtProperty*,SnAttrTypeDesc*>::iterator ch_iter;
+			ch_iter=m_propertyToDesc.find(ch_prop);
+
+			if(ch_iter!=m_propertyToDesc.end())
 			{
-				bool value=m_nameToExpands[ch_name];
-				m_propertyEditor->setExpanded(ch_item,value);
+				std::string ch_name=ch_iter->second->getName();
+
+				if(m_nameToExpands.find(ch_name)!=m_nameToExpands.end())
+				{
+					bool value=m_nameToExpands[ch_name];
+					m_propertyEditor->setExpanded(ch_item,value);
+				}
 			}
 		}
 	}

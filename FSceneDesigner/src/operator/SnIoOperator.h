@@ -17,10 +17,11 @@ class SnIoOperator
 
 	public:
 		SnProject* loadProject(const char* filename);
+
 		bool saveProject(SnProject* proj,const char* name);
+		bool exportProject(SnProject* proj,const char* name);
+		bool SnIoOperator::exportProjectToSimulator(SnProject* proj,const char* file_path);
 
-
-		void exportProject(SnProject* proj,const char* filename);
 		void exportSnIdentify(SnIdentify* id,const char* filename);
 };
 

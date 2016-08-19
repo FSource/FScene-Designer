@@ -67,7 +67,7 @@ namespace  SnUtil
 		{
 			float t=minx;
 			minx=maxx;
-			maxx=t;
+			maxx=t;   
 		}
 		if(miny>maxy)
 		{

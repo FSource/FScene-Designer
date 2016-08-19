@@ -70,6 +70,7 @@ SnProject* SnIoOperator::loadProject(const char* filename)
 	return proj;
 }
 
+
 bool SnIoOperator::saveProject(SnProject* proj,const char* file_path)
 {
 	FsFile* sys_file=SysFile::create(file_path,FsFile::FS_IO_CREATE|FsFile::FS_IO_TRUNC|FsFile::FS_IO_WRONLY);
@@ -88,6 +89,64 @@ bool SnIoOperator::saveProject(SnProject* proj,const char* file_path)
 	return true;
 }
 
+
+bool SnIoOperator::exportProject(SnProject* proj,const char* file_path)
+{
+	FsFile* sys_file=SysFile::create(file_path,FsFile::FS_IO_CREATE|FsFile::FS_IO_TRUNC|FsFile::FS_IO_WRONLY);
+	if(sys_file==NULL)
+	{
+		return false;
+	}
+
+	FsDict* dict=proj->takeExportFst();
+	if(dict==NULL)
+	{
+		return false;
+	}
+
+
+	dict->addRef();
+
+	ScriptUtil::saveScript(sys_file,dict,0);
+	sys_file->destroy();
+	dict->decRef();
+
+	return true;
+}
+
+
+
+bool SnIoOperator::exportProjectToSimulator(SnProject* proj,const char* file_path)
+{
+	FsFile* sys_file=SysFile::create(file_path,FsFile::FS_IO_CREATE|FsFile::FS_IO_TRUNC|FsFile::FS_IO_WRONLY);
+	if(sys_file==NULL)
+	{
+		return false;
+	}
+
+	FsDict* dict=proj->takeExportFst();
+	if(dict==NULL)
+	{
+		return false;
+	}
+
+	int rx=proj->getResolutionX();
+	int ry=proj->getResolutionY();
+
+	char buf[128];
+	sprintf(buf,"%d",rx);
+	dict->insert(FsString::create("winWidth"),FsString::create(buf));
+	sprintf(buf,"%d",ry);
+	dict->insert(FsString::create("winHeight"),FsString::create(buf));
+
+	dict->addRef();
+
+	ScriptUtil::saveScript(sys_file,dict,0);
+	sys_file->destroy();
+	dict->decRef();
+
+	return true;
+}
 
 
 

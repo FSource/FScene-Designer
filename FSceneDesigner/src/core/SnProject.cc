@@ -150,6 +150,7 @@ FsDict* SnProject::takeSaveFst()
 	{
 		return NULL;
 	}
+
 	FsDict* ret=FsDict::create();
 	ret->insert(FsString::create("projectType"),FsString::create("FSceneDesigner"));
 	ret->insert(FsString::create("version"),FsString::create("v2.0.0"));
@@ -170,6 +171,14 @@ FsDict* SnProject::takeSaveFst()
 	return ret;
 }
 
+FsDict* SnProject::takeExportFst()
+{
+	if(m_scene==NULL)
+	{
+		return NULL;
+	}
+	return m_scene->takeObjectFst();
+}
 
 
 

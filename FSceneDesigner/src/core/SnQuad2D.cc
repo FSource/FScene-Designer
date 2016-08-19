@@ -12,6 +12,10 @@ SnQuad2D* SnQuad2D::newInstance(Faeris::FsDict* dict)
 }
 
 
+SnQuad2D::SnQuad2D()
+{
+	setSize(64,64);
+}
 int SnQuad2D::identifyType()
 {
 	return SN_CLASS_QUAD2D;

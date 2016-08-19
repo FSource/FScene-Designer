@@ -21,8 +21,14 @@ class SnUiOperator:public QObject
 		void newProject();
 		void openProject();
 		void saveProject();
+		void exportProject();
+
+
+
 		void renameScene();
 		void addLayer2D();
+
+		void runInWindow();
 };
 
 

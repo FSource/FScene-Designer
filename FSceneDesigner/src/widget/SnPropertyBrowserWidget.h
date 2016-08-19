@@ -37,9 +37,9 @@ class SnPropertyBrowserWidget:public QWidget
 		void setIdentify(SnIdentify* id);
 		QtProperty* addProperty(SnIdentify* id,SnAttrGroupDesc* desc);
 		QtProperty* addProperty(SnIdentify* id,SnAttrTypeDesc* tattr);
+
 		void refreshProperty();
 		void updateProperty(QtVariantProperty* p,SnAttrTypeDesc* tattr,Faeris::FsVariant v);
-
 
 		void saveExpandState();
 		
@@ -52,7 +52,7 @@ class SnPropertyBrowserWidget:public QWidget
 
 		std::map<std::string,QtProperty*> m_nameToProperty;
 		std::map<std::string,SnAttrTypeDesc*> m_nameToDesc;
-
+		std::map<QtProperty*,SnAttrTypeDesc*> m_propertyToDesc;
 		std::map<std::string,bool> m_nameToExpands;
 
 		SnAttrGroupList* m_groupAttrDescList;

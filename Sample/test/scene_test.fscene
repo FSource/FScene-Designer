@@ -85,13 +85,13 @@ scene:{
 					editClass:SnListView
 					className:ListView
 					objectName:lisview
-					position:[-225.50,256.50,0.00]
+					position:[-225.50,207.51,0.00]
 					scale:[1.00,1.00,1.00]
 					rotateZ:0.00
 					visible:true
 					visibles:true
 					anchor:[0.50,0.50]
-					size:[69.00,137.00]
+					size:[69.00,145.56]
 					touchEnabled:true
 					touchesEnabled:false
 					touchDispatchEnabled:true
@@ -132,33 +132,7 @@ scene:{
 							bgEnabled:true
 							bgTextureUrl:""
 							bgColor:[1.00,0.00,0.00,0.80]
-							children:[
-								{
-									editClass:SnUiWidget
-									className:UiWidget
-									objectName:sfsd
-									position:[-0.50,2.50,0.00]
-									scale:[1.00,1.00,1.00]
-									rotateZ:0.00
-									visible:true
-									visibles:true
-									anchor:[0.50,0.50]
-									size:[35.00,31.00]
-									touchEnabled:true
-									touchesEnabled:false
-									touchDispatchEnabled:true
-									touchesDispatchEnabled:false
-									color:[1.00,1.00,1.00,1.00]
-									opacity:1.00
-									blendEquation:add
-									blendSrc:srcAlpha
-									blendDst:oneMinusSrcAlpha
-									scissorEnabled:true
-									bgEnabled:true
-									bgTextureUrl:""
-									bgColor:[1.00,1.00,0.00,0.80]
-									children:[]
-								}]
+							children:[]
 						},
 						{
 							editClass:SnUiWidget
@@ -211,6 +185,58 @@ scene:{
 							bgTextureUrl:""
 							bgColor:[0.00,1.00,1.00,0.80]
 							children:[]
+						},
+						{
+							editClass:SnUiWidget
+							className:UiWidget
+							objectName:UiWidget
+							position:[34.50,-242.00,0.00]
+							scale:[1.00,1.00,1.00]
+							rotateZ:0.00
+							visible:true
+							visibles:true
+							anchor:[0.50,0.50]
+							size:[64.00,64.00]
+							touchEnabled:true
+							touchesEnabled:false
+							touchDispatchEnabled:true
+							touchesDispatchEnabled:false
+							color:[1.00,1.00,1.00,1.00]
+							opacity:1.00
+							blendEquation:add
+							blendSrc:srcAlpha
+							blendDst:oneMinusSrcAlpha
+							scissorEnabled:true
+							bgEnabled:true
+							bgTextureUrl:""
+							bgColor:[1.00,1.00,1.00,0.78]
+							children:[]
+						},
+						{
+							editClass:SnUiWidget
+							className:UiWidget
+							objectName:sfsd
+							position:[34.50,-309.50,0.00]
+							scale:[1.00,1.00,1.00]
+							rotateZ:0.00
+							visible:true
+							visibles:true
+							anchor:[0.50,0.50]
+							size:[35.00,31.00]
+							touchEnabled:true
+							touchesEnabled:false
+							touchDispatchEnabled:true
+							touchesDispatchEnabled:false
+							color:[1.00,1.00,1.00,1.00]
+							opacity:1.00
+							blendEquation:add
+							blendSrc:srcAlpha
+							blendDst:oneMinusSrcAlpha
+							scissorEnabled:true
+							bgEnabled:true
+							bgTextureUrl:""
+							bgColor:[1.00,1.00,0.00,0.80]
+							children:[]
 						}]
 					scrollX:0.00
 					scrollY:1.00
@@ -239,6 +265,8 @@ scene:{
 					bgEnabled:true
 					bgTextureUrl:""
 					bgColor:[1.00,1.00,1.00,0.78]
+					mode:horizontal
+					pageViews:[]
 					currentPageIndex:0
 				},
 				{
@@ -267,6 +295,26 @@ scene:{
 					bgColor:[1.00,1.00,1.00,0.78]
 					scrollX:0.00
 					scrollY:0.00
+				},
+				{
+					className:PressButton
+					objectName:PressButton
+					position:[-12.54,191.67,0.00]
+					scale:[1.00,1.00,1.00]
+					rotateZ:0.00
+					visible:true
+					visibles:true
+					anchor:[0.50,0.50]
+					size:[90.00,32.00]
+					touchEnabled:true
+					touchesEnabled:false
+					touchDispatchEnabled:false
+					touchesDispatchEnabled:false
+					color:[1.00,1.00,1.00,1.00]
+					opacity:1.00
+					blendEquation:add
+					blendSrc:srcAlpha
+					blendDst:oneMinusSrcAlpha
 				}]
 		},
 		{
@@ -279,6 +327,18 @@ scene:{
 			dispatchTouchEnabled:false
 			dispatchTouchesEnabled:false
 			viewArea:[0.00,0.00,1280.00,720.00]
+			entity:[]
+		},
+		{
+			editClass:SnLayer2D
+			className:Layer2D
+			objectName:afasdf
+			visible:true
+			touchEnabled:false
+			touchesEnabled:false
+			dispatchTouchEnabled:false
+			dispatchTouchesEnabled:false
+			viewArea:[0.00,0.00,0.00,0.00]
 			entity:[]
 		}]
 }

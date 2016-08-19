@@ -247,6 +247,48 @@ QMimeData* SnProjectExploreModel::mimeData(const QModelIndexList &indexes) const
 
 
 
+bool SnProjectExploreModel::canDropMimeData(const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent) const
+{
+
+	// make sure this is aciton shouldn't be ignored
+	if(!data || action == Qt::IgnoreAction)
+		return false;
+
+	// get the encoded data of our Node pointer
+	QByteArray encodedData = data->data(SN_SCENE_MIME_TYPE);
+	SnIdentify* node = (SnIdentify*)encodedData.toULongLong();
+	if(!node) 
+	{
+		return false;
+	}
+
+	// get the parent node
+	QModelIndex destinationParentIndex;
+
+	SnIdentify* parentNode = static_cast<SnIdentify*>(parent.internalPointer());
+
+	if(parentNode==NULL)
+	{
+		return false;
+	}
+
+	if(node->getIdentifyParent()==parentNode)
+	{
+		return false;
+	}
+
+	if(parentNode->isAncestors(node))
+	{
+		return false;
+	}
+
+	if(!parentNode->acceptChild(node))
+	{
+		return false;
+	}
+	return true;
+
+}
 
 bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int, const QModelIndex &parent)
 {
@@ -272,53 +314,23 @@ bool SnProjectExploreModel::dropMimeData(const QMimeData *data, Qt::DropAction a
 		return false;
 	}
 
-	if(dynamic_cast<SnLayer2D*>(node))
+	if(node->getIdentifyParent()==parentNode)
 	{
-		if(row==-1)
-		{
-			if(dynamic_cast<SnLayer2D*>(parentNode))
-			{
-				
-				SnLayer2D* l_to=dynamic_cast<SnLayer2D*>(parentNode);
-
-				SnLayer2D* l_from=dynamic_cast<SnLayer2D*>( node);
-				
-				Faeris::Scene* sn=l_to->getScene();
-				int l_index=sn->getLayerIndex(l_to);
-
-				SnGlobal::dataOperator()->reindexLayer2D(l_from,l_index);
-				return true;
-			}
-		}
+		return false;
 	}
-	else if(dynamic_cast<Faeris::Entity2D*>(node))
+
+	if(parentNode->isAncestors(node))
 	{
-		if(row==-1)
-		{
-			if(dynamic_cast<SnLayer2D*>(parentNode)) 
-			{
-				Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>( node);
-				SnLayer2D* layer=dynamic_cast<SnLayer2D*>(parentNode);
-
-				if(en->getLayer()==layer&&en->getParent()==NULL)
-				{
-					return false;
-				}
-				SnGlobal::dataOperator()->moveEntityToLayer(en,layer);
-			}
-			else if(dynamic_cast<Faeris::Entity2D*>(parentNode))
-			{
-				Faeris::Entity2D* en=dynamic_cast<Faeris::Entity2D*>( node);
-				Faeris::Entity2D* en2=dynamic_cast<Faeris::Entity2D*>( parentNode);
-				if(en->getParent()==en2)
-				{
-					return false;
-				}
-				SnGlobal::dataOperator()->moveEntityToEntity(en,en2);
-				return true;
-			}
-		}
+		return false;
 	}
+
+	if(!parentNode->acceptChild(node))
+	{
+		return false;
+	}
+
+	SnGlobal::dataOperator()->moveIdentifyToIdentify(node,parentNode);
+
 	return false;
 }
 

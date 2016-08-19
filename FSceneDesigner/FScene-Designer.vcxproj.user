@@ -4,6 +4,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <QTDIR>C:\Qt\Qt5.5.0\5.5\msvc2012</QTDIR>
     <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3bC:\Qt\Qt5.5.0\5.5\msvc2012\bin%3b$(PATH)</LocalDebuggerEnvironment>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)/../../Release/v2.0.0/</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <QTDIR>C:\Qt\Qt5.5.0\5.5\msvc2012</QTDIR>

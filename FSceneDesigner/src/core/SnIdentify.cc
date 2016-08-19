@@ -212,10 +212,22 @@ SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,int type)
 	return new SnAttrTypeDesc(name,type);
 }
 
+SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,const char* display_name,int type)
+{
+	return new SnAttrTypeDesc(name,display_name,type);
+}
+
+
 SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,int type,int editor_type)
 {
 	return new SnAttrTypeDesc(name,type,editor_type);
 }
+
+SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,const char* display_name,int type,int editor_type)
+{
+	return new SnAttrTypeDesc(name,display_name,type,editor_type);
+}
+
 
 SnAttrTypeDesc* SnIdentify::createAttributeDesc(const char* name,const char* fn(int))
 {

@@ -1,5 +1,6 @@
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QProcess>
 #include <QDir>
 #include <assert.h>
 #include <string>
@@ -39,7 +40,9 @@ void SnUiOperator::newProject()
 	{
 		path=path+"/";
 	}
-	
+	proj->setResolutionX(dialog.getResolutionX());
+	proj->setResolutionY(dialog.getResolutionY());
+
 	proj->setDirName(path);
 	proj->setFileName(path+dialog.getFileName()+".fscene");
 	proj->setName(dialog.getFileName());
@@ -97,6 +100,38 @@ void SnUiOperator::saveProject()
 
 }
 
+void SnUiOperator::exportProject()
+{
+
+	SnProject* proj=SnGlobal::getProject();
+	if(proj==NULL)
+	{
+		return;
+	}
+
+	QString file=QFileDialog::getSaveFileName(
+			(QWidget*)NULL,
+			QString("Export FScene Project"),
+			QString("."),
+			QString("FScene File(*.fst)"));
+
+	if(file.length()==0)
+	{
+		return;
+	}
+
+	std::string file_name=file.toUtf8().constData();
+
+	SnGlobal::ioOperator()->saveProject(proj,file_name.c_str());
+
+	bool ret=SnGlobal::ioOperator()->exportProject(proj,file_name.c_str());
+	if(!ret)
+	{
+		QMessageBox msg(QMessageBox::Warning, "Export Project","Save Project Failed");
+		msg.exec();
+	}
+}
+
 
 
 void SnUiOperator::renameScene()
@@ -144,5 +179,25 @@ void SnUiOperator::addLayer2D()
 	} 
 
 }
+void SnUiOperator::runInWindow()
+{
+	SnProject* proj=SnGlobal::dataOperator()->getCurProject();
+	if(proj==NULL)
+	{
+		return;
+	}
+
+	QString path=QDir::tempPath()+"/temp.fst";
+	SnGlobal::ioOperator()->exportProjectToSimulator(proj,path.toUtf8().constData());
+
+	QStringList list;
+	list<<proj->getDirName().c_str();
+	list<<path;
+	QProcess::startDetached("tools/FSceneViewer.exe",
+		list
+			);
+}
+
+
 
 

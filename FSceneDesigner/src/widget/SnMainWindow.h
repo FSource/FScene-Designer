@@ -51,6 +51,7 @@ class SnMainWindow:public QMainWindow
 		void onNewProject();
 		void onOpenProject();
 		void onSaveProject();
+		void onExportProject();
 
 
 
@@ -68,6 +69,25 @@ class SnMainWindow:public QMainWindow
 		void onAxisModeChange(QAction* action);
 
 
+		/* object*/
+		void onCreateLayer2D();
+		void onCreateEntity2D();
+		void onCreateQuad2D();
+		void onCreateSprite2D();
+		void onCreateLabelTTF();
+		void onCreateLabelBitmap();
+		void onCreateParticle2D();
+		void onCreatePressButton();
+		void onCreateToggleButton();
+		void onCreateProcessBar();
+		void onCreateUiWidget();
+		void onCreateScrollView();
+		void onCreateListView();
+		void onCreatePageView();
+		void onCreateDynamicView();
+
+		/* Simulator */
+		void onRunInWindow();
 
 
 		void onHelp();
@@ -126,10 +146,11 @@ class SnMainWindow:public QMainWindow
 		QMenu* mn_file;
 		QMenu* mn_edit;  
 
-		QMenu* mn_entity;
-		QAction* mf_newEntity;
+		QMenu* mn_object;
+		QAction* mf_newLayer2D;
 
 		QMenu* mn_newEntity2D;
+		QAction* mf_newEntity;
 		QAction* mf_newQuad2D;
 		QAction* mf_newSprie2D;
 		QAction* mf_newLabelTTF;
@@ -147,9 +168,19 @@ class SnMainWindow:public QMainWindow
 
 
 
+		/* view */
 		QMenu* mn_view;
 		QMenu* mn_animation;
+
+		/* simulateor */
+		QMenu* mn_simulator;
+		QAction* mf_runWindow;
+
+		/* setting */
 		QMenu* mn_setting;
+
+
+
 
 		/* menu about  */
 		QMenu* mn_about;
