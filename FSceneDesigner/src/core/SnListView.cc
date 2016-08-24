@@ -164,14 +164,24 @@ static FsArray* SnListView_getListItem(FsObject* ob)
 {
 
 	SnListView* view=dynamic_cast<SnListView*>(ob);
+	unsigned int flags=view->getSaveAndExportFlags();
 	FsArray* ret=FsArray::create();
 
 	int item_nu=view->getIdentifyChildNu();
 
 	for(int i=0;i<item_nu;i++)
 	{
+
 		SnIdentify* id=view->getIdentifyChild(i);
-		FsDict* dict=id->takeObjectFst();
+		if(flags&IGNORE_EXPORT)
+		{
+			if(!id->getExport())
+			{
+				continue;
+			}
+		}
+
+		FsDict* dict=id->takeObjectFst(flags);
 		ret->push(dict);
 	}
 	return ret;
@@ -183,11 +193,13 @@ static FsArray* SnListView_getListItem(FsObject* ob)
 
 SN_CLASS_ATTR_SET_GET_CHARS_FUNCTION(SnIdentify,setIdentifyClassName,getIdentifyClassName);
 SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
+SN_CLASS_ATTR_SET_GET_FUNCTION(SnIdentify,setExport,getExport,bool);
 
 
 static FsClass::FsAttributeDeclare S_SnListView_Main_Attr[]={
 	FS_CLASS_ATTR_DECLARE("className",E_FsType::FT_CHARS,NULL,SnIdentify_setIdentifyClassName,SnIdentify_getIdentifyClassName),
 	FS_CLASS_ATTR_DECLARE("editClass",E_FsType::FT_CHARS,NULL,0,SnIdentify_identifyTypeName),
+	FS_CLASS_ATTR_DECLARE("export",E_FsType::FT_B_1,NULL,SnIdentify_setExport,SnIdentify_getExport),
 	FS_CLASS_ATTR_DECLARE("listItems",E_FsType::FT_ARRAY,NULL,SnListView_setListItem,SnListView_getListItem),
 
 	FS_CLASS_ATTR_DECLARE(NULL,E_FsType::FT_IN_VALID,NULL,0,0)

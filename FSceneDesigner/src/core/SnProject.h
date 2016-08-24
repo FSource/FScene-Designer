@@ -68,8 +68,8 @@ class SnProject
 		int getResolutionY(){return m_resolutionY;}
 
 		/* save and export */
-		Faeris::FsDict* takeSaveFst();
-		Faeris::FsDict* takeExportFst();
+		Faeris::FsDict* takeSaveFst(unsigned int flags);
+		Faeris::FsDict* takeExportFst(unsigned int flags);
 
 	public:
 		SnScene* getCurScene();

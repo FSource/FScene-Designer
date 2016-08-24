@@ -79,7 +79,7 @@ bool SnIoOperator::saveProject(SnProject* proj,const char* file_path)
 		return false;
 	}
 
-	FsDict* dict=proj->takeSaveFst();
+	FsDict* dict=proj->takeSaveFst(0);
 	dict->addRef();
 
 	ScriptUtil::saveScript(sys_file,dict,0);
@@ -98,7 +98,7 @@ bool SnIoOperator::exportProject(SnProject* proj,const char* file_path)
 		return false;
 	}
 
-	FsDict* dict=proj->takeExportFst();
+	FsDict* dict=proj->takeExportFst(FILTER_VALUE|IGNORE_EXPORT);
 	if(dict==NULL)
 	{
 		return false;
@@ -124,7 +124,7 @@ bool SnIoOperator::exportProjectToSimulator(SnProject* proj,const char* file_pat
 		return false;
 	}
 
-	FsDict* dict=proj->takeExportFst();
+	FsDict* dict=proj->takeExportFst(FILTER_VALUE|IGNORE_EXPORT);
 	if(dict==NULL)
 	{
 		return false;

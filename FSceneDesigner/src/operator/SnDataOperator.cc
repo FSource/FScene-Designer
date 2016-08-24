@@ -156,6 +156,23 @@ void SnDataOperator::scale(std::vector<SnIdentify*> ids_root,float sx,float sy)
 }
 
 
+void SnDataOperator::setIdentifiesScriptUrl(std::vector<SnIdentify*> ids_root,const char* filename)
+{
+	SnProject* proj=getCurProject();
+	if(!proj)
+	{
+		return;
+	}
+
+	SnLayer2D* ly=getCurrentLayer();
+	if(ly==NULL)
+	{
+		return;
+	}
+
+
+}
+
 
 void SnDataOperator::setBoundSize2D(std::vector<SnIdentify*> ids_root,float r_minx,float r_maxx,float r_miny,float r_maxy)
 

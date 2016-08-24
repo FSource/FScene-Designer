@@ -100,6 +100,76 @@ std::vector<SnIdentify*> TSnUiWidget<T>::getChildInArea(Faeris::Vector2f& start,
 	return ret;
 }
 
+template<typename T>
+bool TSnUiWidget<T>::filterExportValue(const char* name,const Faeris::FsVariant& vs)
+{
+	if(strcmp(name,"touchEnabled")==0)
+	{
+		return false;
+	}
+	else if(strcmp(name,"touchesEnabled")==0)
+	{
+		return false;
+	}
+	else if(strcmp(name,"touchDispatchEnabled")==0)
+	{
+		return false;
+	}
+	else if(strcmp(name,"touchesDispatchEnabled")==0)
+	{
+		return false;
+	}
+	else if(strcmp(name,"scissorEnabled")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_B_1)
+		{
+			bool value=*(bool *)vs.getValue();
+			if(value)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"bgEnabled")==0)
+	{
+
+		if(vs.getType()==Faeris::E_FsType::FT_B_1)
+		{
+			bool value=*(bool *)vs.getValue();
+			if(!value)
+			{
+				return true;
+			}
+		}
+
+	}
+	else if(strcmp(name,"bgTextureUrl")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_CHARS)
+		{
+			const char* value=(char*)vs.getValue();
+			if(strcmp(value,"")==0)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"bgColor")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_COLOR_4)
+		{
+			Faeris::Color4f value=*(Faeris::Color4f*)vs.getValue();
+			if(value.equal(Faeris::Color4f(1,1,1,1)))
+			{
+				return true;
+			}
+		}
+
+	}
+
+
+	return  TSnEntity2D<T>::filterExportValue(name,vs);
+}
 
 
 #endif /*_SN_T_UI_WIDGET_INL_*/

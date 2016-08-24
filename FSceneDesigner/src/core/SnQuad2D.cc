@@ -40,25 +40,42 @@ SnAttrGroupList* SnQuad2D::getAttributeList()
 }
 
 
-
 std::vector<std::string> SnQuad2D::getObjectFstAttrList()
 {
 	std::vector<std::string> ret=TSnEntity2D<Faeris::Quad2D>::getObjectFstAttrList();
 	ret.push_back("resourceUrl");
 	ret.push_back("size");
 	ret.push_back("children");
-
 	return ret;
 }
+
+bool SnQuad2D::filterExportValue(const char* name,const FsVariant& vs)
+{
+	if(strcmp(name,"resourceUrl")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_CHARS)
+		{
+			const char* value=(char*)vs.getValue();
+			if(strcmp(value,"")==0)
+			{
+				return true;
+			}
+		}
+	}
+	return  TSnEntity2D<Quad2D>::filterExportValue(name,vs);
+}
+
 
 
 SN_CLASS_ATTR_SET_GET_CHARS_FUNCTION(SnIdentify,setIdentifyClassName,getIdentifyClassName);
 SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
+SN_CLASS_ATTR_SET_GET_FUNCTION(SnIdentify,setExport,getExport,bool);
 
 static FsClass::FsAttributeDeclare S_Quad2D_Main_Attr[]={
 	FS_CLASS_ATTR_DECLARE("className",E_FsType::FT_CHARS,NULL,SnIdentify_setIdentifyClassName,SnIdentify_getIdentifyClassName),
 	FS_CLASS_ATTR_DECLARE("editClass",E_FsType::FT_CHARS,NULL,0,SnIdentify_identifyTypeName),
 	FS_CLASS_ATTR_DECLARE("children",E_FsType::FT_ARRAY,NULL,TSnEntity2D_setChildren,TSnEntity2D_getChildren),
+	FS_CLASS_ATTR_DECLARE("export",E_FsType::FT_B_1,NULL,SnIdentify_setExport,SnIdentify_getExport),
 	FS_CLASS_ATTR_DECLARE(NULL,E_FsType::FT_IN_VALID,NULL,0,0)
 };
 

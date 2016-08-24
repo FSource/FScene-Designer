@@ -50,8 +50,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;glfw3.lib;freetyped.lib;fmodex.lib;libmd5modeld.lib;libobjmodeld.lib;libtgad.lib;zlibd.lib;libpngd.lib;libjpegd.lib;ljsond.lib;jsoncd.lib;glslextd.lib;luad.lib;minizipd.lib;libcurld.lib;libfaerisd.lib;pthreadVC2.lib;tolua++d.lib;libluaexportd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>F:\CodeSpace\FSource\FScene-Designer2\faeris\lib\library\win32\3rdparty;F:\CodeSpace\FSource\FScene-Designer2\faeris\lib\library\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;glfw3.lib;freetyped.lib;fmodex.lib;libmd5modeld.lib;libobjmodeld.lib;libtgad.lib;zlibd.lib;libpngd.lib;libjpegd.lib;ljsond.lib;jsoncd.lib;glslextd.lib;luad.lib;minizipd.lib;libcurld.lib;libfaerisd.lib;pthreadVC2.lib;tolua++d.lib;libluaexportd.lib;wsock32.lib;Wldap32.lib;Ws2_32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\faeris\lib\library\win32\3rdparty;..\faeris\lib\library\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

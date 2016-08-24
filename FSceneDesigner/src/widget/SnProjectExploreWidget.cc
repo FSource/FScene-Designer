@@ -77,11 +77,18 @@ void SnProjectExploreWidget::initMenu()
 
 	/* --- layer2D--- */
 	m_menuLayer2D=new QMenu(this);
-	ma_newEntity=m_menuLayer2D->addAction("Add Entity");
 	ma_renameLayer2D=m_menuLayer2D->addAction("Rename Layer2D");
-	ma_cloneLayer2D=m_menuLayer2D->addAction("Clone Layer2D");
 	ma_exportLayer2DFst=m_menuLayer2D->addAction("Export *.fst");
-	ma_deleteLayer2D=m_menuLayer2D->addAction("Delete Layer2D");
+
+	/* --entity 2d --*/
+	m_menuEntity2D=new QMenu(this);
+	ma_renameEntity2D=m_menuEntity2D->addAction("Rename");
+	ma_exportEntity2D=m_menuEntity2D->addAction("Export *.fst");
+
+	ma_moveDownEntity2D=m_menuEntity2D->addAction("Move Down");
+	ma_moveUpEntity2D=m_menuEntity2D->addAction("Move Up");
+	ma_moveFrontEntity2D=m_menuEntity2D->addAction("Move Front");
+	ma_moveTailEntity2D=m_menuEntity2D->addAction("Move Tail");
 
 }
 
@@ -149,6 +156,8 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 
 	if((QApplication::mouseButtons()&Qt::RightButton))
 	{
+		clicked(index);
+
 		if(dynamic_cast<SnScene*>(idfier))
 		{
 			m_menuScene->popup(QCursor::pos());
@@ -160,7 +169,7 @@ void SnProjectExploreWidget::mousePress(const QModelIndex& index)
 		}
 		else if(dynamic_cast<Entity2D*>(idfier))
 		{
-
+			m_menuEntity2D->popup(QCursor::pos());
 		}
 	}
 }

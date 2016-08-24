@@ -27,6 +27,8 @@ enum
 	SN_CLASS_PAGE_VIEW,
 	SN_CLASS_LIST_VIEW,
 	SN_CLASS_SCROLL_VIEW,
+
+	SN_CLASS_LUA_SCRIPT,
 };
 
 enum 
@@ -245,7 +247,7 @@ class SnIdentify
 		virtual void setIdentifyAttributes(Faeris::FsDict* dict);
 
 
-		virtual Faeris::FsDict* takeObjectFst();
+		virtual Faeris::FsDict* takeObjectFst(unsigned int flags);
 
 		/* pos adjust */
 		/*
@@ -272,9 +274,9 @@ class SnIdentify
 		virtual bool isDuplicateEnabled();
 		*/
 
-
-
-
+	public:
+		void setSaveAndExportFlags(unsigned int flags){m_saveAndExportFlags=flags;}
+		unsigned int getSaveAndExportFlags(){return m_saveAndExportFlags;}
 
 	public:
 		void setIdentifyName(const char* name);
@@ -283,26 +285,31 @@ class SnIdentify
 		void setIdentifyClassName(const char* name);
 		const char* getIdentifyClassName();
 
+		void setExport(bool value){m_export=value;}
+		bool getExport(){return m_export;}
+
+
 	protected:
 		SnAttrTypeDesc* createAttributeDesc(const char* name,int type);
 		SnAttrTypeDesc* createAttributeDesc(const char* name,int type,int editor_type);
 		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* fn(int));
-
 		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* display_name,int type);
 		SnAttrTypeDesc* createAttributeDesc(const char* name,const char* display_name,int type,int editor_type);
 
 		Faeris::FsObject* variantToFst(const Faeris::FsVariant& v);
 
 		virtual std::vector<std::string> getObjectFstAttrList();
-		std::string m_className;
 
+		virtual bool filterExportValue(const char* name,const Faeris::FsVariant& value);
+
+
+	protected:
 		Faeris::FsDict* m_attrState;
 
+		std::string m_className;
+		bool m_export;
 
-
-
+		unsigned int m_saveAndExportFlags;
 };
-
-
 #endif /*_SD_IDENTIFY_H_*/
 

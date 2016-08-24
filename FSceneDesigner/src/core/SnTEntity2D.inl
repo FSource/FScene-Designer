@@ -314,16 +314,216 @@ inline void TSnEntity2D_setChildren(Faeris::FsObject* ob,Faeris::FsArray* attr)
 inline Faeris::FsArray* TSnEntity2D_getChildren(Faeris::FsObject* ob)
 {
 	SnIdentify* id=dynamic_cast<SnIdentify*>(ob);
+	unsigned int flags=id->getSaveAndExportFlags();
 
 	Faeris::FsArray* ret= Faeris::FsArray::create();
 	int child_nu=id->getIdentifyChildNu();
 	for(int i=0;i<child_nu;i++)
 	{
 		SnIdentify* ch=id->getIdentifyChild(i);
-		Faeris::FsDict* dict=ch->takeObjectFst();
+		if(flags&IGNORE_EXPORT)
+		{
+			if(!ch->getExport())
+			{
+				continue;
+			}
+		}
+		Faeris::FsDict* dict=ch->takeObjectFst(flags);
 		ret->push(dict);
 	}
 	return ret;
+}
+
+template<typename T>
+bool TSnEntity2D<T>::filterExportValue(const char* name,const Faeris::FsVariant& vs)
+{
+	if(strcmp(name,"position")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_F_3)
+		{
+			Faeris::Vector3f value=*(Faeris::Vector3f*)vs.getValue();
+			if(value.equal(Faeris::Vector3f(0,0,0)))
+			{
+				return true;
+			}
+		}
+
+	}
+	else if(strcmp(name,"scale")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_F_3)
+		{
+			Faeris::Vector3f value=*(Faeris::Vector3f*)vs.getValue();
+			if(value.equal(Faeris::Vector3f(1,1,1)))
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"rotateZ")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_F_1)
+		{
+			float value=*(float *)vs.getValue();
+			if(Faeris::Math::equal(value,0.0f))
+			{
+				return true;
+			}
+		}
+
+	}
+	else if(strcmp(name,"visible")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_B_1)
+		{
+			bool value=*(bool *)vs.getValue();
+			if(value)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"visibles")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_B_1)
+		{
+			bool value=*(bool *)vs.getValue();
+			if(value)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"anchor")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_F_2)
+		{
+			Faeris::Vector2f value=*(Faeris::Vector2f*)vs.getValue();
+			if(value.equal(Faeris::Vector2f(0.5,0.5)))
+			{
+				return true;
+			}
+		}
+
+	}
+	else if(strcmp(name,"size")==0)
+	{
+	}
+	else if(strcmp(name,"touchEnabled")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_B_1)
+		{
+			bool value=*(bool *)vs.getValue();
+			if(!value)
+			{
+				return true;
+			}
+		}
+
+	}
+
+	else if(strcmp(name,"touchesEnabled")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_B_1)
+		{
+			bool value=*(bool *)vs.getValue();
+			if(!value)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"touchDispatchEnabled")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_B_1)
+		{
+			bool value=*(bool *)vs.getValue();
+			if(!value)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"touchesDispatchEnabled")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_B_1)
+		{
+			bool value=*(bool *)vs.getValue();
+			if(!value)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"color")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_COLOR_4)
+		{
+			Faeris::Color4f value=*(Faeris::Color4f*)vs.getValue();
+			if(value.equal(Faeris::Color4f(1,1,1,1)))
+			{
+				return true;
+			}
+		}
+
+	}
+	else if(strcmp(name,"opacity")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_F_1)
+		{
+			float value=*(float *)vs.getValue();
+			if(Faeris::Math::equal(value,1.0f))
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"blendEquation")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_CHARS)
+		{
+			const char* value=(char*)vs.getValue();
+			if(strcmp(value,"add")==0)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"blendSrc")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_CHARS)
+		{
+			const char* value=(char*)vs.getValue();
+			if(strcmp(value,"srcAlpha")==0)
+			{
+				return true;
+			}
+		}
+	}
+	else if(strcmp(name,"blendDst")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_CHARS)
+		{
+			const char* value=(char*)vs.getValue();
+			if(strcmp(value,"oneMinusSrcAlpha")==0)
+			{
+				return true;
+			}
+		}
+	}
+
+	else if(strcmp(name,"children")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_ARRAY)
+		{
+			Faeris::FsArray* value=(Faeris::FsArray*) vs.getValue();
+			if(value->size()==0)
+			{
+				return true;
+			}
+		}
+	}
+	return SnIdentify::filterExportValue(name,vs);
 }
 
 

@@ -14,6 +14,7 @@ class  TSnUiWidget:public  TSnEntity2D<T>
 		virtual SnIdentify* getChildHitPoint(Faeris::Vector2f point,bool traverse);
 		virtual std::vector<SnIdentify*> getChildInArea(Faeris::Vector2f& start,Faeris::Vector2f& end,bool traverse);
 
+		bool filterExportValue(const char* name,const Faeris::FsVariant& vs);
 
 };
 

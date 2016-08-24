@@ -144,7 +144,7 @@ void SnProject::loadScene()
 
 
 
-FsDict* SnProject::takeSaveFst()
+FsDict* SnProject::takeSaveFst(unsigned int flags)
 {
 	if(m_scene==NULL)
 	{
@@ -163,7 +163,7 @@ FsDict* SnProject::takeSaveFst()
 	ret->insert(FsString::create("resolutionY"),FsString::create(buf));
 
 
-	ret->insert(FsString::create("scene"),m_scene->takeObjectFst());
+	ret->insert(FsString::create("scene"),m_scene->takeObjectFst(flags));
 
 	ret->insert(FsString::create("about"),FsString::create("FsScene Designer For FEngine"));
 	ret->insert(FsString::create("email"),FsString::create("fscene@fsource.cn"));
@@ -171,13 +171,13 @@ FsDict* SnProject::takeSaveFst()
 	return ret;
 }
 
-FsDict* SnProject::takeExportFst()
+FsDict* SnProject::takeExportFst(unsigned int flags)
 {
 	if(m_scene==NULL)
 	{
 		return NULL;
 	}
-	return m_scene->takeObjectFst();
+	return m_scene->takeObjectFst(flags);
 }
 
 

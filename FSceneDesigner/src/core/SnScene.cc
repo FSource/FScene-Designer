@@ -7,6 +7,7 @@
 #include "SnGlobal.h"
 #include "SnIdentifyFactory.h"
 #include "SnLayer2D.h"
+#include "SnEnums.h"
 
 
 NS_FS_USE
@@ -142,6 +143,7 @@ static void SnScene_SetLayers(FsObject* ob,FsArray* attr)
 static FsArray* SnScene_GetLayers(FsObject* ob)
 {
 	SnScene* sn=dynamic_cast<SnScene*>(ob);
+	unsigned int flags=sn->getSaveAndExportFlags();
 
 	FsArray* ret= FsArray::create();
 
@@ -150,7 +152,16 @@ static FsArray* SnScene_GetLayers(FsObject* ob)
 	for(int i=0;i<layer_nu;i++)
 	{
 		SnIdentify* id=sn->getIdentifyChild(i);
-		FsDict* dict=id->takeObjectFst();
+
+		if(flags&IGNORE_EXPORT)
+		{
+			if(!id->getExport())
+			{
+				continue;
+			}
+		}
+
+		FsDict* dict=id->takeObjectFst(flags);
 		ret->push(dict);
 	}
 

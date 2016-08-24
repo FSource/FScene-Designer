@@ -251,6 +251,7 @@ static void SnLayer2D_SetEntity(FsObject* ob,FsArray* attr)
 static FsArray* SnLayer2D_GetEntity(FsObject* ob)
 {
 	SnLayer2D* ly=dynamic_cast<SnLayer2D*>(ob);
+	unsigned int flags=ly->getSaveAndExportFlags();
 
 	FsArray* ret= FsArray::create();
 
@@ -259,7 +260,14 @@ static FsArray* SnLayer2D_GetEntity(FsObject* ob)
 	for(int i=0;i<layer_nu;i++)
 	{
 		SnIdentify* id=ly->getIdentifyChild(i);
-		FsDict* dict=id->takeObjectFst();
+		if(flags&IGNORE_EXPORT)
+		{
+			if(!id->getExport())
+			{
+				continue;
+			}
+		}
+		FsDict* dict=id->takeObjectFst(flags);
 		ret->push(dict);
 	}
 
@@ -269,6 +277,7 @@ static FsArray* SnLayer2D_GetEntity(FsObject* ob)
 
 SN_CLASS_ATTR_SET_GET_FUNCTION(SnLayer2D,setEditViewArea,getEditViewArea,Rect2D);
 
+SN_CLASS_ATTR_SET_GET_FUNCTION(SnIdentify,setExport,getExport,bool);
 SN_CLASS_ATTR_SET_GET_CHARS_FUNCTION(SnIdentify,setIdentifyClassName,getIdentifyClassName);
 SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
 
@@ -276,9 +285,9 @@ static FsClass::FsAttributeDeclare S_SnLayer2D_Main_Attr[]={
 
 	FS_CLASS_ATTR_DECLARE("entity",E_FsType::FT_ARRAY,NULL,SnLayer2D_SetEntity,SnLayer2D_GetEntity),
 	FS_CLASS_ATTR_DECLARE("viewArea",E_FsType::FT_F_RECT2D,NULL,SnLayer2D_setEditViewArea,SnLayer2D_getEditViewArea),
-	
 	FS_CLASS_ATTR_DECLARE("className",E_FsType::FT_CHARS,NULL,SnIdentify_setIdentifyClassName,SnIdentify_getIdentifyClassName),
 	FS_CLASS_ATTR_DECLARE("editClass",E_FsType::FT_CHARS,NULL,0,SnIdentify_identifyTypeName),
+	FS_CLASS_ATTR_DECLARE("export",E_FsType::FT_B_1,NULL,SnIdentify_setExport,SnIdentify_getExport),
 
 	FS_CLASS_ATTR_DECLARE(NULL,E_FsType::FT_IN_VALID,NULL,0,0)
 };

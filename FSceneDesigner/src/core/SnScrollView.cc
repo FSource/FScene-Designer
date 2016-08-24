@@ -119,6 +119,7 @@ void SnScrollView_setContentWidget(FsObject* ob,FsDict* dict)
 FsDict* SnScrollView_getContentWidget(FsObject* ob)
 {
 	SnScrollView* sl_view=dynamic_cast<SnScrollView*>(ob);
+	unsigned int flags=sl_view->getSaveAndExportFlags();
 
 	UiWidget* widget=sl_view->getContentWidget();
 	if(widget==NULL)
@@ -128,7 +129,7 @@ FsDict* SnScrollView_getContentWidget(FsObject* ob)
 
 	SnIdentify* id=dynamic_cast<SnIdentify*>(widget);
 
-	return id->takeObjectFst();
+	return id->takeObjectFst(flags);
 }
 
 
@@ -137,7 +138,7 @@ FsDict* SnScrollView_getContentWidget(FsObject* ob)
 
 SN_CLASS_ATTR_SET_GET_CHARS_FUNCTION(SnIdentify,setIdentifyClassName,getIdentifyClassName);
 SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
-
+SN_CLASS_ATTR_SET_GET_FUNCTION(SnIdentify,setExport,getExport,bool);
 
 
 
@@ -145,6 +146,7 @@ static FsClass::FsAttributeDeclare S_SnScrollView_Main_Attr[]={
 	FS_CLASS_ATTR_DECLARE("className",E_FsType::FT_CHARS,NULL,SnIdentify_setIdentifyClassName,SnIdentify_getIdentifyClassName),
 	FS_CLASS_ATTR_DECLARE("editClass",E_FsType::FT_CHARS,NULL,0,SnIdentify_identifyTypeName),
 	FS_CLASS_ATTR_DECLARE("contentWidget",E_FsType::FT_DICT,NULL,SnScrollView_setContentWidget,SnScrollView_getContentWidget),
+	FS_CLASS_ATTR_DECLARE("export",E_FsType::FT_B_1,NULL,SnIdentify_setExport,SnIdentify_getExport),
 
 	FS_CLASS_ATTR_DECLARE(NULL,E_FsType::FT_IN_VALID,NULL,0,0)
 };

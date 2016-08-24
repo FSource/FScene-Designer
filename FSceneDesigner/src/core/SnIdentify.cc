@@ -1,10 +1,12 @@
 #include "core/SnIdentify.h"
 #include "support/util/FsDict.h"
 #include "support/util/FsString.h"
-
+#include "SnEnums.h"
 NS_FS_USE
 SnIdentify::SnIdentify()
 {
+	m_export=true;
+
 }
 SnIdentify::~SnIdentify()
 {
@@ -56,6 +58,8 @@ SnAttrGroupList* SnIdentify::getAttributeList()
 
 	group->addAttrTypeDesc(createAttributeDesc("className",SN_TYPE_NORMAL));
 	group->addAttrTypeDesc(createAttributeDesc("objectName",SN_TYPE_NORMAL));
+	group->addAttrTypeDesc(createAttributeDesc("scriptUrl",SN_TYPE_EXTENDS,SN_EXTENDS_EDIT_FILEPATH));
+	group->addAttrTypeDesc(createAttributeDesc("export",SN_TYPE_NORMAL));
 
 	SnAttrGroupList* g_list=new SnAttrGroupList;
 	g_list->addAttrGroupDesc(group);
@@ -182,8 +186,10 @@ bool SnIdentify::isAncestors(SnIdentify* id)
 }
 
 
-Faeris::FsDict* SnIdentify::takeObjectFst()
+Faeris::FsDict* SnIdentify::takeObjectFst(unsigned int flags)
 {
+	this->setSaveAndExportFlags(flags);
+
 	FsDict* dict=FsDict::create();
 	std::vector<std::string> p=getObjectFstAttrList();
 
@@ -191,6 +197,15 @@ Faeris::FsDict* SnIdentify::takeObjectFst()
 	for(int i=0;i<size;i++)
 	{
 		FsVariant v=getIdentifyAttribute(p[i].c_str());
+
+		if(flags&FILTER_VALUE)
+		{
+			if(filterExportValue(p[i].c_str(),v))
+			{
+				continue;
+			}
+		}
+
 		FsObject* ob=variantToFst(v);
 		if(ob)
 		{
@@ -199,6 +214,16 @@ Faeris::FsDict* SnIdentify::takeObjectFst()
 		else 
 		{
 			FS_TRACE_WARN("can't get %s attribute info",p);
+		}
+	}
+
+	FsVariant v=getIdentifyAttribute("scriptUrl");
+	if(!filterExportValue("scriptUrl",v))
+	{
+		FsObject* ob=variantToFst(v);
+		if(ob)
+		{
+			dict->insert(FsString::create("scriptUrl"),ob);
 		}
 	}
 	return dict;
@@ -398,8 +423,38 @@ std::vector<std::string> SnIdentify::getObjectFstAttrList()
 	ret.push_back("editClass");
 	ret.push_back("className");
 	ret.push_back("objectName");
+	ret.push_back("export");
 	return ret;
 }
+
+bool SnIdentify::filterExportValue(const char* name,const FsVariant& vs)
+{
+	if(strcmp(name,"editClass")==0)
+	{
+		return true;
+	}
+
+	if(strcmp(name,"export")==0)
+	{
+		return true;
+	}
+
+	if(strcmp(name,"scriptUrl")==0)
+	{
+		if(vs.getType()==Faeris::E_FsType::FT_CHARS)
+		{
+			const char* value=(char*)vs.getValue();
+			if(strcmp(value,"")==0)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
 
 
 

@@ -164,6 +164,8 @@ void SnPageView_setPages(FsObject* ob,FsArray* attr)
 FsArray* SnPageView_getPages(FsObject* ob)
 {
 	SnPageView* pg_view=dynamic_cast<SnPageView*>(ob);
+	unsigned int flags=pg_view->getSaveAndExportFlags();
+
 	int page_nu=pg_view->getPageNu();
 
 	FsArray* ret= FsArray::create();
@@ -171,7 +173,16 @@ FsArray* SnPageView_getPages(FsObject* ob)
 	{
 		UiWidget* widget=pg_view->getPage(i);
 		SnIdentify* id=dynamic_cast<SnIdentify*>(widget);
-		FsDict* dict=id->takeObjectFst();
+		if(flags&IGNORE_EXPORT)
+		{
+			if(!id->getExport())
+			{
+				continue;
+			}
+		}
+
+
+		FsDict* dict=id->takeObjectFst(flags);
 		const char* align_h=FsEnum_AlignHToStr(pg_view->getPageAlignH(i));
 		const char* align_v=FsEnum_AlignVToStr(pg_view->getPageAlignV(i));
 
@@ -186,6 +197,7 @@ FsArray* SnPageView_getPages(FsObject* ob)
 }
 
 
+SN_CLASS_ATTR_SET_GET_FUNCTION(SnIdentify,setExport,getExport,bool);
 SN_CLASS_ATTR_SET_GET_CHARS_FUNCTION(SnIdentify,setIdentifyClassName,getIdentifyClassName);
 SN_CLASS_ATTR_GET_CHARS_FUNCTION(SnIdentify,identifyTypeName);
 
@@ -193,6 +205,7 @@ static FsClass::FsAttributeDeclare S_SnPageView_Main_Attr[]={
 	FS_CLASS_ATTR_DECLARE("className",E_FsType::FT_CHARS,NULL,SnIdentify_setIdentifyClassName,SnIdentify_getIdentifyClassName),
 	FS_CLASS_ATTR_DECLARE("editClass",E_FsType::FT_CHARS,NULL,0,SnIdentify_identifyTypeName),
 	FS_CLASS_ATTR_DECLARE("pageViews",E_FsType::FT_ARRAY,NULL,SnPageView_setPages,SnPageView_getPages),
+	FS_CLASS_ATTR_DECLARE("export",E_FsType::FT_B_1,NULL,SnIdentify_setExport,SnIdentify_getExport),
 	FS_CLASS_ATTR_DECLARE(NULL,E_FsType::FT_IN_VALID,NULL,0,0)
 };
 

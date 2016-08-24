@@ -54,7 +54,15 @@ class SnProjectExploreWidget:public QWidget
 		QAction* ma_exportLayer2DFst;
 		QAction* ma_deleteLayer2D;
 
+		/* -- entity 2d --- */
+		QMenu* m_menuEntity2D;
+		QAction* ma_renameEntity2D;
+		QAction* ma_exportEntity2D;
 
+		QAction* ma_moveDownEntity2D;
+		QAction* ma_moveUpEntity2D;
+		QAction* ma_moveFrontEntity2D;
+		QAction* ma_moveTailEntity2D;
 
 };
 

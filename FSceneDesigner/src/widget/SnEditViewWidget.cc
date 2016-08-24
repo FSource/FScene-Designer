@@ -215,12 +215,19 @@ void SnEditViewWidget::dropEvent(QDropEvent * event)
 
 	std::string file_name=fileName.toUtf8().constData();
 
+	if(SnUtil::identifyTypeFromUrl(file_name.c_str())==SN_CLASS_LUA_SCRIPT)
+	{
+		std::vector<SnIdentify*> sts=SnGlobal::dataOperator()->getSelectedIdentify();
+		SnGlobal::dataOperator()->setIdentifiesScriptUrl(sts,file_name.c_str());
+		return;
+	}
 
-	
+
 	QPoint pos=event->pos();
 	
 	FS_TRACE_WARN("File name is %s, pos(%d,%d)",file_name.c_str(),pos.x(),pos.y());
 	Vector2 w_pos=toEditCoord(Vector2(pos.x(),pos.y()));
+
 	SnGlobal::dataOperator()->addIdentifyFromUrl(w_pos,file_name);
 
 }

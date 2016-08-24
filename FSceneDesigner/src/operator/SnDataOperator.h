@@ -48,7 +48,8 @@ class SnDataOperator
 		void setBoundSize2D(std::vector<SnIdentify*> ids,float r_minx,float r_maxx,float r_miny,float r_maxy);
 		void scale(std::vector<SnIdentify*> ids,float sx,float sy);
 
-
+		/* script url*/
+		void setIdentifiesScriptUrl(std::vector<SnIdentify*> ts,const char* filename);
 
 		/* mode info */
 		void setEditMode(SN_EditMode mode);

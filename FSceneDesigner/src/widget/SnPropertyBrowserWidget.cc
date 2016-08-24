@@ -600,8 +600,18 @@ void SnPropertyBrowserWidget::saveExpandState()
 	{
 		QtBrowserItem *item = it.next();
 		QtProperty *prop = item->property();
-		m_nameToExpands[prop->propertyName().toUtf8().constData()] = m_propertyEditor->isExpanded(item);
 
+
+		std::string name=prop->propertyName().toUtf8().constData();
+
+		std::map<QtProperty*,SnAttrTypeDesc*>::iterator iter=m_propertyToDesc.find(prop);
+		if(iter!=m_propertyToDesc.end())
+		{
+			name=iter->second->getName();
+		}
+
+
+		m_nameToExpands[name] = m_propertyEditor->isExpanded(item);
 	
 		QList<QtBrowserItem *> ch_list = item->children();
 		QListIterator<QtBrowserItem *> ch_it(ch_list);
@@ -609,8 +619,15 @@ void SnPropertyBrowserWidget::saveExpandState()
 		while(ch_it.hasNext())
 		{
 			QtBrowserItem* ch_item = ch_it.next();
-			QtProperty *ch_prop = ch_item->property();
+			QtProperty* ch_prop = ch_item->property();
 			std::string ch_name=ch_prop->propertyName().toUtf8().constData();
+
+			std::map<QtProperty*,SnAttrTypeDesc*>::iterator ch_iter=m_propertyToDesc.find(prop);
+			if(ch_iter!=m_propertyToDesc.end())
+			{
+				ch_name=iter->second->getName();
+			}
+
 			m_nameToExpands[ch_name] = m_propertyEditor->isExpanded(ch_item);
 		}
 	}
@@ -628,19 +645,20 @@ void SnPropertyBrowserWidget::updateExpandState()
 
 		iter=m_propertyToDesc.find(prop);
 
+		std::string name=prop->propertyName().toUtf8().constData();
 		if(iter!=m_propertyToDesc.end())
 		{
 			SnAttrTypeDesc* desc=iter->second;
-			std::string name=desc->getName();
-
-			if(m_nameToExpands.find(name)!=m_nameToExpands.end())
-			{
-				bool value=m_nameToExpands[name];
-				m_propertyEditor->setExpanded(item,value);
-			}
+			name=desc->getName();
 		}
 
 
+
+		if(m_nameToExpands.find(name)!=m_nameToExpands.end())
+		{
+			bool value=m_nameToExpands[name];
+			m_propertyEditor->setExpanded(item,value);
+		}
 
 		QList<QtBrowserItem *> ch_list = item->children();
 
@@ -651,18 +669,20 @@ void SnPropertyBrowserWidget::updateExpandState()
 			QtBrowserItem* ch_item = ch_it.next();
 			QtProperty *ch_prop = ch_item->property();
 
+			std::string ch_name=ch_prop->propertyName().toUtf8().constData();
+
 			std::map<QtProperty*,SnAttrTypeDesc*>::iterator ch_iter;
 			ch_iter=m_propertyToDesc.find(ch_prop);
 
 			if(ch_iter!=m_propertyToDesc.end())
 			{
-				std::string ch_name=ch_iter->second->getName();
+				ch_name=ch_iter->second->getName();
+			}
 
-				if(m_nameToExpands.find(ch_name)!=m_nameToExpands.end())
-				{
-					bool value=m_nameToExpands[ch_name];
-					m_propertyEditor->setExpanded(ch_item,value);
-				}
+			if(m_nameToExpands.find(ch_name)!=m_nameToExpands.end())
+			{
+				bool value=m_nameToExpands[ch_name];
+				m_propertyEditor->setExpanded(ch_item,value);
 			}
 		}
 	}

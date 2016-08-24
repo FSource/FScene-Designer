@@ -10,3 +10,5 @@
 *.sdf
 *.suo
 /SampleTest
+/Release/v2.0.0/tools/*.pdb
+/Release/v2.0.0/tools/*.ilk

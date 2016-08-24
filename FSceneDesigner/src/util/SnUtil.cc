@@ -246,6 +246,12 @@ namespace  SnUtil
 
 
 		QString ext=file.suffix();
+		if(ext=="lua")
+		{
+			return SN_CLASS_LUA_SCRIPT;
+
+		}
+
 		if(ext=="png"||ext=="jpg"||ext=="tga"||ext=="jpeg")
 		{
 			return SN_CLASS_QUAD2D;

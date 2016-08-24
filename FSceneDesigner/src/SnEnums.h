@@ -17,5 +17,12 @@ enum class SN_TranslateMode
 	WORLD=2
 };
 
+
+enum  SN_ExportSaveFlags
+{
+	FILTER_VALUE=0x01,
+	IGNORE_EXPORT=0x02,
+};
+
 #endif /*_SN_ENUMS_H_*/
 

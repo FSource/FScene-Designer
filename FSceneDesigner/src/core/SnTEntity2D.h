@@ -56,6 +56,7 @@ class TSnEntity2D:public SnIdentify ,public T
 		virtual SnAttrGroupList* getAttributeList();
 
 		virtual std::vector<std::string> getObjectFstAttrList();
+		virtual bool filterExportValue(const char* name,const Faeris::FsVariant& value);
 
 	private:
 		Faeris::FsArray* m_array;

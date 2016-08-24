@@ -116,7 +116,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>glew32.lib;opengl32.lib;glfw3.lib;freetyped.lib;fmodex.lib;libmd5modeld.lib;libobjmodeld.lib;libtgad.lib;zlibd.lib;libpngd.lib;libjpegd.lib;ljsond.lib;jsoncd.lib;glslextd.lib;luad.lib;minizipd.lib;libcurld.lib;libfaerisd.lib;pthreadVC2.lib;tolua++d.lib;$(QTDIR)\lib\Qt5OpenGLd.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Cored.lib;$(QTDIR)\lib\Qt5Guid.lib;3rdparty\library\PropertyBrower.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;F:\CodeSpace\FSource\FScene-Designer2\faeris\lib\library\win32\3rdparty;F:\CodeSpace\FSource\FScene-Designer2\faeris\lib\library\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;..\faeris\lib\library\win32\3rdparty;..\faeris\lib\library\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>

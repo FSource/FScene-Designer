@@ -20,6 +20,7 @@ class SnQuad2D:public TSnEntity2D<Faeris::Quad2D>
 		virtual SnAttrGroupList* getAttributeList();
 
 		std::vector<std::string> getObjectFstAttrList();
+		bool filterExportValue(const char* name,const Faeris::FsVariant& vs);
 };
 
 

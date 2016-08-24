@@ -17,6 +17,9 @@ void  FsMain_Entry(int argc,char** argv)
 
 	FsFaeris_LoadConfig((const char*)NULL);
 	VFS::setRoot(argv[1]);
+	LuaEngine* engine=LuaEngine::create();
+	FS_NO_REF_DESTROY(engine);
+	Global::setScriptEngine(engine);
 
 	FsDict* dict=Global::felisScriptMgr()->loadDict(argv[2]);
 	if(dict==NULL)
@@ -48,9 +51,7 @@ void  FsMain_Entry(int argc,char** argv)
 		exit(0);
 	}
 	
-	LuaEngine* engine=LuaEngine::create();
-	FS_NO_REF_DESTROY(engine);
-	Global::setScriptEngine(engine);
+
 
 	Global::director()->run(sn);
 	Global::scheduler()->setFps(0);
